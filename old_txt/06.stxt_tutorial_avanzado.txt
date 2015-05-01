@@ -1,0 +1,479 @@
+=====================================
+(**) Semantic text: Tutorial Avanzado
+=====================================
+
+* Resumen / Recordatorio de stxt
+* Resumen / Gramáticas
+* Resumen / Compactación
+* Sutilezas del lenguaje
+	* Restricciones en los nombres de los nodos
+	* Case insensitive (y I18N)
+	* Tabuladores o espacios
+	* Codificación UTF-8
+* Texto (**)
+	* Todo sobre Identación
+	* Todo sobre Identación
+	* Texto en el texto
+* Namespaces, nodos y más nodos
+
+
+	(Este capítulo será parecido al tutorial, pero más directo en todo su funcionamiento, y se explicarán todas
+	las complejidades reales) 
+
+
+******************************
+Resumen / Recordatorio de stxt
+******************************
+
+Un documento stxt consiste en un conjunto de nodos jerárquicos, y la estructura de cada nodo está
+definida en un namespace correspondiente. Esta estructura se consigue gracias a la identación (tabuladores o espacios),
+lo que dota al documento de una forma visual reconocible por humanos y por máquinas indistintamente.
+
+Ej:
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Reserva(miempresa.example.com/reserva.stxt):
+
+Referencia:093a2da1-q345-739r-ba5d-pqff98fe8j7d
+Fecha Y Hora:2001-11-29 13:20:00
+Pasajero:
+	Nombre:Åke
+	Primer apellido: Jógvan
+	Segundo apellido: Øyvind
+Itinerario:
+	Ida:
+		Salida:	Nueva York
+		Llegada: Los Angeles
+		Fecha Salida: 2001-12-14
+		Hora Salida: Última hora de la tarde
+		Preferencia Asiento: pasillo
+	Vuelta:
+    	Salida: Los Angeles
+    	Llegada:Nueva York
+    	Fecha Salida:2001-12-20
+    	Hora Salida:media-mañana
+Alojamiento:
+	Preferencia:ninguna
+Observaciones:
+	Este pasajero ha contratado los servicios 
+	especiales de privacidad, por lo que en 
+	caso de tener disponibilidad se recomienda
+	permitirle el acceso a la zona //omega//.
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+Un documento stxt sólo puede tener un nodo principal, por lo que hace
+innecesaria la identación de sus nodos hijos. Además, el namespace
+de este nodo principal es obligatoria, ya que a partir de él los demás nodos
+quedarán perfectamente definidos.
+
+La gramática y los namespaces de los diferentes nodos son especificados en
+la gramática del namespace, y el documento la tiene que cumplir en su totalidad.
+
+********************
+Resumen / Gramáticas
+********************
+
+La gramática de un documento define como son los diferentes nodos del documento,
+a qué namespace pertenecen, y como son sus hijos (o subnodos). La gramática a su vez
+también está definida en un documento stxt, de la siguiente forma:
+
+Cada nodo debe tener la siguiente forma:
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Namespace Definition(www.semantictext.info/namespace.stxt):
+
+Type Name:
+	Name:
+	Alias:
+	Type:
+	Description:
+	Child:
+		Type:
+		Namespace:
+		Num:
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+* //Name// especifica el nombre del nodo (tipo en este namespace). También conocido como nombre canónico.
+* //Alias// son los otros sinónimos del nombre
+* //Type// es el tipo de nodo, y puede tener los siguientes valores:
+	- **NODE**: Nodo contenedor de otros nodos
+	- **TEXT**: Nodo con contenido texto
+	- NATURAL: Nodo con un número natural
+	- INTEGER: Nodo con un número entero
+	- RATIONAL: Nodo con un número racional
+	- NUMBER: Nodo numérico
+	- BINARY: Nodo binario
+	- HEXADECIMAL: Nodo con contenido hexadecimal
+	- BASE64: Nodo con contenido en Base64
+	- BOOLEAN: Nodo con contenido boleano
+* //description// se puede informar para tener una descripción de este
+* En case de ser de tipo Node, puede tener uno o varios hijos (subnodos),
+	y deben especificarse mediante child:
+		* Type: Tipo del hijo
+		* Namespace: si es de un namespace diferente al de la definición se especificará aquí
+		* Num: especifica cuantos elementos de este tipo pueden aparecer:
+			- *: Significa que puede haber un número indetermiado de estos hijos
+			- ?: Puede haber 1 o 0 de estos hijos
+			- +: Tiene que haber al menos 1
+			- número: Tiene que haber un número exacto de estos hijos
+
+**********************
+Resumen / Compactación
+**********************
+
+Un documento stxt puede compactarse para mostrar explícitamente los niveles y ser más
+rápido de parsear por las máquinas. También permite ganar espacio, ya que los tabuladores
+y espacios son substituidos por números. En nuestro ejemplo anterior, el documento
+compactado tendría la siguiente forma:
+
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Reserva(miempresa.example.com/reserva.stxt):
+Referencia:093a2da1-q345-739r-ba5d-pqff98fe8j7d
+Fecha Y Hora:2001-11-29 13:20:00
+Pasajero:
+1:Nombre:Åke
+1:Primer apellido: Jógvan
+1:Segundo apellido: Øyvind
+Itinerario:
+1:Ida:
+2:Salida: Nueva York
+2:Llegada: Los Angeles
+2:Fecha Salida: 2001-12-14
+2:Hora Salida: Última hora de la tarde
+2:Preferencia Asiento: pasillo
+1:Vuelta:
+2:Salida: Los Angeles
+2:Llegada:Nueva York
+2:Fecha Salida:2001-12-20
+2:Hora Salida:media-mañana
+Alojamiento:
+1:Preferencia:ninguna
+Observaciones:
+1:Este pasajero ha contratado los servicios 
+1:especiales de privacidad, por lo que en 
+1:caso de tener disponibilidad se recomienda
+1:permitirle el acceso a la zona //omega//.
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+**********************
+Sutilezas del lenguaje
+**********************
+
+-----------------------------------------
+Restricciones en los nombres de los nodos
+-----------------------------------------
+
+Los nombres de los nodos pueden ser como queramos... o casi! sólo hay unas pequeñas restricciones:
+	
+	* Los tabuladores (o espacios) tienen que ser los correctos
+	* No puede haber el carácter ':'
+	* El nombre no puede ser solamente numérico (de otra forma se podría confundir con una linea compactada)
+
+Por cierto:
+
+		Se permiten espacios ' ' en los nombres, ¿por qué no? Para parecer informáticos?
+		Los tiempos estan cambiado :-D
+		
+		
+Es decir, todas las lineas serán de la forma:
+
+		tabuladores (o espacios) + nombre del campo + ':' (+ contenido del campo si es básico)
+		 
+-------------------------
+Case insensitive (y I18N)
+-------------------------
+
+					** Los identificadores son CASE-INSENSITIVE! ** 
+
+Vamos a explicar una realidad, que parece que nadie se atreve a decir: 
+En todos los lenguajes que son Case-Sensitive, nadie en el mundo (en su sano juicio) ha hecho nunca un documento o programa
+que sólo se diferencie por mayúsculas y minúsculas. ¿Por qué? Porque es absurdo. Reconozcámoslo. Sólo tiene como consecuencia 
+ser una fuente de errores, y no tiene como efectos prácticos aumentar la legibilidad. Es más, en ocasiones seria muy bueno
+permitir case-insensitive para aumentar claridad.
+
+He tenido graves problemas para decidir ésto, ya que siempre he usado lenguajes y programas que són case-sensitive.
+Luego me he dado cuenta que realmente no tiene sentido, que el único motivo es puramente de implementación informática.
+Es más fácil decir, es case sensitive y no me preocupo, que decir que es case-insensitive y tengo que comprobar.
+Seguro que en otros casos está justificado, pero en STXT parece justo lo contrario. Siempre nos estamos
+preocupando de la semántica, y claramente tiene el mismo significado en mayúsculas o en minúsculas.
+
+------------------
+Codificación UTF-8
+------------------
+
+Este problema ha sido intrínsico a la informática durante muchos años. Que yo recuerde
+ha estado siempre, y //siempre// ha sido una fuente de problemas.
+Creo que STXT debería tener una única codificación, para evitar tener que decir
+en el documento cuál es. Además, esta debe ser facilmente entendida en el mundo
+de Internet, por lo cual creo que no hay lugar a dudas.
+
+					Los documentos se codificarán en UTF-8  
+
+Es una buena regla y estoy muy contento con ella. Hoy en día es la codificación
+más aceptable, más universal, y más implementada. 
+
+----------------------
+Tabuladores o espacios
+----------------------
+
+Vamos a explicar una **Recomendación** cuando escribamos documentos en STXT. 
+No es una regla (después explicaremos por qué con más detalle), pero os recomiendo //encarecidamente//
+que la uséis.
+
+			Los nodos de un documento deben crearse mediante tabuladores, 
+			se permite (pero no se recomiendan espacios), pero se desaconseja mezclarlos.
+			
+Esto es una regla práctica, y espero que los programas y editores de texto que se usen para
+crearlo la sigan, pero no siempre contaremos con esta ayuda. Por esto vamos a explicar como
+se contan los niveles cuando aparecen tabuladores y espacios.
+
+La regla básica a recordar es:
+
+			"4 Espacios" = "1 Tabulador"
+			
+Así, cuando se cuentan niveles, 1 tabulador hace subir un nivel, y 4 espacios también. Pero si
+no se llega a 4 y aparce otro carácter, los espacios anteriores no habrán hecho subir de nivel.
+Esto nos permite percibir de forma visual el número correcto de niveles.
+
+Vamos a poner ejemplos de contar niveles:
+
+e: espacio
+t: tabulador
+
+t    t    t    t    XXXX: Nivel 4
+eeee eeee eeee eeee XXXX: Nivel 4
+eeet eet  et   t    XXXX: Nivel 4
+				
+Vemos que esto es coherente con la mayoría de editores de texto (siempre que se configure con
+la opción de "1 tabulador = 4 espcios".
+
+**********
+(**) Texto
+**********
+
+Escribir texto en STXT parece fácil... y en realidad lo es! :-)
+Pero (siempre hay un pero) a veces queremos comprender exactamente como funciona y ver los casos
+más especiales y como se interpretan. Si este es tu caso, siguie leyendo. Estás en el lugar
+adecuado ;-) 
+
+---------------------
+Todo sobre Identación
+---------------------
+
+La identación en texto tiene algunas sutilezas que vamos a enseñar, y lo haremos con ejemplos.
+
+				Si la línea donde empieza el nodo está vacía no se cuenta el salto
+				
+Esto es razonable, ya que nos permite hacer textos bonitos todo alineado.
+
+Ejemplo:
+
+Los siguientes nodos son equivalentes:
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Nodo Texto:	Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor 
+	incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud 
+	exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
+	Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore 
+	eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, 
+	sunt in culpa qui officia deserunt mollit anim id est laborum.
+
+Nodo Texto:
+	Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor 
+	incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud 
+	exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
+	Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore 
+	eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, 
+	sunt in culpa qui officia deserunt mollit anim id est laborum.
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+Se ve que el segundo nodo es más bonito, y tiene el mismo contenido que el primero.
+Si realmente se quisiera que la 1ª línea fuera en blanco se debería hacer los siguiente:
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Nodo Texto:
+
+	Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor 
+	incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud 
+	exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
+	Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore 
+	eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, 
+	sunt in culpa qui officia deserunt mollit anim id est laborum.
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+Otra regla importante, es que las //lineas en blanco intermedias// no tienen por que
+llegar al nivel del texto, y seguirán contando como líneas en blanco.
+
+Esto también es una función estética e intuitiva, y lo hemos tenido en cuenta.
+Así, los siguientes nodos también son equivalentes:
+
+++++++++++++++++++++++++++++++++++++++++++
+t    t    Node Text:
+t    t    t    xxxxxxx
+t    t    t    
+t    t    t    yyyy
+++++++++++++++++++++++++++++++++++++++++++
+
+++++++++++++++++++++++++++++++++++++++++++
+t    t    Node Text:
+t    t    t    xxxxxxx
+t    t    
+t    t    t    yyyy
+++++++++++++++++++++++++++++++++++++++++++
+
+++++++++++++++++++++++++++++++++++++++++++
+t    t    Node Text:
+t    t    t    xxxxxxx
+t 
+t    t    t    yyyy
+++++++++++++++++++++++++++++++++++++++++++
+
+++++++++++++++++++++++++++++++++++++++++++
+t    t    Node Text:
+t    t    t    xxxxxxx
+
+t    t    t    yyyy
+++++++++++++++++++++++++++++++++++++++++++
+
+Todos hacen un texto xxxxxxxx, sequido de una línea en blanco y con otra con yyyy.
+
+----------------------
+Todo sobre Comentarios
+----------------------
+
+Los comentarios son muy útiles, y conocemos su funcionamiento:
+
+		Los comentarios son las líneas que empiezan por #, aunque tengan espacios
+		o tabuladores delante.
+
+Pero vamos a discutir algo importante. Esta regla no es del todo completa. Falta matizar:
+
+		Los comentarios son las líneas que empiezan por #, aunque tengan espacios
+		o tabuladores delante; siempre y cuando no hayan superado el nivel de un nodo texto anterior
+		
+Mejor un ejemplo:
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+	Nodo Texto:
+		aaaa
+		bbbb
+		cccc
+		
+# Un comentario, no se incluye en el texto (nivel 0)
+	# Un comentario, no se incluye en el texto (nivel 1)
+		# Esta línea SI que se incluye!!!! ya está dentro del texto (nivel 2!).
+		# Ya no es un comentario.
+			# Esto tampoco es comentario :-D
+		
+		dddd
+		eeee
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+Vemos que de las 5 líneas que parecen comentarios sólo lo son las 2
+primeras, con un nivel inferior o igual al nodo de texto correspondiente.
+
+En cambio, fuera de texto no importa:
+
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Nodo Normal:
+	# Comentario
+		# También es un comentario, aunque NO es bonito :-(
+		# Mejor evitar estos comentarios tan alineados
+	Otro nodo:
+		Otro nodo:
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+-----------------
+Texto en el texto
+-----------------
+
+Bien, esta es una de las cosas que más me gustan de STXT: Permiten hacer texto de otros lenguajes //sin tener que parsear nada!!//.
+Sólo hay que tener en cuenta las reglas de identación y ya está! Se puede escribir lo que queramos.
+A ver cuantos lenguajes pueden decir lo mismo :-D
+Vamos a hacer ejemplos, ya que no hay nada más que añadir ;-)
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Nodo con XML:
+	<tag1>
+		<tag2>Contenido !!!!</tag2>
+		<tag2>Otro Contenido !!!!</tag2>
+	</tag1>
+	
+Nodo con Texto Wiki
+	Esto es una lista:
+
+		* Elem 1
+		* Elem 2
+			** Elem 2.1
+			** Elem 2.2
+
+Nodo con Latex:
+	\begin{equation}
+		y_{i+1} = x_{i}^{2n} - \sqrt{5}x_{i-1}^{n} + \sqrt{x_{i-2}^7} -1
+	\end{equation}
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+**********************************
+(**) Namespaces, nodos y más nodos
+**********************************
+
+Me gustaría volver a dar un poco de vueltas a los nodos, la deducción de los namespaces y documentos
+con nodos de diferentes namespaces. Supongo que a este nivel ya está claro este tema, pero para dejar 
+claros los conceptos voy a repetirme un poco. Espero no liaros, realmente todo es fácil y sencillo.
+Peor no estoy tranquilo si no lo hago ;-)
+
+Qué es un namespace?
+Un namespace es una agrupación de definición de tipos de nodos y la descripción del namespace 
+está siempre disponible en Internet. Normalmente mediante una url.
+
+Por ejemplo, el namespace "www.gymdemo.org/demo.stxt" puede definir 4 tipos de nodo:
+
+* Cliente
+* Empleado
+* Número de Cuenta
+* Nombre 
+
+Ya está. Tenemos una relación en la que ligamos www.gymdemo.org/demo.stxt (el namespace) con sus tipos: Cliente, Empleado, Número de Cuenta y Nombre.
+
+Y ahora viene lo divertido. En el namespace también se dice qué hijos puede tener cada nodo, y los hijos pueden ser de cualquier namespace,
+no tienen por qué estar en el mismo.
+
+Así, se podría decir que Cliente tiene los siguientes hijos:
+
+	* Nombre (del mismo namespace, www.gymdemo.org/demo.stxt)
+	* Entrenamiento (de otro namespace con la misma url base, www.gymdemo.org/gymdata.stxt)
+	* Confidencial (de otro namespace con otra url, www.security.org/credencials.stxt)
+	
+Lo mismo podríamos hacer con los otros nodos. 
+
+Qué es un documento STXT?
+Un documento STXT es un conjunto de nodos anidados. El primer nodo es el que contiene
+a los demás, y sólo puede haber un nodo principal. Este nodo principal especifica
+su namespace, y este hecho hace que todos los demás nodos tengan especificado su
+namespace de forma automática, a través de todas las gramáticas o definiciones.
+
+Pero además, como hemos visto antes, cada nodo puede pertenecer a un namespace diferente.
+
+Así, en el ejemplo anterior que estábamos haciendo, podemos construir el documento de cliente como:
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Cliente (www.gymdemo.org/demo.stxt):
+	# Del mismo namespace
+	Nombre: 
+	
+	# De otro namespace, pero no hace falta especificar, se deduce de gramática
+	Entrenamiento:
+	
+	# De otro namespace, también sin especificar
+	Confidencial:
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+Lo importante de esto es que el documento es simple, pero gracias a las gramáticas
+y definciones sabemos exactamente que es cada elemento, de una forma muy sencilla.
+Y sólo hemos tenido que decir cuál es el elemento principal.
+
+
+

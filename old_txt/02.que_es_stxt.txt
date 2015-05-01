@@ -1,0 +1,161 @@
+=============
+¿Qué es stxt?
+=============
+
+* ¿Qué es stxt?
+* Declaración de intenciones :-D
+* ¿Qué significa stxt?
+* ¿Por qué un nuevo lenguaje?
+* Un lenguaje para todos
+* Aplicaciones, resultados y esperanzas
+
+Este capítulo puede parcer un poco disperso, pero son mis reflexiones al crear stxt. Perdonad si me
+repito un poco, si no entendéis lo que digo, o si parece un discuros incoherente. Pero es así. 
+Se ha escrito como he podido, en días distintos, y ha sido la "base de la creación", 
+por eso tiene el honor de ser el primer capítulo.
+
+							**Es "//La Inspiración//"**
+			
+El resto de capítulos son "La Transpiración".  
+
+*************
+¿Qué es stxt?
+*************
+
+			Es un lenguaje puramente semántico, con unas reglas básicas, que permite la creación de documentos
+  			con un contenido estructurado y sencillo de interpretar, tanto por humanos como por máquinas.
+  
+
+STXT: Un lenguaje para la web. No significa uno más, uno más entre tantos. Significa UN lenguaje para la web. Uno sólo.
+Y a la vez muchos. Todos los que se quieran. Ésa es mi propuesta.
+
+
+STXT es un lenguaje para escribir documentos estructurados. Permite crear documentos de 					 
+forma no ambigua, ciñéndose a unas reglas muy precisas, pero consiguiendo 									
+documentos que pueden ser leídos por personas sin conocimientos informáticos.								 
+De hecho, los documentos tienen significado por si sólos, sin ser necesaria ninguna traducción addicional.  
+Tienen un gran parecido a documentos xml, y su traducción puede ser directa.                                
+
+
+De momento esto no es reemplazo a otras tecnologías como xml, o LaTex, pero podría serlo en el futuro.
+
+
+******************************
+Declaración de intenciones :-D
+******************************
+
+Hay un serie de principios o características que queremos que tenga este nuevo lenguaje.
+
+* Independiente del lenguaje de programación, sistema operativo y plataforma
+* Fácil de leer por humanos sin conocimientos informáticos
+* Fácil de aprender por humanos sin conocimientos informáticos
+* Aspecto bonito e intuitivo
+* Fomente la libre circulación y compartimiento de información
+* Fácil de aprender por humanos con conocimientos informáticos 
+* Fácil de interpretar por ordenadores
+* Permitir integrar fácilmente textos de otros lenguajes de programación, especialmente 
+  lightweight frameworks, que tienen un especial interés. De esta forma se consigue
+  una integración muy interesante.
+* Capacidades nativas de I18N
+* Capacidades nativas de autodescripción
+* Permitir la creación de árboles de contenido con capacidad de distinción entre distintos lenguajes de forma muy sencilla
+* Ser genérico para incluir documentos de otros lenguajes
+
+* Simplificar tanto que no sean necesarios carácteres de escape (*) No hay caracteres de escape!!! Es eso posible? Si. Creo que es el primer lenguaje que puede decir esto :-D
+  Lo hace por estructura y contenido. Sólo hay algún caracter prohibido, pero no de escape. Ya lo veréis, me
+  acabo de extender demasiado en este punto...
+  
+
+********************
+¿Qué significa stxt?
+********************
+
+Qué significa stxt? Bien, originariamente stxt significa "Semantic Text" o "Texto semántico". De hecho el contenido de stxt.info y semantictext.info es 
+el mismo. Aunque también podría tener otros significados, que a mi me gustan particularmente: SuperText y SexyText.
+SuperText: es texto, pero super :-D
+SexyText: es texto particularmente bonito ;-)
+
+Cómo elegí la extensión: stxt? Yo tenía claro que los documentos tenían que ser semánticos, por lo que había algo que tenía que
+tener "semantic" o "semántico". La abreviatura "sem" no me parecia adecuada :-D por lo que intenté al revés: sólo "s" y texto.
+De aquí "stxt". Sólo me faltaba comprobar que ésto no era ya utilizado, por lo que consultando en google sólo encontré remotamente
+otro significado: sexy-text. Bien, incluso éso estaba bien, ya que semantic text tiene que ser sexy ;-)
+
+
+***************************
+¿Por qué un nuevo lenguaje?
+***************************
+
+Uno de los objetivos es hacer la información abierta. Esto también se hace en la fase de diseño.
+Por diseño el contenido es abierto.
+
+
+El problema que ha existido siempre es que se intenta solucionar siempre el caso general, con lo que todo se complica mucho.
+Pero además se ha abordado mal, siempre teniendo en cuenta el punto de vista de la sintáctica, buscando un
+enfoque informático, nunca semántico. No os equivoquéis. Yo soy informático. Pero a veces hay que ver desde el otro
+lado, con una visión "límpia". De hecho es un equilibrio entre aprender de lo que sabes e intentar pensar como si
+no supieras nada de eso.
+
+		Con STXT Resolvemos semántica y sintáctica a la vez, de una forma elegante y bonita.
+
+Intentamos hacer fácil para todos. No habría que haber problemas para los "no informáticos" el hecho de crear
+un documento semántico. Debería de ser intuitivo, al menos con las herramientas.
+
+Uno de los objetivos es de pasar de tener 1 lenguaje relativamente complicado para hacer cosas (Ej: XML, Latex,...)
+para passar a tener n muy sencillos, con contenido ligado a una estructura. Este lenguaje tiene que
+poder aprenderse en muy poco tiempo. Casi con un ejemplo debería ser suficiente. Stxt está hecho
+para que sea así. Además, stxt permitirá pasar de stxt a otros lenguajes, latex, por ejemplo, para que
+los informáticos o gente más técnica pueda hacer el trabajo final. Pero el origen será siempre stxt.
+Es mucho mejor que sea así, ya que escribimos en semántico puro, sin tener en cuenta **nada** de estructura.
+
+**********************
+Un lenguaje para todos
+**********************
+
+Al iniciar la creación de este lenguaje buscaba algo muy genérico, a la vez que descriptivo. Quería que
+la información fuera muy clara, pero quería olvidar las gramáticas tan complejas de otros sistemas.
+Quería algo accesible a los no informáticos, pero a la vez potente y útil. Por eso tenía que ser
+sencillo, y aunque yo tubiera mis limitaciones técnicas e intelectuales, sabía que era suficiente. 
+Tenía que serlo, ya que mi pretensión era un lenguaje no sólo para la gente de élite, sinó para todos.
+También sabía que ésto sería beneficioso, ya que así la cantidad de gente dispuesta a crear documentos
+aumentaría de forma considerable. Hay muchísima gente con grandes conocimientos, pero a veces se ven 
+limitadas por la forma con la que tienen que traducir esta información a los informáticos (o a la inversa).
+También pretendo solventar este problema.
+	
+	
+*************************************
+Aplicaciones, resultados y esperanzas
+*************************************
+
+(Nota: quizá integrar esta parte con "declaración de intenciones", o rehacer completamente)
+
+Bien, todo esto es lo que creo que hemos conseguido, o el objetivo, o una mezcla de cosas.
+No se, son ideas dispersas, que han estado por ahí durante su creación, quería que las viérais, nada más. 
+No se puede entender nada de esta lista. Tenéis que esperar al final, y ver qué se ha conseguido,
+qué no, y si hemos ganado algo... al final.
+
+	* Válido durante muuucho tiempo
+	* Content type web: text/plain (UTF-8)
+	* No hay problemas de carácteres: UTF-8 SIEMPRE
+	* Ampliable 
+	* Cualquiera puede crear tipos de datos, y TIENE QUE EXISTIR la página, no como los namespaces de xml. 
+	  Evidentemente se puede guardar en cache, para no estar preguntando siempre, pero es algo REAL.
+	* Traspaso de datos entre plataformas fáciles
+	* Migraciones de contenido fáciles
+	* Se pueden definir ficheros de definición, de forma que quien quiera puede crear tipos antes de enviar a ser públicos
+	* Definir tipos de datos con url's, mejor (1 sólo nemespace, y ya todo por defecto)
+	* Se ha hecho para ser bonito
+	* Fácil de leer y hacer por humanos y máquinas
+	* Contenido deducible, no es necesario escribir todo, lo que permite abreviar o hacer descripción mas larga	
+	* Hecho para aprender en muy poco tiempo, con pocas reglas
+	* Definición de tipos (gramaticas) incluido desde la fase de diseño, para integración total
+	* Refactorización de xml
+	* Gracias a la definición del tipo se puede hacer un formato super-compacto, mucho más que el xml, json,...
+	* Mucho más fácil de crear a mano, ya que no hay que vigilar casi nunca los namespaces, 
+	  ya que son casi automáticos por la situación (Namespaces made easy ;-) 
+	* Muy pocos tipos de datos (los números sin limitación, ésto es semántico, no ningún lenguaje de programación)
+	* Fácil de transformar de este a otros formatos
+	* Ambición: permitir avances hacia la web semantica, con la creación de vistas html bonitas y una base stxt fuerte.
+	* Uno de los objetivos es hacer la información abierta. Esto también se hace en la fase de diseño.
+	  Por diseño el contenido es abierto.	
+	
+	

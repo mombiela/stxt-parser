@@ -1,0 +1,1250 @@
+
+Aplicaciones posibles:
+	* Las páginas html pueden tener un .stxt de cortesía, para poder hacer integración total en todo el mundo de todo
+	* Editores especiales 
+	* Todo el traspaso de datos
+	* Válido durante muuucho tiempo
+	* No hay problemas de carácteres: UTF-8 SIEMPRE
+	* Ampliable 
+	* Cualquiera puede crear tipos de datos, y TIENE QUE EXISTIR la página, no como los namespaces de xml. 
+	  Evidentemente se puede guardar en cache, para no estar preguntando siempre, pero es algo REAL.
+	* Migraciones fáciles
+	* Se pueden definir ficheros de definición, de forma que quien quiera puede crear tipos antes de enviar a ser públicos
+	* Definir tipos de datos con url's, mejor (1 sólo nemespace, y ya todo por defecto)
+	* Se ha hecho para ser bonito
+	* Fácil de leer y hacer por humanos y máquinas
+	* Contenido deducible, no es necesario escribir todo, lo que permite abreviar o hacer descripción mas larga	
+	* Hecho para aprender en muy poco tiempo, con pocas reglas
+	* Definición de tipos (definition) incluido desde la fase de diseño, para integración total
+	* Refactor de xml
+	* Gracias a la definición del tipo se puede hacer un formato super-compacto, mucho más que el xml, json,...
+	* Fácil forma de pasar de extended(con tabs)<->Compact con números
+	* Mucho más fácil de crear a mano, ya que no hay que vigilar casi nunca los namespaces, ya que son casi automáticos por la situación 
+	  (Namespaces made easy ;-) 
+	* Muy pocos tipos de datos (los números sin limitación, ésto es semántico, no ningún lenguaje de programación)
+		* natural (num>=0): 4238749287429
+		* integer: 4234872384727409
+		* rational?: 111111/23424242
+		* number: 142.3432e-10, 4231412412421412421.4234212121412
+		* binary: 10101010100101
+		* hexadecimal: F053AC05302
+		* base64: 430ab4328...
+		* boolean: 0/1, true/false
+		* string,text: This is a String
+		* node,object: A container for other elems 
+		* Permitir expresiones regulares? No estaría mal..., listas? NO ya es una lista "per se" si se ponen varios.
+		  Todo son listas realmente. 
+		  Otra cosa es poner un listado de valores posibles, como (clave<->descripción(se puede poner en idioma!!))
+		  También es posible pasar de todo esto y poner un campo descripción de lo que se espera.
+	* Content type web: text/plain (UTF-8)
+	* Importar ideas de YAML para tener otros datos
+	* Permitir:
+		prop = prop for future use
+		elem : fsfasfsa
+		id_elem := elem :   No es necesario!! se puede hacer igual con id = ??!! No? Replantear...
+	* No es lo mismo extendido que desplegado. Hay que desplegar antes de parsear
+		desplegar o substituir: poner todas las propiedades y elementos propiedades en los elementos
+		parsear: se parsea siempre el desplegado
+		extender: mostrar sin desplegar con todos los tabs y nombres completos
+	* Caracteres de escape:
+		\\ -> \
+		\  -> ' '
+		\t -> Tabulación
+		\n -> Salto de linea
+		\$ -> $
+	* Por defecto se cogen las líneas eliminando los primeros caracteres espacios (NO LOS ÚLTIMOS)
+	* Property:
+		xxx = 
+	* Element:
+		yyy:
+	* Element for reference:
+		zz := xxx: 
+	* Hay que hacer 2 pases, a no ser que se creen en orden. El modo compacto lo empaqueta de esta forma
+		1º Propiedades
+		2º Definición de nodos para reutilizar
+		3º Nodos
+	* El objetivo principal es dotar de significado semántico al documento, es muy distinto a YAML aunque se parezca en la forma.
+	  Por eso es fundamental los namespaces, ya que dotan de estructura básica + significado
+	* Fácil de transformar de
+		stxt -> xml
+		stxt -> latex
+		stxt -> html
+		stxt -> wiki
+	* Ambición: permitir avances hacia la web semantica, con la creación de vistas html bonitas y una base stxt fuerte.
+	* Realizé esto durante la recuperación de una operación, frustrado por latex/tex, desmotivado por mathml, y buscando una solución a todo.
+	* Si es campo de texto y tiene más identación que el campo -> ya pertenece al campo!! (también se permite \ al estilo de propiedades, para permitir lectores java de propiedades)
+		Ej:
+		var: Esto es el inicio del texto
+			Continuamos aquí,...
+			I aquí!!!!!!
+		var:
+			Este es el inicio del texto
+			Continuamos aquí!!!!
+			I aquí!!!!!!!!
+		Válido también para la definición de propiedades?:
+		x = fsafas
+			fasfafa
+			sfsafasfasfas
+	* Un documento no es válido si no tienen todos los nodos un namespace. De esta forma es casi obligado crearlo para que sea correcto. Ésto permite también
+	  hacer las predicciones sobre los elementos y lo que contiene.
+	  
+Uno de los objetivos es hacer la información abierta. Esto también se hace en la fase de diseño.
+Por diseño el contenido es abierto.
+	  
+	  
+Tener en cuenta el idioma,....
+
+Se puede hacer nomenclatura java:
+
+xxxx_ca.stxt
+xxxx_es.stxt
+xxxx.stxt (default)
+
+Podría haber todo, o sólo traducciones de textos,... (mejor opción, ya que así no hay información redundante)	  
+	  
+w3c con web: Faltan algunas cosas importantes:
+web easy: fácil trabajar para web
+web para todos: también no informáticos
+
+webservices:
+si fuera con sxml no sería necesario soap, sólo entrada + salida, accesible para todos idiomas, con definición fácil de hacer....
+no es necesario un protocolo para especificar entrada y salida. Una url es un método. 
+
+
+Idioma tiene aplicación en los traductores, ya que así realizan el trabajo mucho más senzillo, pueden usar parseadores de idioma automáticos....
+
+
+
+Uno de los problemas para que el texto sea semántico es que no hay plantillas ni contenido
+directamente semántico, por lo que es más difícil de tratar o generar. Con stxt se establece un texto
+con contenido púramente semántico, pero con estructura directamente ligada a un contenido estructurado (xml,...).
+Pensar en idioma!! Hacer algo que permita traducir... se puede traducir directamente con $sss, pero es un poco
+engorroso. Se puede pensar en plantillas multiidioma también. O incluir el idioma en el contenido.
+Probablemente los traductores como google aumentarían su capacidad de traducción sabiendo de que trata el texto.
+
+
+No se permiten atributos al estilo de un xml. Siempre se puede hacer algo de la forma:
+nombre_nodo:
+	metadatos:
+		m1:xxx
+		m2:xxx
+		m3:xxx
+	nodo2:
+	nodo3:
+De esta forma todo está realizado igual y simplifica el mantenimiento, el parseo,...
+
+Identificador es CASE-INSENSITIVE! Nadie ha hecho nunca un documento xml que sólo se diferencie por
+mayúsculas y minúsculas. Sólo tiene consecuencias para tener errores, y no permite flexibilidad
+para aumentar la legibilidad. En caso de duda, hay que ver si semánticamente es distinto,
+y se ve que NO. Es lo mismo, ya que el significado no varía, y éste es un lenguaje semántico.
+
+Se permiten espacios en los nombres, ¿por qué no? Para parecer informáticos? Qué estupidez.
+Las lineas son de la forma:
+espacios + nombre del campo + ':' + contenido del campo
+Nombre del campo són caracteres excepto ':' o excepto sólo números, 
+ya que implicaría que está compactado y es el nivel, es la única restricción. 
+
+
+
+
+Atributos de xml -> explicar por que no nos gustan, ya que siempre llevan a confusión, nunca se sabe
+cuando elegir atributo o no; de esta forma le dotamos SIEMPRE de un significado concreto.
+
+El salto de línea se puede hacer mediante \n o una línea en blanco, aunque yo lo haría siempre con \n
+		
+Uno de los objetivos es hacer la información abierta. Esto también se hace en la fase de diseño.
+Por diseño el contenido es abierto.
+
+
+
+El mundo está plagado de documentos feos, xml's que nos gustan... es un formato horrible!
+Por qué se hizo así? Estamos heredando un formato anticuado, con encodings anticuados,
+con forma de pensar muy informatizada. Y está en todas partes. Y seguimos usándolo.
+Y queremos que esté para todo... Un momento!! Stop!! Es necesario? Si no supieramos nada
+de sgml y quisiéramos tener un txt rápido de parsear, con estructura, con espacio de nombres,
+hubiésemos creado xml? Yo creo que no. Si a un niño le decimos que invente algo, supongo
+que jamás habría creado xml... hubiese hecho algo más natural... hubiese creado stxt!! (super txt!).
+Bien, nosotros tenemos más experiencia, hemos aprendido, vamos a crear stxt!! (semantic text) y le añadimos
+namespaces para ligarlo todo. También idoma. Y expresiones regulares? Vale, también. Y ya está. 
+
+
+
+El origen del mal: sgml
+Todo empezó hace mucho tiempo, en una tierra oscura llamda "informática".
+Los encodings campaban por ese mundo. Sembrando incompatibilidades.
+Entorpeciendo comunicaciones. Riéndose de los que no eran como ellos.
+Algunos intentaron estar en paz con todos ellos. Y entonces crearon el monstruo: sgml
+El monstruo empezaba diciendo con qué encoding se quedaba. Y ya no había
+problema. Pero el esfuerzo era demasiado. Un montón de carácteres extraños
+eran necesarios. Textos repletos de "<", ">", "&xxx;". Ininteligibles.
+Y se han reproducido. El mundo está lleno de sus hijos. Pequeños monstruitos
+que llenan la tierra de éstos carácteres, entorpeciendo la lectura para humanos.
+Sólo un puñado de élite puede tratar con los monstruitos. Se los llama "Los Informáticos".
+Son el terror. Nadie los quiere ver, pero todos los necesitan. Son oscuros. Hablan
+lenguas extrañas.
+Rehacer la historia anterior con tipos de documento -> sgml y encodings como virus malignos,
+documentos dispersos, sin formato -> sgml, IBM (una empresa de cuyo nombre no quiero acordarme). 
+
+Pero todavía están aquí. La gente se reunió, y decidió que no podía ser.
+Crearían un campeón. Alguien que los iluminara. Sólo puede quedar uno.
+
+
+
+Resolvemos semántica y sintáctica a la vez,...
+
+
+El problema que ha existido siempre es que se intenta solucionar siempre el caso general, con lo que todo se complica mucho.
+Pero además se ha abordado mal, siempre teniendo en cuenta el punto de vista de la sintáctica, buscando un
+enfoque informático, nunca semántico. No os equivoquéis. Yo soy informático. Pero a veces hay que ver desde el otro
+lado, con una visión "límpia". De hecho es un equilibrio entre aprender de lo que sabes e intentar pensar como si
+no supieras nada de eso.
+
+
+
+
+Intentamos hacer fácil para todos. No habría que haber problemas para los "no informáticos" el hecho de crear
+un documento semántico. Debería de ser intuitivo, al menos con las herramientas.
+
+
+
+
+Definir el metadocumento (http://www.semantictext.info/composition.stxt): documento que es suma de varios.
+No hace falta!!! Se crea cada tipo especial como que contenga lo que haga falta. Y así no es necesario
+el composition. Por ejemplo, una página puede ser una direccion($ns1) y un articulo($ns2), y esto ya es un tipo de doc.
+
+
+Permitir texto modo wiki. De esta forma se permiten descripciones un poco mejores. Permitir sólo
+lo básico de wiki. De esta forma es mucho más sencillo.
+
+
+
+
+Uno de los objetivos de todo esto es llegar a la web semántica de una forma poco traumática, fácil para
+todo el mundo, no sólo para los super-informaticos. Además, la idea es llegar de una forma bonita.
+La idea es que la comunicación sea bonita, inteligible y útil para todos. Si algo es común, y se ve
+en la web, debe ser utilizable de forma estandard por todos. No debería ser necesario un webservice
+cada vez que se quiera compartir algo. Debería estar hecho por defecto. Yo voto por ello! :-)
+Esto podría ser muy útil también para buscadores, ya que podrían encontrar patrones, categorizar texto
+por el significado! La información sería útil de una forma mucho mejor, con significado.
+
+
+Esto no es un libro. Es casi una propuesta. Un inicio de trabajo futuro.
+Me gustaría que a partir de aquí naciera un nuevo movimiento. Hace mucho que hacemos las
+cosas de la misma forma y me gustaría romper con ello. Pero de una forma bella. Bonita.
+Al alcance de todos. Que esta sea mi aportación.
+Quizá esto pueda parecer un poco pretencioso, pero me gusta tanto la idea que no lo puedo evitar. Perdonad mi osadía.
+
+
+
+
+Editor universal: www.semantictext.info puede tener un editor js universal, que crea un fichero a partir de la descripción
+
+
+
+Yo soy un buen programador. También me considero un informático mediocre. Y un científico pésimo.
+Lo digo porque creo que soy la persona perfecta para proponer todo esto. Hay que crear algo accesible
+a todos, fácil de usar y de entender. Lo voy a intentar.
+
+
+
+Para texto quizá estaría bien estandarizar algo. 
+Creo tener claro que lo mejor es un lenguaje ligero para el texto. 
+Alternativas:
+* Distintos tipos
+	** string(txt)
+	** string(java)
+	** string(parsed)
+	** string(literal)
+	** string(creole)
+	** string(media-wiki)
+* Un param añadido
+	type: 
+		name: string
+		variant: txt
+* Esto podría hacerse para también imponer restricciones, o algo
+	type: 
+		name: string
+		variant: txt
+		regexp: 242422
+
+Bien, ya está claro. El texto se escribe "tal qual", y lo que hay es lo que se ve. Otra cosa es como se interpreta.
+Se puede hacer distinto, pero ya tenemos UTF-8, y una forma de parsearlo, que es con los tabuladores iniciales.
+Pero también tiene que ser visual. Creía que ya lo tenía. Es una decisión difícil. Hay que probar todo y elegir.
+
+Opción 1 (parsed):
+
+texto:
+	Esto es un texto al estilo java. Un tab: \t, un salto de línea: \n
+	\ un espacio inicial. Me gusta como queda... es muy descriptivo. Queda claro
+	lo que es cada cosa.
+
+Opción 2 (direct):
+texto:
+	Este tipo permite cosas más directas. Es directo a partir del tabulador que toque.
+	Permite insertar todo lo que se quiera, con el formato que deseemos.
+	Por ejemplo: esto es el texto en estilo wiki.
+	Estaría bien que esto se explique en la descripción del texto, ya que así es mas
+	fácil de hacer. 
+	Por ejemplo podemos poner una lista:
+		* Elem 1
+		* Elem 2
+			** Elem 2.1
+			** Elem 2.2
+	Un texto puede estar *en negrita*,... no está mal! 
+
+
+Llega un punto que no es necesario formalizar tanto, con un poco de explicación es suficiente (a mi entender! :-D).
+Se trata de llegar a un equilibrio entre facilidad de uso y automatización técnica. Esto es semántico!! A explicar!!
+
+
+Tenemos SOAP, REST, y ahora...... SWS!!! (Semantic web services)
+
+
+
+
+La wikipedia podría tener plantillas diferentes: actores, políticos, serie tv, película, ciudades, países, ríos,... compartiendo partes y otras no (por ejemplo 
+actores y políticos pueden tener biografía, pero actores listado de películas,...)
+
+
+
+
+Hay un serie de principios que queremos tener siempre en cuenta, en este orden (importante!!)
+
+* Independiente del lenguaje de programación, sistema operativo y plataforma
+* Fácil de leer por humanos sin conocimientos informáticos
+* Fácil de aprender por humanos sin conocimientos informáticos
+
+* Aspecto bonito e intuitivo
+* Fomente la libre circulación y compartimiento de información
+
+* Fácil de aprender por humanos con conocimientos informáticos 
+* Fácil de interpretar por ordenadores
+
+* Permitir integrar fácilmente textos de otros lenguajes de programación, especialmente 
+  lightweight frameworks, que tienen un especial interés. De esta forma se consigue
+  una integración muy interesante.
+
+* Capacidades nativas de I18N
+* Capacidades nativas de autodescripción
+
+* Permitir la creación de árboles de contenido con capacidad de distinción entre distintos lenguajes de forma muy sencilla
+
+* Ser genérico para incluir documentos de otros lenguajes
+
+
+
+
+
+
+
+Uno de los objetivos es de pasar de tener 1 lenguaje relativamente complicado para hacer cosas (Ej: Latex)
+para passar a tener n muy sencillos, con contenido ligado a una estructura. Este lenguaje tiene que
+poder aprenderse en muy poco tiempo. Casi con un ejemplo debería ser suficiente. Stxt está hecho
+para que sea así. Además, stxt permitirá pasar de stxt a otros lenguajes, latex, por ejemplo, para que
+los informáticos o gente más técnica pueda hacer el trabajo final. Pero el origen será siempre stxt.
+Es mucho mejor que sea así, ya que escribimos en semántico puro, sin tener en cuenta **nada** de estructura.
+
+
+
+
+
+----------------------
+Un lenguaje para todos
+----------------------
+
+Al iniciar la creación de este lenguaje buscaba algo muy genérico, a la vez que descriptivo. Quería que
+la información fuera muy clara, pero quería olvidar las gramáticas tan complejas de otros sistemas.
+Quería algo accesible a los no informáticos, pero a la vez potente y útil. Por eso tenía que ser
+sencillo, y aunque yo tubiera mis limitaciones técnicas e intelectuales, sabía que era suficiente. 
+Tenía que serlo, ya que mi pretensión era un lenguaje no sólo para la gente de élite, sinó para todos.
+También sabía que ésto sería beneficioso, ya que así la cantidad de gente dispuesta a crear documentos
+aumentaría de forma considerable. Hay muchísima gente con grandes conocimientos, pero a veces se ven 
+limitadas por la forma con la que tienen que traducir esta información a los informáticos (o a la inversa).
+También pretendo solventar este problema.
+
+
+
+
+
+
+Perdonad si critico mucho. Nunca lo hago sin dar una alternativa o un motivo. Me gustan las críticas 
+constructivas ;-)
+He visto que uno de los objetivos de TeX es que un documento se imprima igual ahora y dentro de 100 años.
+Me había parecido perfecto... hasta hoy. Ahora creo que el objetivo debería ser que significara
+lo mismo ahora que dentro de 100 años, y que se //entienda// ahora y dentro de 100 años. Y cuanta 
+más gente mejor. Esto no se consigue con TeX. Sí con STXT (superText!). Un documento se entiende hoy
+y dentro de 100 años. Lo siento, pero creo que es mejor así.
+
+
+
+ 	
+ 	
+
+Qué significa stxt? Bien, originariamente stxt significa "Semantic Text". De hecho el contenido de stxt.info y semantictext.info es 
+el mismo. Aunque también podría tener otros significados, que a mi me gustan particularmente: SuperText and SexyText.
+SuperText: es texto con vitaminas :-D
+SexyText: es texto particularmente bonito ;-)
+
+
+
+Cómo elegí la extensión: stxt? Yo tenía claro que los documentos tenían que ser semánticos, por lo que había algo que tenía que
+tener "semantic" o "semántico". La abreviatura "sem" no me parecia adecuada :-D por lo que intenté al revés: sólo "s" y texto.
+De aquí "stxt". Sólo me faltaba comprobar que ésto no era ya utilizado, por lo que consultando en google sólo encontré remotamente
+otro significado: sexy-text. Bien, incluso éso estaba bien, ya que semantic text tiene que ser sexy ;-)
+
+
+
+STXT: Un lenguaje para la web. No significa uno más, uno más entre tantos. Significa UN lenguaje para la web. Uno sólo.
+Y a la vez muchos. Todos los que se quieran. Ésa es mi propuesta.
+
+
+
+Cuantas páginas tiene este libro? Espero no haber pasado de las 200. Creo que para que algo sea útil debe ser
+fácil y breve. 
+
+
+
+
+
+De momento esto no es reemplazo a otras tecnologías como xml, o LaTex, pero podría serlo en el futuro.
+
+
+
+
+
+
+
+
+Una idea!! Si no hay propiedades no hace falta parsear los ${}. De hecho casi nunca hace falta parsear, sólo si contiene una de las propiedades
+que pueden llevar a confusión.
+
+
+
+
+
+
+No quiero volver a oir lo de xml... y como sé la gramática de esto? En stxt TODO está en la web. Cuando se quiere crear
+un documento automáticamente hay que poder ver su definición. Por un lado hay la gramática que directamente ha de ser
+accesible, y si substituimos *.stxt por *.html deberíamos ver una página equivalente con una descripción y algún
+ejemplo. Éste es el comportamiento por defecto.
+
+
+
+Revisar:
+- en la definición de los nodos, decimos que un nodo tiene hijos, y los hijos no 
+  pueden ser ambiguos, por lo que hay que revisar también que no se repitan 
+  los nombres con sus alias. Sinó la definición no puede ser correcta.
+  Esto hay que hacerlo con la gramática.
+
+
+
+
+
+
+
+
+
+
+
+
+SEEL: Semantic Estructured Language
+
+
+
+(Hablar de la identación, que los nodos estan alineados, tabuladores, vista,...)
+
+
+
+
+
+  
+  
+(**) Explicar que los nombres no pueden llevar a ambigüedad, hay que tener en cuenta los alias.
+  	 --> Cuidado con los alias!! No excederse, ya que perjudican la deducción (la limitan)
+
+  	 
+  	 
+Validaciones de gramáticas, como se hacen, el qué,... que tener en cuenta...
+
+
+
+
+* texto literal o parseado
+* propiedades
+* simplificación de contenidos
+* introducción de variables (las properties de java), expandido...
+
+
+
+Una idea!! Si no hay propiedades no hace falta parsear los ${}. De hecho casi nunca hace falta parsear, sólo si contiene una de las propiedades
+que pueden llevar a confusión.
+
+
+
+El salto de línea se puede hacer mediante \n o una línea en blanco, aunque yo lo haría siempre con \n
+
+
+Para texto quizá estaría bien estandarizar algo. 
+Creo tener claro que lo mejor es un lenguaje ligero para el texto. 
+Alternativas:
+* Distintos tipos
+	** string(txt)
+	** string(java)
+	** string(parsed)
+	** string(literal)
+	** string(creole)
+	** string(media-wiki)
+* Un param añadido
+	type: 
+		name: string
+		variant: txt
+* Esto podría hacerse para también imponer restricciones, o algo
+	type: 
+		name: string
+		variant: txt
+		regexp: 242422
+
+Bien, ya está claro. El texto se escribe "tal qual", y lo que hay es lo que se ve. Otra cosa es como se interpreta.
+Se puede hacer distinto, pero ya tenemos UTF-8, y una forma de parsearlo, que es con los tabuladores iniciales.
+Pero también tiene que ser visual. Creía que ya lo tenía. Es una decisión difícil. Hay que probar todo y elegir.
+
+Opción 1 (parsed):
+
+texto:
+	Esto es un texto al estilo java. Un tab: \t, un salto de línea: \n
+	\ un espacio inicial. Me gusta como queda... es muy descriptivo. Queda claro
+	lo que es cada cosa.
+
+Opción 2 (direct):
+texto:
+	Este tipo permite cosas más directas. Es directo a partir del tabulador que toque.
+	Permite insertar todo lo que se quiera, con el formato que deseemos.
+	Por ejemplo: esto es el texto en estilo wiki.
+	Estaría bien que esto se explique en la descripción del texto, ya que así es mas
+	fácil de hacer. 
+	Por ejemplo podemos poner una lista:
+		* Elem 1
+		* Elem 2
+			** Elem 2.1
+			** Elem 2.2
+	Un texto puede estar *en negrita*,... no está mal! 
+
+
+Llega un punto que no es necesario formalizar tanto, con un poco de explicación es suficiente (a mi entender! :-D).
+Se trata de llegar a un equilibrio entre facilidad de uso y automatización técnica. Esto es semántico!! A explicar!!
+
+
+
+
+
+Permitir texto modo wiki. De esta forma se permiten descripciones un poco mejores. Permitir sólo
+lo básico de wiki. De esta forma es mucho más sencillo.
+
+
+
+
+
+	* Por defecto se cogen las líneas eliminando los primeros caracteres espacios (NO LOS ÚLTIMOS)
+	* Property:
+		xxx = 
+	* Element:
+		yyy:
+	* Element for reference:
+		zz := xxx: 
+	* No hay que hacer 2 pases, ya que se crea en orden
+		1º Propiedades
+		2º Definición de nodos para reutilizar (ya no)
+		3º Nodos
+	* Caracteres de escape:
+		\\ -> \
+		\  -> ' '
+		\t -> Tabulación
+		\n -> Salto de linea
+		\$ -> $
+	* Muy pocos tipos de datos (los números sin limitación, ésto es semántico, no ningún lenguaje de programación)
+		* natural (num>=0): 4238749287429
+		* integer: 4234872384727409
+		* rational?: 111111/23424242
+		* number: 142.3432e-10, 4231412412421412421.4234212121412
+		* binary: 10101010100101
+		* hexadecimal: F053AC05302
+		* base64: 430ab4328...
+		* boolean: 0/1
+		* string,text: This is a String
+		* node,object: A container for other elems 
+		* Permitir expresiones regulares? No estaría mal..., listas? NO ya es una lista "per se" si se ponen varios.
+		  Todo son listas realmente. 
+		  Otra cosa es poner un listado de valores posibles, como (clave<->descripción(se puede poner en idioma!!))
+		  También es posible pasar de todo esto y poner un campo descripción de lo que se espera.
+	* Si es campo de texto y tiene más identación que el campo -> ya pertenece al campo!! 
+	  (también se permite \ al estilo de propiedades, para permitir lectores java de propiedades)
+		Ej:
+		var: Esto es el inicio del texto
+			Continuamos aquí,...
+			I aquí!!!!!!
+		var:
+			Este es el inicio del texto
+			Continuamos aquí!!!!
+			I aquí!!!!!!!!
+		Válido también para la definición de propiedades?:
+		x = fsafas
+			fasfafa
+			sfsafasfasfas
+	* Permitir:
+		prop = prop for future use
+		elem : fsfasfsa
+		id_elem := elem :   No es necesario!! se puede hacer igual con id = ??!! No? Replantear...
+
+		
+		
+Compactación: sólo nombrarlo, y decir que después se hablará más en concreto.
+
+		
+		
+No es obligatorio que los nodos tipo NODE terminen con ':'. Se sobreentiende (no lo tengo claro...)
+	
+		
+		
+Restricciones en los nombres de los metadatos: [a-zA-Z0-9\\.]...
+
+
+
+En caso de duda, hay que ver si semánticamente es distinto,
+y se ve que NO. Es lo mismo, ya que el significado no varía, y éste es un lenguaje semántico.
+
+
+
+
+
+** A ser posible alinear los nodos con tabuladores. 
+  En caso de usar espacios, recordar "4 Espacios" = "1 Tabulador"
+  
+Caracteres de escape,...
+Tabulador o espacios? Mejor no juntar, pero hay normas (en capítulo de avanzado).
+
+Explicar claramente la regla de los nodos y tabuladores: nodo, texto, y otros
+
+
+** A ser posible alinear los nodos con tabuladores. 
+  En caso de usar espacios, recordar 
+  
+Caracteres de escape,...
+Tabulador o espacios? Mejor no juntar, pero hay normas (en capítulo de avanzado).
+
+
+
+
+
+
+
+============================================================
+STXT: Un lenguaje para la Web (Semantic text)
+SEL: Un lenguaje para la Web (Semantic estructured language)
+============================================================
+
+------------
+Introducción
+------------
+
+1.  ¿Como leer este libro?
+2.  ¿Qué es STXT?
+	
+------------------------
+Aprendizaje del lenguaje
+------------------------
+
+3.  STXT: Tutorial
+4.  STXT: Creación y uso de gramáticas
+5.  STXT: Compactación
+6.  STXT: Tutorial Avanzado
+7.  STXT: I18N. Equivalencias.
+
+------------
+Aplicaciones
+------------
+8.  Ejemplos básicos
+9.  Semantic text y XML
+10. Web Services
+11. Semantic text y otras tecnologias
+12. Parsing "al descubierto"
+13. Web semántica
+14. ¿Y ahora que?
+15. ¿Por qué?
+
+------
+Anexos
+------
+
+A1. Definiciones básicas
+A2. Implementación de referencia
+A3. STXT en 5 páginas
+	
+
+	
+	
+	
+		"Un lenguaje para gobernarlos a todos, un lenguaje para encontrarlos,
+		 	un lenguaje para entenderlos a todos y atarlos al conocimiento para siempre,
+		 	en la tierra de Internet, dónde se liberará al mundo" (*)
+		 	
+		 	
+		"One languaje to rule them all, one language to find them,
+			one language to understand them all and tie to knowledge forever,
+			in the land on Internet, where the world will be freed" (*)
+	
+
+
+
+
+(*) En homenaje a J.R.R.Tolkien, escritor y creador de lenguajes.
+	
+(*) En homenaje a J.R.R.Tolkien, creador de lenguajes, escritor, y autor de
+uno de los mejores libros de la historia.
+
+(*) En homenaje a J.R.R.Tolkien, creador de lenguajes, escritor e inspirador
+de generaciones de....
+
+
+	
+
+Pensar en idioma!! Hacer algo que permita traducir... se puede traducir directamente con $sss, pero es un poco
+engorroso. Se puede pensar en plantillas multiidioma también. O incluir el idioma en el contenido.
+Probablemente los traductores como google aumentarían su capacidad de traducción sabiendo de que trata el texto.
+
+
+
+I18N por convención. El idioma base es xxxx.stxt y los idiomas son xxxx.es.stxt, por ejemplo. Lo único que debería cambiar
+son los alias, y si se hace el estandard se debe poder cambiar de idioma.
+
+	
+	
+	
+Tener en cuenta el idioma,....
+
+Se puede hacer nomenclatura java:
+
+xxxx_ca.stxt
+xxxx_es.stxt
+xxxx.stxt (default)
+
+Podría haber todo, o sólo traducciones de textos,... (mejor opción, ya que así no hay información redundante, pero lo complica todo, y al final
+es como traducir de un lenguaje a otro, que sería más genérico. Mejor no, de momento.)	  
+	
+	
+	
+La receta me la pasó mi hermana, pero es muy conocida en toda España.
+Esta es una receta de cocina, de un pastel muy famoso en mi casa. 
+
+
+Gramáticas y equivalentes:
+Primero hablar de idioma de forma natural, y después pasar a comentar las equivalencias,
+como una forma natural. Después hacer las otras reflexiones:
+
+
+
+----------------------------------
+(***) Gramáticas o ns equivalentes
+----------------------------------
+
+
+* Se pueden definir en el fichero de gramática (namespace_definition.stxt)!! 
+  Introducir un nodo: "namespace-equivalent" o algo así, de esta forma la gramática se supone equivalente,
+  y se puede probar!!!!!
+
+  
+  
+  
+    Estas dos definiciones se pueden poner en la gramática (hay que ampliar namespace_definition.stxt):
+  - namespace_equivalent: (puede haber más de uno)
+  - namespace_transformable: (puede haber más de uno)
+  
+  
+  
+  
+  
+* Documentos equivalentes, convertibles y extensiones (**)
+  
+  
+  
+
+
+********************************************************
+(**) Documentos equivalentes, convertibles y extensiones
+********************************************************
+  
+  
+
+
+
+namespace-equivalent: Misma forma compactada que el namespace (la usada en i18n)
+  
+  
+  
+  
+  
+  por cierto, si equivalent -> transformable (de forma matemática) (quizá se podría deducir con teoría de conjuntos)
+  
+  
+  
+  
+  
+
+- Se puede distinguir entre gramáticas equivalentes, que són que comparten los mismos nodos canónicos,
+  de gramáticas transformables:
+
+  
+También hablar de puentes (gramáticas que son para pasar de unos documentos a otros! es como xsd!, pero más fácil, aunque han de tener la misma estructura,
+también se puede intentar cambiando los niveles, y también es más fácil)
+* Hablar también de transformaciones (a través de forma compactada normalmente).
+  
+  
+  
+* Hablar también de transformaciones (a través de forma compactada normalmente).
+  
+  
+También hablar de puentes (gramáticas que son para pasar de unos documentos a otros! es como xsd!, pero más fácil, aunque han de tener la misma estructura,
+también se puede intentar cambiando los niveles, y también es más fácil)
+  
+  
+
+Un ejemplo
+
+Se puede plantear como extensión una semántica que permita validar expresiones regulares, por ejemplo.
+
+  Gramática A
+  
+  
+Es lo mismo que transformable, pero del otro lado...
+  
+También tenemos gramáticas que incluyen a otras, una A incluida en B si tiene menos nodos, pero todos son válidos en B.  
+
+
+
+
+**************************
+(***) Una última reflexión
+**************************
+
+
+
+No hacer nada con la definición original. Queremos que sea muy sencilla, y no la queremos liar.
+Además, tampoco queremos hacer cosas del estilo: A extends B, ya que puede hacer todo
+demasiado difícil para las personas normales. Empezaríamos con problemas de extensión
+múltiple, si o no, qué pasa cuando cambia una definición de un namespace del que no tenemos control,
+puede ser bastante complicado todo. Si se quiere ya habrá tiempo para hacerlo. De hecho, no
+hay nada que impida a alguien hacer su propia gramática distinta a lo que se plantea en
+este libro :-O Quien sabe, habrá una batalla de gramáticas base? :-D Yo he presentado una,
+pero quizá la w3c haga otra, más bonita y útil, y la mía se vea arrinconada. Bueno,
+no pasa nada, estubo bien como primera incursión en este mundo, y ya habrá servido
+para algo. Siempre pienso que a la gente quizá le hubirea gustado que tubieramos para texto
+una propiedad //pattern// com expresiones regulares, pero siempre he pensado que eso era muy
+técnico, demasiado ligado a Informática, y no muy semántico (//muy sintáctico!!//).
+
+
+
+  
+  
+
+
+
+* Ejemplo de la tortilla de patatas de Ferrán Adrià. Es compleja, interesante,... que más queremos?
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+=============================
+STXT: Un lenguaje para la web
+=============================
+
+------------
+Introducción
+------------
+
+1.  ¿Como leer este libro?
+2.  ¿Qué es STXT?
+	
+------------------------
+Aprendizaje del lenguaje
+------------------------
+
+3.  STXT: Tutorial
+4.  STXT: Creación y uso de gramáticas
+5.  STXT: Compactación
+6.  STXT: Tutorial Avanzado
+7.  STXT: I18N. Equivalencias.
+
+------------
+Aplicaciones
+------------
+8.  Ejemplos
+9.  Semantic text y XML
+10. Web Services
+11. Semantic text y otras tecnologias
+12. Parsing "al descubierto"
+13. Web semántica
+14. ¿Y ahora que?
+15. ¿Por qué?
+
+------
+Anexos
+------
+
+A1. Definiciones básicas
+A2. Implementación de referencia
+A3. STXT en 5 páginas
+	
+
+	
+	
+	
+========================
+Parsing "al descubierto"
+========================
+
+* Fichero
+* Comprobación de esquema
+* SAX y DOM casi iguales, ejemplos
+
+
+Una idea!! Si no hay propiedades no hace falta parsear los ${}. De hecho casi nunca hace falta parsear, sólo si contiene una de las propiedades
+que pueden llevar a confusión.
+
+
+	* No es lo mismo extendido que desplegado. Hay que desplegar antes de parsear
+		desplegar o substituir: poner todas las propiedades y elementos propiedades en los elementos
+		parsear: se parsea siempre el desplegado
+		extender: mostrar sin desplegar con todos los tabs y nombres completos
+	* Por defecto se cogen las líneas eliminando los primeros caracteres espacios (NO LOS ÚLTIMOS)
+	* Property:
+		xxx = 
+	* Element:
+		yyy:
+	* Element for reference:
+		zz := xxx: 
+	* No hay que hacer 2 pases, ya que se crea en orden
+		1º Propiedades
+		2º Definición de nodos para reutilizar (ya no)
+		3º Nodos
+	* Caracteres de escape: No hay!!!!!!!!!!!!!!!
+		\\ -> \
+		\  -> ' '
+		\t -> Tabulación
+		\n -> Salto de linea
+		\$ -> $
+	* Muy pocos tipos de datos (los números sin limitación, ésto es semántico, no ningún lenguaje de programación)
+		* natural (num>=0): 4238749287429
+		* integer: 4234872384727409
+		* rational?: 111111/23424242
+		* number: 142.3432e-10, 4231412412421412421.4234212121412
+		* binary: 10101010100101
+		* hexadecimal: F053AC05302
+		* base64: 430ab4328...
+		* boolean: 0/1, true/false
+		* string,text: This is a String
+		* node,object: A container for other elems 
+		* Permitir expresiones regulares? No estaría mal..., listas? NO ya es una lista "per se" si se ponen varios.
+		  Todo son listas realmente. 
+		  Otra cosa es poner un listado de valores posibles, como (clave<->descripción(se puede poner en idioma!!))
+		  También es posible pasar de todo esto y poner un campo descripción de lo que se espera.
+	* Si es campo de texto y tiene más identación que el campo -> ya pertenece al campo!! 
+	  (también se permite \ al estilo de propiedades, para permitir lectores java de propiedades)
+		Ej:
+		var: Esto es el inicio del texto
+			Continuamos aquí,...
+			I aquí!!!!!!
+		var:
+			Este es el inicio del texto
+			Continuamos aquí!!!!
+			I aquí!!!!!!!!
+		Válido también para la definición de propiedades?:
+		x = fsafas
+			fasfafa
+			sfsafasfasfas
+	* Un documento no es válido si no tienen todos los nodos un namespace. De esta forma es casi obligado crearlo 
+	  para que sea correcto. Ésto permite también hacer las predicciones sobre los elementos y lo que contiene.
+
+		
+		
+		
+La obtención de gramáticas puede ser de disco, cache,... pero la versión correcta será siempre de Internet
+
+
+
+
+
+Hay que tener en cuenta que no es posible hacer un parser sin tener la gramática previamente.
+Para parsear hay que tener la definición del namespace.
+
+
+
+
+
+
+Es fácil de parsear? Aunque no lo parezca es más fácil que otros tipos (como xml) ya que todo
+está muy predefinido. Al mismo tiempo es muy visual, y entendible por todos.
+	
+	
+	
+	
+# -------------------------
+# (**) Ejemplo de gramática
+# -------------------------
+
+Ver www.semantictext.info/namespace.stxt
+
+Es un metaejemplo de definición de gramática. También se puede ver la internacionalización de ese fichero.
+
+Las gramáticas son un buen ejemplo que una cosa es un nodo genérico (con hijos, namespace, valores) y
+otra cosa es el significado programático. Por eso, en la implementación hay Node, NodeType y con 
+significado concreto GType y GTypeChild.
+
+
+
+
+
+
+*** Podría haber una gramática para firmar gramáticas, y ver si es la misma. Hacer un documento
+que compactado sería igual que otros ("ida de olla")
+
+	
+	
+* ej1
+* ej2
+* Ejemplos complejos: Este es un capítulo vacío. Nada de lo que se hace con stxt es complejo :-D
+  No. Es broma. Si que puede haber algo //un poco// más complejo. Vamos a ver documentos compuestos,
+  pero veréis que también es fácil. -> Recetario
+
+
+
+Definir el metadocumento (http://www.semantictext.info/composition.stxt): documento que es suma de varios.
+No hace falta!!! Se crea cada tipo especial como que contenga lo que haga falta. Y así no es necesario
+el composition. Por ejemplo, una página puede ser una direccion($ns1) y un articulo($ns2), y esto ya es un tipo de doc.
+	
+	
+	
+# ------------------
+# Fórmula matemática
+# ------------------
+
+ns = http://www.semantictext.info/math.stxt
+
+math($ns):
+	div:
+		divisor:
+			suma:
+				:x
+				:y
+				:z
+				:t
+			pow:
+				base:y
+				expo:10
+		divident:
+	
+	
+	
+	
+Rehacer la historia anterior con tipos de documento -> sgml y encodings como virus malignos,
+documentos dispersos, sin formato -> sgml, IBM (una empresa de cuyo nombre no quiero acordarme). 
+	
+	
+	
+Y le añadimos
+namespaces para ligarlo todo. También idoma. Y expresiones regulares? Vale, también. Y ya está.
+
+
+Atributos de xml -> explicar por que no nos gustan, ya que siempre llevan a confusión, nunca se sabe
+cuando elegir atributo o no; de esta forma le dotamos SIEMPRE de un significado concreto.
+De esta forma todo está realizado igual y simplifica el mantenimiento, el parseo,...
+
+
+Ya lo se, es sólo para editores de xml, pero a mi me gusta leer a mano!
+
+
+
+Similitud y diferencias entre dtd, xsd con gramáticas STXT.
+
+
+
+* Documento de definición (como wsdl pero que se entiende)
+	** RSWS: rest semantic web services
+	** PSWS: pure(buscar otra palabra) semantic web services 
+	** Web services con GET, POST, PUT, DELETE,...
+
+	
+	
+
+
+webservices:
+si fuera con sxml no sería necesario soap, sólo entrada + salida, accesible para todos idiomas, con definición fácil de hacer....
+no es necesario un protocolo para especificar entrada y salida. Una url es un método. 
+
+
+
+
+
+Otros ejemplos: novela, artículo,...
+
+Pueden haber miles de ejemplos, letras de canciones,...
+
+Si una web es muy buena y publica su gramática, otros la pueden usar, así todo el mundo la tiene
+como referencia, y facilita la vida a todos.
+
+
+
+
+	* Fácil de transformar de este a otros formatos
+		stxt -> xml
+		stxt -> latex
+		stxt -> html
+		stxt -> wiki
+	* Fácil de integrar con otros formatos
+
+
+
+
+----
+yaml
+----
+
+	* El objetivo principal es dotar de significado semántico al documento, 
+	  es muy distinto a YAML aunque se parezca en la forma.
+	  Por eso es fundamental los namespaces, ya que dotan de estructura básica + significado
+	* Importar ideas de YAML para tener otros datos (ya se ha hecho)
+
+
+
+
+************
+Validaciones
+************
+
+	* Un documento no es válido si no tienen todos los nodos un namespace. De esta forma es casi obligado crearlo 
+	  para que sea correcto. Ésto permite también hacer las predicciones sobre los elementos y lo que contiene.
+
+
+
+
+
+
+Probablemente los traductores como google aumentarían su capacidad de traducción sabiendo de que trata el texto.
+
+
+Uno de los objetivos de todo esto es llegar a la web semántica de una forma poco traumática, fácil para
+todo el mundo, no sólo para los super-informaticos. Además, la idea es llegar de una forma bonita.
+La idea es que la comunicación sea bonita, inteligible y útil para todos. Si algo es común, y se ve
+en la web, debe ser utilizable de forma estandard por todos. No debería ser necesario un webservice
+cada vez que se quiera compartir algo. Debería estar hecho por defecto. Yo voto por ello! :-)
+Esto podría ser muy útil también para buscadores, ya que podrían encontrar patrones, categorizar texto
+por el significado! La información sería útil de una forma mucho mejor, con significado.
+
+
+w3c con web: Faltan algunas cosas importantes:
+web easy: fácil trabajar para web
+web para todos: también no informáticos
+
+
+Uno de los problemas para que el texto sea semántico es que no hay plantillas ni contenido
+directamente semántico, por lo que es más difícil de tratar o generar. Con stxt se establece un texto
+con contenido púramente semántico, pero con estructura directamente ligada a un contenido estructurado (xml,...).
+
+
+	* Las páginas html pueden tener un .stxt de cortesía, para poder hacer integración total en todo el mundo de todo
+
+	
+	
+	
+	
+Quizá llegue un día en que las páginas puedan ser renderizadas directamente con stxt, ya que se
+podría plantear hacer un css con stxt. Quizá no sería muy difícil. Vemos que stxt puede convertirse
+en //un// lenguaje para la web.
+
+
+
+
+Idioma tiene aplicación en los traductores, ya que así realizan el trabajo mucho más senzillo, 
+pueden usar parseadores de idioma automáticos....
+
+
+
+
+Webservices para todos
+
+
+
+
+Editor universal: www.semantictext.info puede tener un editor js universal, que crea un fichero a partir de la descripción
+	
+	
+	* Editores especiales 
+
+* Adaptar Notepad++ para ver sintaxis, hacer plugins,...
+
+
+
+
+Ésto me gustaría hacerlo con otras cosas de la humanidad:
+
+* Aire para todos (ya está!!!)
+* Agua para todos
+* Comida para todos
+* Energía para todos
+
+
+
+
+-------------
+Web semántica
+-------------
+
+Mi propuesta principal está en el capítulo anterior, pero hay otras cosas más sencillas o distintas que se pueden hacer, aunque mi
+propuesta inicial es mi preferida.
+
+Por ejemplo, se puede hacer que los navegadores enseñen páginas de forma especial cuando reconocen el formato.
+Incluso se puede hacer que los usuarios tengan plantillas especiales para un tipo (como libros, recetas,...)
+de forma que siempre ven un tipo de documento de la misma forma (siempre con la posibilidad de volver a 
+la original de la página). De hecho se puede hacer como una segunda visualización, ya que con los
+metatags de html se diría que la página está disponible en stxt.
+  
+
+  
+  
+  
+El 2 es casi introductorio, es propaganda de lo que queremos hacer. Pero está bien
+saber dónde vamos.
+Los capítulos del bloque aplicaciones pueden leerse en el orden que se quiera.
+Sólo estaría bien que el 10 se leyera después del 9, ya que los 2 van sobre xml, pero el 10 sobre soap (webservices xml).
+  
+  
+
+  
+  
+  
+Ruta rápida: Otra opción es leer el capítulo 3 bien, por encima el 4 (saltándose los **), y el 6 bien. Con esto te haces una idea muy clara de todo.
+
+Definir diferente orden dependiendo de quien eres
+
+- Programador
+- Curioso con stxt
+- Entusiasta de xml
+- Informático 
+- Usuario de stxt
+ 
+  

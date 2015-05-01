@@ -1,0 +1,96 @@
+Namespace Definition(www.semantictext.info/namespace.stxt):
+
+# --------------
+# Nodo principal
+# --------------
+
+Node Definition: 
+	Name: Cliente
+	Type: NODE
+	Child:
+		Node: Datos Personales 
+		Num: 1
+	Child:
+		Node: Datos Bancarios 
+		Num: 1
+
+# -------------
+# Nodos básicos
+# -------------
+
+Node Definition:
+	Name: Datos Personales
+	Type: NODE
+	Child:
+		Node: Nombre
+		Num: 1
+	Child:
+		Node:  Primer apellido
+		Num: 1
+	Child:
+		Node: Segundo apellido
+		Num: ?
+	Child:
+		Node: Edad
+		Num: ?
+	Child:
+		Node: Cliente vip
+		Num: ?
+	Child:
+		Node: Foto
+		Num: * 
+	
+Node Definition:
+	Name: Datos Bancarios
+	Type: NODE
+	Child:
+		Node: Titular cuenta 
+		Num: ?
+	Child:
+		Node: Número cuenta 
+		Num: 1
+
+# --------------
+# Nodos de texto
+# --------------
+
+Node Definition:
+	Name: Nombre
+	Type: TEXT
+	
+Node Definition:
+	Name: Primer apellido
+	Type: TEXT
+	
+Node Definition:
+	Name: Segundo apellido
+	Type: TEXT
+	
+Node Definition:
+	Name: Titular cuenta
+	Type: TEXT
+	
+Node Definition:
+	Name: Número cuenta
+	Type: TEXT
+
+# ---------------
+# Nodos numéricos
+# ---------------
+
+Node Definition:
+	Name: Edad
+	Type: NATURAL
+	
+# ----------
+# Nodos bits
+# ----------
+
+Node Definition:
+	Name: Foto
+	Type: BASE64
+
+Node Definition:
+	Name: Cliente vip
+	Type: BOOLEAN
+	

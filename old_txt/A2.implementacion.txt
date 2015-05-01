@@ -1,0 +1,7 @@
+================================
+A2. Implementación de referencia
+================================
+
+Esta es una primera implementación que he hecho en Java.
+Quizá no sea óptima, pero he intentado introducir todos los elementos
+del lenguaje, y hacerla lo más didáctica posible.

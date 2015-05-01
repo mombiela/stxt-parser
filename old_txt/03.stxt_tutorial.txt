@@ -1,0 +1,483 @@
+=======================
+Semantic text: Tutorial
+=======================
+
+* Un ejemplo... ya!
+* TODO en Namespaces
+* Nodos e identación
+* Texto
+* Comentarios
+* Namespaces, nodos y más nodos
+* Por fin, La gramática
+* De qué no hemos hablado
+* Resumen
+
+Si tubieras que leer sólo un capítulo de este libro, ÉSTE sería el capítulo.
+Te explicamos lo que es stxt directamtente, sin más preámbulos. Y además
+te damos nociones de por dónde continuar leyendo.
+
+-----------------
+Un ejemplo... ya!
+-----------------
+
+Éste es el primer lenguaje que conozco dónde se puede empezar con un ejemplo y TODO el mundo lo llega a entender.
+
+El ejemplo será una receta de cocina. La iremos retocando, para que cada vez se parezca más a un texto stxt, pero no tenéis por qué preocuparos.
+Os prometo que será fácil, poco traumático, y os va a gustar :-D
+Sin más preámbulos... "Buñuelos de Girona"!!
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Buñuelos de Girona
+
+Esta es una receta para hacer buñuelos en la época de Cuaresma. Son conocidos
+también como Buñuelos del Empordà. Normalmente son servidos
+como postre, y hay cantidad suficiente hasta para 12 personas. Es una receta
+fácil de hacer.
+
+1Kg harina
+8 huevos
+la ralladura de 1-2 limones
+150 gramos de azúcar
+100 gramos mantequilla
+1/4 litro de leche
+1 vaso de grassolis (mezcla de moscatel, anís, cointreau)
+75 gramos de levadura (de panadería)
+matalauva (anís)
+una pizca de sal
+un poquito de canela molida
+
+En un recipiente pondremos la harina y el resto de ingredientes.
+La mantequilla se funde con un poco de leche, al igual que la levadura. 
+La leche para deshacer la levadura sólo tiene que estar ligeramente templada,
+ya que de lo contrario perdería seguramente su efecto.
+Se mezcla todo muy bien, y se deja reposar tapado por espacio de 3-5 horas
+(hasta que sube la masa).
+Con una cuchara o cucharadita según se quieran de tamaño, se fríen en abundante
+aceite hasta coger color. Conforme se van sacando se espolvorean con un poco 
+de la mezcla del grassolis, y se pasan por azúcar.
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+De momento és sólo texto, no puede considerarse todavía un stxt válido.
+Pero lo iremos retocando y poco a poco obtendremos un perfecto stxt ;-)
+
+Lo primero, es identificar las partes y pensar en una estructura jerárquica.
+Una estructura posible sería de 5 partes. Todo el documento es una receta (1ª parte),
+y se puede desglosar en 4: Título, Descripción, Ingredientes y Preparación.
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+receta
+------
+------
+
+Título
+------
+Buñuelos de Girona
+
+Descripción
+-----------
+Esta es una receta para hacer buñuelos en la época de Cuaresma. Son conocidos
+también como Buñuelos del Empordà. Normalmente son servidos
+como postre, y hay cantidad suficiente hasta para 12 personas. Es una receta
+fácil de hacer.
+
+Ingredientes
+------------
+1Kg harina
+8 huevos
+la ralladura de 1-2 limones
+150 gramos de azúcar
+100 gramos mantequilla
+1/4 litro de leche
+1 vaso de grassolis (mezcla de moscatel, anís, cointreau)
+75 gramos de levadura (de panadería)
+matalauva (anís)
+una pizca de sal
+un poquito de canela molida
+	
+Preparación
+-----------
+En un recipiente pondremos la harina y el resto de ingredientes.
+La mantequilla se funde con un poco de leche, al igual que la levadura. 
+La leche para deshacer la levadura sólo tiene que estar ligeramente templada,
+ya que de lo contrario perdería seguramente su efecto.
+Se mezcla todo muy bien, y se deja reposar tapado por espacio de 3-5 horas
+(hasta que sube la masa).
+Con una cuchara o cucharadita según se quieran de tamaño, se fríen en abundante
+aceite hasta coger color. Conforme se van sacando se espolvorean con un poco 
+de la mezcla del grassolis, y se pasan por azúcar.
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+Esta estructura es muy natural, y es la base para obtener el documento final STXT.
+
+---------------------------
+//TODO// en Namespaces (ns)
+---------------------------
+
+Vamos a perder el miedo desde //**YA**// a los namespaces 
+(en homenaje a todos los usuarios traumatizados de xml que no los pueden soportar ;-)
+Si sabemos algo de xml y ns lo vamos a olvidar momentáneamente. 
+
+					Ahora prestad atención. 
+
+Un documento STXT consiste en un conjunto de nodos anidados, y **TODOS** los 
+nodos deben pertenecer a algún namespace (no tiene por qué ser el mismo). 
+
+Un namespace (ns) es un documento (stxt!!) dónde se especifica cuáles son 
+los nodos del ns, su forma y qué pueden contener. 
+
+Al contrario de otros lenguajes (como xml) este documento DEBE EXISTIR 
+y debe ser accesible via web. Lo normal es que los programas y parseadores 
+lo guarden localmente, pero es un requisito que el documento físico exista. 
+STXT se ha hecho para el acceso libre de la información y es básico que 
+todo el mundo pueda encontrar las definiciones. 
+
+Vamos a ver como sería el namespace de ejemplo:
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Namespace: www.kocinando.com/receta.stxt
+(accesible via web mediante: http://www.kocinando.com/receta.stxt)
+
+Definimos 5 nodos:
+
+* Receta
+* Título
+* Descripción
+* Ingredientes
+* Preparación
+
+Receta será a su vez de tipo nodo, y contendrá nodos del tipo //Título//, 
+// Descripción//, //Ingredientes// y //Preparación// (todos del mismo namespace).
+//Título//, //Descripción//, //Ingredientes// y //Preparación// serán a su vez nodos de tipo texto.
+
+De forma esquemática se podría representar:
+
+* Receta: Tipo Nodo, y contiene:
+	* Título: Tipo Texto
+	* Descripción: Tipo Texto
+	* Ingredientes: Tipo Texto
+	* Preparación: Tipo Texto
+	
+Aclaración: el documento stxt real no es así, lo veremos más adelante, 
+	pero la información que contendrá será ésta.
+	
+Este documento también tendrá otras restricciones, como que sólo puede
+haber un título, o que la descripción es opcional, pero esto se
+verá más adelante.
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+Y ahora reescribimos la receta con los anteriores nodos y namespaces. 
+Hay que tener en cuenta que sólo es necesario especificar el namespace al principio, 
+los otros namespaces se deducen de la definición del nodo.
+		
+			Aleluya! Por fin un poco de coherencia y facilidad de uso en los ns!
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+receta(www.kocinando.com/receta.stxt):
+
+	Título: Buñuelos de Girona
+	
+	Descripción: Esta es una receta para hacer buñuelos en la época de Cuaresma. Son conocidos
+		también como Buñuelos del Empordà. Normalmente son servidos
+		como postre, y hay cantidad suficiente hasta para 12 personas. Es una receta
+		fácil de hacer.
+	
+	Ingredientes:
+		1Kg harina
+		8 huevos
+		la ralladura de 1-2 limones
+		150 gramos de azúcar
+		100 gramos mantequilla
+		1/4 litro de leche
+		1 vaso de grassolis (mezcla de moscatel, anís, cointreau)
+		75 gramos de levadura (de panadería)
+		matalauva (anís)
+		una pizca de sal
+		un poquito de canela molida
+		
+	Preparación:
+		En un recipiente pondremos la harina y el resto de ingredientes.
+		La mantequilla se funde con un poco de leche, al igual que la levadura. 
+		La leche para deshacer la levadura sólo tiene que estar ligeramente templada,
+		ya que de lo contrario perdería seguramente su efecto.
+		Se mezcla todo muy bien, y se deja reposar tapado por espacio de 3-5 horas
+		(hasta que sube la masa).
+		Con una cuchara o cucharadita según se quieran de tamaño, se fríen en abundante
+		aceite hasta coger color. Conforme se van sacando se espolvorean con un poco 
+		de la mezcla del grassolis, y se pasan por azúcar.
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+Y ya está. Nuestro primer documento STXT! :-) Míralo bien. No es necesario nada más.
+
+Leed este apartado tantas veces como queráis, es imprescindible. Lo es todo.
+Si entendéis ésto, ya está. Sabréis stxt.
+
+Por favor, no continues. Vuelve a leer este apartado al menos otra vez. Después continua. 
+O mejor: descansa, lo vuelves a leer y pasas al próximo apartado :-) 
+
+------------------
+Nodos e identación
+------------------
+
+Antes hemos dicho que un documento stxt es un conjunto de nodos anidados. Pero no hemos dicho
+cúales son las reglas de anidación, ni como se hace. Pero todo es muy intuitivo y visual:
+	
+					Se hace según la identación del nodo. 
+
+Mejor un ejemplo, es más fácil verlo que explicarlo:
+
++++++++++++++++++++++++++++++++
+Nodo 1(x):
+	Nodo 2:
+		Nodo 3: Texto nodo 3
+		Nodo 4: Texto nodo 4
+	Nodo 5:
+		Nodo 6: Texto nodo 6
+		Nodo 7: Texto nodo 7
+++++++++++++++++++++++++++++++++
+
+En este ejemplo tenemos un nodo principal (Nodo 1), que a su vez contiene 2 nodos: //Nodo2// y //Nodo 5//.
+A su vez //Nodo 2// contiene a //Nodo 3// y //Nodo 4//, y //Nodo 5// contiene //Nodo 6// y //Nodo 7//.
+Esta estructura es muy visual, y fácilmente deducible de la identación de cada nodo.
+Con sólo cambiar la identación, cambiamos esta estructura.
+
+Por ejemplo, el siguiente documento es igual, pero con una identación distinta:
+
++++++++++++++++++++++++++++++++
+Nodo 1(...):
+	Nodo 2:
+		Nodo 3: Texto nodo 3
+		Nodo 4: Texto nodo 4
+		Nodo 5:
+			Nodo 6: Texto nodo 6
+	Nodo 7: Texto nodo 7
+++++++++++++++++++++++++++++++++
+ 
+Ahora toda la estructura ha cambiado:
+
+* Nodo 1: Contiene Nodo 2 y 7
+* Nodo 2: Contiene Nodo 3,4 y 5
+* Nodo 5: Contiene Nodo 6
+
+Vemos que la estructura jerárquica ha cambiado completamente.
+
+En nuestra receta de ejemplo, la estructura era:
+
+++++++++++++++++++++++++
+Receta(...):
+	Titulo:
+	Descripción:
+	Ingredientes:
+	Preparación:
+++++++++++++++++++++++++
+
+Teníamos un nodo //Receta// que contenía todos los otros nodos.
+
+Vemos que la identación es la clave, y la identación se obtiene mediante carácteres de tabulación.
+También es posible mediante espacios, per los tabuladores simpre han sido
+el estándard en informática, por lo que es la forma recomendada en stxt (además de ahorrar espacio).
+
+			Regla: Un documento stxt sólo puede tener un nodo principal
+
+Esta regla tiene que cumplirse siempre, lo que permite una simplificación en la estructuración de los 
+documentos. Los nodos de 2º nivel no es necesario que estén alineados.
+
+En nuestro ejemplo anterior, podríamos tener la siguiente estrucura, con el mismo significado:
+
+++++++++++++++++++++++++
+Receta(...):
+Titulo:
+Descripción:
+Ingredientes:
+Preparación:
+++++++++++++++++++++++++
+
+Gracias a la estructura, el primer nodo encontrado es el principal, y todos los demás se consideran sus hijos.
+
+De la misma forma tendríamos que el siguiente texto
+
++++++++++++++++++++++++++++++++
+Nodo 1(x):
+
+Nodo 2:
+	Nodo 3: Texto nodo 3
+	Nodo 4: Texto nodo 4
+Nodo 5:
+	Nodo 6: Texto nodo 6
+	Nodo 7: Texto nodo 7
+++++++++++++++++++++++++++++++++
+
+es equivalente a 
+
++++++++++++++++++++++++++++++++
+Nodo 1(...):
+	Nodo 2:
+		Nodo 3: Texto nodo 3
+		Nodo 4: Texto nodo 4
+	Nodo 5:
+		Nodo 6: Texto nodo 6
+		Nodo 7: Texto nodo 7
+++++++++++++++++++++++++++++++++
+
+------------
+Nodo y Texto
+------------
+
+Los tipos de nodo más habituales en los documentos stxt son NODO y TEXTO.
+El tipo nodo es un contenedor para otros nodos, mientras que el tipo
+texto permite la inserción de un texto, sin restricciones.
+
+		La alineación es lo único que importa
+		
+Esta es la regla básica para todos los nodos. Anteriormente hemos visto
+cómo la alineación cambiaba la jerarquía de nodos. En los nodos
+texto la alineación permite incluir cualquier tipo de contenido 
+//SIN TENER NECESIDAD DE UTILIZAR CARACTERES DE ESCAPE//. La única restricción
+es que debe estar alinado un nivel más que el nodo texto.
+
+Un ejemplo, por favor:
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Nodo(...):
+	Nodo Texto: Aquí empieza el contenido del nodo texto. 
+		Todas las líneas tienen que estar con una alieación superior a "Nodo Texto:"
+		Vemos que no es necesario carácteres de escape.
+		Por la alineación sabemos que forma parte de "Nodo Texto".
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+Ahora más diversión... y si introducimos xml en el texto? Veremos que
+no hay problema alguno. Podemos insertar contenido texto sin tener que escapar
+ningún carácter. ¡¡Por Fin!!!
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Nodo(...):
+	Nodo Texto: Vamos a poner un ejemplo de xml; 
+		de como se hacían las cosas antes de stxt:
+		<nodo>
+			<nodo1>Esto es un ejemplo</nodo1>
+			<nodo2>Esto es un ejemplo de escape: &lt; </nodo2>
+		</nodo>
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+-----------
+Comentarios
+-----------
+
+Todos los informáticos saben que son los comentarios en cualquier lenguaje.
+Por si hay algún neófito explicaré que los comentarios son texto que sólo está ahí para comentar
+o añadir alguna observación, pero no influyen en el documento en sí.
+
+		En stxt son comentarios todas las líneas que empiezan por el carácter #
+
+Volvemos a nuestro ejemplo. Imaginemos que queremos añadir información a nuestra receta, pero
+esta información es sólo a título de curiosidad, o incluso para aumentar la legibilidad del documento.
+Pues esta información la añadiríamos como un comentario.
+
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+# -----------------------------------------------------
+# Autor = Joan Costa Mombiela
+# Fecha creación = 05-04-2013
+# Esta receta es originaria del Empordà. Nos fue dada
+# a través de unos familiares muy queridos.
+# En agradecimiento, la hemos publicado como la 1ª
+# receta de este libro.
+# -----------------------------------------------------
+
+receta(www.kocinando.com/receta.stxt):
+
+	Título: Buñuelos de Girona
+	
+	Descripción: Esta es una receta para hacer buñuelos en la época de Cuaresma. Son conocidos
+		...
+	
+	Ingredientes:
+		1Kg harina
+		...
+		
+	Preparación:
+		En un recipiente pondremos la harina y el resto de ingredientes.
+		...
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+Los comentarios no tienen que tener ningún tipo de formato, es texto libre que el autor del documento
+puede incluir. Además, no tiene que estar situado en ningún sitio concreto del documento.
+Cualquier línea que empieze por # será tratada como comentario, y no será tenida en cuenta ni 
+en programas ni en comunicaciones.
+
+
+---------------------
+Por fin, La gramática
+--------------------- 
+ 
+Y aquí está la gramática. O la definición de tipos del namespace.
+En el próximo capítulo la veremos en más profundidad, pero es bastante explicativa por
+sí misma (como todos los documentos stxt ;-)
+    
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Namespace Definition(www.semantictext.info/namespace.stxt):
+	Type Name:
+		Name:Receta
+		Type:node
+		Child:
+			Type:título
+			Num:1
+		Child:
+			Type:Descripción
+			Num:?
+		Child:
+			Type:Ingredientes
+			Num:1
+		Child:
+			Type:Preparación
+			Num:1
+	Type Name:
+		Name:Título
+		Type:text
+	Type Name:
+		Name:Descripción
+		Type:text
+	Type Name:
+		Name:Ingredientes
+		Type:text
+	Type Name:
+		Name:Preparación
+		Type:text
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    
+La información que contiene es la que ya habíamos visto anteriormente:
+
+* Hay 4 nodos de texto: Título, Descripción, Ingredientes, Preparación
+* Hay un nodo contenedor de otros: Receta. Este a su vez debe contener 
+  a los demás, de la siguiente forma:
+  	* Ha de haber **un** nodo Título
+  	* Puede haber una Descripción
+  	* Ha de haber **un** nodo Ingredientes
+  	* Ha de haber **un** nodo Preparación
+  
+A título de información, hay 10 tipos de nodo, aunque el de nodo y texto 
+son los más habituales:
+
+	NODE, TEXT, NATURAL, INTEGER, RATIONAL, NUMBER, BINARY, HEXADECIMAL, BASE64, BOOLEAN
+	
+Por lo que hace a //Num// tenemos las siguientes posibilidades:
+
+	número, ?, +, *: Todos ellos son muy intuitivos para quien está acostumbrado 
+	a trabajar con expresiones regulares.  
+    
+-------
+Resumen
+-------
+
+* Un documento stxt es un conjunto de nodos jerárquicos
+* La estructura de cualquier nodo está definida en un namespace correspondiente
+* La jerarquía de nodos se puede ver de forma visual, y se consigue con la identación (mediante tabuladores).
+* Un documento stxt sólo puede tener un nodo principal, lo que permite alinear a sus hijos
+  sin necesidad de identarlos
+* No es necesario especificar los namespaces de los nodos, sólo del nodo principal. 
+  Los demàs serán deducidos de forma automática.
+* Un documento puede tener nodos de diferentes namespaces
+* Un documento tiene que cumplir su gramática correspondiente
+  
+
+

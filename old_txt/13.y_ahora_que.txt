@@ -1,0 +1,97 @@
+==============
+¿Y ahora qué?
+==============
+
+* Por dónde empezar
+* Cosas que quedan por hacer
+	* Editores con contenido asistido
+	* Conversores de stxt a cualquier otro formato
+	* Refactor de lenguajes
+	* Librerías
+	* Web semántica
+
+
+*****************
+Por dónde empezar
+*****************
+
+Esto no es un libro. Es casi una propuesta. Un inicio de trabajo futuro.
+Me gustaría que a partir de aquí naciera un nuevo movimiento. Hace mucho que hacemos las
+cosas de la misma forma y me gustaría romper con ello. Pero de una forma bella. Bonita.
+Al alcance de todos. Que ésta sea mi aportación.
+Quizá esto pueda parecer un poco pretencioso, pero me gusta tanto la idea que no lo puedo evitar. Perdonad mi osadía.
+
+
+Con este libro he intentado explicar como entiendo yo stxt, y qué es lo que pretendía
+al crear este lenguaje. Realmente lo he creado yo? Supongo que el lenguaje ya estaba ahí,
+y lo único que he tenido que hacer era sacarlo a la luz. Me gustaría pensar que como lo hace un escultor.
+
+
+**************************
+Cosas que quedan por hacer
+**************************
+
+Queda mucho por hacer, si realmente se quiere adoptar esta tecnología.
+Voy a dar ideas, aunque seguro que las aplicaciones más interesantes ni siquiera las puedo imaginar ahora
+mismo. Esto es lo bonito, lanzas una idea y ya no te pertenece, crece y madura sola, y sólo puedes ver adonde va :-)
+
+En próximas ediciones espero poder "tachar" algunas de estas cosas, y añadir nuevas que ahora son impensables.
+
+* Aire para todos (ya está!!!)
+* Agua para todos
+* Comida para todos
+* Energía para todos
+* Trabajo digno para todos
+* Dinero para todos (Bien, me gustaría que fuera otra forma de dinero, más justo, no especulativo, y //distinto// al que conocemos. Otra vez, por favor,
+	pensad en algo mejor que lo que tenemos ahora. Seguro que hay alternativas. Sólo hay que encontrarlas. Pero para ello hay que buscar.)
+* .....
+* En definitiva, humanidad para todos
+
+Bueno, ahora que ya he mostrado //lo que de verdad queda por hacer//, volvamos a STXT.
+Los siguientes apartados tratan de eso.
+
+-------------------------------
+Editores con contenido asistido
+-------------------------------
+
+Tenemos muchos editores de texto, para muchos lenguajes distintos. Que os parecería editores para STXT?
+Nuestro editor favorito, pero ahora recogiendo semánticas de la web y creando cualquier tipo de contenido
+estructurado. De forma fácil y rápida. Para todos. Ahora las reglas del contenido aparecen solas. El
+contenido es fácil y rápido de crear. Por todos.
+
+---------
+Librerías
+---------
+  
+Parseadores de STXT en cualquier lenguaje. Aquí hay mucho trabajo por hacer. Parseadores del lenguaje, rápidos y 
+eficientes. Es como portar lo que tenemos en XML a STXT. Y hay mucho.
+
+--------------------------------------------
+Conversores de stxt a cualquier otro formato
+--------------------------------------------
+
+STXT es un formato abierto muy fácil de usar, pero y si queremos otro tipo de documento?
+Por ejemplo para impresión? Podemos imaginar todas las conversiones posibles entre diferentes
+formatos, dónde STXT puede intervenir y facilitar la transición. Como formato inicial,
+intermedio o final. 
+
+---------------------
+Refactor de lenguajes
+---------------------
+
+Seguro que tenemos lenguajes que no nos gustan, o creemos que pueden ser más sencillos.
+Se puede pasar directamente a STXT o hacer puentes (esto también está bien, (por ejemplo latex), 
+ya que nos permite mantener tecnologías probadas, pero con un enfoque nuevo más práctico).
+
+Esto se puede hacer en un montón de sitios, documentos XML, RSS's, ficheros de texto especiales, configuración
+de programas, hay miles de sitios dónde se podría sustituir un lenguaje o ficheros por STXT.
+
+-------------
+Web semántica
+-------------
+
+Aquí hay tanto trabajo por hacer que sólo os diré que volváis a mirar el capítulo anterior, os
+autohipnotizeis, y... adelante!! Quién sabe lo que puede surgir! :-D 
+
+
+

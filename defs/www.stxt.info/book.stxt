@@ -1,0 +1,98 @@
+# --------------------
+# Definición de página
+# --------------------
+
+Namespace Definition(www.semantictext.info/namespace.stxt):
+
+# ---------
+# Principal
+# ---------
+	
+Node definition:
+	Name:book
+	Type:node
+	Child:
+		Node: title
+		Num: 1
+	Child:
+		Node: preamble
+		Num: ?
+	Child:
+		Node:chapter
+		Num:+
+Node definition:
+	Name:chapter
+	Type:node
+	Child:
+		Node:preamble
+		Num:?
+	Child:
+		Node:title
+		Num:?
+	Child:
+		Node:navigation
+		Num:?
+	Child:
+		Node:header
+		Num: *
+	Child:
+		Node:subheader
+		Num: *
+	Child:
+		Node:text
+		Num:*
+	Child:
+		Node:code
+		Num:*
+	Child:
+		Node:assert
+		Num:*
+	Child:
+		Node:alert
+		Num: *
+Node definition:
+	Name:title
+	Type:text
+Node definition:
+	Name:preamble
+	Alias: phrase
+	Alias: intro
+	Type:text
+Node definition:
+	Name:header
+	Type:text
+	Alias:h1
+Node definition:
+	Name:subheader
+	Type:text
+	Alias:h2
+Node definition:
+	Name:text
+	Type:text
+Node definition:
+	Name:code
+	Type:text
+Node definition:
+	Name:assert
+	Type:text
+Node definition:
+	Name:alert
+	Type:text
+Node definition:
+	Name:navigation
+	Alias: nav
+	Type:node
+	Child:
+		Node:previous
+		Num:?
+	Child:
+		Node:next
+		Num:?
+Node definition:
+	Name:previous
+	Alias:prev
+	Type:text
+Node definition:
+	Name:next
+	Type:text
+	

@@ -1,0 +1,167 @@
+=============================
+(**) Parsing "al descubierto"
+=============================
+
+* Introducción
+* Proceso genérico
+	* Parseo por líneas
+	* Procesado de línea
+	* Validaciones
+* Los nodos del lenguaje
+* Gramáticas
+	* Almacenaje
+	* Gramática inicial
+* Detalles a tener en cuenta
+
+************
+Introducción
+************
+
+Parsear un fichero STXT es mucho más fácil que ficheros de otras tecnologías (xml). Puede parecer
+paradójico, ya que realmente es un lenguaje muy potente, pero a la vez basado en principios
+muy simples.
+
+Yo os explicaré //MI// forma de parsear un fichero. Es posible que no sea la mejor,
+ni la más óptima, pero es una forma de hacerlo. De hecho, si queréis ver la implementación
+que he hecho está disponible en Internet wwww........ Esta implementación se ha 
+hecho en lenguaje Java, ya que es el que yo mejor conozco.
+
+Espero que STXT tenga éxito, y que muy pronto aparezcan otras implementaciones.
+
+No voy a entrar en //todos// los detalles, pero si que me gustaría explicar algunos
+puntos que son los más "quisquillosos".
+
+****************
+Proceso genérico
+****************
+
+-----------------
+Parseo por líneas
+-----------------
+
+El proceso de parseo puede hacerse línea a línea, por lo que podemos decir que de forma general tenemos:
+
++++++++++++++++++++++++++++
+mientras no fin de fichero
+	leer linea
+	procesar linea
+fin mientras
+++++++++++++++++++++++++++++
+
+Durante el proceso es adecuado tener un listado de los últimos nodos que hemos ido encontrando
+según el nivel, ya que de esto depende el procesado correcto.
+
+------------------
+Procesado de línea
+------------------
+
+El primer paso en el procesado de la línea es la //normalización// de la línea.
+Una línea está normalizada cuando está en forma compacta, por lo que hay que 
+comprobar si está en forma compacta, y si no lo está transformarla. En la normalización
+también se eliminarían las líneas de comentarios.
+
+Nota: Hay que tener en cuenta en la normalización que si el nodo anterior era de texto,
+al superar cierto nivel será parte de ese mismo nodo (será texto a continuación).
+
+Una vez hemos compactada la línea, el procesado sigue independientemente,
+y ya sólo falta obtener el nivel de la nueva lína y distinguir entre unos pocos casos:
+
+- Estamos en el primer nodo?
+- La línea es texto de un nodo de texto anterior?
+- Empieza un nuevo nodo?
+
+En cada uno de los casos se trata de actualizar el estado de nuestras variables,
+y proseguir con el proceso.
+
+Nota: Lo más importante aquí es ver que es un proceso que se puede hacer línea a línea,
+y las decisiones a tomar son relativamente sencillas. Esto nos permite tener un parser
+muy eficiente, que a su vez puede actuar de validador de la gramática y los nodos. 
+
+------------
+Validaciones
+------------
+
+Las validaciones se hacen en varios puntos del parseo:
+
+- Al crear un nodo nuevo: Al crear un nodo nuevo se valida se puede deducir su namespace,
+   	en caso contrario significa que no se podía crear en esa posición y sería incorrecto.
+- Al finalizar un nodo: Cuando damos por cerrado un nodo se validan que sus nodos hijos
+	sean correctos (haya las cantidades adecuadas si es tipo nodo), o bien si es de 
+	otro tipo que tenga el contenido adecuado (integer, real, etc.)
+	
+¿Cuando damos por finalizado un nodo? Este punto es interesante, ya que hay dos circunstancias
+que hacen que un nodo se de por finalizado. Una de ellas es cuando aparece otro nodo
+con un nivel igual o inferior a este nodo. La otra es cuando se ha procesado todo el fichero
+y ya no quedan nodos a validar. En estos puntos el nodo se da por finalizado y pueden empezar
+las validaciones.
+
+**********************
+Los nodos del lenguaje
+**********************
+
+En la descripción del lenguaje habíamos dicho que los tipos de datos no tienen limitación,
+ni están ligados a un lenguaje, por lo que las validaciones sólo deberían ser comprovadas
+mediante expresiones regulares o métodos que aseguren este hecho.
+
+Tenemos los siguientes tipos de nodos:
+
+ 	* NODE
+ 	* TEXT
+ 	* NATURAL
+ 	* INTEGER
+ 	* RATIONAL
+ 	* NUMBER
+ 	* BINARY
+ 	* HEXADECIMAL
+ 	* BASE64
+ 	* BOOLEAN
+ 	
+ Por ejemplo, las expresiones regulares que he usado para validar nodos son:
+ 
+    * BINARY       = ^[01\ ]+$
+    * BOOLEAN      = ^0|1$
+    * HEXADECIMAL  = ^[a-f0-9\ ]+$
+    * INTEGER      = ^(\-|\+)?\d+$
+    * NATURAL      = ^\d+$
+    * NUMBER       = ^(\-|\+)?\d+\.\d+(e(\-|\+)?\d+)?$
+    * RATIONAL     = ^(\-|\+)?\d+\/\d+$
+ 	
+**********
+Gramáticas
+**********
+
+----------
+Almacenaje
+----------
+
+Las gramáticas se obtienen de Internet, pero no es práctico ni eficiente tener que ir a buscar siempre
+las definiciones por Internet. Lo mejor es tener una especie de repositorio de gramáticas, en disco,
+e ir a buscarlas siempre allí. En caso de no encontrarse se buscaría en Internet, y se actualizaría
+ese repositorio. También es posible establecer tiempos de comprovación o otras estratégias,
+pero la idea es que las gramáticas no cambien en el tiempo, o que al menos sean compatibles de
+forma retroactiva, por lo que consideramos la estrategia más eficiente.
+
+-----------------
+Gramática inicial
+-----------------
+
+Hay que tener en cuenta que no es posible hacer un parser sin tener la gramática previamente.
+Para parsear una gramática hay que tener la definición de la gramática base, la cual también
+habría que parsear. Es por ésto que normalmente habrá una definición inicial de esa gramática
+base ya parseada, que serviría como definición base. 
+
+
+**************************
+Detalles a tener en cuenta
+**************************
+
+Hay algunos detalles que hay que tener en cuenta en el parseo:
+
+- Case-insensitive: Todos los nodos son considerados CASE-INSENSITIVE, por lo que hay que hacer
+   	las transformaciones adecuadas en el proceso de parseo 
+   	
+- Base64: Con el texto BASE64 hay que permitir saltos de línea, y hacer un parseo estándar del 
+	contenido así obtenido.
+
+
+

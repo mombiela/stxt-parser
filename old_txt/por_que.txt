@@ -1,0 +1,185 @@
+=========
+¿Por qué?
+=========
+
+Ésta es //La// gran pregunta (*). Yo sólo responderé al porqué de este libro.
+La respuesta total me llevaría demasiado tiempo ;-D
+ 
+(*) tal como dijo Emet Brown (Regreso al Futuro, Parte I)
+
+
+
+Cuantas páginas tiene este libro? Espero no haber pasado de las 200. Creo que para que algo sea útil debe ser
+fácil y breve. 
+
+
+*	Motivación personal
+*	Por qué este libro,....
+*	Reflexiones internas, toma de decisiones,...
+*	Hacer algo bonito de la informática, de los documentos, de la comunicación. (damos estética y significado al mismo tiempo, algo muy de humanos).
+*	Cansancio: de lenguajes distintos, todos sintácticos, de complejidad, de ver <> (una cosa horrible, sin significado). De hecho de lenguajes de marcas.
+*	Búqueda de algo semántico y real
+*	Económica: Yo no vivo del aire. Por que no pagas por el libro?
+
+
+No leáis este capítulo. Dejadlo para el final. Cuando no sepáis que hacer, o no tengáis nada mejor a mano. Sólo son chismorreos. 
+Bueno, si sois curiosos sí que lo podéis leer. Explico cosas que no tienen nada que ver con stxt, 
+sólo son anécdotas de por qué he hecho las cosas de este modo. Manías, compañeros de trabajo, experiencias... todo ha influido.
+Pero para leer esto tenéis que conocer stxt, ya que sinó tampoco vais a encontrar nada interesante. Y sólo tiene gracia
+si os gusta este lenguaje. He estado tentado de poner este capítulo como un apéndice, y así seguro que no lo leéis. Pero éste era
+el sitio más adecuado. Pero que hacéis! No sigáis leyendo! Estáis avisados.
+
+--------
+Por qué?
+--------
+
+Por qué lo hago? Otro motivo es porque estoy cansado de los 1000 formatos distintos para todo,
+parseadores nuevos, implementaciones,... No exagero. De hecho me quedo corto. Muy corto.
+Con esto me gustaría que todo
+
+--------------
+¿Libro a peso?
+--------------
+
+No voy a escribir este libro a peso. Cuando haya explicado todo lo que tenga que explicar el libro terminará.
+A veces parece que un libro es mejor cuantas más páginas tenga. Ésto es absurdo. Si no hay más contenido a
+explicar no hace falta decir nada más. Podría extenderme más sobre este tema, pero creo que ya lo entendéis.
+Y si continuo voy a terminar contradiciéndome a mí mismo :-D
+
+
+******************
+Toma de decisiones
+******************
+ 
+En la creación de un lenguaje siempre hay cosas que se hacen de forma arbitraria. Éste es un lenguaje
+muy simple, pero igulamente hay una serie de decisiones que he tenido que tomar. Algunas son dudosas,
+otras obvias, y algunas controvertidas. Me gustaría explicarlas.
+
+--------------------
+Tabulador = 4 spaces
+--------------------
+
+Ésta fue una decisión difícil de tomar, pero luego me pareció satisfactorio.
+ 
+		¿Cuántos espacios equivalen a un tabulador?
+		
+Bueno, para elegir esto tenía varias alternativas. Primero busqué en google si había algún estandard.
+No lo encontré, pero más o menos todos estaban de acuerdo en que era un número par. Se hablaba de 4,8,...
+pero todo era un poco subjetivo. Después miré los programas que yo usaba e hice la prueba. Hice una votación....
+y ganó 4! No me parace un mal número para esto. No es muy grande, y queda el texto bastante bien alieneado.
+También 2^2, o 2*2, o 100 en binario. No me parece un mal número para temas informáticos. Y eso que a mi
+me gustan los números impares :-)
+
+
+
+Yo soy un buen programador. También me considero un informático mediocre. Y un científico pésimo.
+Lo digo porque creo que soy la persona perfecta para proponer todo esto. Hay que crear algo accesible
+a todos, fácil de usar y de entender. Lo voy a intentar.
+
+
+
+	* Realizé esto durante la recuperación de una operación, frustrado por latex/tex, desmotivado por mathml, 
+	  y buscando una solución a todo.
+
+	  
+------------------------------------------
+(**) Metadata no se extiende varias líneas
+------------------------------------------
+
+La primera versión que hice permitía que el metadata se extendiera varias líneas.
+Despúes de crear el parseador me di cuenta de que contenía errores, y debería 
+modificarse para permitirlo. Lo modifiqué, y funcionó correctamente. 
+Pero después me planteé las ventajas de tener un metadata que se extendiera varias líneas... y no las encontré.
+Sólo por culpa de mis anterirores convenciones con java me había llevado a permitirlo (similitud con las 
+famosas "properties" de Java), y eso había roto mi pureza en el planteamiento. Después pensé en
+eliminar completamente los metadata, pero creí que con un planteamiento "simple" era aceptable.
+Y así ha quedado. De momento.
+De hecho, una de las recomendaciones es usar sólo el metadata para nombrar namespaces o partes
+muy repetitivas de texto, que se quiera tener localizado, pero no para creaciones complejas, que harían
+que toda la sencillez del lenguaje fuera eliminada. De hecho todavía a día de hoy me estoy planteando
+si realmente son necesarios los metadata.
+Otro de los motivos por los que los incluí era por la similitud de declaración de namespaces de xml. Quería
+hacer algo más intuitivo, y al mismo tiempo más útil en otras partes del documento.
+Creo que ha quedado bastante bien. Pero hay algo que no me gusta todavía... Seguimos pudiendo hacer cosas raras.
+Un ejemplo que podría ser válido:
+
+
+xx=		Un nodo: Un valor de nodo
+
+Quizá en un lugar así estaría correcto:
+
+Nodo1:
+	Nodo2:
+${xx}
+
+Pero no sería correcto si lo hacemos así
+
+Nodo1:
+	Nodo2:
+	${xx}
+
+Esto es un poco raro, y poco intuitivo, y poco legible... contradice todo lo que buscamos.
+Por lo que los metadata, sólo se podrán usar dentro de la definición del namespace de un nodo,
+preferentemente en el primero, o como valor de un nodo de texto, numérico,...
+
+Ejemplo:
+
+ns=www.xxx.com/demo.stxt
+version=1.0.0
+activacion=1
+
+Nodo1(${ns}):
+	Nodo2:
+		Nodo2: La versión de este documento es ${version}
+		Nodo2: ${activacion}
+
+Ahora tengo que volver a modificar el parseador, por suerte sólo para simplificar cosas ;-)
+
+----> Rehacer los párrafos anteriores dotando un poco de coherencia al planteamiento, para ir avanzando de forma lógica.
+
+
+
+--------------------------------------------------------
+(***) Hacer una especie de metadata de nodos repetitivos
+--------------------------------------------------------
+
+Esto también fué descartado, pero me gustaría explicar por qué, y cual era el planteamiento inicial.
+
+
+
+
+------------------------
+Primer ejemplo de receta
+------------------------
+
+De donde sale la primera receta del primer ejemplo? Es un pastel típico, donde se reaprovecha pan
+duro. La receta me la pasó mi hermana, y es uno de los que más me gustan. Éste va a ser también un libro didáctico,
+dónde además de programar... aprenderemos a kocinar!! De hecho tengo pendiente realizar una web de 
+cocina, pero no he tenido tiempo... Estaba haciendo stxt!! La web se llama www.kocinando.com, y pretendo
+tener las recetas en stxt, además de una visualización correcta. Perdonad, pero seguro que 
+a día de hoy todavía no está funcionando...
+
+Por qué recetas? Bien, la mayoría de libros de informática tienen ejemplos inútiles (poco útiles, perdón), y a 
+mi me gustaría que con cada capítulo se aprendiera algo nuevo e interesante. Qué mejor que una buena receta de cocina.
+Eso también es un incentivo a leer, no? :-D
+
+
+
+
+
+
+
+
+
+
+Por qué no patentarlo? Pues no parece razonable. Oiga, quiero patentar los tabuladores, los ':' y UTF-8.
+Ah! Y que soy el primero en identar para implicar pertenencia! Por si no lo habéis notado. Estaba
+hablando con el modo "IRONIC ON". Espero que a nadie se le ocurra hacer esto...
+
+
+
+
+Por qué no hacer sólo una web o presentar la tecnología? Bien, tenía muchas cosas que explicar,
+quería hacerlo bien, y una web se me quedaba corta... Aún así, la web existe, y hay recursos,
+pero básicamente es una portada para el libro, que a su vez es manual, tutorial y referencia.
+

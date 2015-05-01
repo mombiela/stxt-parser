@@ -1,0 +1,23 @@
+0:RECETA(www.kocinando.com/receta.stxt):
+1:Ingredientes:
+2:ings:
+3:cantidad:10
+3:unidades:g
+3:nombre:tomate
+2:ings:
+3:cantidad:1
+3:unidades:u
+3:nombre:pera
+2:ings:
+3:cantidad:200
+3:unidades:dl
+3:nombre:leche
+1:Pasos:
+2:paso:Hola Paso2
+2:paso:fsfas
+2:paso:fsdfasas
+2:paso:fsfasfa
+2:observacion: Hay que vigilar este paso, ya que 
+3:no se puede garantizar su buen funcionamiento.
+3:En caso de error consultar realizar una llamada 
+3:al servicio único

@@ -1,0 +1,39 @@
+=============================
+STXT: Un lenguaje para la web
+=============================
+
+------------
+Introducción
+------------
+
+1.  ¿Como leer este libro?
+2.  ¿Qué es STXT?
+	
+------------------------
+Aprendizaje del lenguaje
+------------------------
+
+3.  STXT: Tutorial
+4.  STXT: Creación y uso de gramáticas
+5.  STXT: Compactación
+6.  STXT: Tutorial Avanzado
+7.  STXT: I18N. Equivalencias.
+
+------------
+Aplicaciones
+------------
+8.  Ejemplos y otras tecnologías
+9.  XML
+10. Web Services
+11. Parsing "al descubierto"
+12. Web semántica
+13. ¿Y ahora que?
+
+------
+Anexos
+------
+
+A1. Definiciones básicas
+A2. Implementación de referencia
+A3. STXT en 5 páginas
+	

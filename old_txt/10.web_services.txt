@@ -1,0 +1,144 @@
+============
+Web Services
+============
+
+* Advertencia
+* SOAP en la teoría
+* SOAP en la práctica
+* REST
+* STXT: Un nuevo enfoque
+
+***********
+Advertencia
+***********
+
+Igual que el capítulo anterior. Los fans de Webservices y SOAP me tendrán que
+perdonar y disculpar. Mejor que no lean nada de lo que tengo que decir.
+Nuevamente esto es sólo mi opinión. Pero también es //mi// libro. Y esto es lo que tengo
+que decir.
+
+*****************
+SOAP en la teoría
+*****************
+
+SOAP es fantástico. Es un lenguaje para realizar servicios web. Está basado en xml,
+y eso hace que sea estándard y multiplataforma. También en tecnologías provadas,
+tales como XSD's. Si hubiera complejidad no habría problema. Se crearán herramientas, 
+y estas siempre funcionarán bien, y lo que podría parecer complejo se realizará 
+de forma automática, con unos pocos "click's" de ratón. Los sistemas se entenderán
+entre ellos, y romperemos las fronteras de los lenguajes.
+
+En la teoría, la teoría y la práctica son iguales. En la práctica esto no es verdad. (*)
+
+(*) No recuerdo quien lo dijo, pero me gustó.
+
+*******************
+SOAP en la práctica
+*******************
+
+Pero la práctica no siempre nos da la razón. Hay cosas que escapan al control.
+
+Una vez más la complejidad se hace patente en toda su inmensidad.
+
+Hay demasiadas variables, demasiadas interpretaciones. Demasiadas partes
+implicadas. Librerías que pasan código nativo a XML. Se parsean de forma
+automática. Nadie puede leer de forma decente un mensaje. Los errores
+se transforman en tragedias. La librería falla? El protocolo es distinto?
+Será que .NET tiene incompatibilidad con versión x de Apache Axis2?
+O el parseo del wsdl no fue correcto? Pero qué pone en el wsdl? No
+lo entiendo? Lo que debería ser la gran solución se va transformando
+en el gran problema. Una buena idea mal puesta en práctica.
+
+Lo siento, pero es así.
+
+****
+REST
+****
+
+La aparición de los servicios REST son una respuesta clara a los problemas de soap.
+Todo está tendiendo hacia allí. Y no me extraña. Yo también lo haría.
+Los grandes están en el camino. Los móviles se hablan de esa forma.
+Pero todavía les falta algo. Ya hay iniciativas, pero no hay un camino fácil. Les
+falta un poco de estructura, saber como son los servicios, y de una forma fácil.
+Bien, la solución ha llegado. Se llama STXT. 
+
+**********************
+STXT: Un nuevo enfoque
+**********************
+
+Ahora tenemos una nueva herramienta. Se llama STXT.
+Como definiría un webservice?
+
+Si hiciera un símil de un WSDL, me gustaría que un conjunto de servicios
+se definieran de la siguiente forma:
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++
+Webservices(...):
+	Service:
+		url: http://xxxx/fsfs
+		entrada: Nodo1(www.example.com/nodo.stxt)
+		salida: Nodo2(www.example.com/nodo.stxt)
+	Service:
+		url: http://xxxx/fsfs
+		entrada: Nodo3(www.example.com/nodo.stxt)
+		salida: OtroZ(www.demo.com/demo.stxt)
+	Service:
+		url: http://xxxx/fsfs
+		entrada: Nodo3(www.example.com/nodo.stxt)
+		salida: OtroX(www.demo.com/demo.stxt)
+++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+o quizá de la siguiente forma:
+
+++++++++++++++++++++++++++++++++++++++++++++++++
+Webservice(...):
+	url: http://xxxx/fsfs
+	Service:
+		method: xxx
+		entrada: Nodo1(www.example.com/nodo.stxt)
+		salida: Nodo2(www.example.com/nodo.stxt)
+	Service:
+		method: yyy
+		entrada: Nodo3(www.example.com/nodo.stxt)
+		salida: OtroZ(www.demo.com/demo.stxt)
+	Service:
+		method: zzz
+		entrada: Nodo3(www.example.com/nodo.stxt)
+		salida: OtroX(www.demo.com/demo.stxt)
++++++++++++++++++++++++++++++++++++++++++++++++++
+
+En este punto no me gustaría decir nada más. No me atrevo, pero supongo
+que ya habéis captado la idea: simplificar. Todo es más sencillo
+cuando entra en juego STXT. Todo está más claro. Y definido.
+
+
+			Teníamos SOAP, REST, y ahora...... SWS: Semantic web services!!!
+	
+Bien, ya que es un servicio http(s) también podríamos hacer algo híbrido con ;-)
+
+++++++++++++++++++++++++++++++++++++++++++++++++
+Webservices(...):
+	Service:
+		url: http://www.xxx.com/yyy
+		params:
+			param: 
+				name: p1
+				descrip: Descripción de param1
+			param: 
+				name: p2
+				descrip: Descripción de param2
+			param: 
+				name: p2
+				descrip: Descripción de param3
+		salida: Nodo2(www.example.com/nodo.stxt)
+	Service:
+		url: http://www.xxx.com/ttt
+		salida: OtroZ(www.demo.com/demo.stxt)
+	Service:
+		url: http://www.xxx.com/zzz
+		salida: OtroX(www.demo.com/demo.stxt)
++++++++++++++++++++++++++++++++++++++++++++++++++
+
+Hay muchas posibilidades, me gustan todas con STXT ;-)
+
+
