@@ -8,85 +8,85 @@ Namespace Definition(www.semantictext.info/namespace.stxt):
 # Principal
 # ---------
 	
-	Node Definition:
-		Name:receta
-		Type:node
-		Description: 
-			Una receta son las instrucciones, materiales, etc. 
-			para preparar una receta de cocina.
-			
-			La receta también puede incorporar materiales adicionales:
+Node Definition:
+	Name:receta
+	Type:node
+	Description: 
+		Una receta son las instrucciones, materiales, etc. 
+		para preparar una receta de cocina.
+		
+		La receta también puede incorporar materiales adicionales:
 
-				* Calorías
-				* Dificultad
-                * ...
-                
-		Child:
-			Node:pasos
-			Num:1
-		Child:
-			Node:ingredientes
-			Num:1
-		Child:
-			Node:definicion
-			Num:?
-		Child:
-			Node:dificultad
-			Num:?
-		Child:
-			Node:comensales
-			Num:?
-	Node Definition:
-		Name:pasos
-		Type:node
-		Child:
-			Node: paso
-			Num: +
-		Child:
-			Node: observacion
-			Num: *
-	Node Definition:
-		Name:ingredientes
-		Type:node
-		Child:
-			Node:ings
-			Num:+
-	Node Definition:
-		Name:paso
-		Type:text
-	Node Definition:
-		Name:observacion
-		Type:text
-	Node Definition:
-		Name:definicion
-		Type:text
-	Node Definition:
-		Name:dificultad
-		Type:integer
-	Node Definition:
-		Name:comensales
-		Type:integer
-	Node Definition:
-		Name:ingrediente
-		Alias:ingrdt
-		Alias:ings
-		Type:node
-		Child:
-			Node:cantidad
-			Num:1
-		Child:
-			Node:unidades
-			Num:1
-		Child:
-			Node:nombre
-			Num:1
-	Node Definition:
-		Name:cantidad
-		Type:integer
-	Node Definition:
-		Name:unidades
-		Type:text
-	Node Definition:
-		Name:nombre
-		Type:text
+			* Calorías
+			* Dificultad
+            * ...
+            
+	Child:
+		Node:pasos
+		Num:1
+	Child:
+		Node:ingredientes
+		Num:1
+	Child:
+		Node:definicion
+		Num:?
+	Child:
+		Node:dificultad
+		Num:?
+	Child:
+		Node:comensales
+		Num:?
+Node Definition:
+	Name:pasos
+	Type:node
+	Child:
+		Node: paso
+		Num: +
+	Child:
+		Node: observacion
+		Num: *
+Node Definition:
+	Name:ingredientes
+	Type:node
+	Child:
+		Node:ings
+		Num:+
+Node Definition:
+	Name:paso
+	Type:text
+Node Definition:
+	Name:observacion
+	Type:text
+Node Definition:
+	Name:definicion
+	Type:text
+Node Definition:
+	Name:dificultad
+	Type:integer
+Node Definition:
+	Name:comensales
+	Type:integer
+Node Definition:
+	Name:ingrediente
+	Alias:ingrdt
+	Alias:ings
+	Type:node
+	Child:
+		Node:cantidad
+		Num:1
+	Child:
+		Node:unidades
+		Num:1
+	Child:
+		Node:nombre
+		Num:1
+Node Definition:
+	Name:cantidad
+	Type:integer
+Node Definition:
+	Name:unidades
+	Type:text
+Node Definition:
+	Name:nombre
+	Type:text
 
