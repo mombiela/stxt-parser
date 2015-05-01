@@ -1,7 +1,0 @@
-========================
-A1. Definiciones básicas
-========================
-
-* stxt.stxt
-* sws.stxt
-* pws.stxt

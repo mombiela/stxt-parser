@@ -1,9 +1,0 @@
-- Internacionalizar bien los errores del parser
-- Separar las tascas principales del parser para reaprovechar en parsers específicos y mejorar el código (normalizar, crear nodo,...)
-
-Nuevo tipo: ENUMERATION (listado de valores)
-
-
-		"One languaje to rule them all, one language to find them,
-			one language to understand them all and tie to knowledge forever,
-			in the land on Internet, where the world will be freed" (*)
