@@ -16,7 +16,7 @@ public class GrammarRetrieve
     
     static
     {
-    	if (System.getProperty("stxt_path")!=null)
+    	if (System.getProperty("stxt.path")!=null)
     	{
     		DEFS_DIR = System.getProperty("stxt.path");
     	}
