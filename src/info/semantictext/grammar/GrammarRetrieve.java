@@ -12,7 +12,19 @@ import java.net.URL;
 
 public class GrammarRetrieve
 {
-    private static final String DEFS_DIR = "defs";
+    private static final String DEFS_DIR;
+    
+    static
+    {
+    	if (System.getProperty("stxt_path")!=null)
+    	{
+    		DEFS_DIR = System.getProperty("stxt_path");
+    	}
+    	else
+    	{
+    		DEFS_DIR = "defs";
+    	}
+    }
 
     public static File getNameSpaceFile(String namespace) throws IOException
     {
