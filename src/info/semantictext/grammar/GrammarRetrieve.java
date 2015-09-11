@@ -18,7 +18,7 @@ public class GrammarRetrieve
     {
     	if (System.getProperty("stxt_path")!=null)
     	{
-    		DEFS_DIR = System.getProperty("stxt_path");
+    		DEFS_DIR = System.getProperty("stxt.path");
     	}
     	else
     	{
