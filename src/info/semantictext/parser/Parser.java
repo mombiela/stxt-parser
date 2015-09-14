@@ -17,6 +17,8 @@ import java.util.regex.Pattern;
 
 public class Parser
 {
+    public static final String UTF8_BOM = "\uFEFF";
+    
     // ---------
     // Constants
     // ---------
@@ -55,8 +57,15 @@ public class Parser
         // Get reader
         BufferedReader in = new BufferedReader(new InputStreamReader(inputStream, Constants.ENCODING));
 
+        boolean firstLine = true;
         while((line = in.readLine()) != null) 
         {
+            if (firstLine) 
+            {
+                line = removeUTF8BOM(line);
+                firstLine = false;
+            }            
+            
             this.lineNum++;
             line = normalize(line, lastNode != null && lastNode.getType()!=NodeType.NODE, lastLevel);
             if (line!=null)
@@ -69,6 +78,14 @@ public class Parser
         for (Node n: nodeStack) validateNode(n);
     }
     
+    private static String removeUTF8BOM(String s) 
+    {
+        if (s.startsWith(UTF8_BOM)) 
+        {
+            s = s.substring(1);
+        }
+        return s;
+    }    
     public Node getDocumentNode()
     {
         return nodeStack.get(0);
