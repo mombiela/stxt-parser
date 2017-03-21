@@ -1,0 +1,66 @@
+RECETARIO(www.kocinando.com/recetario.stxt):
+
+# --------
+# Receta 1
+# --------
+
+RECETA:
+	Ingredientes:
+		ingrediente:
+			cantidad:10
+			unidades:g
+			nombre:tomate
+		ingrediente:
+			cantidad:1
+			unidades:u
+			nombre:pera
+		ingrediente:
+			cantidad:200
+			unidades:dl
+			nombre:leche
+			
+# 	--------
+#	Receta 2
+# 	--------
+
+	Pasos:
+		paso:Paso 1
+		paso:Paso 2
+		paso:Paso 3
+		paso:Paso 4
+		observacion: 
+			Hay que vigilar este paso, ya que 
+			no se puede garantizar su buen funcionamiento.
+			En caso de error consultar realizar una llamada 
+			al servicio único.
+			
+			Esta es otra linea
+			# Hola
+			Mundo
+		# Hola
+
+
+RECETA:
+	Ingredientes:
+		ingrediente:
+			cantidad:10
+			unidades:g
+			nombre:tomate
+		ingrediente:
+			cantidad:1
+			unidades:u
+			nombre:pera
+		ingrediente:
+			cantidad:200
+			unidades:dl
+			nombre:leche
+	Pasos:
+		paso:Paso 5
+		paso:Paso 6
+		paso:Paso 7
+		paso:Paso 8
+		observacion: Hay que vigilar este paso, ya que
+			no se puede garantizar su buen funcionamiento.
+			En caso de error consultar realizar una llamada
+			al servicio único
+		paso:Paso 9

@@ -1,0 +1,103 @@
+Namespace definition (www.semantictext.info/namespace.stxt):
+
+Node Definition:
+	Type:NODE
+	Name:wsd
+	Alias:Web Service Definitions
+	Child:
+		Node:SWS Service
+		Num:*
+	Child:
+		Node:Hybrid Service
+		Num:*
+	Child:
+		Node:REST Service
+		Num:*
+Node Definition:
+	Type:NODE
+	Name:sws_service
+	Alias:SWS Service
+	Child:
+		Node:Url
+		Num:1
+	Child:
+		Node:Input Document
+		Num:1
+	Child:
+		Node:Output Document
+		Num:1
+	Child:
+		Node:Description
+		Num:?
+Node Definition:
+	Type:NODE
+	Name:hybrid_service
+	Alias:Hybrid Service
+	Alias:Hy Service
+	Child:
+		Node:Url
+		Num:1
+	Child:
+		Node:Method
+		Num:1
+	Child:
+		Node:Params Encoding
+		Num:1
+	Child:
+		Node:Param
+		Num:*
+	Child:
+		Node:Output Document
+		Num:1
+	Child:
+		Node:Description
+		Num:?
+Node Definition:
+	Type:NODE
+	Name:REST Service
+	Child:
+		Node:Url
+		Num:1
+	Child:
+		Node:Method
+		Num:1
+	Child:
+		Node:Params Encoding
+		Num:1
+	Child:
+		Node:Param
+		Num:*
+	Child:
+		Node:Description
+		Num:?
+Node Definition:
+	Type:NODE
+	Name:Param
+	Child:
+		Node:Name
+		Num:1
+	Child:
+		Node:Descrip
+		Num:?
+Node Definition:
+	Type:TEXT
+	Name:Url
+Node Definition:
+	Type:TEXT
+	Name:Params Encoding
+Node Definition:
+	Type:TEXT
+	Name:Input Document
+Node Definition:
+	Type:TEXT
+	Name:Output Document
+Node Definition:
+	Type:TEXT
+	Name:Name
+Node Definition:
+	Type:TEXT
+	Name:descrip
+	Alias:Description
+Node Definition:
+	Type:TEXT
+	Name:Method

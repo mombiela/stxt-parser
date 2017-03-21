@@ -1,0 +1,37 @@
+# -------------------
+# Iniciamos la receta
+# -------------------
+
+RECETA(www.kocinando.com/receta.stxt):
+
+# -------------------------
+# Ingredientes de la receta
+# -------------------------
+
+Ingredientes:
+	ingrediente:
+		cantidad:10
+		unidades:g
+		nombre:tomate
+	ingrediente:
+		cantidad:1
+		unidades:u
+		nombre:pera
+	ingrediente:
+		cantidad:200
+		unidades:dl
+		nombre:leche
+
+# ------------------------
+# Preparaci�n de la receta
+# ------------------------
+
+Pasos:
+	paso:demo
+	paso:fsfas
+	paso:fsdfasas
+	paso:fsfasfa
+	observacion: Hay que vigilar este paso, ya que 
+		no se puede garantizar su buen funcionamiento.
+		En caso de error consultar realizar una llamada 
+		al servicio único

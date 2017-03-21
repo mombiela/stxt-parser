@@ -1,0 +1,13 @@
+# --------------------
+# Definición de receta
+# --------------------
+
+Namespace Definition(www.semantictext.info/namespace.stxt):
+
+	Node Definition:
+		Name:recetario
+		Type:node
+		Child:
+			Node:receta
+			Namespace:www.kocinando.com/receta.stxt
+			Num:+
