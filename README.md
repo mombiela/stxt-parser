@@ -1,14 +1,10 @@
-***********
-Description
-***********
+# Description
 
 This is a parser for the STxT language: http://www.semantictext.info
 
 It's implemented in Java. Only jre5 required, not other dependencies.
 
-******
-Manual
-******
+# Manual
 
 To parse a STxT document:
 
