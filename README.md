@@ -6,7 +6,7 @@ It's implemented in Java. Only jre5 required, not other dependencies.
 
 # Manual
 
-Import jar: [stxt-1.0.0.jar](dist/stxt-1.0.0.jar)
+Import jar: [stxt-1.0.0.jar](https://github.com/mombiela/stxt-parser/raw/master/dist/stxt-1.0.0.jar)
 
 To parse a STxT document:
 
