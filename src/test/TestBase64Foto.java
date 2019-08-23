@@ -4,14 +4,14 @@ import java.io.File;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 
-import com.sun.org.apache.xml.internal.security.utils.Base64;
+import java.util.Base64;
 
 public class TestBase64Foto
 {
     public static void main(String[] args) throws IOException
     {
         byte[] btts = readFile(new File("foto-001.gif"));
-        System.out.println(Base64.encode(btts));
+        System.out.println(Base64.getEncoder().encode(btts));
     }
     
     public static byte[] readFile (String file) throws IOException {

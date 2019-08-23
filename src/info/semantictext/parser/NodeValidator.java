@@ -10,8 +10,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import com.sun.org.apache.xml.internal.security.utils.Base64;
+import java.util.Base64;
 
 import info.semantictext.GType;
 import info.semantictext.GTypeChild;
@@ -115,7 +114,7 @@ public class NodeValidator
     {
         try
         {
-            Base64.decode(n.getValue());
+            Base64.getDecoder().decode(n.getValue());
         }
         catch (Exception e)
         {

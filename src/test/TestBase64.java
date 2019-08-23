@@ -2,7 +2,7 @@ package test;
 
 import java.io.UnsupportedEncodingException;
 
-import com.sun.org.apache.xml.internal.security.utils.Base64;
+import java.util.Base64;
 
 public class TestBase64
 {
@@ -13,6 +13,6 @@ public class TestBase64
         {
             text = text + "Hola Mundo!!!!!!";
         }
-        System.out.println(Base64.encode(text.getBytes("UTF-8")));
+        System.out.println(Base64.getEncoder().encode(text.getBytes("UTF-8")));
     }
 }
