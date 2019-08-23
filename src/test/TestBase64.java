@@ -13,6 +13,6 @@ public class TestBase64
         {
             text = text + "Hola Mundo!!!!!!";
         }
-        System.out.println(Base64.getEncoder().encode(text.getBytes("UTF-8")));
+        System.out.println(new String(Base64.getEncoder().encode(text.getBytes("UTF-8"))));
     }
 }
