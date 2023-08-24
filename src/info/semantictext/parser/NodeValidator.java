@@ -16,6 +16,7 @@ import info.semantictext.GType;
 import info.semantictext.GTypeChild;
 import info.semantictext.Node;
 import info.semantictext.grammar.GrammarFactory;
+import info.semantictext.utils.StringCleanup;
 
 public class NodeValidator
 {
@@ -72,53 +73,53 @@ public class NodeValidator
     }
 
     // ------------------------
-    // Validación nodos simples
+    // Validaciï¿½n nodos simples
     // ------------------------
     
     private static void validateBinary(Node n) throws ParseException
     {
-        validateValue(n, P_BINARY, "No es un binario válido");
+        validateValue(n, P_BINARY, "No es un binario vï¿½lido");
     }
 
     private static void validateBoolean(Node n) throws ParseException
     {
-        validateValue(n, P_BOOLEAN, "No es un boolean válido");
+        validateValue(n, P_BOOLEAN, "No es un boolean vï¿½lido");
     }
 
     private static void validateHexadecimal(Node n) throws ParseException
     {
-        validateValue(n, P_HEXADECIMAL, "No es un hexadecimal válido");
+        validateValue(n, P_HEXADECIMAL, "No es un hexadecimal vï¿½lido");
     }
 
     private static void validateInteger(Node n) throws ParseException
     {
-        validateValue(n, P_INTEGER, "No es un integer válido");
+        validateValue(n, P_INTEGER, "No es un integer vï¿½lido");
     }
 
     private static void validateNatural(Node n) throws ParseException
     {
-        validateValue(n, P_NATURAL, "No es un natural válido");
+        validateValue(n, P_NATURAL, "No es un natural vï¿½lido");
     }
 
     private static void validateNumber(Node n) throws ParseException
     {
-        validateValue(n, P_NUMBER, "No es un number válido");
+        validateValue(n, P_NUMBER, "No es un number vï¿½lido");
     }
 
     private static void validateRational(Node n) throws ParseException
     {
-        validateValue(n, P_RATIONAL, "No es un racional válido");
+        validateValue(n, P_RATIONAL, "No es un racional vï¿½lido");
     }
 
     private static void validateBase64(Node n) throws ParseException
     {
         try
         {
-            Base64.getDecoder().decode(n.getValue());
+            Base64.getDecoder().decode(StringCleanup.cleanupString(n.getValue()));
         }
         catch (Exception e)
         {
-            throwErrorNode(n, "Valor Base64 no válido.");
+            throwErrorNode(n, "Valor Base64 no vï¿½lido: " + n.getValue());
         }
     }
     
@@ -141,7 +142,7 @@ public class NodeValidator
     {
         if (!isValidURL(n.getTvalue()))
         {
-            throwErrorNode(n, "URL no válida: " + n.getTvalue());
+            throwErrorNode(n, "URL no vï¿½lida: " + n.getTvalue());
         }
     }
 
@@ -185,7 +186,7 @@ public class NodeValidator
     }
     
     // ------------------------
-    // Validación nodo complejo
+    // Validaciï¿½n nodo complejo
     // ------------------------
     
     private static void validateNode(Node node, GType gtype) throws IOException
@@ -224,20 +225,20 @@ public class NodeValidator
             }
             else if (ctch.getNum().equals("+"))
             {
-                if (realNum==0) throwErrorNode(node, "Debería haber al menos un nodo tipo " + g.getName());
+                if (realNum==0) throwErrorNode(node, "Deberï¿½a haber al menos un nodo tipo " + g.getName());
             }
             else
             {
                 int num = Integer.parseInt(ctch.getNum());
-                if (realNum != num) throwErrorNode(node, "Cantidad nodos: " + realNum + ", debería ser: " + num);
+                if (realNum != num) throwErrorNode(node, "Cantidad nodos: " + realNum + ", deberï¿½a ser: " + num);
             }
             numMap.remove(text);
         }
         
-        // Validamos no vacío
+        // Validamos no vacï¿½o
         if (numMap.size()>0)
         {
-            throwErrorNode(node, "Existen nodos no definidos en la gramática");
+            throwErrorNode(node, "Existen nodos no definidos en la gramï¿½tica");
         }
     }
 
