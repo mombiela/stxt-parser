@@ -18,7 +18,7 @@ public class TestParser07
         InputStream in = null;
         try
         {
-            in = new FileInputStream(new File("examples/receta_buñuelos.stxt"));
+            in = new FileInputStream(new File("examples/receta_bunyols.stxt"));
             Parser p = new Parser();
             p.parse(in);
             Node n = p.getDocumentNode();
