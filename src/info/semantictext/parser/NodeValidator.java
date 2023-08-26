@@ -12,10 +12,10 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.Base64;
 
-import info.semantictext.NamespaceNode;
-import info.semantictext.NamespaceNodeChild;
 import info.semantictext.Node;
 import info.semantictext.grammar.GrammarFactory;
+import info.semantictext.namespace.NamespaceNode;
+import info.semantictext.namespace.NamespaceNodeChild;
 import info.semantictext.utils.StringCleanup;
 
 public class NodeValidator

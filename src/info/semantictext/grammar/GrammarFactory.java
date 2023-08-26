@@ -8,8 +8,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import info.semantictext.NamespaceNode;
 import info.semantictext.Node;
+import info.semantictext.namespace.NamespaceNode;
 import info.semantictext.parser.ParseException;
 import info.semantictext.parser.Parser;
 import info.semantictext.utils.IOUtils;
@@ -28,7 +28,7 @@ public class GrammarFactory
             // ------------------------------------------
             
             String nameSpace = "www.semantictext.info/namespace.stxt";
-            List<NamespaceNode> basicNs = NSGrammar.generateGrammar();
+            List<NamespaceNode> basicNs = NamespaceGrammar.generateGrammar();
             Map<String, NamespaceNode> ns_def = generateMap(basicNs);
             types.put(nameSpace, ns_def);
             

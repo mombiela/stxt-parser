@@ -1,4 +1,4 @@
-package info.semantictext;
+package info.semantictext.namespace;
 
 public class NamespaceNodeChild
 {

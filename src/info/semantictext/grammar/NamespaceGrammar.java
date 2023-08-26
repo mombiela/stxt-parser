@@ -1,13 +1,13 @@
 package info.semantictext.grammar;
 
-import info.semantictext.NamespaceNode;
-import info.semantictext.NamespaceNodeChild;
-import info.semantictext.NodeType;
+import info.semantictext.Type;
+import info.semantictext.namespace.NamespaceNode;
+import info.semantictext.namespace.NamespaceNodeChild;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class NSGrammar
+public class NamespaceGrammar
 {
     public static List<NamespaceNode> generateGrammar()
     {
@@ -21,7 +21,7 @@ public class NSGrammar
         
         NamespaceNode type = new NamespaceNode();
         type.setName("n_def");
-        type.setNodeType(NodeType.NODE);
+        type.setNodeType(Type.NODE);
         type.setNamespace(nameSpace);
         type.setAlias(new String[]{});
         
@@ -41,7 +41,7 @@ public class NSGrammar
         
         type = new NamespaceNode();
         type.setName("ch");
-        type.setNodeType(NodeType.NODE);
+        type.setNodeType(Type.NODE);
         type.setNamespace(nameSpace);
         type.setAlias(new String[]{});
         
@@ -59,7 +59,7 @@ public class NSGrammar
         
         type = new NamespaceNode();
         type.setName("ns_def");
-        type.setNodeType(NodeType.NODE);
+        type.setNodeType(Type.NODE);
         type.setNamespace(nameSpace);
         type.setAlias(new String[]{});
         
@@ -87,7 +87,7 @@ public class NSGrammar
     {
         NamespaceNode type = new NamespaceNode();
         type.setName(name);
-        type.setNodeType(NodeType.TEXT);
+        type.setNodeType(Type.TEXT);
         type.setNamespace(nameSpace);
         type.setAlias(new String[]{});
         result.add(type);

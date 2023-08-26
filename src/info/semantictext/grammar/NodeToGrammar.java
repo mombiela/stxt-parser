@@ -1,9 +1,9 @@
 package info.semantictext.grammar;
 
-import info.semantictext.NamespaceNode;
-import info.semantictext.NamespaceNodeChild;
 import info.semantictext.Node;
-import info.semantictext.NodeType;
+import info.semantictext.Type;
+import info.semantictext.namespace.NamespaceNode;
+import info.semantictext.namespace.NamespaceNodeChild;
 import info.semantictext.parser.ParseException;
 
 import java.util.ArrayList;
@@ -72,7 +72,7 @@ public class NodeToGrammar
     {
         try
         {
-            result.setNodeType(NodeType.valueOf(value.toUpperCase()));
+            result.setNodeType(Type.valueOf(value.toUpperCase()));
         }
         catch (Exception e)
         {

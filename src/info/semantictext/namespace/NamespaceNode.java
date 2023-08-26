@@ -1,13 +1,15 @@
-package info.semantictext;
+package info.semantictext.namespace;
 
 import java.util.Arrays;
+
+import info.semantictext.Type;
 
 public class NamespaceNode
 {
     private String name;
     private String namespace;
     private String[] alias;
-    private NodeType nodeType;
+    private Type nodeType;
     private NamespaceNodeChild[] childs;
     
     public String getName()
@@ -34,11 +36,11 @@ public class NamespaceNode
     {
         this.alias = alias;
     }
-    public NodeType getNodeType()
+    public Type getNodeType()
     {
         return nodeType;
     }
-    public void setNodeType(NodeType nodeType)
+    public void setNodeType(Type nodeType)
     {
         this.nodeType = nodeType;
     }    

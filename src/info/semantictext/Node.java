@@ -12,16 +12,16 @@ public class Node
     private String name;
     private String canonicalName;
     private String namespace;
-    private NodeType type;
+    private Type type;
     private String value;
     private List<Node> childs;
     private int lineCreation;
     
-    public NodeType getType()
+    public Type getType()
     {
         return type;
     }
-    public void setType(NodeType type)
+    public void setType(Type type)
     {
         this.type = type;
     }
@@ -122,7 +122,7 @@ public class Node
     {
         StringBuffer result = new StringBuffer();
         result.append(canonicalName + (level==1? "(" + namespace + ")" : "") + ":");
-        if (type != NodeType.NODE)
+        if (type != Type.NODE)
         {
             result.append(tabulatedText(value, level));
         }
@@ -160,7 +160,7 @@ public class Node
     {
         StringBuffer result = new StringBuffer();
         result.append(canonicalName + (level==1? "(" + namespace + ")" : "") + ":");
-        if (type != NodeType.NODE)
+        if (type != Type.NODE)
         {
             result.append(compactTabulatedText(value, level));
         }
@@ -181,12 +181,12 @@ public class Node
     private String compactTabulatedText(String text, int level)
     {
         if (text.indexOf('\n')==-1) return text;
-        if (type != NodeType.TEXT) text = text.trim();
+        if (type != Type.TEXT) text = text.trim();
         text = text.replaceAll("\\n", '\n' + Integer.toString(level) + ':');
         return text;
     }
 
-    // Métodos de acceso rápido a hijos
+    // Mï¿½todos de acceso rï¿½pido a hijos
     public List<Node> getChilds(String cname)
     {
         List<Node> result = new ArrayList<Node>();

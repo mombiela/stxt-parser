@@ -1,10 +1,10 @@
 package info.semantictext.parser;
 
-import info.semantictext.NamespaceNode;
-import info.semantictext.NamespaceNodeChild;
 import info.semantictext.Node;
-import info.semantictext.NodeType;
+import info.semantictext.Type;
 import info.semantictext.grammar.GrammarFactory;
+import info.semantictext.namespace.NamespaceNode;
+import info.semantictext.namespace.NamespaceNodeChild;
 import info.semantictext.utils.Constants;
 
 import java.io.BufferedReader;
@@ -67,7 +67,7 @@ public class Parser
             }            
             
             this.lineNum++;
-            line = normalize(line, lastNode != null && lastNode.getType()!=NodeType.NODE, lastLevel);
+            line = normalize(line, lastNode != null && lastNode.getType()!=Type.NODE, lastLevel);
             if (line!=null)
             {
                 update(line);
@@ -200,7 +200,7 @@ public class Parser
     private boolean isTextOfLast(int maxLevel)
     {
         // Verificamos que el �ltimo sea texto
-        if (lastNode.getType() == NodeType.NODE) return false;
+        if (lastNode.getType() == Type.NODE) return false;
         
         // Miramos que sea de node mayor
         return maxLevel > lastLevel;

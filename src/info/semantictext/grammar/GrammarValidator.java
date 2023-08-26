@@ -1,8 +1,8 @@
 package info.semantictext.grammar;
 
-import info.semantictext.NamespaceNode;
-import info.semantictext.NamespaceNodeChild;
-import info.semantictext.NodeType;
+import info.semantictext.Type;
+import info.semantictext.namespace.NamespaceNode;
+import info.semantictext.namespace.NamespaceNodeChild;
 import info.semantictext.parser.ParseException;
 import info.semantictext.utils.NameUtils;
 
@@ -68,7 +68,7 @@ public class GrammarValidator
         }
         
         // Validamos que un nodo distinto de node no tenga childs
-        if (type.getNodeType()!=NodeType.NODE)
+        if (type.getNodeType()!=Type.NODE)
         {
             if (type.getChilds()!=null && type.getChilds().length!=0)
             {
