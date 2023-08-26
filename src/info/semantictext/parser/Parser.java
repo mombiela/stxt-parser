@@ -284,7 +284,7 @@ public class Parser
     private void updateNode(Node node, int level) throws IOException
     {
         // Validate
-        NamespaceNode gtype = GrammarFactory.retrieveGType(node.getName(), node.getNamespace());
+        NamespaceNode gtype = GrammarFactory.retrieveNamespaceType(node.getName(), node.getNamespace());
         if (gtype == null)
         {
             String error = "Invalid name, namespace: " + node.getName() + ", " + node.getNamespace();
@@ -312,7 +312,7 @@ public class Parser
         if (parent == null) throw new ParseException("No se ha podido deducir el namespace. Linea[" + this.lineNum + "]");
         
         // Buscamos namespace
-        NamespaceNode gtype = GrammarFactory.retrieveGType(parent.getName(), parent.getNamespace());
+        NamespaceNode gtype = GrammarFactory.retrieveNamespaceType(parent.getName(), parent.getNamespace());
         if (gtype == null)  throw new ParseException("No se ha podido cargar la gram�tica. Linea[" + this.lineNum + "], " 
                 + parent.getName() + ", " + parent.getNamespace());
         
@@ -321,7 +321,7 @@ public class Parser
         
         for (NamespaceNodeChild child: childs)
         {
-            NamespaceNode typeChild = GrammarFactory.retrieveGType(child.getType(), child.getNamespace());
+            NamespaceNode typeChild = GrammarFactory.retrieveNamespaceType(child.getType(), child.getNamespace());
             if (typeChild == null)
             {
                 System.err.println("Namespace no v�lido: " + child);
@@ -361,7 +361,7 @@ public class Parser
     private void validateNode(Node n) throws IOException
     {
         // Hay que validar nodo seg�n su definici�n
-        NamespaceNode gtype = GrammarFactory.retrieveGType(n.getCanonicalName(), n.getNamespace());
+        NamespaceNode gtype = GrammarFactory.retrieveNamespaceType(n.getCanonicalName(), n.getNamespace());
         NodeValidator.validate(n, gtype);
     }    
     

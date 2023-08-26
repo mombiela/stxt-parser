@@ -9,9 +9,12 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
+import org.junit.jupiter.api.Test;
+
 public class TestParser05
 {
-    public static void main(String[] args) throws IOException
+    @Test
+    public void mainTest() throws IOException
     {
         System.out.println("Inici");
         

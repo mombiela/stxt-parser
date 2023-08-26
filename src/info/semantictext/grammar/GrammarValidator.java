@@ -125,7 +125,7 @@ public class GrammarValidator
         }
         else
         {
-            return GrammarFactory.retrieveGType(child.getType(), child.getNamespace());
+            return GrammarFactory.retrieveNamespaceType(child.getType(), child.getNamespace());
         }
     }
 }

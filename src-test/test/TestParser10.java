@@ -6,9 +6,12 @@ import info.semantictext.parser.FileParser;
 import java.io.File;
 import java.io.IOException;
 
+import org.junit.jupiter.api.Test;
+
 public class TestParser10
 {
-    public static void main(String[] args) throws IOException
+    @Test
+    public void mainTest() throws IOException
     {
         System.out.println("Inici");
         

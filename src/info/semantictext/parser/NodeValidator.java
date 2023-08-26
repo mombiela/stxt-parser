@@ -210,7 +210,7 @@ public class NodeValidator
         for (NamespaceNodeChild ctch: gtypeChilds)
         {
             // Como permitimos alias hay que obtener el canonical
-            NamespaceNode g = GrammarFactory.retrieveGType(ctch.getType(), ctch.getNamespace());
+            NamespaceNode g = GrammarFactory.retrieveNamespaceType(ctch.getType(), ctch.getNamespace());
             String text = g.getName() + ':' +  g.getNamespace();
             Integer realNum = numMap.get(text);
             if (realNum == null) realNum = 0;

@@ -52,7 +52,7 @@ public class GrammarFactory
     // Principal method
     // ----------------
 
-    public static NamespaceNode retrieveGType(String name, String namespace) throws IOException
+    public static NamespaceNode retrieveNamespaceType(String name, String namespace) throws IOException
     {
         name = NameUtils.uniform(name);
         
