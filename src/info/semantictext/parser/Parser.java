@@ -1,7 +1,7 @@
 package info.semantictext.parser;
 
-import info.semantictext.GType;
-import info.semantictext.GTypeChild;
+import info.semantictext.NamespaceNode;
+import info.semantictext.NamespaceNodeChild;
 import info.semantictext.Node;
 import info.semantictext.NodeType;
 import info.semantictext.grammar.GrammarFactory;
@@ -107,7 +107,7 @@ public class Parser
         {
             updateFirstNode(line, maxLevel);
         }
-        // Comprobamos si es texto de un último nodo
+        // Comprobamos si es texto de un ï¿½ltimo nodo
         else if (isTextOfLast(maxLevel))
         {
             updateTextOfLast(line, maxLevel);
@@ -152,7 +152,7 @@ public class Parser
         // Hacemos update de stack
         updateStack(level);
         
-        // Añadimos a último nodo
+        // Aï¿½adimos a ï¿½ltimo nodo
         Node lastFromStack = nodeStack.get(nodeStack.size()-1);
         List<Node> childs = lastFromStack.getChilds();
         if (childs == null)
@@ -162,7 +162,7 @@ public class Parser
         }
         childs.add(lastNode);
         
-        // Añadimos a stack
+        // Aï¿½adimos a stack
         levelStack.add(level);
         nodeStack.add(lastNode);
         lastLevel = level;
@@ -199,7 +199,7 @@ public class Parser
 
     private boolean isTextOfLast(int maxLevel)
     {
-        // Verificamos que el último sea texto
+        // Verificamos que el ï¿½ltimo sea texto
         if (lastNode.getType() == NodeType.NODE) return false;
         
         // Miramos que sea de node mayor
@@ -284,7 +284,7 @@ public class Parser
     private void updateNode(Node node, int level) throws IOException
     {
         // Validate
-        GType gtype = GrammarFactory.retrieveGType(node.getName(), node.getNamespace());
+        NamespaceNode gtype = GrammarFactory.retrieveGType(node.getName(), node.getNamespace());
         if (gtype == null)
         {
             String error = "Invalid name, namespace: " + node.getName() + ", " + node.getNamespace();
@@ -312,16 +312,16 @@ public class Parser
         if (parent == null) throw new ParseException("No se ha podido deducir el namespace. Linea[" + this.lineNum + "]");
         
         // Buscamos namespace
-        GType gtype = GrammarFactory.retrieveGType(parent.getName(), parent.getNamespace());
+        NamespaceNode gtype = GrammarFactory.retrieveGType(parent.getName(), parent.getNamespace());
         if (gtype == null)  throw new ParseException("No se ha podido cargar la gramï¿½tica. Linea[" + this.lineNum + "], " 
                 + parent.getName() + ", " + parent.getNamespace());
         
-        GTypeChild[] childs = gtype.getChilds();
+        NamespaceNodeChild[] childs = gtype.getChilds();
         if (childs == null) throw new ParseException("No se ha podido deducir el namespace. Linea[" + this.lineNum + "]");
         
-        for (GTypeChild child: childs)
+        for (NamespaceNodeChild child: childs)
         {
-            GType typeChild = GrammarFactory.retrieveGType(child.getType(), child.getNamespace());
+            NamespaceNode typeChild = GrammarFactory.retrieveGType(child.getType(), child.getNamespace());
             if (typeChild == null)
             {
                 System.err.println("Namespace no vï¿½lido: " + child);
@@ -351,7 +351,7 @@ public class Parser
             {
                 levelStack.remove(i);
                 Node n = nodeStack.remove(i);
-                validateNode(n); // Validar nodo en este momento, ya está completo
+                validateNode(n); // Validar nodo en este momento, ya estï¿½ completo
             }
             else break;
             i--;
@@ -360,8 +360,8 @@ public class Parser
 
     private void validateNode(Node n) throws IOException
     {
-        // Hay que validar nodo según su definición
-        GType gtype = GrammarFactory.retrieveGType(n.getCanonicalName(), n.getNamespace());
+        // Hay que validar nodo segï¿½n su definiciï¿½n
+        NamespaceNode gtype = GrammarFactory.retrieveGType(n.getCanonicalName(), n.getNamespace());
         NodeValidator.validate(n, gtype);
     }    
     
@@ -371,10 +371,10 @@ public class Parser
     
     private static String normalize(String aLine, boolean lastNodeText, int lastLevel)
     {
-        // Validamos si ya está comprimida
+        // Validamos si ya estï¿½ comprimida
         if (COMPRESSED_LINE.matcher(aLine).matches()) return aLine;
         
-        // Validamos si es linea vacía o comentario
+        // Validamos si es linea vacï¿½a o comentario
         if (!lastNodeText && (EMPTY_LINE.matcher(aLine).matches()||COMMENT_LINE.matcher(aLine).matches()))
             return null;
         
@@ -411,7 +411,7 @@ public class Parser
             // Pointer position
             pointer++;
             
-            // Validamos que el texto sólo pueda tener un nivel más, así no se pierde información
+            // Validamos que el texto sï¿½lo pueda tener un nivel mï¿½s, asï¿½ no se pierde informaciï¿½n
             if (lastNodeText && level>lastLevel) break;
         }
         

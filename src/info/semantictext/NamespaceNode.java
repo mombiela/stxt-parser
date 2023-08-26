@@ -2,13 +2,13 @@ package info.semantictext;
 
 import java.util.Arrays;
 
-public class GType
+public class NamespaceNode
 {
     private String name;
     private String namespace;
     private String[] alias;
     private NodeType nodeType;
-    private GTypeChild[] childs;
+    private NamespaceNodeChild[] childs;
     
     public String getName()
     {
@@ -42,11 +42,11 @@ public class GType
     {
         this.nodeType = nodeType;
     }    
-    public GTypeChild[] getChilds()
+    public NamespaceNodeChild[] getChilds()
     {
         return childs;
     }
-    public void setChilds(GTypeChild[] childs)
+    public void setChilds(NamespaceNodeChild[] childs)
     {
         this.childs = childs;
     }
@@ -54,7 +54,7 @@ public class GType
     @Override
     public String toString()
     {
-        return "GType [name=" + name + ", namespace=" + namespace + ", nodeType=" + nodeType + ", alias=" + Arrays.toString(alias) + ", childs="
+        return "NamespaceNode [name=" + name + ", namespace=" + namespace + ", nodeType=" + nodeType + ", alias=" + Arrays.toString(alias) + ", childs="
                 + Arrays.toString(childs) + "]";
     }    
 }

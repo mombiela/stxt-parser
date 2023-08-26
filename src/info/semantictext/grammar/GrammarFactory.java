@@ -8,7 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import info.semantictext.GType;
+import info.semantictext.NamespaceNode;
 import info.semantictext.Node;
 import info.semantictext.parser.ParseException;
 import info.semantictext.parser.Parser;
@@ -17,25 +17,25 @@ import info.semantictext.utils.NameUtils;
 
 public class GrammarFactory
 {
-    private static Map<String, Map<String,GType>> types = new HashMap<String, Map<String,GType>>();
+    private static Map<String, Map<String,NamespaceNode>> types = new HashMap<String, Map<String,NamespaceNode>>();
     
     static
     {
         try
         {
             // ------------------------------------------
-            // Generera definición básica de la gramátcia
+            // Generera definiciï¿½n bï¿½sica de la gramï¿½tcia
             // ------------------------------------------
             
             String nameSpace = "www.semantictext.info/namespace.stxt";
-            List<GType> basicNs = NSGrammar.generateGrammar();
-            Map<String, GType> ns_def = generateMap(basicNs);
+            List<NamespaceNode> basicNs = NSGrammar.generateGrammar();
+            Map<String, NamespaceNode> ns_def = generateMap(basicNs);
             types.put(nameSpace, ns_def);
             
             // -------------------------------------------------------
-            // Refrescamos con la última versión válida (de fichero!!)
-            // No debería hacer falta, ya que debería ser igual,
-            // pero se hace para comprobar la buena definición del
+            // Refrescamos con la ï¿½ltima versiï¿½n vï¿½lida (de fichero!!)
+            // No deberï¿½a hacer falta, ya que deberï¿½a ser igual,
+            // pero se hace para comprobar la buena definiciï¿½n del
             // namespace
             // -------------------------------------------------------
             
@@ -52,11 +52,11 @@ public class GrammarFactory
     // Principal method
     // ----------------
 
-    public static GType retrieveGType(String name, String namespace) throws IOException
+    public static NamespaceNode retrieveGType(String name, String namespace) throws IOException
     {
         name = NameUtils.uniform(name);
         
-        Map<String, GType> namespaceTypes = types.get(namespace);
+        Map<String, NamespaceNode> namespaceTypes = types.get(namespace);
         if (namespaceTypes==null)
         {
             namespaceTypes = generateNameSpaceMap(namespace);
@@ -69,7 +69,7 @@ public class GrammarFactory
     // Generation methods
     // ------------------
     
-    private static Map<String, GType> generateNameSpaceMap(String namespace) throws IOException
+    private static Map<String, NamespaceNode> generateNameSpaceMap(String namespace) throws IOException
     {
         // Get document from local
         System.out.println("Updating namespace: " + namespace);
@@ -85,8 +85,8 @@ public class GrammarFactory
             Parser p = new Parser();
             p.parse(in);
             Node node = p.getDocumentNode();
-            List<GType> gtypes = NodeToGrammar.translate(node, namespace);
-            Map<String, GType> result = generateMap(gtypes);
+            List<NamespaceNode> gtypes = NodeToGrammar.translate(node, namespace);
+            Map<String, NamespaceNode> result = generateMap(gtypes);
             GrammarValidator.validate(result, namespace);
             return result;
         }
@@ -96,14 +96,14 @@ public class GrammarFactory
         }
     }
 
-    private static Map<String, GType> generateMap(List<GType> listGtypes) throws ParseException
+    private static Map<String, NamespaceNode> generateMap(List<NamespaceNode> listGtypes) throws ParseException
     {
         // Validate
         GrammarValidator.validate(listGtypes);
         
         // Create
-        Map<String, GType> result = new HashMap<String, GType>();
-        for (GType type: listGtypes)
+        Map<String, NamespaceNode> result = new HashMap<String, NamespaceNode>();
+        for (NamespaceNode type: listGtypes)
         {
             // Make insert
             result.put(NameUtils.uniform(type.getName()), type);

@@ -1,16 +1,16 @@
 package info.semantictext;
 
-public class GTypeChild
+public class NamespaceNodeChild
 {
     private String type;
     private String namespace;
     private String num;
     
-    public GTypeChild()
+    public NamespaceNodeChild()
     {
     }
     
-    public GTypeChild(String type, String namespace, String num)
+    public NamespaceNodeChild(String type, String namespace, String num)
     {
         this.type = type;
         this.namespace = namespace;
@@ -45,6 +45,6 @@ public class GTypeChild
     @Override
     public String toString()
     {
-        return "GTypeChild [type=" + type + ", namespace=" + namespace + ", num=" + num + "]";
+        return "NamespaceNodeChild [type=" + type + ", namespace=" + namespace + ", num=" + num + "]";
     }   
 }

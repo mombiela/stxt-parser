@@ -1,7 +1,7 @@
 package info.semantictext.grammar;
 
-import info.semantictext.GType;
-import info.semantictext.GTypeChild;
+import info.semantictext.NamespaceNode;
+import info.semantictext.NamespaceNodeChild;
 import info.semantictext.NodeType;
 import info.semantictext.parser.ParseException;
 import info.semantictext.utils.NameUtils;
@@ -16,20 +16,20 @@ import java.util.Set;
 public class GrammarValidator
 {
     // Recorremos nodos validando
-    public static void validate(Map<String, GType> grammar, String namespace) throws IOException
+    public static void validate(Map<String, NamespaceNode> grammar, String namespace) throws IOException
     {
-        Collection<GType> types = grammar.values();
-        for (GType type: types)
+        Collection<NamespaceNode> types = grammar.values();
+        for (NamespaceNode type: types)
         {
             validate(grammar, namespace, type);
         }
     }
 
-    public static void validate(List<GType> grammar) throws ParseException
+    public static void validate(List<NamespaceNode> grammar) throws ParseException
     {
         Set<String> nsDef = new HashSet<String>();
         
-        for (GType type: grammar)
+        for (NamespaceNode type: grammar)
         {
             // Check name
             String canonicalName = NameUtils.uniform(type.getName());
@@ -51,20 +51,20 @@ public class GrammarValidator
         }
     }
     
-    private static void validate(Map<String, GType> grammar, String namespace, GType type) throws IOException
+    private static void validate(Map<String, NamespaceNode> grammar, String namespace, NamespaceNode type) throws IOException
     {
-        // Validamos que sea definición correcta
+        // Validamos que sea definiciï¿½n correcta
         if (type.getName()==null || type.getName().trim().length()==0)
         {
-            throw new ParseException("Definición de gramática incorrecta: " + namespace + ", el nodo no tiene nombre definido: " + type);
+            throw new ParseException("Definiciï¿½n de gramï¿½tica incorrecta: " + namespace + ", el nodo no tiene nombre definido: " + type);
         }
         if (type.getNamespace()==null || type.getNamespace().trim().length()==0)
         {
-            throw new ParseException("Definición de gramática incorrecta: " + namespace + ", el nodo no tiene namespace definido: " + type);
+            throw new ParseException("Definiciï¿½n de gramï¿½tica incorrecta: " + namespace + ", el nodo no tiene namespace definido: " + type);
         }
         if (type.getNodeType()==null)
         {
-            throw new ParseException("Definición de gramática incorrecta: " + namespace + ", el nodo no tiene type de nodo definido: " + type);
+            throw new ParseException("Definiciï¿½n de gramï¿½tica incorrecta: " + namespace + ", el nodo no tiene type de nodo definido: " + type);
         }
         
         // Validamos que un nodo distinto de node no tenga childs
@@ -72,27 +72,27 @@ public class GrammarValidator
         {
             if (type.getChilds()!=null && type.getChilds().length!=0)
             {
-                throw new ParseException("Definición de gramática incorrecta: " + namespace + ", el nodo no puede tener hijos: " + type);
+                throw new ParseException("Definiciï¿½n de gramï¿½tica incorrecta: " + namespace + ", el nodo no puede tener hijos: " + type);
             }
             return;
         }
         
         // Es un nodo NODE, por lo que hay que validar que tenga hijos
-        GTypeChild[] childs = type.getChilds();
+        NamespaceNodeChild[] childs = type.getChilds();
         if (childs == null || childs.length==0)
         {
-            throw new ParseException("Definición de gramática incorrecta: " + namespace + ", el nodo debe tener hijos: " + type);
+            throw new ParseException("Definiciï¿½n de gramï¿½tica incorrecta: " + namespace + ", el nodo debe tener hijos: " + type);
         }
         
         // Validar nombres y alias de los hijos
         Set<String> childsAlias = new HashSet<String>();
-        for (GTypeChild child: childs)
+        for (NamespaceNodeChild child: childs)
         {
             // Obtenemos tipo
-            GType g = getGType(child, grammar, namespace);
+            NamespaceNode g = getGType(child, grammar, namespace);
             if (g == null)
             {
-                throw new ParseException("Definición de gramática incorrecta: " 
+                throw new ParseException("Definiciï¿½n de gramï¿½tica incorrecta: " 
                         + namespace + ", el nodo no tiene un hijo correcto: " + type + " child= " + child);
             }
             
@@ -117,7 +117,7 @@ public class GrammarValidator
         }
     }
 
-    private static GType getGType(GTypeChild child, Map<String, GType> grammar, String namespace) throws IOException
+    private static NamespaceNode getGType(NamespaceNodeChild child, Map<String, NamespaceNode> grammar, String namespace) throws IOException
     {
         if (child.getNamespace().equalsIgnoreCase(namespace))
         {

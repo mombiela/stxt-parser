@@ -12,8 +12,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.Base64;
 
-import info.semantictext.GType;
-import info.semantictext.GTypeChild;
+import info.semantictext.NamespaceNode;
+import info.semantictext.NamespaceNodeChild;
 import info.semantictext.Node;
 import info.semantictext.grammar.GrammarFactory;
 import info.semantictext.utils.StringCleanup;
@@ -30,7 +30,7 @@ public class NodeValidator
     
     //private static final Pattern TEXT_TRIM      = Pattern.compile("(\\s)*$");
     
-    public static void validate(Node n, GType gtype) throws IOException
+    public static void validate(Node n, NamespaceNode gtype) throws IOException
     {
         switch (gtype.getNodeType())
         {
@@ -189,7 +189,7 @@ public class NodeValidator
     // Validaci�n nodo complejo
     // ------------------------
     
-    private static void validateNode(Node node, GType gtype) throws IOException
+    private static void validateNode(Node node, NamespaceNode gtype) throws IOException
     {
         // Creamos resumen de nodos hijos
         Map<String,Integer> numMap = new HashMap<String, Integer>();
@@ -206,11 +206,11 @@ public class NodeValidator
         }
         
         // Recorremos los gtypes, comprobando y eliminando de la lista. Si al acabar no se ha eliminado todo, error!!
-        GTypeChild[] gtypeChilds = gtype.getChilds();
-        for (GTypeChild ctch: gtypeChilds)
+        NamespaceNodeChild[] gtypeChilds = gtype.getChilds();
+        for (NamespaceNodeChild ctch: gtypeChilds)
         {
             // Como permitimos alias hay que obtener el canonical
-            GType g = GrammarFactory.retrieveGType(ctch.getType(), ctch.getNamespace());
+            NamespaceNode g = GrammarFactory.retrieveGType(ctch.getType(), ctch.getNamespace());
             String text = g.getName() + ':' +  g.getNamespace();
             Integer realNum = numMap.get(text);
             if (realNum == null) realNum = 0;

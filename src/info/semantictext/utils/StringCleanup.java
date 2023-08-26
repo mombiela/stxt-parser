@@ -8,8 +8,6 @@ public class StringCleanup {
     }
 
     public static String cleanupString(String input) {
-        String cleanedString = input.replaceAll("[\\r\\n\\t]+|\\s+", "");
-        
-        return cleanedString;
+        return input.replaceAll("[\\r\\n\\t]+|\\s+", "");
     }
 }
