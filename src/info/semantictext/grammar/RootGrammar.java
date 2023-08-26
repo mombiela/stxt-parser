@@ -7,9 +7,9 @@ import info.semantictext.namespace.NamespaceNodeChild;
 import java.util.ArrayList;
 import java.util.List;
 
-public class NamespaceGrammar
+public class RootGrammar
 {
-    public static List<NamespaceNode> generateGrammar()
+    public static List<NamespaceNode> generateRootGrammar()
     {
         final String nameSpace = "www.semantictext.info/namespace.stxt";
         

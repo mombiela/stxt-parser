@@ -28,7 +28,7 @@ public class GrammarFactory
             // ------------------------------------------
             
             String nameSpace = "www.semantictext.info/namespace.stxt";
-            List<NamespaceNode> basicNs = NamespaceGrammar.generateGrammar();
+            List<NamespaceNode> basicNs = RootGrammar.generateRootGrammar();
             Map<String, NamespaceNode> ns_def = generateMap(basicNs);
             types.put(nameSpace, ns_def);
             

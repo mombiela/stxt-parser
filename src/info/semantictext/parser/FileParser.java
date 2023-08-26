@@ -25,5 +25,4 @@ public class FileParser
             IOUtils.closeQuietly(in);
         }        
     }
-
 }
