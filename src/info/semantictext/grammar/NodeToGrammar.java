@@ -16,7 +16,7 @@ public class NodeToGrammar
         // Check definitions
         if (!node.getCanonicalName().equals("ns_def"))
         {
-            String error = "No es una definici�n de namespace: " + node.getCanonicalName() + ", " + node.getNamespace();
+            String error = "Not a namespace definition: " + node.getCanonicalName() + ", " + node.getNamespace();
             throw new ParseException(error);
         }
         
@@ -41,7 +41,7 @@ public class NodeToGrammar
         NamespaceNode result = new NamespaceNode();
         result.setNamespace(namespace);
         
-        // Obtenemos los atributos del gtype
+        // Get attributes of the gtype
         List<Node> childs = node.getChilds();
         List<String> alias = new ArrayList<String>();
         List<NamespaceNodeChild> ccc = new ArrayList<NamespaceNodeChild>();
@@ -52,8 +52,8 @@ public class NodeToGrammar
             if (n.getCanonicalName().equals("type"))  updateType(result, n.getValue().trim());
             if (n.getCanonicalName().equals("ch"))    updateChild(ccc, n, namespace);
         }        
-        result.setAlias(createFromListString(alias));
-        result.setChilds(createFromListGtype(ccc));
+        result.setAlias(createFromArray(alias));
+        result.setChilds(createFromArrayNamespaceNode(ccc));
 
         return result;
     }
@@ -82,11 +82,11 @@ public class NodeToGrammar
     
     private static void updateChild(List<NamespaceNodeChild> ccc, Node n, String namespace)
     {
-        // Creamos child
+        // Create child
         NamespaceNodeChild result = new NamespaceNodeChild();
         result.setNamespace(namespace);
 
-        // Recorremos nodos insertando
+        // Traverse nodes and insert
         List<Node> childs = n.getChilds();
         for (Node child: childs)
         {
@@ -95,27 +95,27 @@ public class NodeToGrammar
             if (child.getCanonicalName().equals("cn"))        result.setType(child.getValue().trim());
         }
         
-        // Insertamos en lista
+        // Insert into list
         ccc.add(result);
     }
     
     
     // -------------------
-    // M�todos utilitarios
+    // Utility methods
     // -------------------
     
-    private static String[] createFromListString(List<String> alias)
+    private static String[] createFromArray(List<String> alias)
     {
         String[] result = new String[alias.size()];
-        for (int i = 0; i<alias.size(); i++) result[i] = alias.get(i);
+        for (int i = 0; i < alias.size(); i++) result[i] = alias.get(i);
         return result;
     }
     
-    private static NamespaceNodeChild[] createFromListGtype(List<NamespaceNodeChild> alias)
+    private static NamespaceNodeChild[] createFromArrayNamespaceNode(List<NamespaceNodeChild> alias)
     {
-        if (alias.size()==0) return null;
+        if (alias.size() == 0) return null;
         NamespaceNodeChild[] result = new NamespaceNodeChild[alias.size()];
-        for (int i = 0; i<alias.size(); i++) result[i] = alias.get(i);
+        for (int i = 0; i < alias.size(); i++) result[i] = alias.get(i);
         return result;
     }
 

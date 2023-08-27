@@ -17,15 +17,15 @@ import info.semantictext.utils.NameUtils;
 
 public class GrammarFactory
 {
-    private static Map<String, Map<String,NamespaceNode>> types = new HashMap<String, Map<String,NamespaceNode>>();
+    private static Map<String, Map<String, NamespaceNode>> types = new HashMap<String, Map<String, NamespaceNode>>();
     
     static
     {
         try
         {
-            // ------------------------------------------
-            // Generera definici�n b�sica de la gram�tcia
-            // ------------------------------------------
+            // ----------------------------------------
+            // Generate basic definition of the grammar
+            // ----------------------------------------
             
             String nameSpace = "www.semantictext.info/namespace.stxt";
             List<NamespaceNode> basicNs = RootGrammar.generateRootGrammar();
@@ -33,11 +33,10 @@ public class GrammarFactory
             types.put(nameSpace, ns_def);
             
             // -------------------------------------------------------
-            // Refrescamos con la �ltima versi�n v�lida (de fichero!!)
-            // No deber�a hacer falta, ya que deber�a ser igual,
-            // pero se hace para comprobar la buena definici�n del
-            // namespace
-            // -------------------------------------------------------
+            // Refresh with the latest valid version (from file!!)
+            // Shouldn't be necessary as it should be the same,
+            // but it's done to check the proper namespace definition
+            // ------------------------------------------------------
             
             ns_def = generateNameSpaceMap(nameSpace);
             types.put(nameSpace, ns_def);
@@ -57,7 +56,7 @@ public class GrammarFactory
         name = NameUtils.uniform(name);
         
         Map<String, NamespaceNode> namespaceTypes = types.get(namespace);
-        if (namespaceTypes==null)
+        if (namespaceTypes == null)
         {
             namespaceTypes = generateNameSpaceMap(namespace);
             types.put(namespace, namespaceTypes);

@@ -15,7 +15,7 @@ import java.util.Set;
 
 public class GrammarValidator
 {
-    // Recorremos nodos validando
+    // Iterate through nodes and validate
     public static void validate(Map<String, NamespaceNode> grammar, String namespace) throws IOException
     {
         Collection<NamespaceNode> types = grammar.values();
@@ -53,50 +53,50 @@ public class GrammarValidator
     
     private static void validate(Map<String, NamespaceNode> grammar, String namespace, NamespaceNode type) throws IOException
     {
-        // Validamos que sea definici�n correcta
-        if (type.getName()==null || type.getName().trim().length()==0)
+        // Validate that it's a correct definition
+        if (type.getName() == null || type.getName().trim().length() == 0)
         {
-            throw new ParseException("Definici�n de gram�tica incorrecta: " + namespace + ", el nodo no tiene nombre definido: " + type);
+            throw new ParseException("Incorrect grammar definition: " + namespace + ", the node doesn't have a defined name: " + type);
         }
-        if (type.getNamespace()==null || type.getNamespace().trim().length()==0)
+        if (type.getNamespace() == null || type.getNamespace().trim().length() == 0)
         {
-            throw new ParseException("Definici�n de gram�tica incorrecta: " + namespace + ", el nodo no tiene namespace definido: " + type);
+            throw new ParseException("Incorrect grammar definition: " + namespace + ", the node doesn't have a defined namespace: " + type);
         }
-        if (type.getNodeType()==null)
+        if (type.getNodeType() == null)
         {
-            throw new ParseException("Definici�n de gram�tica incorrecta: " + namespace + ", el nodo no tiene type de nodo definido: " + type);
+            throw new ParseException("Incorrect grammar definition: " + namespace + ", the node doesn't have a defined node type: " + type);
         }
         
-        // Validamos que un nodo distinto de node no tenga childs
-        if (type.getNodeType()!=Type.NODE)
+        // Validate that a non-node type doesn't have child nodes
+        if (type.getNodeType() != Type.NODE)
         {
-            if (type.getChilds()!=null && type.getChilds().length!=0)
+            if (type.getChilds() != null && type.getChilds().length != 0)
             {
-                throw new ParseException("Definici�n de gram�tica incorrecta: " + namespace + ", el nodo no puede tener hijos: " + type);
+                throw new ParseException("Incorrect grammar definition: " + namespace + ", the node cannot have children: " + type);
             }
             return;
         }
         
-        // Es un nodo NODE, por lo que hay que validar que tenga hijos
+        // It's a NODE node, so we need to validate that it has child nodes
         NamespaceNodeChild[] childs = type.getChilds();
-        if (childs == null || childs.length==0)
+        if (childs == null || childs.length == 0)
         {
-            throw new ParseException("Definici�n de gram�tica incorrecta: " + namespace + ", el nodo debe tener hijos: " + type);
+            throw new ParseException("Incorrect grammar definition: " + namespace + ", the node must have children: " + type);
         }
         
-        // Validar nombres y alias de los hijos
+        // Validate names and aliases of children
         Set<String> childsAlias = new HashSet<String>();
         for (NamespaceNodeChild child: childs)
         {
-            // Obtenemos tipo
+            // Get type
             NamespaceNode g = getGType(child, grammar, namespace);
             if (g == null)
             {
-                throw new ParseException("Definici�n de gram�tica incorrecta: " 
-                        + namespace + ", el nodo no tiene un hijo correcto: " + type + " child= " + child);
+                throw new ParseException("Incorrect grammar definition: " 
+                        + namespace + ", the node doesn't have a valid child: " + type + " child= " + child);
             }
             
-            // Validamos nombres y alias
+            // Validate names and aliases
             // Check name
             String canonicalName = NameUtils.uniform(type.getName());
             if (childsAlias.contains(canonicalName))

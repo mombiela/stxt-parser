@@ -16,7 +16,7 @@ public class GrammarRetrieve
     
     static
     {
-    	if (System.getProperty("stxt.path")!=null)
+    	if (System.getProperty("stxt.path") != null)
     	{
     		DEFS_DIR = System.getProperty("stxt.path");
     	}
@@ -28,20 +28,20 @@ public class GrammarRetrieve
 
     public static File getNameSpaceFile(String namespace) throws IOException
     {
-        // Creamos fichero local
+        // Create local file
         File f = new File(DEFS_DIR, namespace);
         
-        // Retornamos si ok
+        // Return if it's OK
         if (f.exists() && f.isFile()) return f;
         
-        // Creamos directorios
+        // Create directories
         f.getParentFile().mkdirs();
         
-        // Buscamos en internet
+        // Search on the internet
         URL uri = new URL("http://" + namespace);
         String fileContent = getUrlContent(uri);
         
-        // Insertamos en fichero
+        // Write to file
         FileOutputStream out = null;
         try
         {
@@ -60,23 +60,22 @@ public class GrammarRetrieve
     private static String getUrlContent(URL url) throws IOException
     {
         InputStream in = url.openStream();
-        InputStreamReader reader = new InputStreamReader( in, Constants.ENCODING);
+        InputStreamReader reader = new InputStreamReader(in, Constants.ENCODING);
 
-        StringBuilder sb = new StringBuilder(Math.max(16,in.available()));
-        char[] tmp = new char[ 4096 ];
-        for( int cnt; ( cnt = reader.read( tmp ) ) > 0; ) sb.append( tmp, 0, cnt );
+        StringBuilder sb = new StringBuilder(Math.max(16, in.available()));
+        char[] tmp = new char[4096];
+        for(int cnt; (cnt = reader.read(tmp)) > 0; ) sb.append(tmp, 0, cnt);
         
         return sb.toString();
     }    
     
     public static void main(String[] args) throws IOException
     {
-        System.out.println("Inici");
+        System.out.println("Start");
         
         String content = getUrlContent(new URL("http://www.stxt.info/page.stxt"));
         System.out.println(content);
         
-        System.out.println("Fi");
+        System.out.println("End");
     }
-
 }
