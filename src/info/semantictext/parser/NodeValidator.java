@@ -28,8 +28,6 @@ public class NodeValidator
     private static final Pattern P_NUMBER       = Pattern.compile("^(\\-|\\+)?\\d+\\.\\d+(e(\\-|\\+)?\\d+)?$");
     private static final Pattern P_RATIONAL     = Pattern.compile("^(\\-|\\+)?\\d+\\/\\d+$");
     
-    //private static final Pattern TEXT_TRIM      = Pattern.compile("(\\s)*$");
-    
     public static void validate(Node n, NamespaceNode gtype) throws IOException
     {
         switch (gtype.getNodeType())
@@ -73,42 +71,42 @@ public class NodeValidator
     }
 
     // ------------------------
-    // Validaci�n nodos simples
+    // Validation of simple nodes
     // ------------------------
     
     private static void validateBinary(Node n) throws ParseException
     {
-        validateValue(n, P_BINARY, "No es un binario v�lido");
+        validateValue(n, P_BINARY, "Invalid binary");
     }
 
     private static void validateBoolean(Node n) throws ParseException
     {
-        validateValue(n, P_BOOLEAN, "No es un boolean v�lido");
+        validateValue(n, P_BOOLEAN, "Invalid boolean");
     }
 
     private static void validateHexadecimal(Node n) throws ParseException
     {
-        validateValue(n, P_HEXADECIMAL, "No es un hexadecimal v�lido");
+        validateValue(n, P_HEXADECIMAL, "Invalid hexadecimal");
     }
 
     private static void validateInteger(Node n) throws ParseException
     {
-        validateValue(n, P_INTEGER, "No es un integer v�lido");
+        validateValue(n, P_INTEGER, "Invalid integer");
     }
 
     private static void validateNatural(Node n) throws ParseException
     {
-        validateValue(n, P_NATURAL, "No es un natural v�lido");
+        validateValue(n, P_NATURAL, "Invalid natural");
     }
 
     private static void validateNumber(Node n) throws ParseException
     {
-        validateValue(n, P_NUMBER, "No es un number v�lido");
+        validateValue(n, P_NUMBER, "Invalid number");
     }
 
     private static void validateRational(Node n) throws ParseException
     {
-        validateValue(n, P_RATIONAL, "No es un racional v�lido");
+        validateValue(n, P_RATIONAL, "Invalid rational");
     }
 
     private static void validateBase64(Node n) throws ParseException
@@ -119,30 +117,20 @@ public class NodeValidator
         }
         catch (Exception e)
         {
-            throwErrorNode(n, "Valor Base64 no v�lido: " + n.getValue());
+            throwErrorNode(n, "Invalid Base64 value: " + n.getValue());
         }
     }
     
     private static void validateText(Node n) throws ParseException
     {
-        // No validation, but last line trim
-        /*
-        String value = n.getValue();
-        Matcher m = TEXT_TRIM.matcher(value); 
-        if (m.find())
-        {
-            int index = m.start(0);
-            value = value.substring(0, index);
-            n.setValue(value);
-        }
-        */
+        // No validation, but trim trailing line breaks
     }
     
     private static void validateUrl(Node n) throws ParseException
     {
         if (!isValidURL(n.getTvalue()))
         {
-            throwErrorNode(n, "URL no v�lida: " + n.getTvalue());
+            throwErrorNode(n, "Invalid URL: " + n.getTvalue());
         }
     }
 
@@ -186,12 +174,11 @@ public class NodeValidator
     }
     
     // ------------------------
-    // Validaci�n nodo complejo
+    // Validation of complex node
     // ------------------------
     
     private static void validateNode(Node node, NamespaceNode gtype) throws IOException
     {
-        // Creamos resumen de nodos hijos
         Map<String,Integer> numMap = new HashMap<String, Integer>();
         List<Node> childs = node.getChilds();
         if (childs != null)
@@ -205,11 +192,9 @@ public class NodeValidator
             }
         }
         
-        // Recorremos los gtypes, comprobando y eliminando de la lista. Si al acabar no se ha eliminado todo, error!!
         NamespaceNodeChild[] gtypeChilds = gtype.getChilds();
         for (NamespaceNodeChild ctch: gtypeChilds)
         {
-            // Como permitimos alias hay que obtener el canonical
             NamespaceNode g = GrammarFactory.retrieveNamespaceType(ctch.getType(), ctch.getNamespace());
             String text = g.getName() + ':' +  g.getNamespace();
             Integer realNum = numMap.get(text);
@@ -221,24 +206,23 @@ public class NodeValidator
             }
             else if (ctch.getNum().equals("?"))
             {
-                if (realNum>1) throwErrorNode(node, "Solo puede haber un nodo del tipo " + g.getName());
+                if (realNum>1) throwErrorNode(node, "Only one node of type " + g.getName() + " is allowed");
             }
             else if (ctch.getNum().equals("+"))
             {
-                if (realNum==0) throwErrorNode(node, "Deber�a haber al menos un nodo tipo " + g.getName());
+                if (realNum==0) throwErrorNode(node, "At least one node of type " + g.getName() + " is required");
             }
             else
             {
                 int num = Integer.parseInt(ctch.getNum());
-                if (realNum != num) throwErrorNode(node, "Cantidad nodos: " + realNum + ", deber�a ser: " + num);
+                if (realNum != num) throwErrorNode(node, "Node count: " + realNum + ", should be: " + num);
             }
             numMap.remove(text);
         }
         
-        // Validamos no vac�o
         if (numMap.size()>0)
         {
-            throwErrorNode(node, "Existen nodos no definidos en la gram�tica");
+            throwErrorNode(node, "Undeclared nodes in the grammar");
         }
     }
 
