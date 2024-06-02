@@ -1,20 +1,18 @@
 package info.semantictext.parser;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.StringReader;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.regex.Pattern;
+
 import info.semantictext.Node;
 import info.semantictext.Type;
 import info.semantictext.grammar.GrammarFactory;
 import info.semantictext.namespace.NamespaceNode;
 import info.semantictext.namespace.NamespaceNodeChild;
 import info.semantictext.utils.Constants;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.StringReader;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.regex.Pattern;
 
 public class Parser {
     public static final String UTF8_BOM = "\uFEFF";
