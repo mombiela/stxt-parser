@@ -9,6 +9,7 @@ import info.semantictext.Node;
 import info.semantictext.namespace.NamespaceNode;
 import info.semantictext.parser.ParseException;
 import info.semantictext.parser.Parser;
+import info.semantictext.utils.Constants;
 import info.semantictext.utils.NameUtils;
 
 public class GrammarFactory
@@ -23,16 +24,16 @@ public class GrammarFactory
             // Generate basic definition of the grammar
             // ----------------------------------------
             
-            String nameSpace = "www.semantictext.info/namespace.stxt";
+            String nameSpace = Constants.ROOT_NAMESPACE;
             List<NamespaceNode> basicNs = RootGrammar.generateRootGrammar();
             Map<String, NamespaceNode> ns_def = generateMap(basicNs);
             types.put(nameSpace, ns_def);
             
-            // -------------------------------------------------------
-            // Refresh with the latest valid version (from file!!)
-            // Shouldn't be necessary as it should be the same,
-            // but it's done to check the proper namespace definition
-            // ------------------------------------------------------
+            // ----------------------------------------------------
+            // Refresh with the latest valid version from Classpath
+            // It's necessari to use all the alias and
+            // to check the proper namespace definition
+            // ----------------------------------------------------
             
             ns_def = generateNameSpaceMap(nameSpace);
             types.put(nameSpace, ns_def);
