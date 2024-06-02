@@ -11,6 +11,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
@@ -47,7 +48,7 @@ public class Parser {
     // Principal method of parsing
     // ---------------------------
 
-    public void parse(InputStream inputStream) throws IOException {
+    public void parse(String content) throws IOException {
         // Only one execution
         if (executed)
             throw new ParseException("Parser is not thread safe. Only one execution allowed");
@@ -55,7 +56,7 @@ public class Parser {
             executed = true;
 
         // Get reader
-        BufferedReader in = new BufferedReader(new InputStreamReader(inputStream, Constants.ENCODING));
+        BufferedReader in = new BufferedReader(new StringReader(content));
 
         boolean firstLine = true;
         while ((line = in.readLine()) != null) {

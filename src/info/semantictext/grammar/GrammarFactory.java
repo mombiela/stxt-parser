@@ -1,9 +1,6 @@
 package info.semantictext.grammar;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -12,7 +9,6 @@ import info.semantictext.Node;
 import info.semantictext.namespace.NamespaceNode;
 import info.semantictext.parser.ParseException;
 import info.semantictext.parser.Parser;
-import info.semantictext.utils.IOUtils;
 import info.semantictext.utils.NameUtils;
 
 public class GrammarFactory
@@ -74,25 +70,16 @@ public class GrammarFactory
         System.out.println("Updating namespace: " + namespace);
         
         // Get the file
-        File f = GrammarRetrieve.getNameSpaceFile(namespace);    
+        String content = GrammarRetrieve.getNameSpaceContent(namespace);    
         
         // Loading namespace
-        InputStream in = null;
-        try
-        {
-            in = new FileInputStream(f);
-            Parser p = new Parser();
-            p.parse(in);
-            Node node = p.getDocumentNode();
-            List<NamespaceNode> gtypes = NodeToGrammar.translate(node, namespace);
-            Map<String, NamespaceNode> result = generateMap(gtypes);
-            GrammarValidator.validate(result, namespace);
-            return result;
-        }
-        finally
-        {
-            IOUtils.closeQuietly(in);
-        }
+        Parser p = new Parser();
+        p.parse(content);
+        Node node = p.getDocumentNode();
+        List<NamespaceNode> gtypes = NodeToGrammar.translate(node, namespace);
+        Map<String, NamespaceNode> result = generateMap(gtypes);
+        GrammarValidator.validate(result, namespace);
+        return result;
     }
 
     private static Map<String, NamespaceNode> generateMap(List<NamespaceNode> listGtypes) throws ParseException

@@ -1,60 +1,66 @@
 package info.semantictext.grammar;
 
-import info.semantictext.utils.Constants;
-import info.semantictext.utils.IOUtils;
-
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import info.semantictext.utils.Constants;
+import info.semantictext.utils.FileUtils;
 
 public class GrammarRetrieve
 {
     private static final String DEFS_DIR;
+    private static Map<String, String> CACHE = new HashMap<>();
     
     static
     {
     	if (System.getProperty("stxt.path") != null)
     	{
-    		DEFS_DIR = System.getProperty("stxt.path");
+    	    DEFS_DIR = System.getProperty("stxt.path");
     	}
     	else
     	{
-    		DEFS_DIR = "defs";
+    	    DEFS_DIR = "defs";
+    	}
+    	try
+    	{
+    	    // Read definitions from directory
+    	    File dir = new File(DEFS_DIR);
+    	    if (dir.isDirectory() && dir.exists())
+    	    {
+    		List<File> files = FileUtils.getStxtFiles(dir.getAbsolutePath());
+        	for (File f: files)
+        	{
+        	    //System.out.println("Grammar in file: " + f);
+        	    String name = f.getAbsolutePath().substring(dir.getAbsolutePath().length()+1);
+        	    name = name.replaceAll("\\\\", "/");
+        	    System.out.println("CACHE grammar: " + name);
+        	    CACHE.put(name, FileUtils.readFileContent(f));
+        	}
+    	    }
+    	}
+    	catch (Exception e)
+    	{
+    	    e.printStackTrace();
     	}
     }
 
-    public static File getNameSpaceFile(String namespace) throws IOException
+    public static String getNameSpaceContent(String namespace) throws IOException
     {
-        // Create local file
-        File f = new File(DEFS_DIR, namespace);
-        
-        // Return if it's OK
-        if (f.exists() && f.isFile()) return f;
-        
-        // Create directories
-        f.getParentFile().mkdirs();
-        
+	if (CACHE.containsKey(namespace)) return CACHE.get(namespace);
+	
         // Search on the internet
-        URL uri = new URL("http://" + namespace);
+        URL uri = new URL("https://" + namespace);
         String fileContent = getUrlContent(uri);
         
-        // Write to file
-        FileOutputStream out = null;
-        try
-        {
-            out = new FileOutputStream(f);
-            out.write(fileContent.getBytes(Constants.ENCODING));
-            out.flush();
-        }
-        finally
-        {
-            IOUtils.closeQuietly(out);
-        }
+        CACHE.put(namespace, fileContent);
 
-        return f;
+        return CACHE.get(namespace);
     }
     
     private static String getUrlContent(URL url) throws IOException
@@ -73,7 +79,7 @@ public class GrammarRetrieve
     {
         System.out.println("Start");
         
-        String content = getUrlContent(new URL("http://www.stxt.info/page.stxt"));
+        String content = getUrlContent(new URL("https://www.semantictext.info/page.stxt"));
         System.out.println(content);
         
         System.out.println("End");

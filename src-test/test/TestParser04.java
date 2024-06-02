@@ -1,15 +1,13 @@
 package test;
 
-import info.semantictext.Node;
-import info.semantictext.parser.Parser;
-import info.semantictext.utils.IOUtils;
-
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 
 import org.junit.jupiter.api.Test;
+
+import info.semantictext.Node;
+import info.semantictext.parser.Parser;
+import info.semantictext.utils.FileUtils;
 
 public class TestParser04
 {
@@ -18,23 +16,15 @@ public class TestParser04
     {
         System.out.println("Inici");
         
-        InputStream in = null;
-        try
-        {
-            in = new FileInputStream(new File("examples/demo_compact.stxt"));
-            Parser p = new Parser();
-            p.parse(in);
-            Node n = p.getDocumentNode();
-            System.out.println(n);
-            System.out.println("********************************");
-            System.out.println(n.toSTXT());
-            System.out.println("********************************");
-            System.out.println(n.toSTXTCompact());
-        }
-        finally
-        {
-            IOUtils.closeQuietly(in);
-        }
+        String content = FileUtils.readFileContent(new File("examples/demo_compact.stxt"));
+        Parser p = new Parser();
+        p.parse(content);
+        Node n = p.getDocumentNode();
+        System.out.println(n);
+        System.out.println("********************************");
+        System.out.println(n.toSTXT());
+        System.out.println("********************************");
+        System.out.println(n.toSTXTCompact());
         
         System.out.println("End");
     }
