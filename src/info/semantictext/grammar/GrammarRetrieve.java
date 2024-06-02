@@ -2,15 +2,13 @@ package info.semantictext.grammar;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import info.semantictext.utils.Constants;
 import info.semantictext.utils.FileUtils;
+import info.semantictext.utils.URLUtils;
 
 public class GrammarRetrieve
 {
@@ -56,32 +54,10 @@ public class GrammarRetrieve
 	
         // Search on the internet
         URL uri = new URL("https://" + namespace);
-        String fileContent = getUrlContent(uri);
+        String fileContent = URLUtils.getUrlContent(uri);
         
         CACHE.put(namespace, fileContent);
 
         return CACHE.get(namespace);
-    }
-    
-    private static String getUrlContent(URL url) throws IOException
-    {
-        InputStream in = url.openStream();
-        InputStreamReader reader = new InputStreamReader(in, Constants.ENCODING);
-
-        StringBuilder sb = new StringBuilder(Math.max(16, in.available()));
-        char[] tmp = new char[4096];
-        for(int cnt; (cnt = reader.read(tmp)) > 0; ) sb.append(tmp, 0, cnt);
-        
-        return sb.toString();
     }    
-    
-    public static void main(String[] args) throws IOException
-    {
-        System.out.println("Start");
-        
-        String content = getUrlContent(new URL("https://www.semantictext.info/page.stxt"));
-        System.out.println(content);
-        
-        System.out.println("End");
-    }
 }
