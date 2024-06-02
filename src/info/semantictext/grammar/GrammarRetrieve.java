@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import info.semantictext.utils.Constants;
 import info.semantictext.utils.FileUtils;
 import info.semantictext.utils.URLUtils;
 
@@ -27,6 +28,9 @@ public class GrammarRetrieve
     	}
     	try
     	{
+    	    // Read definitions from classpath
+    	    CACHE.put(Constants.ROOT_NAMESPACE, FileUtils.getFileContentFromClasspath("info/semantictext/grammar/namespace.stxt"));
+    	    
     	    // Read definitions from directory
     	    File dir = new File(DEFS_DIR);
     	    if (dir.isDirectory() && dir.exists())
@@ -59,5 +63,5 @@ public class GrammarRetrieve
         CACHE.put(namespace, fileContent);
 
         return CACHE.get(namespace);
-    }    
+    }
 }

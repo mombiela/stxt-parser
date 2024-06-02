@@ -2,6 +2,7 @@ package info.semantictext.utils;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.RandomAccessFile;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.FileVisitResult;
@@ -58,4 +59,14 @@ public class FileUtils {
 
 	return stxtFiles;
     }
+    
+    public static String getFileContentFromClasspath(String filePath) throws IOException {
+        ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+        try (InputStream inputStream = classLoader.getResourceAsStream(filePath)) {
+            if (inputStream == null) {
+                throw new IOException("File not found: " + filePath);
+            }
+            return new String(inputStream.readAllBytes(), Constants.ENCODING);
+        }
+    }    
 }

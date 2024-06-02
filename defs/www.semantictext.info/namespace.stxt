@@ -1,10 +1,10 @@
 #	-------------------------------------------------------
-#   Generic Grammar: 
-#	   This grammar uses only Canonical Names
-#      to allow simple parsers and future alias addition
+#	Generic Grammar: 
+#		This grammar uses only Canonical Names
+#		to allow simple parsers and future alias addition
 #   
-#   For examples and description:
-#   http://www.stxt.info/en/book/chapter_04.html
+#		For examples and description:
+#		http://www.semantictext.info
 #              
 # 	ns_def (namespace definition,namespace_definition):
 #		n_def (node definition, node def, node_def):
@@ -16,7 +16,7 @@
 #				cn (name, node, node name, canonical name):
 #				ns (namespace):
 #				n (num):
-#	-------------------------------------------------------
+#   -------------------------------------------------------
 
 ns_def(www.semantictext.info/namespace.stxt):
  
