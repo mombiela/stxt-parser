@@ -1,6 +1,7 @@
 package info.semantictext.parser;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.StringReader;
 import java.util.ArrayList;
@@ -13,6 +14,7 @@ import info.semantictext.grammar.GrammarFactory;
 import info.semantictext.namespace.NamespaceNode;
 import info.semantictext.namespace.NamespaceNodeChild;
 import info.semantictext.utils.Constants;
+import info.semantictext.utils.FileUtils;
 
 public class Parser {
     public static final String UTF8_BOM = "\uFEFF";
@@ -46,6 +48,12 @@ public class Parser {
     // Principal method of parsing
     // ---------------------------
 
+    public void parse(File srcFile) throws IOException
+    {
+        String content = FileUtils.readFileContent(srcFile);
+        parse(content);
+    }
+    
     public void parse(String content) throws IOException {
         // Only one execution
         if (executed)
