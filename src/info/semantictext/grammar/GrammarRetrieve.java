@@ -29,6 +29,7 @@ public class GrammarRetrieve
     	try
     	{
     	    // Read definitions from classpath
+    	    System.out.println("INSERTING ROOT NAMESPACE in CACHE");
     	    CACHE.put(Constants.ROOT_NAMESPACE, FileUtils.getFileContentFromClasspath("info/semantictext/grammar/namespace.stxt"));
     	    
     	    // Read definitions from directory
