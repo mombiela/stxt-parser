@@ -1,7 +1,6 @@
 package info.semantictext.utils;
 
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.nio.charset.StandardCharsets;
@@ -31,12 +30,6 @@ public class FileUtils {
     }
     public static String readFileContent(File file) throws IOException {
 	return new String(readFile(file), StandardCharsets.UTF_8);
-    }
-
-    public static void saveByteArrayToFile(File file, byte[] byteArray) throws IOException {
-	try (FileOutputStream fos = new FileOutputStream(file)) {
-	    fos.write(byteArray);
-	}
     }
 
     public static List<File> getStxtFiles(String directoryPath) {
