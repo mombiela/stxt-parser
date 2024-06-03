@@ -7,7 +7,6 @@ import org.junit.jupiter.api.Test;
 
 import info.semantictext.Node;
 import info.semantictext.parser.Parser;
-import info.semantictext.utils.FileUtils;
 
 public class TestParser04b
 {
@@ -16,9 +15,8 @@ public class TestParser04b
     {
         System.out.println("Inici");
         
-        String content = FileUtils.readFileContent(new File("examples/demo_compact2.stxt"));
         Parser p = new Parser();
-        p.parse(content);
+        p.parse(new File("examples/demo_compact2.stxt"));
         Node n = p.getDocumentNode();
         System.out.println(n);
         System.out.println("********************************");
