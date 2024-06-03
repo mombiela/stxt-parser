@@ -1,5 +1,6 @@
 package info.semantictext.utils;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -66,7 +67,18 @@ public class FileUtils {
             if (inputStream == null) {
                 throw new IOException("File not found: " + filePath);
             }
-            return new String(inputStream.readAllBytes(), Constants.ENCODING);
+            return new String(readAllBytes(inputStream), Constants.ENCODING);
         }
+    }
+
+    private static byte[] readAllBytes(InputStream inputStream) throws IOException {
+        ByteArrayOutputStream buffer = new ByteArrayOutputStream();
+        int nRead;
+        byte[] data = new byte[1024];
+        while ((nRead = inputStream.read(data, 0, data.length)) != -1) {
+            buffer.write(data, 0, nRead);
+        }
+        buffer.flush();
+        return buffer.toByteArray();
     }    
 }
