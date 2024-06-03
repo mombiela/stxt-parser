@@ -3,7 +3,9 @@ package info.semantictext.grammar;
 import info.semantictext.Type;
 import info.semantictext.namespace.NamespaceNode;
 import info.semantictext.namespace.NamespaceNodeChild;
+import info.semantictext.utils.FileUtils;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -91,6 +93,11 @@ public class RootGrammar
         type.setNamespace(nameSpace);
         type.setAlias(new String[]{});
         result.add(type);
+    }
+
+    public static String getRootGrammarContentString() throws IOException
+    {
+        return FileUtils.getFileContentFromClasspath("info/semantictext/grammar/namespace.stxt");
     }
     
 }
