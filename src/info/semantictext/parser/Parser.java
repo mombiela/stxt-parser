@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.StringReader;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
@@ -15,6 +16,7 @@ import info.semantictext.namespace.NamespaceNode;
 import info.semantictext.namespace.NamespaceNodeChild;
 import info.semantictext.utils.Constants;
 import info.semantictext.utils.FileUtils;
+import info.semantictext.utils.URLUtils;
 
 public class Parser {
     public static final String UTF8_BOM = "\uFEFF";
@@ -48,6 +50,12 @@ public class Parser {
     // Principal method of parsing
     // ---------------------------
 
+    public void parseURI(String uri) throws IOException
+    {
+        String content = URLUtils.getUrlContent(new URL(uri));
+        parse(content);
+    }
+    
     public void parse(File srcFile) throws IOException
     {
         String content = FileUtils.readFileContent(srcFile);
