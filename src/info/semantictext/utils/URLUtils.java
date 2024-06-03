@@ -1,5 +1,6 @@
 package info.semantictext.utils;
 
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -11,22 +12,21 @@ public class URLUtils {
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.setRequestProperty("User-Agent", "Mozilla/5.0");
         connection.setRequestProperty("Accept-Language", "en-US,en;q=0.5");
-        connection.setRequestProperty("Accept", "text/plain");
+        connection.setRequestProperty("Accept", "text/html");
 
-        InputStream in = connection.getInputStream();
-        InputStreamReader reader = new InputStreamReader(in, "UTF-8");
+        try (InputStream in = connection.getInputStream();
+             InputStreamReader isr = new InputStreamReader(in, "UTF-8");
+             BufferedReader reader = new BufferedReader(isr)) {
 
-        StringBuilder sb = new StringBuilder();
-        char[] buffer = new char[4096];
-        int length;
-        while ((length = reader.read(buffer)) != -1) {
-            sb.append(buffer, 0, length);
+            StringBuilder sb = new StringBuilder();
+            char[] buffer = new char[4096];
+            int length;
+            while ((length = reader.read(buffer)) != -1) {
+                sb.append(buffer, 0, length);
+            }
+            return sb.toString();
         }
-
-        reader.close();
-        return sb.toString();
-    }
-    
+    }    
     public static void main(String[] args) throws IOException
     {
         System.out.println("Start");
