@@ -12,6 +12,11 @@ public class GrammarRetrieve
     private static final String DEFS_DIR;
     private static Map<String, String> CACHE = new HashMap<>();
     
+    public void addGrammarDefinition(String nameSpace, String content)
+    {
+        CACHE.put(nameSpace, content);
+    }
+    
     static
     {
     	if (System.getProperty("stxt.path") != null)
