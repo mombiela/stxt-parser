@@ -1,16 +1,9 @@
-package info.semantictext.grammar;
+package info.semantictext;
 
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import info.semantictext.Node;
-import info.semantictext.namespace.NamespaceNode;
-import info.semantictext.parser.ParseException;
-import info.semantictext.parser.Parser;
-import info.semantictext.utils.Constants;
-import info.semantictext.utils.NameUtils;
 
 public class GrammarFactory
 {
@@ -50,7 +43,7 @@ public class GrammarFactory
 
     public static NamespaceNode retrieveNamespaceType(String name, String namespace) throws IOException
     {
-        name = NameUtils.uniform(name);
+        name = Utils.uniform(name);
         
         Map<String, NamespaceNode> namespaceTypes = types.get(namespace);
         if (namespaceTypes == null)
@@ -93,12 +86,12 @@ public class GrammarFactory
         for (NamespaceNode type: listGtypes)
         {
             // Make insert
-            result.put(NameUtils.uniform(type.getName()), type);
+            result.put(Utils.uniform(type.getName()), type);
             String[] alias = type.getAlias();
             for(String a: alias)
             {
                 // Check alias
-                result.put(NameUtils.uniform(a), type);
+                result.put(Utils.uniform(a), type);
             }
         }
         return result;

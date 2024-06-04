@@ -1,4 +1,4 @@
-package info.semantictext.utils;
+package info.semantictext;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -6,8 +6,10 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.Locale;
 
-public class URLUtils {
+public class Utils
+{
     public static String getUrlContent(URL url) throws IOException {
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.setRequestProperty("User-Agent", "Mozilla/5.0");
@@ -26,15 +28,14 @@ public class URLUtils {
             }
             return sb.toString();
         }
-    }    
-    public static void main(String[] args) throws IOException
+    }   
+    public static String uniform(String name)
     {
-        System.out.println("Start");
-        
-        String content = getUrlContent(new URL("https://www.semantictext.info/page.stxt"));
-        System.out.println(content);
-        
-        System.out.println("End");
+        return name.trim().toLowerCase(Locale.ENGLISH);
+    }
+    public static String cleanupString(String input) {
+        return input.replaceAll("[\\r\\n\\t]+|\\s+", "");
     }
     
+
 }

@@ -1,4 +1,4 @@
-package info.semantictext.parser;
+package info.semantictext;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -8,15 +8,6 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
-
-import info.semantictext.Node;
-import info.semantictext.Type;
-import info.semantictext.grammar.GrammarFactory;
-import info.semantictext.namespace.NamespaceNode;
-import info.semantictext.namespace.NamespaceNodeChild;
-import info.semantictext.utils.Constants;
-import info.semantictext.utils.FileUtils;
-import info.semantictext.utils.URLUtils;
 
 public class Parser {
     public static final String UTF8_BOM = "\uFEFF";
@@ -52,7 +43,7 @@ public class Parser {
 
     public void parseURI(String uri) throws IOException
     {
-        String content = URLUtils.getUrlContent(new URL(uri));
+        String content = Utils.getUrlContent(new URL(uri));
         parse(content);
     }
     

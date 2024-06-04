@@ -1,4 +1,4 @@
-package info.semantictext.grammar;
+package info.semantictext;
 
 import java.io.File;
 import java.io.IOException;
@@ -6,10 +6,6 @@ import java.net.URL;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import info.semantictext.utils.Constants;
-import info.semantictext.utils.FileUtils;
-import info.semantictext.utils.URLUtils;
 
 public class GrammarRetrieve
 {
@@ -59,7 +55,7 @@ public class GrammarRetrieve
 	
         // Search on the internet
         URL uri = new URL("https://" + namespace);
-        String fileContent = URLUtils.getUrlContent(uri);
+        String fileContent = Utils.getUrlContent(uri);
         
         CACHE.put(namespace, fileContent);
 

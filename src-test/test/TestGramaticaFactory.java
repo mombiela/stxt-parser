@@ -4,7 +4,7 @@ import java.io.IOException;
 
 import org.junit.jupiter.api.Test;
 
-import info.semantictext.grammar.GrammarFactory;
+import info.semantictext.GrammarFactory;
 
 public class TestGramaticaFactory
 {

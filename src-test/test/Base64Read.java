@@ -1,15 +1,16 @@
 package test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Base64;
 
-import info.semantictext.utils.FileUtils;
-import info.semantictext.utils.StringCleanup;
 import org.junit.jupiter.api.Test;
+
+import info.semantictext.FileUtils;
+import info.semantictext.Utils;
 
 public class Base64Read 
 {
@@ -17,7 +18,7 @@ public class Base64Read
     public void mainTest() throws IOException {
 	String text = FileUtils.readFileContent(new File("examples/foto.base64.txt"));
 	System.out.println(text);
-	byte[] fotoBytes = Base64.getDecoder().decode(StringCleanup.cleanupString(text));
+	byte[] fotoBytes = Base64.getDecoder().decode(Utils.cleanupString(text));
 	System.out.println(fotoBytes.length);
 	
 	byte[] fotoBytesReal = FileUtils.readFile(new File("examples/foto.gif"));

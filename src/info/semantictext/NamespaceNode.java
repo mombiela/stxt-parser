@@ -1,8 +1,6 @@
-package info.semantictext.namespace;
+package info.semantictext;
 
 import java.util.Arrays;
-
-import info.semantictext.Type;
 
 public class NamespaceNode
 {

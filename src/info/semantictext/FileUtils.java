@@ -1,4 +1,4 @@
-package info.semantictext.utils;
+package info.semantictext;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;

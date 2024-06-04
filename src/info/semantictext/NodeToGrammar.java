@@ -1,10 +1,4 @@
-package info.semantictext.grammar;
-
-import info.semantictext.Node;
-import info.semantictext.Type;
-import info.semantictext.namespace.NamespaceNode;
-import info.semantictext.namespace.NamespaceNodeChild;
-import info.semantictext.parser.ParseException;
+package info.semantictext;
 
 import java.util.ArrayList;
 import java.util.List;

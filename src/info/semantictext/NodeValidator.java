@@ -1,22 +1,16 @@
-package info.semantictext.parser;
+package info.semantictext;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.util.Base64;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.util.Base64;
-
-import info.semantictext.Node;
-import info.semantictext.grammar.GrammarFactory;
-import info.semantictext.namespace.NamespaceNode;
-import info.semantictext.namespace.NamespaceNodeChild;
-import info.semantictext.utils.StringCleanup;
 
 public class NodeValidator
 {
@@ -113,7 +107,7 @@ public class NodeValidator
     {
         try
         {
-            Base64.getDecoder().decode(StringCleanup.cleanupString(n.getValue()));
+            Base64.getDecoder().decode(Utils.cleanupString(n.getValue()));
         }
         catch (Exception e)
         {

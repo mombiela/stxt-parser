@@ -1,4 +1,4 @@
-package info.semantictext.utils;
+package info.semantictext;
 
 public class Constants
 {

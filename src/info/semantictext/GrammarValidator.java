@@ -1,10 +1,4 @@
-package info.semantictext.grammar;
-
-import info.semantictext.Type;
-import info.semantictext.namespace.NamespaceNode;
-import info.semantictext.namespace.NamespaceNodeChild;
-import info.semantictext.parser.ParseException;
-import info.semantictext.utils.NameUtils;
+package info.semantictext;
 
 import java.io.IOException;
 import java.util.Collection;
@@ -32,7 +26,7 @@ public class GrammarValidator
         for (NamespaceNode type: grammar)
         {
             // Check name
-            String canonicalName = NameUtils.uniform(type.getName());
+            String canonicalName = Utils.uniform(type.getName());
             if (nsDef.contains(canonicalName))
                 throw new ParseException("Duplicated name: " + canonicalName + " -> " + type.getNamespace());
             
@@ -43,7 +37,7 @@ public class GrammarValidator
                 for(String a: alias)
                 {
                     // Check alias
-                    a = NameUtils.uniform(a);
+                    a = Utils.uniform(a);
                     if (nsDef.contains(a))
                         throw new ParseException("Duplicated alias: " + a + " -> " + type.getNamespace());
                 }
@@ -98,7 +92,7 @@ public class GrammarValidator
             
             // Validate names and aliases
             // Check name
-            String canonicalName = NameUtils.uniform(type.getName());
+            String canonicalName = Utils.uniform(type.getName());
             if (childsAlias.contains(canonicalName))
                 throw new ParseException("Duplicated name or childName: " + canonicalName + " -> " + type);
             
@@ -109,7 +103,7 @@ public class GrammarValidator
                 for(String a: alias)
                 {
                     // Check alias
-                    a = NameUtils.uniform(a);
+                    a = Utils.uniform(a);
                     if (childsAlias.contains(a))
                         throw new ParseException("Duplicated name or childName: " + canonicalName + " -> " + type);
                 }
@@ -121,7 +115,7 @@ public class GrammarValidator
     {
         if (child.getNamespace().equalsIgnoreCase(namespace))
         {
-            return grammar.get(NameUtils.uniform(child.getType()));
+            return grammar.get(Utils.uniform(child.getType()));
         }
         else
         {

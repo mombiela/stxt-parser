@@ -5,9 +5,9 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-import info.semantictext.grammar.GrammarFactory;
-import info.semantictext.grammar.RootGrammar;
-import info.semantictext.namespace.NamespaceNode;
+import info.semantictext.GrammarFactory;
+import info.semantictext.NamespaceNode;
+import info.semantictext.RootGrammar;
 
 public class TestG1
 {

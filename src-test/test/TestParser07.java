@@ -5,9 +5,9 @@ import java.io.IOException;
 
 import org.junit.jupiter.api.Test;
 
+import info.semantictext.FileUtils;
 import info.semantictext.Node;
-import info.semantictext.parser.Parser;
-import info.semantictext.utils.FileUtils;
+import info.semantictext.Parser;
 
 public class TestParser07
 {
