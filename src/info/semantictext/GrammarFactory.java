@@ -87,7 +87,7 @@ public class GrammarFactory
         {
             // Make insert
             result.put(Utils.uniform(type.getName()), type);
-            String[] alias = type.getAlias();
+            List<String> alias = type.getAlias();
             for(String a: alias)
             {
                 // Check alias

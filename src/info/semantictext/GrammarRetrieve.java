@@ -32,14 +32,14 @@ public class GrammarRetrieve
     	    File dir = new File(DEFS_DIR);
     	    if (dir.isDirectory() && dir.exists())
     	    {
-    		List<File> files = FileUtils.getStxtFiles(dir.getAbsolutePath());
+    		List<File> files = UtilsFile.getStxtFiles(dir.getAbsolutePath());
         	for (File f: files)
         	{
         	    //System.out.println("Grammar in file: " + f);
         	    String name = f.getAbsolutePath().substring(dir.getAbsolutePath().length()+1);
         	    name = name.replaceAll("\\\\", "/");
         	    System.out.println("CACHE grammar: " + name);
-        	    CACHE.put(name, FileUtils.readFileContent(f));
+        	    CACHE.put(name, UtilsFile.readFileContent(f));
         	}
     	    }
     	}

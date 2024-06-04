@@ -16,7 +16,7 @@ public class TestParser02
         System.out.println("Inici");
         
         Parser p = new Parser();
-        p.parse(new File("defs/www.semantictext.info/namespace.es.stxt"));
+        p.parseFile(new File("defs/www.semantictext.info/namespace.es.stxt"));
         Node n = p.getDocumentNode();
         System.out.println(n);
         System.out.println(n.toSTXT());

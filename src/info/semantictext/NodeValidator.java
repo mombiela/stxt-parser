@@ -161,7 +161,7 @@ public class NodeValidator
             }
         }
         
-        NamespaceNodeChild[] gtypeChilds = gtype.getChilds();
+        List<NamespaceNodeChild> gtypeChilds = gtype.getChilds();
         for (NamespaceNodeChild ctch: gtypeChilds)
         {
             NamespaceNode g = GrammarFactory.retrieveNamespaceType(ctch.getType(), ctch.getNamespace());

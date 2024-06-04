@@ -20,14 +20,14 @@ public class RootGrammar
         type.setName("n_def");
         type.setNodeType(Type.NODE);
         type.setNamespace(nameSpace);
-        type.setAlias(new String[]{});
+        type.setAlias(new ArrayList<>());
         
-        NamespaceNodeChild[] childs = new NamespaceNodeChild[5];
-        childs[0] = new NamespaceNodeChild("cn", nameSpace, "1");
-        childs[1] = new NamespaceNodeChild("a", nameSpace, "*");
-        childs[2] = new NamespaceNodeChild("type", nameSpace, "1");
-        childs[3] = new NamespaceNodeChild("dsc", nameSpace, "?");
-        childs[4] = new NamespaceNodeChild("ch", nameSpace, "*");
+        List<NamespaceNodeChild> childs = new ArrayList<>();
+        childs.add(new NamespaceNodeChild("cn", nameSpace, "1"));
+        childs.add(new NamespaceNodeChild("a", nameSpace, "*"));
+        childs.add(new NamespaceNodeChild("type", nameSpace, "1"));
+        childs.add(new NamespaceNodeChild("dsc", nameSpace, "?"));
+        childs.add(new NamespaceNodeChild("ch", nameSpace, "*"));
         type.setChilds(childs);
         
         result.add(type);
@@ -40,12 +40,12 @@ public class RootGrammar
         type.setName("ch");
         type.setNodeType(Type.NODE);
         type.setNamespace(nameSpace);
-        type.setAlias(new String[]{});
+        type.setAlias(new ArrayList<>());
         
-        childs = new NamespaceNodeChild[3];
-        childs[0] = new NamespaceNodeChild("cn", nameSpace, "1");
-        childs[1] = new NamespaceNodeChild("n", nameSpace, "1");
-        childs[2] = new NamespaceNodeChild("ns", nameSpace, "?");
+        childs = new ArrayList<>();
+        childs.add(new NamespaceNodeChild("cn", nameSpace, "1"));
+        childs.add(new NamespaceNodeChild("n", nameSpace, "1"));
+        childs.add(new NamespaceNodeChild("ns", nameSpace, "?"));
         type.setChilds(childs);
         
         result.add(type);
@@ -58,10 +58,10 @@ public class RootGrammar
         type.setName("ns_def");
         type.setNodeType(Type.NODE);
         type.setNamespace(nameSpace);
-        type.setAlias(new String[]{});
+        type.setAlias(new ArrayList<>());
         
-        childs = new NamespaceNodeChild[1];
-        childs[0] = new NamespaceNodeChild("n_def", nameSpace, "+");
+        childs = new ArrayList<>();
+        childs.add(new NamespaceNodeChild("n_def", nameSpace, "+"));
         type.setChilds(childs);
         
         result.add(type);
@@ -86,13 +86,13 @@ public class RootGrammar
         type.setName(name);
         type.setNodeType(Type.TEXT);
         type.setNamespace(nameSpace);
-        type.setAlias(new String[]{});
+        type.setAlias(new ArrayList<>());
         result.add(type);
     }
 
     public static String getRootGrammarContentString() throws IOException
     {
-        return FileUtils.getFileContentFromClasspath("info/semantictext/namespace.stxt");
+        return UtilsFile.getFileContentFromClasspath("info/semantictext/namespace.stxt");
     }
     
 }

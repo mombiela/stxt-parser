@@ -16,7 +16,7 @@ public class TestParser01
         System.out.println("Inici");
         
         Parser p = new Parser();
-        p.parse(new File("defs/www.kocinando.com/receta.stxt"));
+        p.parseFile(new File("defs/www.kocinando.com/receta.stxt"));
         Node n = p.getDocumentNode();
         System.out.println(n);
         System.out.println("************************");

@@ -4,7 +4,7 @@ import java.io.IOException;
 
 import org.junit.jupiter.api.Test;
 
-import info.semantictext.FileUtils;
+import info.semantictext.UtilsFile;
 
 public class TestFileUtils
 {
@@ -14,7 +14,7 @@ public class TestFileUtils
         System.out.println("Inici");
         
         String filePath = "info/semantictext/namespace.stxt";
-        String fileContent = FileUtils.getFileContentFromClasspath(filePath);
+        String fileContent = UtilsFile.getFileContentFromClasspath(filePath);
         System.out.println(fileContent);
         
         System.out.println("End");

@@ -46,8 +46,8 @@ public class NodeToGrammar
             if (n.getCanonicalName().equals("type"))  updateType(result, n.getValue().trim());
             if (n.getCanonicalName().equals("ch"))    updateChild(ccc, n, namespace);
         }        
-        result.setAlias(createFromArray(alias));
-        result.setChilds(createFromArrayNamespaceNode(ccc));
+        result.setAlias(alias);
+        result.setChilds(ccc);
 
         return result;
     }
@@ -91,26 +91,6 @@ public class NodeToGrammar
         
         // Insert into list
         ccc.add(result);
-    }
-    
-    
-    // -------------------
-    // Utility methods
-    // -------------------
-    
-    private static String[] createFromArray(List<String> alias)
-    {
-        String[] result = new String[alias.size()];
-        for (int i = 0; i < alias.size(); i++) result[i] = alias.get(i);
-        return result;
-    }
-    
-    private static NamespaceNodeChild[] createFromArrayNamespaceNode(List<NamespaceNodeChild> alias)
-    {
-        if (alias.size() == 0) return null;
-        NamespaceNodeChild[] result = new NamespaceNodeChild[alias.size()];
-        for (int i = 0; i < alias.size(); i++) result[i] = alias.get(i);
-        return result;
     }
 
 }

@@ -16,7 +16,7 @@ public class TestParser10
         System.out.println("Inici");
         
         Parser p = new Parser();
-    	p.parse(new File("examples/ws.stxt"));
+    	p.parseFile(new File("examples/ws.stxt"));
         Node n = p.getDocumentNode();
 
         System.out.println(n);

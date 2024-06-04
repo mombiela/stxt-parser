@@ -47,9 +47,9 @@ public class Parser {
         parse(content);
     }
     
-    public void parse(File srcFile) throws IOException
+    public void parseFile(File srcFile) throws IOException
     {
-        String content = FileUtils.readFileContent(srcFile);
+        String content = UtilsFile.readFileContent(srcFile);
         parse(content);
     }
     
@@ -293,7 +293,7 @@ public class Parser {
             throw new ParseException("Grammar loading failed. Line [" + this.lineNum + "], " + parent.getName() + ", "
                     + parent.getNamespace());
 
-        NamespaceNodeChild[] childs = gtype.getChilds();
+        List<NamespaceNodeChild> childs = gtype.getChilds();
         if (childs == null)
             throw new ParseException("Namespace deduction failed. Line [" + this.lineNum + "]");
 
@@ -305,7 +305,7 @@ public class Parser {
             }
             if (typeChild.getName().equalsIgnoreCase(typeName))
                 return typeChild.getNamespace();
-            String[] alias = typeChild.getAlias();
+            List<String> alias = typeChild.getAlias();
             if (alias != null) {
                 for (String a : alias) {
                     if (a.equalsIgnoreCase(typeName))

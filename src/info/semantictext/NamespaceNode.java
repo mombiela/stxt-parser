@@ -1,14 +1,14 @@
 package info.semantictext;
 
-import java.util.Arrays;
+import java.util.List;
 
 public class NamespaceNode
 {
     private String name;
     private String namespace;
-    private String[] alias;
+    private List<String> alias;
     private String nodeType;
-    private NamespaceNodeChild[] childs;
+    private List<NamespaceNodeChild> childs;
     
     public String getName()
     {
@@ -26,11 +26,11 @@ public class NamespaceNode
     {
         this.namespace = namespace;
     }
-    public String[] getAlias()
+    public List<String> getAlias()
     {
         return alias;
     }
-    public void setAlias(String[] alias)
+    public void setAlias(List<String> alias)
     {
         this.alias = alias;
     }
@@ -42,11 +42,11 @@ public class NamespaceNode
     {
         this.nodeType = nodeType;
     }    
-    public NamespaceNodeChild[] getChilds()
+    public List<NamespaceNodeChild> getChilds()
     {
         return childs;
     }
-    public void setChilds(NamespaceNodeChild[] childs)
+    public void setChilds(List<NamespaceNodeChild> childs)
     {
         this.childs = childs;
     }
@@ -54,7 +54,6 @@ public class NamespaceNode
     @Override
     public String toString()
     {
-        return "NamespaceNode [name=" + name + ", namespace=" + namespace + ", nodeType=" + nodeType + ", alias=" + Arrays.toString(alias) + ", childs="
-                + Arrays.toString(childs) + "]";
+        return "NamespaceNode [name=" + name + ", namespace=" + namespace + ", nodeType=" + nodeType + ", alias=" + alias + ", childs=" + childs + "]";
     }    
 }

@@ -31,7 +31,7 @@ public class GrammarValidator
                 throw new ParseException("Duplicated name: " + canonicalName + " -> " + type.getNamespace());
             
             // Check alias
-            String[] alias = type.getAlias();
+            List<String> alias = type.getAlias();
             if (alias != null)
             {
                 for(String a: alias)
@@ -64,7 +64,7 @@ public class GrammarValidator
         // Validate that a non-node type doesn't have child nodes
         if (!Type.NODE.equals(type.getNodeType()))
         {
-            if (type.getChilds() != null && type.getChilds().length != 0)
+            if (type.getChilds() != null && type.getChilds().size() != 0)
             {
                 throw new ParseException("Incorrect grammar definition: " + namespace + ", the node cannot have children: " + type);
             }
@@ -72,8 +72,8 @@ public class GrammarValidator
         }
         
         // It's a NODE node, so we need to validate that it has child nodes
-        NamespaceNodeChild[] childs = type.getChilds();
-        if (childs == null || childs.length == 0)
+        List<NamespaceNodeChild> childs = type.getChilds();
+        if (childs == null || childs.size() == 0)
         {
             throw new ParseException("Incorrect grammar definition: " + namespace + ", the node must have children: " + type);
         }
@@ -97,7 +97,7 @@ public class GrammarValidator
                 throw new ParseException("Duplicated name or childName: " + canonicalName + " -> " + type);
             
             // Check alias
-            String[] alias = type.getAlias();
+            List<String> alias = type.getAlias();
             if (alias != null)
             {
                 for(String a: alias)

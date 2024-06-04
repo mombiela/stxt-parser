@@ -5,7 +5,7 @@ import java.io.IOException;
 
 import org.junit.jupiter.api.Test;
 
-import info.semantictext.FileUtils;
+import info.semantictext.UtilsFile;
 import info.semantictext.Node;
 import info.semantictext.Parser;
 
@@ -16,7 +16,7 @@ public class TestParser08
     {
         System.out.println("Inici");
         
-        String content = FileUtils.readFileContent(new File("defs/www.gymstxt.com/client.stxt"));
+        String content = UtilsFile.readFileContent(new File("defs/www.gymstxt.com/client.stxt"));
         Parser p = new Parser();
         p.parse(content);
         Node n = p.getDocumentNode();
