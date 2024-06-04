@@ -62,7 +62,7 @@ public class GrammarValidator
         }
         
         // Validate that a non-node type doesn't have child nodes
-        if (type.getNodeType() != Type.NODE)
+        if (!Type.NODE.equals(type.getNodeType()))
         {
             if (type.getChilds() != null && type.getChilds().length != 0)
             {

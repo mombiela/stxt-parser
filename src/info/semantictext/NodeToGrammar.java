@@ -66,7 +66,7 @@ public class NodeToGrammar
     {
         try
         {
-            result.setNodeType(Type.valueOf(value.toUpperCase()));
+            result.setNodeType(value.toUpperCase());
         }
         catch (Exception e)
         {

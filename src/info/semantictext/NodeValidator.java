@@ -24,44 +24,19 @@ public class NodeValidator
     
     public static void validate(Node n, NamespaceNode gtype) throws IOException
     {
-        switch (gtype.getNodeType())
-        {
-            case BASE64:
-                validateBase64(n);
-                break;
-            case BINARY:
-                validateBinary(n);
-                break;
-            case BOOLEAN:
-                validateBoolean(n);
-                break;
-            case HEXADECIMAL:
-                validateHexadecimal(n);
-                break;
-            case INTEGER:
-                validateInteger(n);
-                break;
-            case NATURAL:
-                validateNatural(n);
-                break;
-            case URL:
-                validateUrl(n);
-                break;
-            case NODE:
-                validateNode(n, gtype);
-                break;
-            case NUMBER:
-                validateNumber(n);
-                break;
-            case RATIONAL:
-                validateRational(n);
-                break;
-            case TEXT:
-                validateText(n);
-                break;
-            default:
-                break;
-        }
+        String nodeType = gtype.getNodeType();
+        if (Type.BASE64.equals(nodeType))           validateBase64(n);
+        else if (Type.BINARY.equals(nodeType))      validateBinary(n);
+        else if (Type.BOOLEAN.equals(nodeType))     validateBoolean(n);
+        else if (Type.HEXADECIMAL.equals(nodeType)) validateHexadecimal(n);
+        else if (Type.INTEGER.equals(nodeType))     validateInteger(n);
+        else if (Type.NATURAL.equals(nodeType))     validateNatural(n);
+        else if (Type.URL.equals(nodeType))         validateUrl(n);
+        else if (Type.NODE.equals(nodeType))        validateNode(n, gtype);
+        else if (Type.NUMBER.equals(nodeType))      validateNumber(n);
+        else if (Type.RATIONAL.equals(nodeType))    validateRational(n);
+        else if (Type.TEXT.equals(nodeType))        validateText(n);
+        else throwErrorNode(n, "Node type not supported: " + nodeType);            
     }
 
     // ------------------------

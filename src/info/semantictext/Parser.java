@@ -71,7 +71,7 @@ public class Parser {
             }
 
             this.lineNum++;
-            line = normalize(line, lastNode != null && lastNode.getType() != Type.NODE, lastLevel);
+            line = normalize(line, lastNode != null && !Type.NODE.equals(lastNode.getType()), lastLevel);
             if (line != null) {
                 update(line);
             }
@@ -187,7 +187,7 @@ public class Parser {
 
     private boolean isTextOfLast(int maxLevel) {
         // Verify if the last one is text
-        if (lastNode.getType() == Type.NODE)
+        if (Type.NODE.equals(lastNode.getType()))
             return false;
 
         // Check if it's of a higher node

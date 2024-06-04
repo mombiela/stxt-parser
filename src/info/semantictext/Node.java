@@ -12,17 +12,17 @@ public class Node
     private String name;
     private String canonicalName;
     private String namespace;
-    private Type type;
+    private String type;
     private String value;
     private List<Node> childs;
     private int lineCreation;
 
-    public Type getType()
+    public String getType()
     {
         return type;
     }
 
-    public void setType(Type type)
+    public void setType(String type)
     {
         this.type = type;
     }
@@ -135,7 +135,7 @@ public class Node
     {
         StringBuffer result = new StringBuffer();
         result.append(canonicalName + (level == 1 ? "(" + namespace + ")" : "") + ":");
-        if (type != Type.NODE)
+        if (!Type.NODE.equals(type))
         {
             result.append(tabulatedText(value, level));
         }
@@ -173,7 +173,7 @@ public class Node
     {
         StringBuffer result = new StringBuffer();
         result.append(canonicalName + (level == 1 ? "(" + namespace + ")" : "") + ":");
-        if (type != Type.NODE)
+        if (!Type.NODE.equals(type))
         {
             result.append(compactTabulatedText(value, level));
         }
@@ -194,7 +194,7 @@ public class Node
     private String compactTabulatedText(String text, int level)
     {
         if (text.indexOf('\n') == -1) return text;
-        if (type != Type.TEXT) text = text.trim();
+        if (!Type.TEXT.equals(type)) text = text.trim();
         text = text.replaceAll("\\n", '\n' + Integer.toString(level) + ':');
         return text;
     }

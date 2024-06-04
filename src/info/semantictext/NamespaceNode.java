@@ -7,7 +7,7 @@ public class NamespaceNode
     private String name;
     private String namespace;
     private String[] alias;
-    private Type nodeType;
+    private String nodeType;
     private NamespaceNodeChild[] childs;
     
     public String getName()
@@ -34,11 +34,11 @@ public class NamespaceNode
     {
         this.alias = alias;
     }
-    public Type getNodeType()
+    public String getNodeType()
     {
         return nodeType;
     }
-    public void setNodeType(Type nodeType)
+    public void setNodeType(String nodeType)
     {
         this.nodeType = nodeType;
     }    
