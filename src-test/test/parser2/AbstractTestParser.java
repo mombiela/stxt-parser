@@ -1,9 +1,7 @@
 package test.parser2;
 
-import java.io.File;
-
-import info.semantictext.GrammarRetriever;
-import info.semantictext.Parser2;
+import info.GrammarProcessor;
+import info.Parser2;
 
 public class AbstractTestParser
 {
@@ -12,13 +10,6 @@ public class AbstractTestParser
     public AbstractTestParser()
     {
         parser = new Parser2();
-        try
-        {
-            GrammarRetriever.addGrammarDefinitionsFromDir(new File("defs"));
-        }
-        catch (Exception e)
-        {
-            throw new IllegalArgumentException(e);
-        }
+        parser.setProcessor(new GrammarProcessor());
     }
 }
