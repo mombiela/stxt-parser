@@ -96,7 +96,7 @@ public class Parser2
 
     private void update(String line) throws IOException 
     {
-        System.out.println("==>" + line);
+        System.out.println(lineNum + " ==> " + line);
         // Obtain the level
         int i = line.indexOf(':');
         int maxLevel = Integer.parseInt(line.substring(0, i));
