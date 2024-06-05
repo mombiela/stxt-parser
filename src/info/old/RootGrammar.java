@@ -1,4 +1,4 @@
-package info.semantictext;
+package info.old;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -92,7 +92,7 @@ public class RootGrammar
 
     public static String getRootGrammarContentString() throws IOException
     {
-        return UtilsFile.getFileContentFromClasspath("info/semantictext/namespace.stxt");
+        return UtilsFile.getFileContentFromClasspath("info/old/namespace.stxt");
     }
     
 }

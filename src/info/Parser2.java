@@ -8,12 +8,12 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-import info.semantictext.Constants;
-import info.semantictext.LineNormalizer;
-import info.semantictext.Node;
-import info.semantictext.ParseException;
-import info.semantictext.Utils;
-import info.semantictext.UtilsFile;
+import info.old.Constants;
+import info.old.LineNormalizer;
+import info.old.Node;
+import info.old.ParseException;
+import info.old.Utils;
+import info.old.UtilsFile;
 
 public class Parser2 
 {

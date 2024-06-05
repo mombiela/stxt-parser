@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.util.HashSet;
 import java.util.Set;
 
-import info.semantictext.Node;
+import info.old.Node;
 
 public class GrammarProcessor implements Processor
 {

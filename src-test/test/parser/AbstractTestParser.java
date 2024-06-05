@@ -2,8 +2,8 @@ package test.parser;
 
 import java.io.File;
 
-import info.semantictext.GrammarRetriever;
-import info.semantictext.Parser;
+import info.old.GrammarRetriever;
+import info.old.Parser;
 
 public class AbstractTestParser
 {

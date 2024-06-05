@@ -4,7 +4,7 @@ import java.io.IOException;
 
 import org.junit.jupiter.api.Test;
 
-import info.semantictext.UtilsFile;
+import info.old.UtilsFile;
 
 public class TestFileUtils
 {

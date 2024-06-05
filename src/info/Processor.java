@@ -2,7 +2,7 @@ package info;
 
 import java.io.IOException;
 
-import info.semantictext.Node;
+import info.old.Node;
 
 public interface Processor
 {

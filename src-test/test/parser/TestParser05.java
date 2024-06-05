@@ -5,7 +5,7 @@ import java.io.IOException;
 
 import org.junit.jupiter.api.Test;
 
-import info.semantictext.Node;
+import info.old.Node;
 
 public class TestParser05 extends AbstractTestParser
 {

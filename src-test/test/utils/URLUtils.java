@@ -5,7 +5,7 @@ import java.net.URL;
 
 import org.junit.jupiter.api.Test;
 
-import info.semantictext.Utils;
+import info.old.Utils;
 
 public class URLUtils
 {
