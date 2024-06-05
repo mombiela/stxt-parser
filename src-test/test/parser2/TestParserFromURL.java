@@ -4,7 +4,7 @@ import java.io.IOException;
 
 import org.junit.jupiter.api.Test;
 
-import info.old.Node;
+import info.Node;
 
 public class TestParserFromURL extends AbstractTestParser
 {

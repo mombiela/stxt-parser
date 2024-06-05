@@ -4,8 +4,6 @@ import java.io.IOException;
 import java.util.HashSet;
 import java.util.Set;
 
-import info.old.Node;
-
 public class GrammarProcessor implements Processor
 {
     private static final Set<String> nodes = new HashSet<>();
@@ -36,6 +34,13 @@ public class GrammarProcessor implements Processor
     @Override
     public void validateNode(Node n) throws IOException
     {
-        System.out.println("....\tcheck node: " + n.getCanonicalName() + " -> " + n.getNamespace());
+        System.out.println("....\tcheck node: " + n.getName() + " -> " + n.getNamespace());
+    }
+    
+    @Override
+    public void updateNode(Node n) throws IOException
+    {
+        System.out.println("....\tupdate node: " + n.getName() + " -> " + n.getNamespace());
+        n.setCanonicalName(n.getName()); // TODO Hacer correctamente
     }
 }

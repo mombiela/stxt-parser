@@ -8,13 +8,6 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-import info.old.Constants;
-import info.old.LineNormalizer;
-import info.old.Node;
-import info.old.ParseException;
-import info.old.Utils;
-import info.old.UtilsFile;
-
 public class Parser2 
 {
     // -------------------
@@ -88,7 +81,7 @@ public class Parser2
         // Validate all nodes remaining in the list. Everything is finished!
         for (Node n : nodeStack)
         {
-            validateNode(n);
+            validateNodeAndUpdate(n);
         }
     }
 
@@ -315,15 +308,16 @@ public class Parser2
             if (levelStack.get(i) >= level) {
                 levelStack.remove(i);
                 Node n = nodeStack.remove(i);
-                validateNode(n); // Validate node at this point, it's complete now
+                validateNodeAndUpdate(n); // Validate node at this point, it's complete now
             } else
                 break;
             i--;
         }
     }
 
-    private void validateNode(Node n) throws IOException 
+    private void validateNodeAndUpdate(Node n) throws IOException 
     {
         mainProcessor.validateNode(n);
+        mainProcessor.updateNode(n);
     }
 }
