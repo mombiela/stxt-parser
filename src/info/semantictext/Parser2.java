@@ -9,7 +9,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
 
-public class Parser2 {
+public class Parser2 
+{
     public static final String UTF8_BOM = "\uFEFF";
 
     // ---------
@@ -65,32 +66,37 @@ public class Parser2 {
         BufferedReader in = new BufferedReader(new StringReader(content));
 
         boolean firstLine = true;
-        while ((line = in.readLine()) != null) {
-            if (firstLine) {
+        while ((line = in.readLine()) != null) 
+        {
+            if (firstLine) 
+            {
                 line = removeUTF8BOM(line);
                 firstLine = false;
             }
 
             this.lineNum++;
             line = normalize(line, lastNode != null && !Type.NODE.equals(lastNode.getType()), lastLevel);
-            if (line != null) {
+            if (line != null) 
+            {
                 update(line);
             }
         }
 
         // Validate all nodes remaining in the list. Everything is finished!
         for (Node n : nodeStack)
+        {
             validateNode(n);
+        }
     }
 
-    private static String removeUTF8BOM(String s) {
-        if (s.startsWith(UTF8_BOM)) {
-            s = s.substring(1);
-        }
+    private static String removeUTF8BOM(String s) 
+    {
+        if (s.startsWith(UTF8_BOM)) s = s.substring(1);
         return s;
     }
 
-    public Node getDocumentNode() {
+    public Node getDocumentNode() 
+    {
         return nodeStack.get(0);
     }
 
@@ -98,25 +104,25 @@ public class Parser2 {
     // Update de linea
     // ---------------
 
-    private void update(String line) throws IOException {
+    private void update(String line) throws IOException 
+    {
         // Obtain the level
         int i = line.indexOf(':');
         int maxLevel = Integer.parseInt(line.substring(0, i));
         line = line.substring(i + 1);
 
-        // Check if it's the first node
-        if (lastNode == null) {
+        if (lastNode == null)         // Check if it's the first node
+        {
             updateFirstNode(line, maxLevel);
         }
-        // Check if it's text of the last node
-        else if (isTextOfLast(maxLevel)) {
+        else if (isTextOfLast(maxLevel)) // Check if it's text of the last node 
+        {
             updateTextOfLast(line, maxLevel);
             return;
-        }
-        // Update node
-        else {
-            if (line.trim().length() == 0 || line.trim().charAt(0) == '#')
-                return;
+        }        
+        else // Update node 
+        {
+            if (line.trim().length() == 0 || line.trim().charAt(0) == '#') return;
             updateNode(line, maxLevel);
         }
     }
@@ -125,9 +131,11 @@ public class Parser2 {
     // Node updates
     // ------------
 
-    private void updateFirstNode(String line, int maxLevel) throws IOException {
+    private void updateFirstNode(String line, int maxLevel) throws IOException 
+    {
         // Validate that it's level 0
-        if (maxLevel != 0) {
+        if (maxLevel != 0) 
+        {
             String error = "The first level cannot have a level";
             throw new ParseException(error);
         }
@@ -139,7 +147,8 @@ public class Parser2 {
         levelStack.add(lastLevel);
     }
 
-    private void updateNode(String line, int level) throws IOException {
+    private void updateNode(String line, int level) throws IOException 
+    {
         // Obtain the node
         lastNode = createNode(line, level);
 
@@ -164,29 +173,35 @@ public class Parser2 {
         lastLevel = level;
     }
 
-    private void validateLevel(int level) throws ParseException {
-        if (lastLevel == -1) {
-            if (level > 1) {
+    private void validateLevel(int level) throws ParseException 
+    {
+        if (lastLevel == -1) 
+        {
+            if (level > 1) 
+            {
                 String error = "Line level incorrect [" + this.lineNum + "]: cannot be higher than 1";
                 throw new ParseException(error);
             }
-        } else {
-            if (level > (lastLevel + 1)) {
+        } 
+        else 
+        {
+            if (level > (lastLevel + 1)) 
+            {
                 String error = "Line level incorrect [" + this.lineNum + "]: cannot be higher than " + (lastLevel + 1);
                 throw new ParseException(error);
             }
         }
     }
 
-    private void updateTextOfLast(String line, int maxLevel) {
+    private void updateTextOfLast(String line, int maxLevel) 
+    {
         String value = lastNode.getValue();
-        if (value.length() > 0)
-            lastNode.setValue(value + '\n' + line);
-        else
-            lastNode.setValue(line);
+        if (value.length() > 0)   lastNode.setValue(value + '\n' + line);
+        else                      lastNode.setValue(line);
     }
 
-    private boolean isTextOfLast(int maxLevel) {
+    private boolean isTextOfLast(int maxLevel) 
+    {
         // Verify if the last one is text
         if (Type.NODE.equals(lastNode.getType()))
             return false;
@@ -199,21 +214,24 @@ public class Parser2 {
     // Creation of node
     // ----------------
 
-    private Node createNode(String line, int maxLevel) throws IOException {
+    private Node createNode(String line, int maxLevel) throws IOException 
+    {
         // Create result
         Node result = new Node();
         result.setLineCreation(lineNum);
 
         // Trim from the beginning
         int index = 0;
-        while (line.charAt(index) == Constants.TAB || line.charAt(index) == Constants.SPACE) {
+        while (line.charAt(index) == Constants.TAB || line.charAt(index) == Constants.SPACE) 
+        {
             index++;
         }
         line = line.substring(index);
 
         // Find name, namespace, and value
         int v_sep = line.indexOf(":");
-        if (v_sep == -1) {
+        if (v_sep == -1) 
+        {
             String error = "Malformed line [" + this.lineNum + "]: " + this.line;
             throw new ParseException(error);
         }
@@ -221,16 +239,25 @@ public class Parser2 {
         int i1 = line.substring(0, v_sep).indexOf(')');
 
         int v0;
-        if (i1 != -1) {
+        if (i1 != -1) 
+        {
             String aux = line.substring(i1);
             v0 = aux.indexOf(':') + i1;
-        } else {
+        }
+        else 
+        {
             v0 = line.indexOf(':');
         }
 
         // Check for errors
-        boolean hasError = (v0 == -1) || (i0 == -1 && i1 != -1) || (i0 != -1 && i1 != -1 && i0 > i1) || (i0 != -1 && i1 == -1) || (v0 < i1);
-        if (hasError) {
+        boolean hasError = (v0 == -1) 
+                || (i0 == -1 && i1 != -1) 
+                || (i0 != -1 && i1 != -1 && i0 > i1) 
+                || (i0 != -1 && i1 == -1) 
+                || (v0 < i1);
+        
+        if (hasError) 
+        {
             String error = "Malformed line [" + this.lineNum + "]: " + this.line;
             throw new ParseException(error);
         }
@@ -239,13 +266,15 @@ public class Parser2 {
         String nameSpace = null;
         String typeName = null;
         String value = line.substring(v0 + 1);
-        if (value.trim().length() == 0)
-            value = "";
+        if (value.trim().length() == 0) value = "";
 
-        if (i0 == -1) {
+        if (i0 == -1) 
+        {
             typeName = line.substring(0, v0);
             nameSpace = deduceNamespace(typeName, maxLevel);
-        } else {
+        }
+        else 
+        {
             nameSpace = line.substring(i0 + 1, i1);
             typeName = line.substring(0, i0);
         }
@@ -261,10 +290,12 @@ public class Parser2 {
         return result;
     }
 
-    private void updateNode(Node node, int level) throws IOException {
+    private void updateNode(Node node, int level) throws IOException 
+    {
         // Validate
         NamespaceNode gtype = GrammarFactory.retrieveNamespaceType(node.getName(), node.getNamespace());
-        if (gtype == null) {
+        if (gtype == null) 
+        {
             String error = "Invalid name, namespace: " + node.getName() + ", " + node.getNamespace();
             throw new ParseException(error);
         }
@@ -274,15 +305,18 @@ public class Parser2 {
         node.setType(gtype.getNodeType());
     }
 
-    private Node getParent(int level) {
-        for (int i = levelStack.size() - 1; i >= 0; i--) {
+    private Node getParent(int level) 
+    {
+        for (int i = levelStack.size() - 1; i >= 0; i--) 
+        {
             if (levelStack.get(i) < level)
                 return nodeStack.get(i);
         }
         return null;
     }
 
-    private String deduceNamespace(String typeName, int level) throws IOException {
+    private String deduceNamespace(String typeName, int level) throws IOException 
+    {
         // Deduce namespace
         Node parent = getParent(level);
         if (parent == null)
