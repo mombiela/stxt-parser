@@ -64,7 +64,7 @@ public class GrammarFactory
         System.out.println("Updating namespace: " + namespace);
         
         // Get the file
-        String content = GrammarRetrieve.getNameSpaceContent(namespace);    
+        String content = GrammarRetriever.getNameSpaceContent(namespace);    
         
         // Loading namespace
         Parser p = new Parser();

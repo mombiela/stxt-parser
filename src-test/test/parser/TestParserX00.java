@@ -1,30 +1,27 @@
-package test;
+package test.parser;
 
 import java.io.File;
 import java.io.IOException;
 
 import org.junit.jupiter.api.Test;
 
-import info.semantictext.UtilsFile;
 import info.semantictext.Node;
-import info.semantictext.Parser;
+import info.semantictext.UtilsFile;
 
-public class TestParser09
+public class TestParserX00 extends AbstractTestParser
 {
     @Test
     public void mainTest() throws IOException
     {
         System.out.println("Inici");
         
-        String content = UtilsFile.readFileContent(new File("examples/client.stxt"));
-        Parser p = new Parser();
-        p.parse(content);
-        Node n = p.getDocumentNode();
+        String content = UtilsFile.readFileContent(new File("examples/contribute.stxt"));
+        parser.parse(content);
+        Node n = parser.getDocumentNode();
         System.out.println(n);
         System.out.println("********************************");
         System.out.println(n.toSTXT());
         System.out.println("********************************");
-        System.out.println(n.toSTXTCompact());
         
         System.out.println("End");
     }
