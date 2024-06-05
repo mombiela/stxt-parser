@@ -103,7 +103,7 @@ public class Parser2
 
     private void update(String line) throws IOException 
     {
-        System.out.println(line);
+        System.out.println("==>" + line);
         // Obtain the level
         int i = line.indexOf(':');
         int maxLevel = Integer.parseInt(line.substring(0, i));
@@ -123,6 +123,8 @@ public class Parser2
             if (line.trim().length() == 0 || line.trim().charAt(0) == '#') return;
             updateNode(line, maxLevel);
         }
+        System.out.println("\tNode  Stack: " + nodeStack);
+        System.out.println("\tLevel Stack: " + levelStack);
     }
 
     // ------------

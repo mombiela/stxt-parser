@@ -21,18 +21,21 @@ public class GrammarProcessor implements Processor
     @Override
     public boolean isNodeText(Node lastNode)
     {
-        return nodesText.contains(lastNode.getName().toLowerCase());
+        boolean result = nodesText.contains(lastNode.getName().toLowerCase()); 
+        System.out.println("....\tisNodeText: " + lastNode.getName() + " of " + lastNode.getNamespace() + " -> " + result);
+        return result;
     }
 
     @Override
     public String deduceNameSpace(Node parent, String typeName, int level)
     {
+        System.out.println("....\tDeduce nameSpace of " + typeName + " -> " + NAMESPACE);
         return NAMESPACE;
     }
 
     @Override
     public void validateNode(Node n) throws IOException
     {
-        System.out.println("... check node: " + n.getCanonicalName() + " -> " + n.getNamespace());
+        System.out.println("....\tcheck node: " + n.getCanonicalName() + " -> " + n.getNamespace());
     }
 }
