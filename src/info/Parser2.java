@@ -110,7 +110,6 @@ public class Parser2
         else if (isTextOfLast(maxLevel)) // Check if it's text of the last node 
         {
             updateTextOfLast(line, maxLevel);
-            return;
         }        
         else // Update node 
         {
