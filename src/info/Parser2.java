@@ -17,6 +17,7 @@ public class Parser2
     // Actual parser line and lineNum
     private int lineNum = 0;
     private String line = null;
+    private int level = -1;
     private boolean executed;
 
     // Props of nodes
@@ -70,14 +71,22 @@ public class Parser2
                 line = LineNormalizer.removeUTF8BOM(line);
             }
 
+            System.out.println("==============>>> " + line);
             line = LineNormalizer.normalize(line, lastNode != null && mainProcessor.isNodeText(lastNode), lastLevel);
-            System.out.println("\n**************************************************************");
-            System.out.println("Línea " + String.format("%03d", lineNum) + " INI:     " + line + " ---- " + levelStack + ", NodeStack = "+ printNodeStack());
             if (line != null) 
             {
+                int i = line.indexOf(':');
+                level = Integer.parseInt(line.substring(0, i));
+                line = line.substring(i + 1);
+                
+                System.out.println("**************************************************************");
+                printAllStack("INI", true);
+                
                 update();
+                
+                printAllStack("FIN", false);
+                System.out.println("**************************************************************");
             }
-            System.out.println("Línea " + String.format("%03d", lineNum) + " FIN:     " + levelStack + ", NodeStack = "+ printNodeStack());
         }
 
         // Validate all nodes remaining in the list. Everything is finished!
@@ -99,22 +108,18 @@ public class Parser2
     private void update() throws IOException 
     {
         // Obtain the level
-        int i = line.indexOf(':');
-        int maxLevel = Integer.parseInt(line.substring(0, i));
-        line = line.substring(i + 1);
-
         if (lastNode == null)         // Check if it's the first node
         {
-            updateFirstNode(maxLevel);
+            updateFirstNode();
         }
-        else if (isTextOfLast(maxLevel)) // Check if it's text of the last node 
+        else if (isTextOfLast()) // Check if it's text of the last node 
         {
-            updateTextOfLast(maxLevel);
+            updateTextOfLast();
         }        
         else // Update node 
         {
             if (line.trim().length() == 0 || line.trim().charAt(0) == '#') return;
-            updateNode(maxLevel);
+            updateNode(level);
         }
     }
 
@@ -122,17 +127,17 @@ public class Parser2
     // Node updates
     // ------------
 
-    private void updateFirstNode(int maxLevel) throws IOException 
+    private void updateFirstNode() throws IOException 
     {
         // Validate that it's level 0
-        if (maxLevel != 0) 
+        if (level != 0) 
         {
             String error = "The first level cannot have a level";
             throw new ParseException(error);
         }
 
         // Obtain name and namespace
-        lastNode = createNode(maxLevel);
+        lastNode = createNode(level);
         lastLevel = -1;
         nodeStack.add(lastNode);
         levelStack.add(lastLevel);
@@ -184,21 +189,21 @@ public class Parser2
         }
     }
 
-    private void updateTextOfLast(int maxLevel) 
+    private void updateTextOfLast() 
     {
         String value = lastNode.getValue();
         if (value.length() > 0)   lastNode.setValue(value + '\n' + line);
         else                      lastNode.setValue(line);
     }
 
-    private boolean isTextOfLast(int maxLevel) throws IOException 
+    private boolean isTextOfLast() throws IOException 
     {
         // Verify if the last one is text
         if (!mainProcessor.isNodeText(lastNode))
             return false;
 
         // Check if it's of a higher node
-        return maxLevel > lastLevel;
+        return level > lastLevel;
     }
 
     // ----------------
@@ -320,7 +325,18 @@ public class Parser2
         mainProcessor.validateNode(n);
         mainProcessor.updateNode(n);
     }
-    
+
+    private void printAllStack(String tag, boolean printLine)
+    {
+        System.out.println("Línea " + String.format("%03d", lineNum) + " " + tag + ": "
+            + (printLine ? line + "\n": "\n")  
+            + " LevelStack = " + levelStack 
+            + ", NodeStack = "+ printNodeStack() 
+            + " lastLevel = " + lastLevel 
+            + " level = " + level 
+        );
+    }
+
     private String printNodeStack()
     {
         List<String> nodeStack = new ArrayList();
