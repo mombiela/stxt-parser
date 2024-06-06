@@ -73,6 +73,7 @@ public class Parser2
 
             System.out.println("==============>>> " + line);
             line = LineNormalizer.normalize(line, lastNode != null && mainProcessor.isNodeText(lastNode), lastLevel);
+            System.out.println("................. " + line);
             if (line != null) 
             {
                 int i = line.indexOf(':');
