@@ -41,6 +41,5 @@ public class GrammarProcessor implements Processor
     public void updateNode(Node n) throws IOException
     {
         System.out.println("....\tupdate node: " + n.getName() + " -> " + n.getNamespace());
-        n.setCanonicalName(n.getName()); // TODO Hacer correctamente
     }
 }

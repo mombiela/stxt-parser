@@ -10,7 +10,6 @@ public class Node
     // -------------------------------------
 
     private String name;
-    private String canonicalName;
     private String namespace;
     private String type;
     private String value;
@@ -72,16 +71,6 @@ public class Node
         this.namespace = namespace;
     }
 
-    public String getCanonicalName()
-    {
-        return canonicalName;
-    }
-
-    public void setCanonicalName(String canonicalName)
-    {
-        this.canonicalName = canonicalName;
-    }
-
     @Override
     public String toString()
     {
@@ -105,7 +94,7 @@ public class Node
     private String toString(int level)
     {
         StringBuffer result = new StringBuffer();
-        result.append("<Node> name=" + name + ", canonicalName=" + canonicalName + ", namespace=" + namespace + ", lineCreation=" + lineCreation + ", type=" + type + ", value=" + value + ", childs=");
+        result.append("<Node> name=" + name + ", namespace=" + namespace + ", lineCreation=" + lineCreation + ", type=" + type + ", value=" + value + ", childs=");
         if (childs == null)
         {
             result.append("[]");
@@ -134,7 +123,7 @@ public class Node
     private String toSTXT(int level)
     {
         StringBuffer result = new StringBuffer();
-        result.append(canonicalName + (level == 1 ? "(" + namespace + ")" : "") + ":");
+        result.append(name + (level == 1 ? "(" + namespace + ")" : "") + ":");
         if (!Type.NODE.equals(type))
         {
             result.append(tabulatedText(value, level));
@@ -172,7 +161,7 @@ public class Node
     private String toSTXTCompact(int level)
     {
         StringBuffer result = new StringBuffer();
-        result.append(canonicalName + (level == 1 ? "(" + namespace + ")" : "") + ":");
+        result.append(name + (level == 1 ? "(" + namespace + ")" : "") + ":");
         if (!Type.NODE.equals(type))
         {
             result.append(compactTabulatedText(value, level));
@@ -206,7 +195,7 @@ public class Node
 
         for (Node child: childs)
         {
-            if (child.getCanonicalName().equalsIgnoreCase(cname)) result.add(child);
+            if (child.getName().equalsIgnoreCase(cname)) result.add(child);
         }
 
         return result;

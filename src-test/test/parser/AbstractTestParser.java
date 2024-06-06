@@ -1,15 +1,15 @@
 package test.parser;
 
 import info.GrammarProcessor;
-import info.Parser3;
+import info.Parser2;
 
 public class AbstractTestParser
 {
-    protected Parser3 parser;
+    protected Parser2 parser;
     
     public AbstractTestParser()
     {
-        parser = new Parser3();
+        parser = new Parser2();
         parser.setProcessor(new GrammarProcessor());
     }
 }

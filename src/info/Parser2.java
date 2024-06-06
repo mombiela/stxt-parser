@@ -61,21 +61,22 @@ public class Parser2
         // Get reader
         BufferedReader in = new BufferedReader(new StringReader(content));
 
-        boolean firstLine = true;
         while ((line = in.readLine()) != null) 
         {
-            if (firstLine) 
+            this.lineNum++;
+            
+            if (lineNum == 1) 
             {
                 line = LineNormalizer.removeUTF8BOM(line);
-                firstLine = false;
             }
 
-            this.lineNum++;
             line = LineNormalizer.normalize(line, lastNode != null && mainProcessor.isNodeText(lastNode), lastLevel);
+            System.out.println("Línea " + lineNum + " INI: " + line + " ---- " + levelStack + ", NodeStack = "+ printNodeStack());
             if (line != null) 
             {
                 update(line);
             }
+            System.out.println("Línea " + lineNum + " FIN: " + levelStack + ", NodeStack = "+ printNodeStack());
         }
 
         // Validate all nodes remaining in the list. Everything is finished!
@@ -96,7 +97,6 @@ public class Parser2
 
     private void update(String line) throws IOException 
     {
-        System.out.println(lineNum + " ==> " + line);
         // Obtain the level
         int i = line.indexOf(':');
         int maxLevel = Integer.parseInt(line.substring(0, i));
@@ -116,8 +116,6 @@ public class Parser2
             if (line.trim().length() == 0 || line.trim().charAt(0) == '#') return;
             updateNode(line, maxLevel);
         }
-        System.out.println("\tNode  Stack: " + nodeStack);
-        System.out.println("\tLevel Stack: " + levelStack);
     }
 
     // ------------
@@ -320,4 +318,17 @@ public class Parser2
         mainProcessor.validateNode(n);
         mainProcessor.updateNode(n);
     }
+    
+    private String printNodeStack()
+    {
+        List<String> nodeStack = new ArrayList();
+        if (this.nodeStack != null)
+        {
+            for (Node n: this.nodeStack) nodeStack.add(n.getName());
+        }
+        // TODO Auto-generated method stub
+        return nodeStack.toString();
+    }
+
+    
 }

@@ -14,7 +14,7 @@ Node Definition:
 	Description: 
 		Una receta son las instrucciones, materiales, etc. 
 		para preparar una receta de cocina.
-		
+
 		La receta también puede incorporar materiales adicionales:
 
 			* Calorías
