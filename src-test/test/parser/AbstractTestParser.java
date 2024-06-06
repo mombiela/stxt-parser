@@ -1,24 +1,15 @@
 package test.parser;
 
-import java.io.File;
-
-import info.old.GrammarRetriever;
-import info.old.Parser;
+import info.GrammarProcessor;
+import info.Parser3;
 
 public class AbstractTestParser
 {
-    protected Parser parser;
+    protected Parser3 parser;
     
     public AbstractTestParser()
     {
-        parser = new Parser();
-        try
-        {
-            GrammarRetriever.addGrammarDefinitionsFromDir(new File("defs"));
-        }
-        catch (Exception e)
-        {
-            throw new IllegalArgumentException(e);
-        }
+        parser = new Parser3();
+        parser.setProcessor(new GrammarProcessor());
     }
 }

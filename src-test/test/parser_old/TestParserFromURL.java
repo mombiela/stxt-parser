@@ -1,10 +1,10 @@
-package test.parser2;
+package test.parser_old;
 
 import java.io.IOException;
 
 import org.junit.jupiter.api.Test;
 
-import info.Node;
+import info.old.Node;
 
 public class TestParserFromURL extends AbstractTestParser
 {
