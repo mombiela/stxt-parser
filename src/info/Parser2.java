@@ -71,9 +71,9 @@ public class Parser2
                 line = LineNormalizer.removeUTF8BOM(line);
             }
 
-            System.out.println("==============>>> " + line);
+            System.out.println(":::::::::::::::: " + line);
             line = LineNormalizer.normalize(line, lastNode != null && mainProcessor.isNodeText(lastNode), lastLevel);
-            System.out.println("................. " + line);
+            System.out.println("After normalize: " + line);
             if (line != null) 
             {
                 int i = line.indexOf(':');
