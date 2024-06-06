@@ -1,6 +1,6 @@
 package test.parser;
 
-import info.GrammarProcessor;
+import info.StxtGrammarProcessor;
 import info.Parser2;
 
 public class AbstractTestParser
@@ -10,6 +10,6 @@ public class AbstractTestParser
     public AbstractTestParser()
     {
         parser = new Parser2();
-        parser.setProcessor(new GrammarProcessor());
+        parser.setProcessor(new StxtGrammarProcessor());
     }
 }

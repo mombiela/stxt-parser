@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.util.HashSet;
 import java.util.Set;
 
-public class GrammarProcessor implements Processor
+public class StxtGrammarProcessor implements Processor
 {
     private static final Set<String> nodes = new HashSet<>();
     private static final Set<String> nodesText = new HashSet<>();
