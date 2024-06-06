@@ -71,12 +71,13 @@ public class Parser2
             }
 
             line = LineNormalizer.normalize(line, lastNode != null && mainProcessor.isNodeText(lastNode), lastLevel);
-            System.out.println("Línea " + lineNum + " INI: " + line + " ---- " + levelStack + ", NodeStack = "+ printNodeStack());
+            System.out.println("\n**************************************************************");
+            System.out.println("Línea " + String.format("%03d", lineNum) + " INI:     " + line + " ---- " + levelStack + ", NodeStack = "+ printNodeStack());
             if (line != null) 
             {
                 update(line);
             }
-            System.out.println("Línea " + lineNum + " FIN: " + levelStack + ", NodeStack = "+ printNodeStack());
+            System.out.println("Línea " + String.format("%03d", lineNum) + " FIN:     " + levelStack + ", NodeStack = "+ printNodeStack());
         }
 
         // Validate all nodes remaining in the list. Everything is finished!
