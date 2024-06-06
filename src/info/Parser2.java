@@ -18,6 +18,7 @@ public class Parser2
     private int lineNum = 0;
     private String line = null;
     private int level = -1;
+    private boolean lastNodeText = false;
     private boolean executed;
 
     // Props of nodes
@@ -72,7 +73,7 @@ public class Parser2
             }
 
             System.out.println(":::::::::::::::: " + line);
-            line = LineNormalizer.normalize(line, lastNode != null && mainProcessor.isNodeText(lastNode), lastLevel);
+            line = LineNormalizer.normalize(line, lastNodeText, lastLevel);
             System.out.println("After normalize: " + line);
             if (line != null) 
             {
@@ -121,6 +122,10 @@ public class Parser2
         {
             if (line.trim().length() == 0 || line.trim().charAt(0) == '#') return;
             updateNode(level);
+        }
+        if (lastNode != null)
+        {
+            lastNodeText = mainProcessor.isNodeText(lastNode);
         }
     }
 
