@@ -75,7 +75,7 @@ public class Parser2
             System.out.println("Línea " + String.format("%03d", lineNum) + " INI:     " + line + " ---- " + levelStack + ", NodeStack = "+ printNodeStack());
             if (line != null) 
             {
-                update(line);
+                update();
             }
             System.out.println("Línea " + String.format("%03d", lineNum) + " FIN:     " + levelStack + ", NodeStack = "+ printNodeStack());
         }
@@ -96,7 +96,7 @@ public class Parser2
     // Update de linea
     // ---------------
 
-    private void update(String line) throws IOException 
+    private void update() throws IOException 
     {
         // Obtain the level
         int i = line.indexOf(':');
@@ -105,16 +105,16 @@ public class Parser2
 
         if (lastNode == null)         // Check if it's the first node
         {
-            updateFirstNode(line, maxLevel);
+            updateFirstNode(maxLevel);
         }
         else if (isTextOfLast(maxLevel)) // Check if it's text of the last node 
         {
-            updateTextOfLast(line, maxLevel);
+            updateTextOfLast(maxLevel);
         }        
         else // Update node 
         {
             if (line.trim().length() == 0 || line.trim().charAt(0) == '#') return;
-            updateNode(line, maxLevel);
+            updateNode(maxLevel);
         }
     }
 
@@ -122,7 +122,7 @@ public class Parser2
     // Node updates
     // ------------
 
-    private void updateFirstNode(String line, int maxLevel) throws IOException 
+    private void updateFirstNode(int maxLevel) throws IOException 
     {
         // Validate that it's level 0
         if (maxLevel != 0) 
@@ -132,16 +132,16 @@ public class Parser2
         }
 
         // Obtain name and namespace
-        lastNode = createNode(line, maxLevel);
+        lastNode = createNode(maxLevel);
         lastLevel = -1;
         nodeStack.add(lastNode);
         levelStack.add(lastLevel);
     }
 
-    private void updateNode(String line, int level) throws IOException 
+    private void updateNode(int level) throws IOException 
     {
         // Obtain the node
-        lastNode = createNode(line, level);
+        lastNode = createNode(level);
 
         // Validate the level
         validateLevel(level);
@@ -184,7 +184,7 @@ public class Parser2
         }
     }
 
-    private void updateTextOfLast(String line, int maxLevel) 
+    private void updateTextOfLast(int maxLevel) 
     {
         String value = lastNode.getValue();
         if (value.length() > 0)   lastNode.setValue(value + '\n' + line);
@@ -205,8 +205,10 @@ public class Parser2
     // Creation of node
     // ----------------
 
-    private Node createNode(String line, int maxLevel) throws IOException 
+    private Node createNode(int maxLevel) throws IOException 
     {
+        String line = this.line;
+        
         // Create result
         Node result = new Node();
         result.setLineCreation(lineNum);
@@ -326,9 +328,6 @@ public class Parser2
         {
             for (Node n: this.nodeStack) nodeStack.add(n.getName());
         }
-        // TODO Auto-generated method stub
         return nodeStack.toString();
-    }
-
-    
+    }    
 }
