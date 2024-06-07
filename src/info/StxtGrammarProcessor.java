@@ -14,13 +14,12 @@ public class StxtGrammarProcessor implements Processor
     {
         nodes.add("namespace definition");
         nodes.add("node definition");
-        nodes.add("child");
+        nodes.add("child definition");
         
-        nodesText.add("description");
-        nodesText.add("name");
-        nodesText.add("occurs");
-        nodesText.add("description");
         nodesText.add("namespace");
+        nodesText.add("name");
+        nodesText.add("description");
+        nodesText.add("occurs");
     }
     
     @Override
