@@ -22,35 +22,35 @@ Node Definition:
             * ...
             
 	Child:
-		Node:pasos
-		Num:1
+		Name:pasos
+		Count:1
 	Child:
-		Node:ingredientes
-		Num:1
+		Name:ingredientes
+		Count:1
 	Child:
-		Node:definicion
-		Num:?
+		Name:definicion
+		Count:?
 	Child:
-		Node:dificultad
-		Num:?
+		Name:dificultad
+		Count:?
 	Child:
-		Node:comensales
-		Num:?
+		Name:comensales
+		Count:?
 Node Definition:
 	Name:pasos
 	Type:node
 	Child:
-		Node: paso
-		Num: +
+		Name: paso
+		Count: +
 	Child:
-		Node: observacion
-		Num: *
+		Name: observacion
+		Count: *
 Node Definition:
 	Name:ingredientes
 	Type:node
 	Child:
-		Node:ings
-		Num:+
+		Name:ings
+		Count:+
 Node Definition:
 	Name:paso
 	Type:text
@@ -68,18 +68,16 @@ Node Definition:
 	Type:integer
 Node Definition:
 	Name:ingrediente
-	Alias:ingrdt
-	Alias:ings
 	Type:node
 	Child:
-		Node:cantidad
-		Num:1
+		Name:cantidad
+		Count:1
 	Child:
-		Node:unidades
-		Num:1
+		Name:unidades
+		Count:1
 	Child:
-		Node:nombre
-		Num:1
+		Name:nombre
+		Count:1
 Node Definition:
 	Name:cantidad
 	Type:integer

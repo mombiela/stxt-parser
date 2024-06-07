@@ -12,10 +12,12 @@ public class StxtGrammarProcessor implements Processor
     
     static
     {
+	// Nodes type NODE
         nodes.add("namespace definition");
         nodes.add("node definition");
-        nodes.add("child definition");
+        nodes.add("child");
         
+        // Nodes type TEXT
         nodesText.add("namespace");
         nodesText.add("name");
         nodesText.add("description");
@@ -24,10 +26,14 @@ public class StxtGrammarProcessor implements Processor
     }
     
     @Override
-    public boolean isNodeText(Node lastNode)
+    public boolean isNodeText(Node lastNode) throws ParseException
     {
         String name = lastNode.getName().toLowerCase();
         boolean result = nodesText.contains(name); 
+        if (!nodesText.contains(name) && !nodes.contains(name))
+        {
+            throw new ParseException("Error Line " + lastNode.getLineCreation() + ", Node no valid: " + lastNode.getName());
+        }
         System.out.println(".... isNodeText: " + lastNode.getName() + " of " + lastNode.getNamespace() + " -> " + result);
         return result;
     }
