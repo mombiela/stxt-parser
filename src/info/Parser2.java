@@ -132,16 +132,9 @@ public class Parser2
 
     private void updateFirstNode() throws IOException 
     {
-        // Validate that it's level 0
-        if (level != 0) 
-        {
-            String error = "The first level cannot have a level";
-            throw new ParseException(error);
-        }
-
         // Obtain name and namespace
         lastNode = createNode();
-        lastLevel = -1;
+        lastLevel = -1; // This is necessary to allow first level without identation
         nodeStack.add(lastNode);
         levelStack.add(lastLevel);
     }
