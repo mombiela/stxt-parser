@@ -8,7 +8,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Parser2 
+public class Parser 
 {
     // -------------------
     // Internal properties

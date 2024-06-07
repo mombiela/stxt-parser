@@ -1,15 +1,15 @@
 package test.parser;
 
 import info.StxtGrammarProcessor;
-import info.Parser2;
+import info.Parser;
 
 public class AbstractTestParser
 {
-    protected Parser2 parser;
+    protected Parser parser;
     
     public AbstractTestParser()
     {
-        parser = new Parser2();
+        parser = new Parser();
         parser.setProcessor(new StxtGrammarProcessor());
     }
 }
