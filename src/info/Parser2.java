@@ -118,7 +118,7 @@ public class Parser2
         else // Update node 
         {
             if (line.trim().length() == 0 || line.trim().charAt(0) == '#') return;
-            updateNode(level);
+            updateNode();
         }
         if (lastNode != null)
         {
@@ -140,22 +140,22 @@ public class Parser2
         }
 
         // Obtain name and namespace
-        lastNode = createNode(level);
+        lastNode = createNode();
         lastLevel = -1;
         nodeStack.add(lastNode);
         levelStack.add(lastLevel);
     }
 
-    private void updateNode(int level) throws IOException 
+    private void updateNode() throws IOException 
     {
         // Obtain the node
-        lastNode = createNode(level);
+        lastNode = createNode();
 
         // Validate the level
-        validateLevel(level);
+        validateLevel();
 
         // Update the stack
-        updateStack(level);
+        updateStack();
 
         // Add to the last node
         Node lastFromStack = nodeStack.get(nodeStack.size() - 1);
@@ -172,7 +172,7 @@ public class Parser2
         lastLevel = level;
     }
 
-    private void validateLevel(int level) throws ParseException 
+    private void validateLevel() throws ParseException 
     {
         if (lastLevel == -1) 
         {
@@ -213,7 +213,7 @@ public class Parser2
     // Creation of node
     // ----------------
 
-    private Node createNode(int maxLevel) throws IOException 
+    private Node createNode() throws IOException 
     {
         String line = this.line;
         
@@ -272,7 +272,7 @@ public class Parser2
         if (i0 == -1) 
         {
             typeName = line.substring(0, v0);
-            nameSpace = deduceNamespace(typeName, maxLevel);
+            nameSpace = deduceNamespace(typeName, level);
         }
         else 
         {
@@ -310,7 +310,7 @@ public class Parser2
         else                    throw new ParseException("Namespace deduction failed. Line [" + this.lineNum + "]");
     }
 
-    private void updateStack(int level) throws IOException {
+    private void updateStack() throws IOException {
         int i = levelStack.size() - 1;
         while (i >= 0) {
             if (levelStack.get(i) >= level) {
