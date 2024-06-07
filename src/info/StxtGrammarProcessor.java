@@ -33,9 +33,10 @@ public class StxtGrammarProcessor implements Processor
     }
 
     @Override
-    public String deduceNameSpace(Node parent, String typeName, int level)
+    public String deduceNameSpace(String parentNamespace, String parentName, String childName)
     {
-        System.out.println("....\tDeduce nameSpace of " + typeName + " -> " + NAMESPACE);
+        System.out.println("....\tDeduce nameSpace of " 
+                + parentNamespace + ":" + parentName + " -> " + childName + " => " + NAMESPACE);
         return NAMESPACE;
     }
 

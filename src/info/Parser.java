@@ -298,7 +298,7 @@ public class Parser
         if (parent == null)
             throw new ParseException("Namespace deduction failed. Line [" + this.lineNum + "]");
         
-        String nameSpace = mainProcessor.deduceNameSpace(parent, typeName, level);
+        String nameSpace = mainProcessor.deduceNameSpace(parent.getNamespace(), parent.getName(), typeName);
         if (nameSpace != null)  return nameSpace;
         else                    throw new ParseException("Namespace deduction failed. Line [" + this.lineNum + "]");
     }
