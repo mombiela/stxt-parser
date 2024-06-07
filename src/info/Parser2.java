@@ -72,7 +72,8 @@ public class Parser2
                 line = LineNormalizer.removeUTF8BOM(line);
             }
 
-            System.out.println(":::::::::::::::: " + line);
+            System.out.println("**************************************************************");
+            System.out.println("Original Line:   " + line);
             line = LineNormalizer.normalize(line, lastNodeText, lastLevel);
             System.out.println("After normalize: " + line);
             if (line != null) 
@@ -81,13 +82,9 @@ public class Parser2
                 level = Integer.parseInt(line.substring(0, i));
                 line = line.substring(i + 1);
                 
-                System.out.println("**************************************************************");
                 printAllStack("INI", true);
-                
                 update();
-                
                 printAllStack("FIN", false);
-                System.out.println("**************************************************************");
             }
         }
 
