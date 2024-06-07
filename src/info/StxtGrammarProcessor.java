@@ -19,13 +19,15 @@ public class StxtGrammarProcessor implements Processor
         nodesText.add("namespace");
         nodesText.add("name");
         nodesText.add("description");
-        nodesText.add("occurs");
+        nodesText.add("count");
+        nodesText.add("type");
     }
     
     @Override
     public boolean isNodeText(Node lastNode)
     {
-        boolean result = nodesText.contains(lastNode.getName().toLowerCase()); 
+        String name = lastNode.getName().toLowerCase();
+        boolean result = nodesText.contains(name); 
         System.out.println("....\tisNodeText: " + lastNode.getName() + " of " + lastNode.getNamespace() + " -> " + result);
         return result;
     }

@@ -84,6 +84,7 @@ n_def:
 	cn:n
 	a:num
 	a:occurs
+	a:count
 n_def:
 	type:TEXT
 	cn:dsc
