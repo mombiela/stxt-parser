@@ -72,20 +72,19 @@ public class Parser
                 line = LineNormalizer.removeUTF8BOM(line);
             }
 
-            System.out.println("**************************************************************");
-            System.out.println("Original Line:   " + line);
+            System.out.println("***********************************************************************************");
+            printAllStack("INI");
+            System.out.println(".... Original   Line:"  + line); // line.replace(' ', '.').replace('\t', '·')
             line = LineNormalizer.normalize(line, lastNodeText, lastLevel);
-            System.out.println("After normalize: " + line);
+            System.out.println(".... Normalized Line: "  + line);
             if (line != null) 
             {
                 int i = line.indexOf(':');
                 level = Integer.parseInt(line.substring(0, i));
                 line = line.substring(i + 1);
-                
-                printAllStack("INI", true);
                 update();
-                printAllStack("FIN", false);
             }
+            printAllStack("FIN");
         }
 
         // Validate all nodes remaining in the list. Everything is finished!
@@ -322,10 +321,9 @@ public class Parser
         mainProcessor.updateNode(n);
     }
 
-    private void printAllStack(String tag, boolean printLine)
+    private void printAllStack(String tag)
     {
-        System.out.println("Línea " + String.format("%03d", lineNum) + " " + tag + ": "
-            + (printLine ? line + "\n": "\n")  
+        System.out.println(String.format("%03d", lineNum) + " " + tag + ": "
             + " LevelStack = " + levelStack 
             + ", NodeStack = "+ printNodeStack() 
             + " lastLevel = " + lastLevel 

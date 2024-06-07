@@ -28,14 +28,14 @@ public class StxtGrammarProcessor implements Processor
     {
         String name = lastNode.getName().toLowerCase();
         boolean result = nodesText.contains(name); 
-        System.out.println("....\tisNodeText: " + lastNode.getName() + " of " + lastNode.getNamespace() + " -> " + result);
+        System.out.println(".... isNodeText: " + lastNode.getName() + " of " + lastNode.getNamespace() + " -> " + result);
         return result;
     }
 
     @Override
     public String deduceNameSpace(String parentNamespace, String parentName, String childName)
     {
-        System.out.println("....\tDeduce nameSpace of " 
+        System.out.println(".... Deduce nameSpace of " 
                 + parentNamespace + ":" + parentName + " -> " + childName + " => " + NAMESPACE);
         return NAMESPACE;
     }
@@ -43,12 +43,12 @@ public class StxtGrammarProcessor implements Processor
     @Override
     public void validateNode(Node n) throws IOException
     {
-        System.out.println("....\tcheck node: " + n.getName() + " -> " + n.getNamespace());
+        System.out.println(".... check node: " + n.getName() + " -> " + n.getNamespace());
     }
     
     @Override
     public void updateNode(Node n) throws IOException
     {
-        System.out.println("....\tupdate node: " + n.getName() + " -> " + n.getNamespace());
+        System.out.println(".... update node: " + n.getName() + " -> " + n.getNamespace());
     }
 }
