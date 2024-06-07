@@ -14,19 +14,19 @@ public class Parser2
     // Internal properties
     // -------------------
 
-    // Actual parser line and lineNum
-    private int lineNum = 0;
-    private String line = null;
-    private int level = -1;
-    private boolean lastNodeText = false;
     private boolean executed;
+    
+    // Actual parser line and lineNum
+    private int lineNum;
+    private String line = null;
+    private int level;
+    private int lastLevel;
+    private boolean lastNodeText = false;
 
     // Props of nodes
     private List<Node> nodeStack = new ArrayList<Node>();
     private Node lastNode = null;
-
     private List<Integer> levelStack = new ArrayList<Integer>();
-    private int lastLevel;
     
     // Procesadores
     private Processor mainProcessor;
