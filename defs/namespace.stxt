@@ -116,17 +116,19 @@ Namespace Definition(www.semantictext.info/namespace.stxt):
         Value: BOOLEAN
         Value: HEXADECIMAL
         Value: ENUM
+        
     Node:
         Name: Count
-        Type: TEXT
+        Type: REGEX
+        Pattern: ^(\*|\+|\?|(\d+(\+|\-)?))$
         Description:
             *: Any number
             +: 1 or more
-            ?: 0/1
+            ?: 0 or 1
             n: An exact number
             n+: n or more
-            n-: n or minus         
-    
+            n-: n or less
+            
     Node:
         Name: Pattern
         Type: STRING
@@ -134,5 +136,4 @@ Namespace Definition(www.semantictext.info/namespace.stxt):
     Node:
         Name: Value
         Type: STRING
-    
 
