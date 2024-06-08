@@ -1,0 +1,138 @@
+# ------------------------------------------------------------
+#                Structure of a Definition
+# ------------------------------------------------------------
+#  
+#  Namespace Definition
+#     Namespace (1)
+#     Description (?)
+#     Node (*)
+#         Name (1)
+#         Type (1)
+#             TREE
+#             STRING
+#             TEXT
+#             NUMBER
+#             DATE
+#             TIMESTAMP
+#             EMAIL
+#             URL
+#             REGEX
+#             BOOLEAN
+#             HEXADECIMAL
+#             ENUM
+#         Description (?)
+#         Pattern (1, only REGEX)
+#         Value (+, only ENUM)
+#         Child (+, only TREE)
+#             Name (1)
+#             Namespace (?, default the current namespace)
+#             Count (1)
+#                 *: Any number
+#                 +: 1 or more
+#                 ?: 0/1
+#                 n: An exact number
+#                 n+: n or more
+#                 n-: n or minus
+# ---------------------------------------------------------
+ 
+Namespace Definition(www.semantictext.info/namespace.stxt):
+
+    Namespace: www.semantictext.info/namespace.stxt
+    
+    Description: The ROOT namespace of all namespaces. Is the main definition.
+    
+    Node:
+        Type: TREE
+        Name: Namespace Definition
+        Child:
+            Name: Namespace
+            Count: 1
+        Child:
+            Name: Description
+            Count: ?
+        Child:
+            Name: Node
+            Count: *
+    
+    Node:
+        Type: TREE
+        Name: Node
+        Child:
+            Name: Name
+            Count: 1
+        Child:
+            Name: Description
+            Count: ?
+        Child:
+            Name: Type
+            Count: 1
+        Child:
+            Name: Pattern
+            Count: ?
+        Child:
+            Name: Value
+            Count: *
+        Child:
+            Name: Child
+            Count: *
+        
+    Node:
+        Type: TREE
+        Name: Child
+        Child:
+            Name: Name
+            Count: 1
+        Child:
+            Name: Namespace
+            Count: ?
+        Child:
+            Name: Count
+            Count: 1
+    
+    Node:
+        Name: Name
+        Type: STRING
+    
+    Node:
+        Name: Namespace
+        Type: STRING
+    
+    Node:
+        Name: Description
+        Type: TEXT
+    
+    Node:
+        Name: Type
+        Type: ENUM
+        Value: TREE
+        Value: STRING
+        Value: TEXT
+        Value: NUMBER
+        Value: DATE
+        Value: TIMESTAMP
+        Value: EMAIL
+        Value: URL
+        Value: REGEX
+        Value: BOOLEAN
+        Value: HEXADECIMAL
+        Value: ENUM
+    Node:
+        Name: Count
+        Type: TEXT
+        Description:
+            *: Any number
+            +: 1 or more
+            ?: 0/1
+            n: An exact number
+            n+: n or more
+            n-: n or minus         
+    
+    Node:
+        Name: Pattern
+        Type: STRING
+        
+    Node:
+        Name: Value
+        Type: STRING
+    
+

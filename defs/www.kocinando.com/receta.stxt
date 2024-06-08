@@ -4,13 +4,14 @@
 
 Namespace Definition(www.semantictext.info/namespace.stxt):
 
+Namespace: www.kocinando.com/receta.stxt
+
 # ---------
 # Principal
 # ---------
 	
-Node Definition:
+Tree Node:
 	Name:receta
-	Type:node
 	Description: 
 		Una receta son las instrucciones, materiales, etc. 
 		para preparar una receta de cocina.
@@ -20,9 +21,9 @@ Node Definition:
 			* Calorías
 			* Dificultad
             * ...
-            
 	Child:
 		Name:pasos
+		Namespace: www.kocinando.com/receta.stxt
 		Count:1
 	Child:
 		Name:ingredientes
@@ -36,39 +37,24 @@ Node Definition:
 	Child:
 		Name:comensales
 		Count:?
-Node Definition:
+		
+Tree Node:
 	Name:pasos
-	Type:node
 	Child:
 		Name: paso
 		Count: +
 	Child:
 		Name: observacion
 		Count: *
-Node Definition:
+		
+Tree Node:
 	Name:ingredientes
-	Type:node
 	Child:
 		Name:ings
 		Count:+
-Node Definition:
-	Name:paso
-	Type:text
-Node Definition:
-	Name:observacion
-	Type:text
-Node Definition:
-	Name:definicion
-	Type:text
-Node Definition:
-	Name:dificultad
-	Type:integer
-Node Definition:
-	Name:comensales
-	Type:integer
-Node Definition:
+
+Tree Node:
 	Name:ingrediente
-	Type:node
 	Child:
 		Name:cantidad
 		Count:1
@@ -78,13 +64,31 @@ Node Definition:
 	Child:
 		Name:nombre
 		Count:1
-Node Definition:
+		
+Text Node:
+	Name:paso
+	Type: NUMBER
+	
+Text Node:
+	Name:observacion
+	Type: STRING
+	Validation: Debe ser un string correcto
+	
+Text Node:
+	Name:definicion
+
+Text Node:
+	Name:dificultad
+
+Text Node:
+	Name:comensales
+
+Text Node:
 	Name:cantidad
-	Type:integer
-Node Definition:
+
+Text Node:
 	Name:unidades
-	Type:text
-Node Definition:
+
+Text Node:
 	Name:nombre
-	Type:text
 
