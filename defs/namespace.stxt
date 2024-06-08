@@ -9,16 +9,16 @@
 #         Name (1)
 #         Type (1)
 #             TREE
-#             STRING
-#             TEXT
+#             STRING (Single line)
+#             TEXT (Multiline)
 #             NUMBER
 #             DATE
-#             TIMESTAMP
+#             TIMESTAMP (ISO 8601)
 #             EMAIL
 #             URL
 #             REGEX
-#             BOOLEAN
-#             HEXADECIMAL
+#             BOOLEAN (true/false)
+#             HEXADECIMAL (Multiline, FF5733...)
 #             ENUM
 #         Description (?)
 #         Pattern (1, only REGEX)
@@ -42,8 +42,8 @@ Namespace Definition(www.semantictext.info/namespace.stxt):
     Description: The ROOT namespace of all namespaces. Is the main definition.
     
     Node:
-        Type: TREE
         Name: Namespace Definition
+        Type: TREE
         Child:
             Name: Namespace
             Count: 1
@@ -55,8 +55,8 @@ Namespace Definition(www.semantictext.info/namespace.stxt):
             Count: *
     
     Node:
-        Type: TREE
         Name: Node
+        Type: TREE
         Child:
             Name: Name
             Count: 1
@@ -77,8 +77,8 @@ Namespace Definition(www.semantictext.info/namespace.stxt):
             Count: *
         
     Node:
-        Type: TREE
         Name: Child
+        Type: TREE
         Child:
             Name: Name
             Count: 1
@@ -115,8 +115,25 @@ Namespace Definition(www.semantictext.info/namespace.stxt):
         Value: REGEX
         Value: BOOLEAN
         Value: HEXADECIMAL
+        Value: BASE64
         Value: ENUM
-        
+        Description:
+            * TREE: Composed of childs
+            * STRING: Literal of text
+            * TEXT (multiline): Multiline text
+            * NUMBER: 123, -123, 12.55, -3.14296, -2.5e-7
+            * DATE: YYYY-MM-DD
+            * TIMESTAMP: ISO 8601
+              * Example 1: 2024-06-08T14:30:00Z
+              * Example 2: 2024-06-08T16:30:00+02:00
+            * EMAIL: admin@example.com
+            * URL: https://www.semantictext.info/namespace.stxt
+            * REGEX: After trimming, regexp to apply
+            * BOOLEAN: true / false
+            * HEXADECIMAL: Hexadecimal value. Example: 536F6D652048657861646563696D616C2056616C7565
+            * BASE64 (multiline): Base64 value. Example: U29tZSBCYXNlNjQgVmFsdWU=
+            * ENUM: Composed of allowed values            
+                    
     Node:
         Name: Count
         Type: REGEX
