@@ -19,6 +19,7 @@
 #             REGEX
 #             BOOLEAN (true/false)
 #             HEXADECIMAL (Multiline, FF5733...)
+#             BASE64 (Multiline, 
 #             ENUM
 #         Description (?)
 #         Pattern (1, only REGEX)
@@ -108,12 +109,12 @@ Namespace Definition(www.semantictext.info/namespace.stxt):
         Value: STRING
         Value: TEXT
         Value: NUMBER
+        Value: BOOLEAN
         Value: DATE
         Value: TIMESTAMP
         Value: EMAIL
         Value: URL
         Value: REGEX
-        Value: BOOLEAN
         Value: HEXADECIMAL
         Value: BASE64
         Value: ENUM
@@ -122,6 +123,7 @@ Namespace Definition(www.semantictext.info/namespace.stxt):
             * STRING: Literal of text
             * TEXT (multiline): Multiline text
             * NUMBER: 123, -123, 12.55, -3.14296, -2.5e-7
+            * BOOLEAN: true / false
             * DATE: YYYY-MM-DD
             * TIMESTAMP: ISO 8601
               * Example 1: 2024-06-08T14:30:00Z
@@ -129,7 +131,6 @@ Namespace Definition(www.semantictext.info/namespace.stxt):
             * EMAIL: admin@example.com
             * URL: https://www.semantictext.info/namespace.stxt
             * REGEX: After trimming, regexp to apply
-            * BOOLEAN: true / false
             * HEXADECIMAL: Hexadecimal value. Example: 536F6D652048657861646563696D616C2056616C7565
             * BASE64 (multiline): Base64 value. Example: U29tZSBCYXNlNjQgVmFsdWU=
             * ENUM: Composed of allowed values            
@@ -149,6 +150,7 @@ Namespace Definition(www.semantictext.info/namespace.stxt):
     Node:
         Name: Pattern
         Type: STRING
+        Description: A regexp expresion. Example of only digits: ^\d+$
         
     Node:
         Name: Value
