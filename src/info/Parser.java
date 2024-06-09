@@ -131,9 +131,12 @@ public class Parser
 	Node node = new Node();
 	node.setName(name);
 	node.setLineCreation(lineNumber);
-	if (parts.length > 2) {
+	if (parts.length > 2) 
+	{
 	    node.setValue(parts[2].trim());
-	} else if (parts.length > 1) {
+	}
+	else if (parts.length > 1) 
+	{
 	    node.setValue(parts[1].trim());
 	}
 	return node;

@@ -1,9 +1,11 @@
 package info;
 
-public class ParserException extends Exception {
+public class ParserException extends Exception 
+{
     private static final long serialVersionUID = 1L;
 
-    public ParserException(String message) {
+    public ParserException(String message) 
+    {
         super(message);
     }
 }
