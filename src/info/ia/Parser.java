@@ -49,19 +49,18 @@ public class Parser
         int lineNumber = 0;
         for (String line: lines) 
         {
+            System.out.println("***********************************************************************************");
             lineNumber++;
             
-            if (line.trim().isEmpty() || line.trim().startsWith("#")) { // TODO Revisar 
-        	//System.out.println("empyt line...");
-                continue;
-            }
-
-            System.out.println("***********************************************************************************");
-            //printAllStack("INI", stack, lineNumber);
-            //System.out.println("Line:"  + line); // line.replace(' ', '.').replace('\t', '·')
+            // Last node
+            Node lastNode = null;
+            if (stack.size()>0) lastNode = stack.peek();
             
-            IndentResult result = IndentParser.getIndentLevelAndLine(line);
-            System.out.println("IndentResult = " + result);
+            // Parse Line
+            IndentResult result = LineNormalizer.parseLine(line, lastNode != null && lastNode.isMultiline(), stack.size());
+            System.out.println(result);
+            if (result == null) continue;
+            
             int indentLevel = result.getIndentLevel();
             
             Node node = createNode(result, lineNumber); // Pasar el número de línea y el namespace al crear el nodo
@@ -115,7 +114,6 @@ public class Parser
         System.out.println("***********************************************************************************");
         System.out.println("END *******************************************************************************");
         System.out.println("***********************************************************************************");
-
         
         return document;
     }

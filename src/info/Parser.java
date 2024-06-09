@@ -333,7 +333,7 @@ public class Parser
 
     private String printNodeStack()
     {
-        List<String> nodeStack = new ArrayList();
+        List<String> nodeStack = new ArrayList<>();
         if (this.nodeStack != null)
         {
             for (Node n: this.nodeStack) nodeStack.add(n.getName());

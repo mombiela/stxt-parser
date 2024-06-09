@@ -19,6 +19,6 @@ public class IndentResult {
 
     @Override
     public String toString() {
-	return "[" + indentLevel + "]=>" + lineWithoutIndent;
+	return "[" + indentLevel + "]:" + lineWithoutIndent;
     }
 }

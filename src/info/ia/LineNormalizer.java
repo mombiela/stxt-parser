@@ -1,12 +1,95 @@
 package info.ia;
 
+import java.util.regex.Pattern;
+
 public class LineNormalizer
 {
     public static final String UTF8_BOM = "\uFEFF";
+
+    // ---------
+    // Constants
+    // ---------
+
+    // Patterns
+    private static final Pattern EMPTY_LINE = Pattern.compile("^\\s*$");
+    private static final Pattern COMMENT_LINE = Pattern.compile("^\\s*\\#.*$");
+    
+    public static IndentResult parseLine(String aLine, boolean lastNodeMultiline, int lastLevel) 
+    {
+        // Validate if empty line or comment
+        if (!lastNodeMultiline && (EMPTY_LINE.matcher(aLine).matches() || COMMENT_LINE.matcher(aLine).matches()))
+            return null;
+
+        // Obtain the level and pointer
+        int level = 0;
+        int spaces = 0;
+
+        int pointer = 0;
+        while (pointer < aLine.length()) 
+        {
+            // Last char
+            char charPointer = aLine.charAt(pointer);
+
+            // Update level
+            if (charPointer == Constants.SPACE) 
+            {
+                spaces++;
+                if (spaces == Constants.TAB_SPACES) 
+                {
+                    level++;
+                    spaces = 0;
+                }
+            } 
+            else if (charPointer == Constants.TAB) 
+            {
+                level++;
+                spaces = 0;
+            }
+            else 
+            {
+                break;
+            }
+
+            // Pointer position
+            pointer++;
+
+            // Validate that text can only have one more level, so no information is lost
+            if (lastNodeMultiline && level > lastLevel) break;
+        }
+
+        // In case of text, check if it's a comment or not (depends on the comment's level)
+        if (lastNodeMultiline && level <= lastLevel) 
+        {
+            if (EMPTY_LINE.matcher(aLine).matches())    return new IndentResult(lastLevel + 1, "");
+            if (COMMENT_LINE.matcher(aLine).matches())  return null;
+        }
+
+        return new IndentResult(level, aLine.substring(pointer));
+    }
 
     public static String removeUTF8BOM(String s) 
     {
         if (s.startsWith(UTF8_BOM)) s = s.substring(1);
         return s;
     }
+
+    
+    // ---------
+    // Test Main
+    // ---------
+
+    public static void main(String[] args) {
+        System.out.println("Start");
+
+        System.out.println(parseLine("\t\t   \t    A recipe is the instructions, materials, etc.", false, 0));
+        System.out.println(parseLine("4:A recipe is the instructions, materials, etc.", false, 0));
+        System.out.println(parseLine("  #4:A recipe is the instructions, materials, etc.", false, 0));
+        System.out.println(parseLine("  #4:A recipe is the instructions, materials, etc.", true, 0));
+        System.out.println(parseLine("  \t   \t   ", false, 1));
+        System.out.println(parseLine("  \t   \t   ", true, 1));
+        System.out.println(parseLine("", true, 1));
+
+        System.out.println("End");
+    }
+
 }
