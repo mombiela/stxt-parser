@@ -124,7 +124,7 @@ public class Node
     {
         StringBuffer result = new StringBuffer();
         result.append(name + (level == 1 ? "(" + namespace + ")" : "") + ":");
-        if (!Type.NODE.equals(type))
+        if (!Type.TREE.equals(type))
         {
             result.append(tabulatedText(value, level));
         }
@@ -162,7 +162,7 @@ public class Node
     {
         StringBuffer result = new StringBuffer();
         result.append(name + (level == 1 ? "(" + namespace + ")" : "") + ":");
-        if (!Type.NODE.equals(type))
+        if (!Type.TREE.equals(type))
         {
             result.append(compactTabulatedText(value, level));
         }
@@ -207,5 +207,14 @@ public class Node
         if (result.size() > 1) throw new IllegalArgumentException("More than 1 child. Use getChilds");
         if (result.size() == 0) return null;
         return result.get(0);
+    }
+    
+    public boolean isMultiline()
+    {
+	return Type.isMultiline(type);
+    }
+    public boolean isValidType()
+    {
+	return Type.isValidType(type);
     }
 }

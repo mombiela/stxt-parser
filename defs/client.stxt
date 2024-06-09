@@ -1,96 +1,98 @@
 Namespace Definition(www.semantictext.info/namespace.stxt):
 
-# --------------
-# Nodo principal
-# --------------
+	Namespace: www.gymstxt.com/client.stxt
 
-Node Definition: 
-	Name: Cliente
-	Type: NODE
-	Child:
-		Node: Datos Personales 
-		Num: 1
-	Child:
-		Node: Datos Bancarios 
-		Num: 1
-
-# -------------
-# Nodos básicos
-# -------------
-
-Node Definition:
-	Name: Datos Personales
-	Type: NODE
-	Child:
-		Node: Nombre
-		Num: 1
-	Child:
-		Node:  Primer apellido
-		Num: 1
-	Child:
-		Node: Segundo apellido
-		Num: ?
-	Child:
-		Node: Edad
-		Num: ?
-	Child:
-		Node: Cliente vip
-		Num: ?
-	Child:
-		Node: Foto
-		Num: * 
+	# --------------
+	# Nodo principal
+	# --------------
 	
-Node Definition:
-	Name: Datos Bancarios
-	Type: NODE
-	Child:
-		Node: Titular cuenta 
-		Num: ?
-	Child:
-		Node: Número cuenta 
-		Num: 1
-
-# --------------
-# Nodos de texto
-# --------------
-
-Node Definition:
-	Name: Nombre
-	Type: TEXT
+	Node: 
+		Name: Cliente
+		Type: TREE
+		Child:
+			Name: Datos Personales 
+			Count: 1
+		Child:
+			Name: Datos Bancarios 
+			Count: 1
 	
-Node Definition:
-	Name: Primer apellido
-	Type: TEXT
+	# -------------
+	# Nodos básicos
+	# -------------
 	
-Node Definition:
-	Name: Segundo apellido
-	Type: TEXT
+	Node:
+		Name: Datos Personales
+		Type: TREE
+		Child:
+			Name: Nombre
+			Count: 1
+		Child:
+			Name:  Primer apellido
+			Count: 1
+		Child:
+			Name: Segundo apellido
+			Count: ?
+		Child:
+			Name: Edad
+			Count: ?
+		Child:
+			Name: Cliente vip
+			Count: ?
+		Child:
+			Name: Foto
+			Count: * 
+		
+	Node:
+		Name: Datos Bancarios
+		Type: NODE
+		Child:
+			Name: Titular cuenta 
+			Count: ?
+		Child:
+			Name: Número cuenta 
+			Count: 1
 	
-Node Definition:
-	Name: Titular cuenta
-	Type: TEXT
+	# --------------
+	# Nodos de texto
+	# --------------
 	
-Node Definition:
-	Name: Número cuenta
-	Type: TEXT
-
-# ---------------
-# Nodos numéricos
-# ---------------
-
-Node Definition:
-	Name: Edad
-	Type: NATURAL
+	Node:
+		Name: Nombre
+		Type: STRING
+		
+	Node:
+		Name: Primer apellido
+		Type: STRING
+		
+	Node:
+		Name: Segundo apellido
+		Type: STRING
+		
+	Node:
+		Name: Titular cuenta
+		Type: STRING
+		
+	Node:
+		Name: Número cuenta
+		Type: STRING
 	
-# ----------
-# Nodos bits
-# ----------
-
-Node Definition:
-	Name: Foto
-	Type: BASE64
-
-Node Definition:
-	Name: Cliente vip
-	Type: BOOLEAN
+	# ---------------
+	# Nodos numéricos
+	# ---------------
 	
+	Node:
+		Name: Edad
+		Type: NUMBER
+		
+	# ----------
+	# Nodos bits
+	# ----------
+	
+	Node:
+		Name: Foto
+		Type: BASE64
+	
+	Node:
+		Name: Cliente vip
+		Type: BOOLEAN
+		

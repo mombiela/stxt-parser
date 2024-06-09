@@ -1,135 +1,125 @@
-# ------------
-# Definición 1
-# ------------
+# ------
+# Receta
+# ------
 
 Namespace Definition(www.semantictext.info/namespace.stxt):
 
-Namespace: www.kocinando.com/receta.stxt
-
-Node:
-    Name: receta
-    Type: TREE
-    Description: 
-        Una receta son las instrucciones y materiales 
-        necesarios para preparar un plato de cocina.
-
-    Child:
-        Name: nombre_receta
-        Count: 1
-        Validation: No debe estar vacío.
-
-    Child:
-        Name: descripcion
-        Count: 1
-        Validation: No debe estar vacío.
-
-    Child:
-        Name: ingredientes
-        Count: 1
-
-    Child:
-        Name: pasos
-        Count: 1
-
-    Child:
-        Name: dificultad
-        Count: 1
-        Validation: Debe ser uno de los valores especificados.
-
-    Child:
-        Name: calorias
-        Count: ?
-        Validation: Debe ser un número positivo.
-
-    Child:
-        Name: comensales
-        Count: 1
-        Validation: Debe ser un número positivo.
-
-Node:
-    Name: ingrediente
-    Type: TREE
-    Child:
-        Name: nombre
-        Count: 1
-        Validation: No debe estar vacío.
-
-    Child:
-        Name: cantidad
-        Count: 1
-        Validation: Debe ser un número positivo.
-
-    Child:
-        Name: unidades
-        Count: 1
-        Validation: No debe estar vacío.
-
-Node:
-    Name: ingredientes
-    Type: TREE
-    Child:
-        Name: ingrediente
-        Count: +
-
-Node:
-    Name: paso
-    Type: TREE
-    Child:
-        Name: numero
-        Count: 1
-        Validation: Debe ser un número positivo.
-
-    Child:
-        Name: descripcion_paso
-        Count: 1
-        Validation: No debe estar vacío.
-
-Node:
-    Name: pasos
-    Type: TREE
-    Child:
-        Name: paso
-        Count: +
-
-Node:
-    Name: nombre_receta
-    Type: STRING
-
-Node:
-    Name: descripcion
-    Type: TEXT
-
-Node:
-    Name: dificultad
-    Type: ENUM
-    Value: 'fácil'
-    Value: 'media'
-    Value: 'difícil'
-
-Node:
-    Name: calorias
-    Type: NUMBER
-
-Node:
-    Name: comensales
-    Type: NUMBER
-
-Node:
-    Name: nombre
-    Type: STRING
-
-Node:
-    Name: cantidad
-    Type: NUMBER
-
-Node:
-    Name: unidades
-    Type: STRING
-
-Node:
-    Name: numero
-    Type: NUMBER
-
-Node:
-    Name: descripcion_paso
-    Type: TEXT
+	Namespace: www.kocinando.com/receta.stxt
+	
+	Node:
+	    Name: receta
+	    Type: TREE
+	    Description: 
+	        Una receta son las instrucciones y materiales 
+	        necesarios para preparar un plato de cocina.
+	
+	    Child:
+	        Name: nombre_receta
+	        Count: 1
+	
+	    Child:
+	        Name: descripcion
+	        Count: 1
+	
+	    Child:
+	        Name: ingredientes
+	        Count: 1
+	
+	    Child:
+	        Name: pasos
+	        Count: 1
+	
+	    Child:
+	        Name: dificultad
+	        Count: 1
+	
+	    Child:
+	        Name: calorias
+	        Count: ?
+	
+	    Child:
+	        Name: comensales
+	        Count: 1
+	
+	Node:
+	    Name: ingrediente
+	    Type: TREE
+	    Child:
+	        Name: nombre
+	        Count: 1
+	
+	    Child:
+	        Name: cantidad
+	        Count: 1
+	
+	    Child:
+	        Name: unidades
+	        Count: 1
+	
+	Node:
+	    Name: ingredientes
+	    Type: TREE
+	    Child:
+	        Name: ingrediente
+	        Count: +
+	
+	Node:
+	    Name: paso
+	    Type: TREE
+	    Child:
+	        Name: numero
+	        Count: 1
+	
+	    Child:
+	        Name: descripcion_paso
+	        Count: 1
+	
+	Node:
+	    Name: pasos
+	    Type: TREE
+	    Child:
+	        Name: paso
+	        Count: +
+	
+	Node:
+	    Name: nombre_receta
+	    Type: STRING
+	
+	Node:
+	    Name: descripcion
+	    Type: TEXT
+	
+	Node:
+	    Name: dificultad
+	    Type: ENUM
+	    Value: 'fácil'
+	    Value: 'media'
+	    Value: 'difícil'
+	
+	Node:
+	    Name: calorias
+	    Type: NUMBER
+	
+	Node:
+	    Name: comensales
+	    Type: NUMBER
+	
+	Node:
+	    Name: nombre
+	    Type: STRING
+	
+	Node:
+	    Name: cantidad
+	    Type: NUMBER
+	
+	Node:
+	    Name: unidades
+	    Type: STRING
+	
+	Node:
+	    Name: numero
+	    Type: NUMBER
+	
+	Node:
+	    Name: descripcion_paso
+	    Type: TEXT
