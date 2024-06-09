@@ -22,14 +22,15 @@ public class TestParser01 extends AbstractTestParser
         System.out.println("Inici");
         
         Document doc = parser.parseFile(new File("defs/documento.stxt"));
-        System.out.println(doc);
-        
+
         Node n = doc.getDocuments().get(0);
         System.out.println(n);
+        /*
         System.out.println("************************");
         System.out.println(n.toSTXT());
         System.out.println("************************");
         System.out.println(n.toSTXTCompact());
+        */
         
         System.out.println("End");
     }

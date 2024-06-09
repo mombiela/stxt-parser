@@ -43,7 +43,6 @@ public class Parser
         Document document = new Document();
         Stack<Node> stack = new Stack<>();
         Node currentRoot = null;
-        String currentNamespace = null;
         
         List<String> lines = Arrays.asList(content.split("\n"));
 
@@ -54,7 +53,7 @@ public class Parser
             
             System.out.println("***********************************************************************************");
             printAllStack("INI", stack, lineNumber);
-            System.out.println(".... Line:"  + line); // line.replace(' ', '.').replace('\t', '·')
+            System.out.println("Line:"  + line); // line.replace(' ', '.').replace('\t', '·')
             
             if (line.trim().isEmpty() || line.trim().startsWith("#")) {
         	System.out.println("empyt line..."); // TODO Revisar
@@ -62,18 +61,22 @@ public class Parser
             }
 
             IndentResult result = IndentParser.getIndentLevelAndLine(line);
-            System.out.println(".... IndentResult = " + result);
+            System.out.println("IndentResult = " + result);
             int indentLevel = result.getIndentLevel();
             
-            Node node = createNode(result, lineNumber, currentNamespace); // Pasar el número de línea y el namespace al crear el nodo
+            Node node = createNode(result, lineNumber); // Pasar el número de línea y el namespace al crear el nodo
 
-            for (NodeProcessor processor : nodeProcessors) {
+            for (NodeProcessor processor : nodeProcessors) 
+            {
                 processor.processNodeOnCreation(node);
             }
 
-            if (indentLevel == 0 && node.getName().startsWith("documento")) {
-                if (currentRoot != null) {
-                    for (NodeProcessor processor : nodeProcessors) {
+            if (indentLevel == 0) 
+            {
+                if (currentRoot != null) 
+                {
+                    for (NodeProcessor processor : nodeProcessors) 
+                    {
                         processor.processNodeOnCompletion(currentRoot);
                     }
                     document.addDocument(currentRoot);
@@ -81,14 +84,19 @@ public class Parser
                 currentRoot = node;
                 stack.clear();
                 stack.push(currentRoot);
-            } else {
-                while (stack.size() > indentLevel) {
+            } 
+            else 
+            {
+                while (stack.size() > indentLevel) 
+                {
                     Node finishedNode = stack.pop();
-                    for (NodeProcessor processor : nodeProcessors) {
+                    for (NodeProcessor processor : nodeProcessors) 
+                    {
                         processor.processNodeOnCompletion(finishedNode);
                     }
                 }
-                if (!stack.isEmpty()) {
+                if (!stack.isEmpty()) 
+                {
                     stack.peek().addChild(node);
                 }
                 stack.push(node);
@@ -96,32 +104,38 @@ public class Parser
             printAllStack("END", stack, lineNumber);
         }
 
-        if (currentRoot != null) {
-            for (NodeProcessor processor : nodeProcessors) {
+        if (currentRoot != null) 
+        {
+            for (NodeProcessor processor : nodeProcessors) 
+            {
                 processor.processNodeOnCompletion(currentRoot);
             }
             document.addDocument(currentRoot);
         }
+        System.out.println("***********************************************************************************");
+        System.out.println("END *******************************************************************************");
+        System.out.println("***********************************************************************************");
 
+        
         return document;
     }
 
-    private Node createNode(IndentResult result, int lineNumber, String namespace) 
+    private Node createNode(IndentResult result, int lineNumber) 
     {
-	    String line = result.getLineWithoutIndent();
-	    String[] parts = line.split(":", 3);
-	    String name = parts[0].trim();
-
-	    Node node = new Node();
-	    node.setName(name);
-	    node.setLineCreation(lineNumber);
-	    if (parts.length > 2) {
-	        node.setValue(parts[2].trim());
-	    } else if (parts.length > 1) {
-	        node.setValue(parts[1].trim());
-	    }
-	    return node;
+	String line = result.getLineWithoutIndent();
+	String[] parts = line.split(":", 3);
+	String name = parts[0].trim();
+	
+	Node node = new Node();
+	node.setName(name);
+	node.setLineCreation(lineNumber);
+	if (parts.length > 2) {
+	    node.setValue(parts[2].trim());
+	} else if (parts.length > 1) {
+	    node.setValue(parts[1].trim());
 	}
+	return node;
+    }
 
     // -------------------
     // Métodos utilitarios
