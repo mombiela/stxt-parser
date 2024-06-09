@@ -1,6 +1,7 @@
 package info.ia;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Stack;
 
@@ -15,10 +16,12 @@ public class STXTParser {
         nodeValidators.add(validator);
     }
 
-    public Document parse(List<String> lines) throws ParserException {
+    public Document parse(String content) throws ParserException {
         Document document = new Document();
         Stack<Node> stack = new Stack<>();
         Node currentRoot = null;
+        
+        List<String> lines = Arrays.asList(content.split("\n"));
 
         for (int i = 0; i < lines.size(); i++) {
             String line = lines.get(i);
@@ -67,6 +70,7 @@ public class STXTParser {
 
         return document;
     }
+
     private IndentResult getIndentLevelAndLine(String line) {
         int indentLevel = 0;
         while (line.startsWith("    ") || line.startsWith("\t")) {
@@ -82,16 +86,16 @@ public class STXTParser {
     }
 
     private Node createNode(IndentResult result, int lineNumber) {
-	    String line = result.getLineWithoutIndent();
-	    String[] parts = line.split(":", 3);
-	    String name = parts[0].trim();
-	    String type = parts.length > 2 ? parts[1].trim() : "STRING"; // Default type to STRING if not provided
-	    Node node = new Node(name, type, lineNumber);
-	    if (parts.length > 2) {
-	        node.setValue(parts[2].trim());
-	    } else if (parts.length > 1) {
-	        node.setValue(parts[1].trim());
-	    }
-	    return node;
-	}
+        String line = result.getLineWithoutIndent();
+        String[] parts = line.split(":", 3);
+        String name = parts[0].trim();
+        String type = parts.length > 2 ? parts[1].trim() : "STRING"; // Default type to STRING if not provided
+        Node node = new Node(name, type, lineNumber);
+        if (parts.length > 2) {
+            node.setValue(parts[2].trim());
+        } else if (parts.length > 1) {
+            node.setValue(parts[1].trim());
+        }
+        return node;
+    }
 }

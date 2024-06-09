@@ -1,8 +1,5 @@
 package info.ia;
 
-import java.util.Arrays;
-import java.util.List;
-
 public class Main {
     public static void main(String[] args) {
         String fileContent = """
@@ -25,11 +22,10 @@ public class Main {
             fecha creacion:DATE: 2024-06-10
         """;
 
-        List<String> lines = Arrays.asList(fileContent.split("\n"));
         STXTParser parser = new STXTParser();
         parser.addNodeValidator(new ExampleNodeValidator()); // Añadir el validador de nodos
         try {
-            Document document = parser.parse(lines);
+            Document document = parser.parse(fileContent);
             System.out.println(document);
         } catch (ParserException e) {
             e.printStackTrace();
