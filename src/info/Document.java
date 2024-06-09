@@ -3,7 +3,8 @@ package info;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Document {
+public class Document 
+{
     private List<Node> documents;
 
     public Document() {
