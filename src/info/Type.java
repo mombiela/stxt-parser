@@ -5,7 +5,6 @@ import java.util.Set;
 
 public class Type 
 {
-    public static final String TREE         	= "TREE";
     public static final String TEXT         	= "TEXT";
     public static final String STRING       	= "STRING";
     public static final String NUMBER       	= "NUMBER";
@@ -24,7 +23,6 @@ public class Type
     
     static
     {
-	ALL_TYPES.add(TREE);
 	ALL_TYPES.add(TEXT);
 	ALL_TYPES.add(STRING);
 	ALL_TYPES.add(NUMBER);

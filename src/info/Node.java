@@ -11,7 +11,7 @@ public class Node
 
     private String name;
     private String namespace;
-    private String type;
+    private String type = Type.STRING;
     private String value;
     private List<Node> childs;
     private int lineCreation;
@@ -76,12 +76,6 @@ public class Node
         this.namespace = namespace;
     }
 
-    @Override
-    public String toString()
-    {
-        return toString(1);
-    }
-
     public int getLineCreation()
     {
         return lineCreation;
@@ -95,6 +89,12 @@ public class Node
     // ----------------
     // ToString methods
     // ----------------
+
+    @Override
+    public String toString()
+    {
+        return toString(1);
+    }
 
     private String toString(int level)
     {
@@ -118,79 +118,6 @@ public class Node
             }
         }
         return result.toString();
-    }
-
-    public String toSTXT()
-    {
-        return toSTXT(1);
-    }
-
-    private String toSTXT(int level)
-    {
-        StringBuffer result = new StringBuffer();
-        result.append(name + (level == 1 ? "(" + namespace + ")" : "") + ":");
-        if (!Type.TREE.equals(type))
-        {
-            result.append(tabulatedText(value, level));
-        }
-        if (childs != null)
-        {
-            result.append("\n");
-            for (int j = 0; j < childs.size(); j++)
-            {
-                for (int i = 0; i < level; i++) result.append("\t");
-                Node c = childs.get(j);
-                result.append(c.toSTXT(level + 1));
-                if (j != childs.size() - 1) result.append("\n");
-            }
-        }
-        return result.toString();
-    }
-
-    private String tabulatedText(String text, int level)
-    {
-        if (text.indexOf('\n') == -1) return text;
-
-        StringBuffer result = new StringBuffer();
-        for (int i = 0; i < level; i++) result.append("\t");
-
-        text = text.replaceAll("\\n", '\n' + result.toString());
-        return text;
-    }
-
-    public String toSTXTCompact()
-    {
-        return toSTXTCompact(1);
-    }
-
-    private String toSTXTCompact(int level)
-    {
-        StringBuffer result = new StringBuffer();
-        result.append(name + (level == 1 ? "(" + namespace + ")" : "") + ":");
-        if (!Type.TREE.equals(type))
-        {
-            result.append(compactTabulatedText(value, level));
-        }
-        if (childs != null)
-        {
-            result.append("\n");
-            for (int j = 0; j < childs.size(); j++)
-            {
-                result.append(level + ":");
-                Node c = childs.get(j);
-                result.append(c.toSTXTCompact(level + 1));
-                if (j != childs.size() - 1) result.append("\n");
-            }
-        }
-        return result.toString();
-    }
-
-    private String compactTabulatedText(String text, int level)
-    {
-        if (text.indexOf('\n') == -1) return text;
-        if (!Type.TEXT.equals(type)) text = text.trim();
-        text = text.replaceAll("\\n", '\n' + Integer.toString(level) + ':');
-        return text;
     }
 
     // Fast access methods to children

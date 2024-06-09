@@ -1,98 +1,75 @@
-Namespace Definition(www.semantictext.info/namespace.stxt):
-
-	Namespace: www.gymstxt.com/client.stxt
+Namespace(www.semantictext.info/namespace.stxt): www.gymstxt.com/client.stxt
 
 	# --------------
 	# Nodo principal
 	# --------------
 	
-	Node: 
-		Name: Cliente
+	Node: Cliente 
 		Type: TREE
-		Child:
-			Name: Datos Personales 
+		Child: Datos Personales 
 			Count: 1
-		Child:
-			Name: Datos Bancarios 
+		Child: Datos Bancarios 
 			Count: 1
 	
 	# -------------
 	# Nodos básicos
 	# -------------
 	
-	Node:
-		Name: Datos Personales
+	Node: Datos Personales
 		Type: TREE
-		Child:
-			Name: Nombre
+		Child: Nombre
 			Count: 1
-		Child:
-			Name:  Primer apellido
+		Child: Primer apellido
 			Count: 1
-		Child:
-			Name: Segundo apellido
+		Child: Segundo apellido
 			Count: ?
-		Child:
-			Name: Edad
+		Child: Edad
 			Count: ?
-		Child:
-			Name: Cliente vip
+		Child: Cliente vip
 			Count: ?
-		Child:
-			Name: Foto
+		Child: Foto
 			Count: * 
 		
-	Node:
-		Name: Datos Bancarios
+	Node: Datos Bancarios
 		Type: NODE
-		Child:
-			Name: Titular cuenta 
+		Child: Titular cuenta 
 			Count: ?
-		Child:
-			Name: Número cuenta 
+		Child: Número cuenta 
 			Count: 1
 	
 	# --------------
 	# Nodos de texto
 	# --------------
 	
-	Node:
-		Name: Nombre
+	Node: Nombre
 		Type: STRING
 		
-	Node:
-		Name: Primer apellido
+	Node: Primer apellido
 		Type: STRING
 		
-	Node:
-		Name: Segundo apellido
+	Node: Segundo apellido
 		Type: STRING
 		
-	Node:
-		Name: Titular cuenta
+	Node: Titular cuenta
 		Type: STRING
 		
-	Node:
-		Name: Número cuenta
+	Node: Número cuenta
 		Type: STRING
 	
 	# ---------------
 	# Nodos numéricos
 	# ---------------
 	
-	Node:
-		Name: Edad
+	Node: Edad
 		Type: NUMBER
 		
 	# ----------
 	# Nodos bits
 	# ----------
 	
-	Node:
-		Name: Foto
+	Node: Foto
 		Type: BASE64
 	
-	Node:
-		Name: Cliente vip
+	Node: Cliente vip
 		Type: BOOLEAN
 		
