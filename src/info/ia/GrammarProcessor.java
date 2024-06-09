@@ -28,9 +28,8 @@ public class GrammarProcessor implements NodeProcessor
     public void processNodeOnCreation(Node node) throws ParserException 
     {
 	// TODO Auto-generated method stub
-        System.out.println(".... check node creation: " + node.getName() + " -> " + node.getNamespace());
+        System.out.println(".... check node creation: " + node.getName());
         node.setNamespace(NAMESPACE);
-        System.out.println(".... updated namespace: " + node.getName() + " -> " + node.getNamespace());
     }
 
     @Override

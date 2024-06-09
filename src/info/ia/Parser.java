@@ -51,15 +51,15 @@ public class Parser
         {
             lineNumber++;
             
-            System.out.println("***********************************************************************************");
-            printAllStack("INI", stack, lineNumber);
-            System.out.println("Line:"  + line); // line.replace(' ', '.').replace('\t', '·')
-            
-            if (line.trim().isEmpty() || line.trim().startsWith("#")) {
-        	System.out.println("empyt line..."); // TODO Revisar
+            if (line.trim().isEmpty() || line.trim().startsWith("#")) { // TODO Revisar 
+        	//System.out.println("empyt line...");
                 continue;
             }
 
+            System.out.println("***********************************************************************************");
+            //printAllStack("INI", stack, lineNumber);
+            //System.out.println("Line:"  + line); // line.replace(' ', '.').replace('\t', '·')
+            
             IndentResult result = IndentParser.getIndentLevelAndLine(line);
             System.out.println("IndentResult = " + result);
             int indentLevel = result.getIndentLevel();

@@ -1,0 +1,34 @@
+Namespace Definition(www.semantictext.info/namespace.stxt):
+
+    Namespace: www.dokumentando.com/doc_simple.stxt
+    
+    Node:
+        Name: documento
+        Type: TREE
+        Description: 
+            Un documento genérico que contiene varios tipos de datos y estructuras.
+            Se pueden hacer varias cosas
+    
+        Child:
+            Name: titulo
+            Count: 1
+            
+        Child:
+            Name: secciones
+            Count: ?
+    
+    Node:
+        Name: secciones
+        Type: TREE
+        Child:
+            Name: seccion
+            Count: +
+
+    Node:
+        Name: seccion
+        Type: TEXT
+    
+    Node:
+        Name: titulo
+        Type: STRING
+    
