@@ -7,11 +7,13 @@ public class Node {
     private String name;
     private String value;
     private String type;
+    private int lineCreation;
     private List<Node> children;
 
-    public Node(String name, String type) {
+    public Node(String name, String type, int lineCreation) {
         this.name = name;
         this.type = type;
+        this.lineCreation = lineCreation;
         this.children = new ArrayList<>();
     }
 
@@ -40,6 +42,14 @@ public class Node {
         this.type = type;
     }
 
+    public int getLineCreation() {
+        return lineCreation;
+    }
+
+    public void setLineCreation(int lineCreation) {
+        this.lineCreation = lineCreation;
+    }
+
     public List<Node> getChildren() {
         return children;
     }
@@ -50,6 +60,6 @@ public class Node {
 
     @Override
     public String toString() {
-        return "Node{name='" + name + "', type='" + type + "', value='" + value + "', children=" + children + '}';
+        return "Node{name='" + name + "', type='" + type + "', value='" + value + "', lineCreation=" + lineCreation + ", children=" + children + '}';
     }
 }

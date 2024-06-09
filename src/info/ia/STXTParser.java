@@ -20,14 +20,15 @@ public class STXTParser {
         Stack<Node> stack = new Stack<>();
         Node currentRoot = null;
 
-        for (String line : lines) {
+        for (int i = 0; i < lines.size(); i++) {
+            String line = lines.get(i);
             if (line.trim().isEmpty() || line.trim().startsWith("#")) {
                 continue;
             }
 
             IndentResult result = getIndentLevelAndLine(line);
             int indentLevel = result.getIndentLevel();
-            Node node = createNode(result);
+            Node node = createNode(result, i + 1); // Pasar el número de línea al crear el nodo
 
             for (NodeValidator validator : nodeValidators) {
                 validator.validarNodoAlCrearse(node);
@@ -66,7 +67,6 @@ public class STXTParser {
 
         return document;
     }
-
     private IndentResult getIndentLevelAndLine(String line) {
         int indentLevel = 0;
         while (line.startsWith("    ") || line.startsWith("\t")) {
@@ -81,17 +81,17 @@ public class STXTParser {
         return new IndentResult(indentLevel, line);
     }
 
-    private Node createNode(IndentResult result) {
-        String line = result.getLineWithoutIndent();
-        String[] parts = line.split(":", 3);
-        String name = parts[0].trim();
-        String type = parts.length > 2 ? parts[1].trim() : "STRING"; // Default type to STRING if not provided
-        Node node = new Node(name, type);
-        if (parts.length > 2) {
-            node.setValue(parts[2].trim());
-        } else if (parts.length > 1) {
-            node.setValue(parts[1].trim());
-        }
-        return node;
-    }
+    private Node createNode(IndentResult result, int lineNumber) {
+	    String line = result.getLineWithoutIndent();
+	    String[] parts = line.split(":", 3);
+	    String name = parts[0].trim();
+	    String type = parts.length > 2 ? parts[1].trim() : "STRING"; // Default type to STRING if not provided
+	    Node node = new Node(name, type, lineNumber);
+	    if (parts.length > 2) {
+	        node.setValue(parts[2].trim());
+	    } else if (parts.length > 1) {
+	        node.setValue(parts[1].trim());
+	    }
+	    return node;
+	}
 }
