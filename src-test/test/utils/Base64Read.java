@@ -9,8 +9,8 @@ import java.util.Base64;
 
 import org.junit.jupiter.api.Test;
 
-import info.old.Utils;
-import info.old.UtilsFile;
+import info.legacy.Utils;
+import info.legacy.UtilsFile;
 
 public class Base64Read 
 {

@@ -14,10 +14,10 @@ public class LineNormalizer
     private static final Pattern EMPTY_LINE = Pattern.compile("^\\s*$");
     private static final Pattern COMMENT_LINE = Pattern.compile("^\\s*\\#.*$");
     
-    public static String normalize(String aLine, boolean lastNodeText, int lastLevel) 
+    public static IndentResult parseLine(String aLine, boolean lastNodeMultiline, int lastLevel) 
     {
         // Validate if empty line or comment
-        if (!lastNodeText && (EMPTY_LINE.matcher(aLine).matches() || COMMENT_LINE.matcher(aLine).matches()))
+        if (!lastNodeMultiline && (EMPTY_LINE.matcher(aLine).matches() || COMMENT_LINE.matcher(aLine).matches()))
             return null;
 
         // Obtain the level and pointer
@@ -54,17 +54,17 @@ public class LineNormalizer
             pointer++;
 
             // Validate that text can only have one more level, so no information is lost
-            if (lastNodeText && level > lastLevel) break;
+            if (lastNodeMultiline && level > lastLevel) break;
         }
 
         // In case of text, check if it's a comment or not (depends on the comment's level)
-        if (lastNodeText && level <= lastLevel) 
+        if (lastNodeMultiline && level <= lastLevel) 
         {
-            if (EMPTY_LINE.matcher(aLine).matches())    return (lastLevel + 1) + ":";
+            if (EMPTY_LINE.matcher(aLine).matches())    return new IndentResult(lastLevel + 1, "");
             if (COMMENT_LINE.matcher(aLine).matches())  return null;
         }
 
-        return level + ":" + aLine.substring(pointer);
+        return new IndentResult(level, aLine.substring(pointer));
     }
 
     public static String removeUTF8BOM(String s) 
@@ -81,13 +81,13 @@ public class LineNormalizer
     public static void main(String[] args) {
         System.out.println("Start");
 
-        System.out.println(normalize("\t\t   \t    A recipe is the instructions, materials, etc.", false, 0));
-        System.out.println(normalize("4:A recipe is the instructions, materials, etc.", false, 0));
-        System.out.println(normalize("  #4:A recipe is the instructions, materials, etc.", false, 0));
-        System.out.println(normalize("  #4:A recipe is the instructions, materials, etc.", true, 0));
-        System.out.println(normalize("  \t   \t   ", false, 1));
-        System.out.println(normalize("  \t   \t   ", true, 1));
-        System.out.println(normalize("", true, 1));
+        System.out.println(parseLine("\t\t   \t    A recipe is the instructions, materials, etc.", false, 0));
+        System.out.println(parseLine("4:A recipe is the instructions, materials, etc.", false, 0));
+        System.out.println(parseLine("  #4:A recipe is the instructions, materials, etc.", false, 0));
+        System.out.println(parseLine("  #4:A recipe is the instructions, materials, etc.", true, 0));
+        System.out.println(parseLine("  \t   \t   ", false, 1));
+        System.out.println(parseLine("  \t   \t   ", true, 1));
+        System.out.println(parseLine("", true, 1));
 
         System.out.println("End");
     }

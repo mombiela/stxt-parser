@@ -1,9 +1,7 @@
 package test.parser_old;
 
-import java.io.File;
-
-import info.old.GrammarRetriever;
 import info.old.Parser;
+import info.old.StxtGrammarProcessor;
 
 public class AbstractTestParser
 {
@@ -12,13 +10,6 @@ public class AbstractTestParser
     public AbstractTestParser()
     {
         parser = new Parser();
-        try
-        {
-            GrammarRetriever.addGrammarDefinitionsFromDir(new File("defs"));
-        }
-        catch (Exception e)
-        {
-            throw new IllegalArgumentException(e);
-        }
+        parser.setProcessor(new StxtGrammarProcessor());
     }
 }

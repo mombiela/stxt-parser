@@ -16,6 +16,11 @@ public class Node
     private List<Node> childs;
     private int lineCreation;
 
+    public Node()
+    {
+	this.childs = new ArrayList<>();
+    }
+    
     public String getType()
     {
         return type;
@@ -46,9 +51,9 @@ public class Node
         return childs;
     }
 
-    public void setChilds(List<Node> childs)
+    public void addChild(Node child)
     {
-        this.childs = childs;
+        this.childs.add(child);
     }
 
     public String getName()

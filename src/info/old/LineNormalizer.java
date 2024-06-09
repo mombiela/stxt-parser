@@ -11,15 +11,11 @@ public class LineNormalizer
     // ---------
 
     // Patterns
-    private static final Pattern COMPRESSED_LINE = Pattern.compile("^\\d+\\:.*$");
     private static final Pattern EMPTY_LINE = Pattern.compile("^\\s*$");
     private static final Pattern COMMENT_LINE = Pattern.compile("^\\s*\\#.*$");
     
-    public static String normalize(String aLine, boolean lastNodeText, int lastLevel) {
-        // Validate if already compressed
-        if (COMPRESSED_LINE.matcher(aLine).matches())
-            return aLine;
-
+    public static String normalize(String aLine, boolean lastNodeText, int lastLevel) 
+    {
         // Validate if empty line or comment
         if (!lastNodeText && (EMPTY_LINE.matcher(aLine).matches() || COMMENT_LINE.matcher(aLine).matches()))
             return null;
@@ -29,21 +25,28 @@ public class LineNormalizer
         int spaces = 0;
 
         int pointer = 0;
-        while (pointer < aLine.length()) {
+        while (pointer < aLine.length()) 
+        {
             // Last char
             char charPointer = aLine.charAt(pointer);
 
             // Update level
-            if (charPointer == Constants.SPACE) {
+            if (charPointer == Constants.SPACE) 
+            {
                 spaces++;
-                if (spaces == Constants.TAB_SPACES) {
+                if (spaces == Constants.TAB_SPACES) 
+                {
                     level++;
                     spaces = 0;
                 }
-            } else if (charPointer == Constants.TAB) {
+            } 
+            else if (charPointer == Constants.TAB) 
+            {
                 level++;
                 spaces = 0;
-            } else {
+            }
+            else 
+            {
                 break;
             }
 
@@ -51,16 +54,14 @@ public class LineNormalizer
             pointer++;
 
             // Validate that text can only have one more level, so no information is lost
-            if (lastNodeText && level > lastLevel)
-                break;
+            if (lastNodeText && level > lastLevel) break;
         }
 
         // In case of text, check if it's a comment or not (depends on the comment's level)
-        if (lastNodeText && level <= lastLevel) {
-            if (EMPTY_LINE.matcher(aLine).matches())
-                return (lastLevel + 1) + ":";
-            if (COMMENT_LINE.matcher(aLine).matches())
-                return null;
+        if (lastNodeText && level <= lastLevel) 
+        {
+            if (EMPTY_LINE.matcher(aLine).matches())    return (lastLevel + 1) + ":";
+            if (COMMENT_LINE.matcher(aLine).matches())  return null;
         }
 
         return level + ":" + aLine.substring(pointer);

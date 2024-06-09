@@ -5,8 +5,8 @@ import java.io.IOException;
 
 import org.junit.jupiter.api.Test;
 
+import info.legacy.UtilsFile;
 import info.old.Node;
-import info.old.UtilsFile;
 
 public class TestParserX00 extends AbstractTestParser
 {

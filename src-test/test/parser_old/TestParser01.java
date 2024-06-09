@@ -9,6 +9,11 @@ import info.old.Node;
 
 public class TestParser01 extends AbstractTestParser
 {
+    public static void main(String[] args) throws IOException
+    {
+        new TestParser01().mainTest();
+    }
+    
     @Test
     public void mainTest() throws IOException
     {
