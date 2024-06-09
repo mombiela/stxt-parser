@@ -20,6 +20,7 @@ public class STXTParser {
         Document document = new Document();
         Stack<Node> stack = new Stack<>();
         Node currentRoot = null;
+        String currentNamespace = null;
         
         List<String> lines = Arrays.asList(content.split("\n"));
 
@@ -31,7 +32,12 @@ public class STXTParser {
 
             IndentResult result = getIndentLevelAndLine(line);
             int indentLevel = result.getIndentLevel();
-            Node node = createNode(result, i + 1); // Pasar el número de línea al crear el nodo
+            
+            if (indentLevel == 0 && line.contains("(namespace):")) {
+                currentNamespace = line.split("\\(")[1].split("\\)")[0];
+            }
+
+            Node node = createNode(result, i + 1, currentNamespace); // Pasar el número de línea y el namespace al crear el nodo
 
             for (NodeProcessor processor : nodeProcessors) {
                 processor.processNodeOnCreation(node);
@@ -70,7 +76,6 @@ public class STXTParser {
 
         return document;
     }
-
     private IndentResult getIndentLevelAndLine(String line) {
         int indentLevel = 0;
         while (line.startsWith("    ") || line.startsWith("\t")) {
@@ -85,17 +90,17 @@ public class STXTParser {
         return new IndentResult(indentLevel, line);
     }
 
-    private Node createNode(IndentResult result, int lineNumber) {
-        String line = result.getLineWithoutIndent();
-        String[] parts = line.split(":", 3);
-        String name = parts[0].trim();
-        String type = parts.length > 2 ? parts[1].trim() : "STRING"; // Default type to STRING if not provided
-        Node node = new Node(name, type, lineNumber);
-        if (parts.length > 2) {
-            node.setValue(parts[2].trim());
-        } else if (parts.length > 1) {
-            node.setValue(parts[1].trim());
-        }
-        return node;
-    }
+    private Node createNode(IndentResult result, int lineNumber, String namespace) {
+	    String line = result.getLineWithoutIndent();
+	    String[] parts = line.split(":", 3);
+	    String name = parts[0].trim();
+	    String type = parts.length > 2 ? parts[1].trim() : "STRING"; // Default type to STRING if not provided
+	    Node node = new Node(name, type, lineNumber, namespace);
+	    if (parts.length > 2) {
+	        node.setValue(parts[2].trim());
+	    } else if (parts.length > 1) {
+	        node.setValue(parts[1].trim());
+	    }
+	    return node;
+	}
 }
