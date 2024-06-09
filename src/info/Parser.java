@@ -1,10 +1,11 @@
 package info;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
+import java.io.StringReader;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Stack;
 
@@ -34,7 +35,7 @@ public class Parser
         return parse(content);
     }
     
-    public Document parse(String content) throws ParserException 
+    public Document parse(String content) throws ParserException, IOException 
     {
 	// Sanitary check
 	content = LineNormalizer.removeUTF8BOM(content);
@@ -44,10 +45,13 @@ public class Parser
         Stack<Node> stack = new Stack<>();
         Node currentRoot = null;
         
-        List<String> lines = Arrays.asList(content.split("\n"));
-
         int lineNumber = 0;
-        for (String line: lines) 
+        
+        // Get reader
+        BufferedReader in = new BufferedReader(new StringReader(content));
+
+        String line = null;
+        while ((line = in.readLine()) != null) 
         {
             System.out.println("***********************************************************************************");
             lineNumber++;
@@ -152,7 +156,7 @@ public class Parser
         List<String> nodeStack = new ArrayList<>();
         if (stack != null)
         {
-            for (Node n: stack) nodeStack.add(n.getName());
+            for (Node n: stack) nodeStack.add(n.getName() + "(" + n.getType() + ")");
         }
         return nodeStack.toString();
     }    
