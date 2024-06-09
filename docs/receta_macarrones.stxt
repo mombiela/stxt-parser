@@ -8,14 +8,14 @@ documento(www.dokumentando.com/documento.stxt):
     cuerpo:
         Esta receta te guiará a través de los pasos necesarios para preparar una deliciosa pizza de jamón en casa.
         Sigue las instrucciones cuidadosamente para obtener los mejores resultados.
-    fecha_creacion: 2024-06-08
-    ultima_modificacion: 2024-06-08T14:30:00Z
-    email_contacto: maria.lopez@example.com
-    sitio_web: https://www.recetasdeliciosas.com/pizza-jamon
-    codigo_postal: 54321
-    es_publico: true
-    color_tema: #FF6347
-    tipo_documento: receta
+    fecha creacion: 2024-06-08
+    ultima modificacion: 2024-06-08T14:30:00Z
+    email contacto: maria.lopez@example.com
+    sitio web: https://www.recetasdeliciosas.com/pizza-jamon
+    codigo postal: 54321
+    es publico: true
+    color tema: #FF6347
+    tipo documento: receta
     secciones:
         seccion:
             nombre: Ingredientes

@@ -4,14 +4,14 @@ documento(www.dokumentando.com/documento.stxt):
     cuerpo:
         La programación es el proceso de crear software mediante la escritura de código.
         Este documento proporciona una visión general de los conceptos básicos de programación.
-    fecha_creacion: 2024-06-08
-    ultima_modificacion: 2024-06-08T14:30:00Z
-    email_contacto: juan.perez@example.com
-    sitio_web: https://www.programacionbasica.com
-    codigo_postal: 12345
-    es_publico: true
-    color_tema: #FF5733
-    tipo_documento: articulo
+    fecha creacion: 2024-06-08
+    ultima modificacion: 2024-06-08T14:30:00Z
+    email contacto: juan.perez@example.com
+    sitio web: https://www.programacionbasica.com
+    codigo postal: 12345
+    es publico: true
+    color tema: #FF5733
+    tipo documento: articulo
     secciones:
         seccion:
             nombre: Fundamentos de Programación
