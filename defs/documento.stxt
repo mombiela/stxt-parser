@@ -1,0 +1,126 @@
+# ------------------------
+# Definición de documentos
+# ------------------------
+
+Namespace Definition(www.semantictext.info/namespace.stxt):
+
+    Namespace: www.dokumentando.com/documento.stxt
+    
+    Node:
+        Name: documento
+        Type: TREE
+        Description: 
+            Un documento genérico que contiene varios tipos de datos y estructuras.
+    
+        Child:
+            Name: titulo
+            Count: 1
+    
+        Child:
+            Name: cuerpo
+            Count: 1
+    
+        Child:
+            Name: autor
+            Count: 1
+    
+        Child:
+            Name: fecha_creacion
+            Count: 1
+    
+        Child:
+            Name: ultima_modificacion
+            Count: 1
+    
+        Child:
+            Name: email_contacto
+            Count: 1
+    
+        Child:
+            Name: sitio_web
+            Count: 1
+    
+        Child:
+            Name: codigo_postal
+            Count: 1
+    
+        Child:
+            Name: es_publico
+            Count: 1
+    
+        Child:
+            Name: color_tema
+            Count: 1
+    
+        Child:
+            Name: secciones
+            Count: 1
+    
+        Child:
+            Name: tipo_documento
+            Count: 1
+    
+    Node:
+        Name: titulo
+        Type: STRING
+    
+    Node:
+        Name: cuerpo
+        Type: TEXT
+    
+    Node:
+        Name: autor
+        Type: STRING
+    
+    Node:
+        Name: fecha_creacion
+        Type: DATE
+    
+    Node:
+        Name: ultima_modificacion
+        Type: TIMESTAMP
+    
+    Node:
+        Name: email_contacto
+        Type: EMAIL
+    
+    Node:
+        Name: sitio_web
+        Type: URL
+    
+    Node:
+        Name: codigo_postal
+        Type: REGEX
+        Pattern: ^\d{5}$
+    
+    Node:
+        Name: es_publico
+        Type: BOOLEAN
+    
+    Node:
+        Name: color_tema
+        Type: HEXADECIMAL
+    
+    Node:
+        Name: seccion
+        Type: TREE
+        Child:
+            Name: nombre
+            Count: 1
+        Child:
+            Name: contenido
+            Count: 1
+    
+    Node:
+        Name: secciones
+        Type: TREE
+        Child:
+            Name: seccion
+            Count: +
+    
+    Node:
+        Name: tipo_documento
+        Type: ENUM
+        Value: 'informe'
+        Value: 'articulo'
+        Value: 'ensayo'
