@@ -16,4 +16,9 @@ public class IndentResult {
     public String getLineWithoutIndent() {
         return lineWithoutIndent;
     }
+
+    @Override
+    public String toString() {
+	return "[" + indentLevel + "]=>" + lineWithoutIndent;
+    }
 }

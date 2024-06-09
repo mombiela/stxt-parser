@@ -1,22 +1,45 @@
 package info.ia;
 
+import java.io.File;
+import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Stack;
 
-public class STXTParser {
+public class Parser 
+{
     private List<NodeProcessor> nodeProcessors;
 
-    public STXTParser() {
+    public Parser() 
+    {
         this.nodeProcessors = new ArrayList<>();
     }
 
-    public void addNodeProcessor(NodeProcessor processor) {
+    public void addNodeProcessor(NodeProcessor processor) 
+    {
         nodeProcessors.add(processor);
     }
 
-    public Document parse(String content) throws ParserException {
+    public Document parseURI(String uri) throws IOException, ParserException
+    {
+        String content = Utils.getUrlContent(new URL(uri));
+        return parse(content);
+    }
+    
+    public Document parseFile(File srcFile) throws IOException, ParserException
+    {
+        String content = UtilsFile.readFileContent(srcFile);
+        return parse(content);
+    }
+    
+    public Document parse(String content) throws ParserException 
+    {
+	// Sanitary check
+	content = LineNormalizer.removeUTF8BOM(content);
+	
+	// Parse
         Document document = new Document();
         Stack<Node> stack = new Stack<>();
         Node currentRoot = null;
@@ -24,20 +47,25 @@ public class STXTParser {
         
         List<String> lines = Arrays.asList(content.split("\n"));
 
-        for (int i = 0; i < lines.size(); i++) {
-            String line = lines.get(i);
+        int lineNumber = 0;
+        for (String line: lines) 
+        {
+            lineNumber++;
+            
+            System.out.println("***********************************************************************************");
+            printAllStack("INI", stack, lineNumber);
+            System.out.println(".... Line:"  + line); // line.replace(' ', '.').replace('\t', '·')
+            
             if (line.trim().isEmpty() || line.trim().startsWith("#")) {
+        	System.out.println("empyt line..."); // TODO Revisar
                 continue;
             }
 
-            IndentResult result = getIndentLevelAndLine(line);
+            IndentResult result = IndentParser.getIndentLevelAndLine(line);
+            System.out.println(".... IndentResult = " + result);
             int indentLevel = result.getIndentLevel();
             
-            if (indentLevel == 0 && line.contains("(namespace):")) {
-                currentNamespace = line.split("\\(")[1].split("\\)")[0];
-            }
-
-            Node node = createNode(result, i + 1, currentNamespace); // Pasar el número de línea y el namespace al crear el nodo
+            Node node = createNode(result, lineNumber, currentNamespace); // Pasar el número de línea y el namespace al crear el nodo
 
             for (NodeProcessor processor : nodeProcessors) {
                 processor.processNodeOnCreation(node);
@@ -65,6 +93,7 @@ public class STXTParser {
                 }
                 stack.push(node);
             }
+            printAllStack("END", stack, lineNumber);
         }
 
         if (currentRoot != null) {
@@ -76,26 +105,16 @@ public class STXTParser {
 
         return document;
     }
-    private IndentResult getIndentLevelAndLine(String line) {
-        int indentLevel = 0;
-        while (line.startsWith("    ") || line.startsWith("\t")) {
-            if (line.startsWith("    ")) {
-                indentLevel++;
-                line = line.substring(4);
-            } else if (line.startsWith("\t")) {
-                indentLevel++;
-                line = line.substring(1);
-            }
-        }
-        return new IndentResult(indentLevel, line);
-    }
 
-    private Node createNode(IndentResult result, int lineNumber, String namespace) {
+    private Node createNode(IndentResult result, int lineNumber, String namespace) 
+    {
 	    String line = result.getLineWithoutIndent();
 	    String[] parts = line.split(":", 3);
 	    String name = parts[0].trim();
-	    String type = parts.length > 2 ? parts[1].trim() : "STRING"; // Default type to STRING if not provided
-	    Node node = new Node(name, type, lineNumber, namespace);
+
+	    Node node = new Node();
+	    node.setName(name);
+	    node.setLineCreation(lineNumber);
 	    if (parts.length > 2) {
 	        node.setValue(parts[2].trim());
 	    } else if (parts.length > 1) {
@@ -103,4 +122,27 @@ public class STXTParser {
 	    }
 	    return node;
 	}
+
+    // -------------------
+    // Métodos utilitarios
+    // -------------------
+    
+    private void printAllStack(String tag, Stack<Node> stack, int lineNum)
+    {
+        System.out.println(String.format("%03d", lineNum) + " " + tag + ": "
+            + " LevelStack = " + stack.size()
+            + ", NodeStack = "+ printNodeStack(stack) 
+        );
+    }
+
+    private String printNodeStack(Stack<Node> stack)
+    {
+        List<String> nodeStack = new ArrayList<>();
+        if (stack != null)
+        {
+            for (Node n: stack) nodeStack.add(n.getName());
+        }
+        return nodeStack.toString();
+    }    
+    
 }
