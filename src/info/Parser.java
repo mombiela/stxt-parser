@@ -38,7 +38,7 @@ public class Parser
     public Document parse(String content) throws ParserException, IOException 
     {
 	// Sanitary check
-	content = LineNormalizer.removeUTF8BOM(content);
+	content = LineParser.removeUTF8BOM(content);
 	
 	// Parse
         Document document = new Document();
@@ -63,7 +63,7 @@ public class Parser
             if (lastNode != null) lastNodeMultiline = lastNode.isMultiline();
             
             // Parse Line
-            IndentResult result = LineNormalizer.parseLine(line, lastNodeMultiline, stack.size());
+            IndentResult result = LineParser.parseLine(line, lastNodeMultiline, stack.size());
             System.out.println(result);
 
             // Commentario

@@ -2,7 +2,7 @@ package info;
 
 import java.util.regex.Pattern;
 
-public class LineNormalizer
+public class LineParser
 {
     public static final String UTF8_BOM = "\uFEFF";
 
