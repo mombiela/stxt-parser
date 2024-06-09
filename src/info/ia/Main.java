@@ -23,7 +23,7 @@ public class Main {
         """;
 
         STXTParser parser = new STXTParser();
-        parser.addNodeValidator(new ExampleNodeValidator()); // Añadir el validador de nodos
+        parser.addNodeProcessor(new ExampleNodeProcessor()); // Añadir el procesador de nodos
         try {
             Document document = parser.parse(fileContent);
             System.out.println(document);

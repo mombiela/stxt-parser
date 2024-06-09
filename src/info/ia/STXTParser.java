@@ -6,14 +6,14 @@ import java.util.List;
 import java.util.Stack;
 
 public class STXTParser {
-    private List<NodeValidator> nodeValidators;
+    private List<NodeProcessor> nodeProcessors;
 
     public STXTParser() {
-        this.nodeValidators = new ArrayList<>();
+        this.nodeProcessors = new ArrayList<>();
     }
 
-    public void addNodeValidator(NodeValidator validator) {
-        nodeValidators.add(validator);
+    public void addNodeProcessor(NodeProcessor processor) {
+        nodeProcessors.add(processor);
     }
 
     public Document parse(String content) throws ParserException {
@@ -33,14 +33,14 @@ public class STXTParser {
             int indentLevel = result.getIndentLevel();
             Node node = createNode(result, i + 1); // Pasar el número de línea al crear el nodo
 
-            for (NodeValidator validator : nodeValidators) {
-                validator.validarNodoAlCrearse(node);
+            for (NodeProcessor processor : nodeProcessors) {
+                processor.processNodeOnCreation(node);
             }
 
             if (indentLevel == 0 && node.getName().startsWith("documento")) {
                 if (currentRoot != null) {
-                    for (NodeValidator validator : nodeValidators) {
-                        validator.validarNodoAlFinalizar(currentRoot);
+                    for (NodeProcessor processor : nodeProcessors) {
+                        processor.processNodeOnCompletion(currentRoot);
                     }
                     document.addDocument(currentRoot);
                 }
@@ -50,8 +50,8 @@ public class STXTParser {
             } else {
                 while (stack.size() > indentLevel) {
                     Node finishedNode = stack.pop();
-                    for (NodeValidator validator : nodeValidators) {
-                        validator.validarNodoAlFinalizar(finishedNode);
+                    for (NodeProcessor processor : nodeProcessors) {
+                        processor.processNodeOnCompletion(finishedNode);
                     }
                 }
                 if (!stack.isEmpty()) {
@@ -62,8 +62,8 @@ public class STXTParser {
         }
 
         if (currentRoot != null) {
-            for (NodeValidator validator : nodeValidators) {
-                validator.validarNodoAlFinalizar(currentRoot);
+            for (NodeProcessor processor : nodeProcessors) {
+                processor.processNodeOnCompletion(currentRoot);
             }
             document.addDocument(currentRoot);
         }
