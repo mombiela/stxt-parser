@@ -59,14 +59,24 @@ public class Parser
             // Last node
             Node lastNode = null;
             if (stack.size()>0) lastNode = stack.peek();
+            boolean lastNodeMultiline = false;
+            if (lastNode != null) lastNodeMultiline = lastNode.isMultiline();
             
             // Parse Line
-            IndentResult result = LineNormalizer.parseLine(line, lastNode != null && lastNode.isMultiline(), stack.size());
+            IndentResult result = LineNormalizer.parseLine(line, lastNodeMultiline, stack.size());
             System.out.println(result);
+
+            // Commentario
             if (result == null) continue;
             
-            int indentLevel = result.getIndentLevel();
+            // Multiline
+            if (lastNodeMultiline && result.getIndentLevel()>stack.size())
+            {
+        	lastNode.setValue(lastNode.getValue() + "\n" + result.getLineWithoutIndent()); // TODO Revisar caso value = null
+            }
             
+            // Parseo normal
+            int indentLevel = result.getIndentLevel();
             Node node = createNode(result, lineNumber); // Pasar el número de línea y el namespace al crear el nodo
 
             for (NodeProcessor processor : nodeProcessors) 
@@ -98,7 +108,7 @@ public class Parser
                         processor.processNodeOnCompletion(finishedNode);
                     }
                 }
-                if (!stack.isEmpty()) 
+                if (!stack.isEmpty())
                 {
                     stack.peek().addChild(node);
                 }
