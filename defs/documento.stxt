@@ -25,31 +25,31 @@ Namespace Definition(www.semantictext.info/namespace.stxt):
             Count: 1
     
         Child:
-            Name: fecha_creacion
+            Name: fecha creacion
             Count: 1
     
         Child:
-            Name: ultima_modificacion
+            Name: ultima modificacion
             Count: 1
     
         Child:
-            Name: email_contacto
+            Name: email contacto
             Count: 1
     
         Child:
-            Name: sitio_web
+            Name: sitio web
             Count: 1
     
         Child:
-            Name: codigo_postal
+            Name: codigo postal
             Count: 1
     
         Child:
-            Name: es_publico
+            Name: es publico
             Count: 1
     
         Child:
-            Name: color_tema
+            Name: color tema
             Count: 1
     
         Child:
@@ -57,7 +57,7 @@ Namespace Definition(www.semantictext.info/namespace.stxt):
             Count: 1
     
         Child:
-            Name: tipo_documento
+            Name: tipo documento
             Count: 1
     
     Node:
@@ -73,32 +73,32 @@ Namespace Definition(www.semantictext.info/namespace.stxt):
         Type: STRING
     
     Node:
-        Name: fecha_creacion
+        Name: fecha creacion
         Type: DATE
     
     Node:
-        Name: ultima_modificacion
+        Name: ultima modificacion
         Type: TIMESTAMP
     
     Node:
-        Name: email_contacto
+        Name: email contacto
         Type: EMAIL
     
     Node:
-        Name: sitio_web
+        Name: sitio web
         Type: URL
     
     Node:
-        Name: codigo_postal
+        Name: codigo postal
         Type: REGEX
         Pattern: ^\d{5}$
     
     Node:
-        Name: es_publico
+        Name: es publico
         Type: BOOLEAN
     
     Node:
-        Name: color_tema
+        Name: color tema
         Type: HEXADECIMAL
     
     Node:
@@ -119,7 +119,7 @@ Namespace Definition(www.semantictext.info/namespace.stxt):
             Count: +
     
     Node:
-        Name: tipo_documento
+        Name: tipo documento
         Type: ENUM
         Value: 'informe'
         Value: 'articulo'

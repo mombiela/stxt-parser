@@ -14,7 +14,7 @@ Namespace Definition(www.semantictext.info/namespace.stxt):
 	        necesarios para preparar un plato de cocina.
 	
 	    Child:
-	        Name: nombre_receta
+	        Name: nombre receta
 	        Count: 1
 	
 	    Child:
@@ -71,7 +71,7 @@ Namespace Definition(www.semantictext.info/namespace.stxt):
 	        Count: 1
 	
 	    Child:
-	        Name: descripcion_paso
+	        Name: descripcion paso
 	        Count: 1
 	
 	Node:
@@ -82,7 +82,7 @@ Namespace Definition(www.semantictext.info/namespace.stxt):
 	        Count: +
 	
 	Node:
-	    Name: nombre_receta
+	    Name: nombre receta
 	    Type: STRING
 	
 	Node:
@@ -121,5 +121,5 @@ Namespace Definition(www.semantictext.info/namespace.stxt):
 	    Type: NUMBER
 	
 	Node:
-	    Name: descripcion_paso
+	    Name: descripcion paso
 	    Type: TEXT
