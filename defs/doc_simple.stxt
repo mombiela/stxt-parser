@@ -2,7 +2,7 @@ Definition(www.semantictext.info/namespace.stxt): www.dokumentando.com/doc_simpl
 
     Node: documento
         Child: (1) titulo
-        Child: (?) secciones
+        Child: (*) secciones
         Descrip:
             Documento principal
             Es simple, sólo para probar
