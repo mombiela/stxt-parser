@@ -1,19 +1,11 @@
 Definition(www.semantictext.info/namespace.stxt): www.dokumentando.com/doc_simple.stxt
 
     Node: documento
-        Description: 
-            Un documento genérico que contiene varios tipos de datos y estructuras.
-            Se pueden hacer varias cosas
-    
-        Child: titulo
-            Count: 1
-            
-        Child: secciones
-            Count: ?
+        Child: titulo (1)
+        Child: secciones (?)
     
     Node: secciones
-        Child: seccion
-            Count: +
+        Child: seccion (+)
 
     Node: seccion
     Node: titulo

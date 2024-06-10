@@ -1,75 +1,27 @@
 Namespace(www.semantictext.info/namespace.stxt): www.gymstxt.com/client.stxt
 
-	# --------------
-	# Nodo principal
-	# --------------
-	
 	Node: Cliente 
-		Type: TREE
-		Child: Datos Personales 
-			Count: 1
-		Child: Datos Bancarios 
-			Count: 1
-	
-	# -------------
-	# Nodos básicos
-	# -------------
+		Child: Datos Personales (1) 
+		Child: Datos Bancarios (1) 
 	
 	Node: Datos Personales
-		Type: TREE
-		Child: Nombre
-			Count: 1
-		Child: Primer apellido
-			Count: 1
-		Child: Segundo apellido
-			Count: ?
-		Child: Edad
-			Count: ?
-		Child: Cliente vip
-			Count: ?
-		Child: Foto
-			Count: * 
+		Child: Nombre (1)
+		Child: Primer apellido (1)
+		Child: Segundo apellido (?)
+		Child: Edad (?)
+		Child: Cliente vip (?)
+		Child: Foto (*)
 		
 	Node: Datos Bancarios
-		Type: NODE
-		Child: Titular cuenta 
-			Count: ?
-		Child: Número cuenta 
-			Count: 1
-	
-	# --------------
-	# Nodos de texto
-	# --------------
+		Child: Titular cuenta (?)
+		Child: Número cuenta (1) 
 	
 	Node: Nombre
-		Type: STRING
-		
 	Node: Primer apellido
-		Type: STRING
-		
 	Node: Segundo apellido
-		Type: STRING
-		
 	Node: Titular cuenta
-		Type: STRING
-		
 	Node: Número cuenta
-		Type: STRING
-	
-	# ---------------
-	# Nodos numéricos
-	# ---------------
-	
-	Node: Edad
-		Type: NUMBER
-		
-	# ----------
-	# Nodos bits
-	# ----------
-	
-	Node: Foto
-		Type: BASE64
-	
-	Node: Cliente vip
-		Type: BOOLEAN
+	Node: Edad (NUMBER)
+	Node: Foto (BASE64)
+	Node: Cliente vip (BOOLEAN)
 		
