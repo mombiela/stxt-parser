@@ -5,7 +5,7 @@
 Namespace (www.semantictext.info/namespace.stxt): www.semantictext.info/namespace.stxt
     
     Node: Namespace (STRING)
-        Child: (?) Description
+        Child: (?) Description (TEXT)
         Child: (*) Node
     
     Node: Node (STRING)
@@ -65,9 +65,9 @@ Namespace (www.semantictext.info/namespace.stxt): www.semantictext.info/namespac
             Child: section
             Child: (*) Section (www.demo.com/name_namespace.stxt)
              
-        -------
-        Example
-        -------
+        ------------------
+        Example Definition
+        ------------------
         
         Definition (www.semantictext.info/namespace.stxt): www.sample_namespace.com/simple_document.stxt
 
@@ -84,6 +84,24 @@ Namespace (www.semantictext.info/namespace.stxt): www.semantictext.info/namespac
                 Child: (?) metadata (www.sample_namespace.com/other_document.stxt) 
                 Child: (1) content (TEXT)
                 
+        ----------------
+        Example document
+        ----------------
         
+        Document (www.sample_namespace.com/simple_document.stxt):
+        	Title: A title
+        	Autor: Name of the Autor
+        	Reference: Ref1
+        	Reference: Ref2
+        	
+        	Sections:
+        		Section: First Section
+        			Content:
+        				This is a multiline
+        				content 1
+        		Section: Second Section
+        			Content:
+        				This is a multiline
+        				content 2
 
 
