@@ -4,8 +4,6 @@
  
 Namespace (www.semantictext.info/namespace.stxt): www.semantictext.info/namespace.stxt
     
-    Description: The ROOT namespace of all namespaces. Is the main definition.
-    
     Node: Namespace (STRING)
         Child: (?) Description
         Child: (*) Node
@@ -16,51 +14,76 @@ Namespace (www.semantictext.info/namespace.stxt): www.semantictext.info/namespac
         Child: (*) Value
         Child: (*) Child
         
-        Description:
-            Node: node name (type)
-            Values of Type:
-            
-            STRING: Literal of text (**DEFAULT TYPE**)
-            TEXT (multiline): Multiline text
-            NUMBER: 123, -123, 12.55, -3.14296, -2.5e-7
-            BOOLEAN: true / false
-            DATE: YYYY-MM-DD
-            TIMESTAMP: ISO 8601
-              * Example 1: 2024-06-08T14:30:00Z
-              * Example 2: 2024-06-08T16:30:00+02:00
-            EMAIL: admin@example.com
-            URL: https://www.semantictext.info/namespace.stxt
-            REGEX: After trimming, regexp to apply
-            HEXADECIMAL: Hexadecimal value. Example: 536F6D652048657861646563696D616C2056616C7565
-            BASE64 (multiline): Base64 value. Example: U29tZSBCYXNlNjQgVmFsdWU=
-            ENUM: Composed of allowed values      
-            
-            Examples of Node:
-            Node: node of type string
-            Node: contact email (TEXT)
-            Node: postal code (REGEX)
-            	Pattern: ^\d+$
+    Description: The ROOT namespace of all namespaces. Is the main definition.
+    
+        More information on https://www.semantictext.info
         
-    Node: Child (STRING)
-        Description:
-            Child: (count) name of child (type|namespace) 
+        =====
+        Types
+        =====
+        
+        STRING: Literal of text (**DEFAULT TYPE**)
+        TEXT (multiline): Multiline text
+        NUMBER: 123, -123, 12.55, -3.14296, -2.5e-7,...
+        BOOLEAN: true / false
+        DATE (YYYY-MM-DD): 
+        TIMESTAMP (ISO 8601): 2024-06-08T14:30:00Z, 2024-06-08T16:30:00+02:00,...
+        EMAIL: admin@example.com
+        URL: https://www.semantictext.info/namespace.stxt
+        REGEX: Regular Expresion
+        HEXADECIMAL (multiline): 536F6D652048657861646563696D616C2056616C7565
+        BASE64 (multiline): Base64 value. Example: U29tZSBCYXNlNjQgVmFsdWU=
+        ENUM: Composed of allowed values
+              
+        ====
+        Node
+        ====
             
-            Values of count:
-            *: Any number (**DEFAULT COUNT**)
-            +: 1 or more
-            ?: 0 or 1
-            n: An exact number
-            n+: n or more
-            n-: n or less
+        Node: node name (type)
             
-            Type (optional) are the same as Node: STRING, TEXT,...
-            Namespace (opcional): The namespace of the child
+        =====    
+        Child
+        =====    
+        
+        Child: (count) name of child (type|namespace) 
+            
+        =====
+        Count
+        =====
+        
+        *: Any number (**DEFAULT COUNT**)
+        +: 1 or more
+        ?: 0 or 1
+        n: An exact number
+        n+: n or more
+        n-: n or less
             
             Examples of child:
             Child: (1) name
             Child: (?) web site (URL) 
             Child: section (TEXT)
             Child: section
-            Child: (*) Section (www.demo.com/name_namespace.stxt) 
+            Child: (*) Section (www.demo.com/name_namespace.stxt)
+             
+        -------
+        Example
+        -------
+        
+        Definition (www.semantictext.info/namespace.stxt): www.sample_namespace.com/simple_document.stxt
+
+            Node: document
+                Child: (1) title
+                Child: (?) autor
+                Child: (*) reference
+                Child: (?) sections
     
+            Node: secctions
+            	Child: (+) section
+            
+            Node: section
+                Child: (?) metadata (www.sample_namespace.com/other_document.stxt) 
+                Child: (1) content (TEXT)
+                
+        
+
 

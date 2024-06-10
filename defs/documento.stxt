@@ -18,7 +18,6 @@ Namespace (www.semantictext.info/namespace.stxt): www.dokumentando.com/documento
         Pattern: ^\d{5}$
         
     Node: secciones
-    	Child: (1) titulo
         Child: (+) seccion (TEXT) 
         
     Node: tipo documento (ENUM)
