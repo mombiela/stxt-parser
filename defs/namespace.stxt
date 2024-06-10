@@ -1,108 +1,64 @@
 # ------------------------------------------------------------
 #                Structure of a Definition
 # ------------------------------------------------------------
-#  
-#  Namespace: name of namespace
-#     Description (?)
-#     Node (*): name of node
-#         Type (?)
-#             STRING (Single line). **DEFAULT**
-#             TEXT (Multiline)
-#             NUMBER
-#             DATE
-#             TIMESTAMP (ISO 8601)
-#             EMAIL
-#             URL
-#             REGEX
-#             BOOLEAN (true/false)
-#             HEXADECIMAL (Multiline, FF5733...)
-#             BASE64 (Multiline)
-#             ENUM
-#         Description (?)
-#         Pattern (1, only type REGEX)
-#         Value (+, only type ENUM)
-#         Child (*): name of node
-#             Namespace (?, default the current namespace)
-#             Count (?)
-#                 *: Any number **DEFAULT**
-#                 ?: 0/1
-#                 +: 1 or more
-#                 n: An exact number
-#                 n+: n or more
-#                 n-: n or minus
-# ---------------------------------------------------------
  
 Namespace (www.semantictext.info/namespace.stxt): www.semantictext.info/namespace.stxt
     
     Description: The ROOT namespace of all namespaces. Is the main definition.
     
     Node: Namespace
-        Child: Description
-            Count: ?
-        Child: Node
+        Child: Description (?)
+        Child: Node (*)
     
     Node: Node
-        Child: Description
-            Count: ?
-        Child: Type
-            Count: ?
-        Child: Pattern
-            Count: ?
-        Child: Value
-        Child: Child
+        Child: Description (?)
+        Child: Pattern (?)
+        Child: Value (*)
+        Child: Child (*)
         
-    Node: Child
-        Child: Namespace
-            Count: ?
-        Child: Count
-            Count: 1
-    
-    Node: Namespace
-    
-    Node: Description
-        Type: TEXT
-    
-    Node: Type
-        Type: ENUM
-        Value: STRING
-        Value: TEXT
-        Value: NUMBER
-        Value: BOOLEAN
-        Value: DATE
-        Value: TIMESTAMP
-        Value: EMAIL
-        Value: URL
-        Value: REGEX
-        Value: HEXADECIMAL
-        Value: BASE64
-        Value: ENUM
         Description:
-            * STRING: Literal of text (DEFAULT TYPE)
-            * TEXT (multiline): Multiline text
-            * NUMBER: 123, -123, 12.55, -3.14296, -2.5e-7
-            * BOOLEAN: true / false
-            * DATE: YYYY-MM-DD
-            * TIMESTAMP: ISO 8601
+            Node: node name (type)
+            Values of Type:
+            
+            STRING: Literal of text (DEFAULT TYPE)
+            TEXT (multiline): Multiline text
+            NUMBER: 123, -123, 12.55, -3.14296, -2.5e-7
+            BOOLEAN: true / false
+            DATE: YYYY-MM-DD
+            TIMESTAMP: ISO 8601
               * Example 1: 2024-06-08T14:30:00Z
               * Example 2: 2024-06-08T16:30:00+02:00
-            * EMAIL: admin@example.com
-            * URL: https://www.semantictext.info/namespace.stxt
-            * REGEX: After trimming, regexp to apply
-            * HEXADECIMAL: Hexadecimal value. Example: 536F6D652048657861646563696D616C2056616C7565
-            * BASE64 (multiline): Base64 value. Example: U29tZSBCYXNlNjQgVmFsdWU=
-            * ENUM: Composed of allowed values            
-                    
-    Node: Count
-        Type: REGEX
-        Pattern: ^(\*|\+|\?|(\d+(\+|\-)?))$
+            EMAIL: admin@example.com
+            URL: https://www.semantictext.info/namespace.stxt
+            REGEX: After trimming, regexp to apply
+            HEXADECIMAL: Hexadecimal value. Example: 536F6D652048657861646563696D616C2056616C7565
+            BASE64 (multiline): Base64 value. Example: U29tZSBCYXNlNjQgVmFsdWU=
+            ENUM: Composed of allowed values            
+        
+    Node: Child
         Description:
-            *: Any number
+            Child: (namespace) name of child (count)
+            Values of count:
+            
+            *: Any number (**Default if not specified**)
             +: 1 or more
             ?: 0 or 1
             n: An exact number
             n+: n or more
             n-: n or less
             
+            Namespace is optional
+            
+            Examples:
+            
+            Child: name (1)
+            Child: web site (?)
+            Child: section
+            Child: section (*)
+            Child: (www.demo.com/name_namespace.stxt) Section
+    
+    Node: Description (TEXT)
+    	
     Node: Pattern
         Description: A regexp expresion. Example of only digits: ^\d+$
         

@@ -5,83 +5,39 @@
 Namespace (www.semantictext.info/namespace.stxt): www.kocinando.com/receta.stxt
 
 	Node: receta
-	    Description: 
-	        Una receta son las instrucciones y materiales 
-	        necesarios para preparar un plato de cocina.
-	
-	    Child: nombre receta
-	        Count: 1
-	
-	    Child: descripcion
-	        Count: 1
-	
-	    Child: ingredientes
-	        Count: 1
-	
-	    Child: pasos
-	        Count: 1
-	
-	    Child: dificultad
-	        Count: 1
-	
-	    Child: calorias
-	        Count: ?
-	
-	    Child: comensales
-	        Count: 1
+	    Child: nombre receta (1)
+	    Child: descripcion (1)
+	    Child: ingredientes (1)
+	    Child: pasos (1)
+	    Child: dificultad (1)
+	    Child: calorias (?)
+	    Child: comensales (1)
 	
 	Node: ingrediente
-	    Child: nombre
-	        Count: 1
-	
-	    Child: cantidad
-	        Count: 1
-	
-	    Child: unidades
-	        Count: 1
+	    Child: cantidad (1)
+	    Child: unidades (1)
 	
 	Node: ingredientes
-	    Child: ingrediente
-	        Count: +
+	    Child: ingrediente (+)
 	
 	Node: paso
-	    Child: numero
-	        Count: 1
-	
-	    Child: descripcion paso
-	        Count: 1
+	    Child: numero (1)
+	    Child: descripcion paso (1)
 	
 	Node: pasos
-	    Child: paso
-	        Count: +
+	    Child: paso (+)
 	
 	Node: nombre receta
-	
-	Node:
-	    Name: descripcion
-	    Type: TEXT
-	
-	Node: dificultad
-	    Type: ENUM
+	Node: descripcion (TEXT)
+	Node: dificultad (ENUM)
 	    Value: 'fácil'
 	    Value: 'media'
 	    Value: 'difícil'
 	
-	Node: calorias
-	    Type: NUMBER
-	
-	Node: comensales
-	    Type: NUMBER
-	
+	Node: calorias (NUMBER)
+	Node: comensales (NUMBER)
 	Node: nombre
-	
-	Node: cantidad
-	    Type: NUMBER
-	
-	Node: unidades
-	
-	Node: numero
-	    Type: NUMBER
-	
-	Node: descripcion paso
-	    Type: TEXT
+	Node: cantidad (NUMBER)
+	Node: unidades (NUMBER)
+	Node: numero (NUMBER)
+	Node: descripcion paso (TEXT)
