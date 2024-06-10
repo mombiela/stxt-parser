@@ -8,20 +8,11 @@ Namespace(www.semantictext.info/namespace.stxt): www.gymstxt.com/client.stxt
 		Child: Nombre (1)
 		Child: Primer apellido (1)
 		Child: Segundo apellido (?)
-		Child: Edad (?)
-		Child: Cliente vip (?)
-		Child: Foto (*)
+		Child: (NUMBER) Edad (?)
+		Child: (BOOLEAN) Cliente vip (?)
+		Child: (BASE64) Foto (*)
 		
 	Node: Datos Bancarios
 		Child: Titular cuenta (?)
 		Child: Número cuenta (1) 
 	
-	Node: Nombre
-	Node: Primer apellido
-	Node: Segundo apellido
-	Node: Titular cuenta
-	Node: Número cuenta
-	Node: Edad (NUMBER)
-	Node: Foto (BASE64)
-	Node: Cliente vip (BOOLEAN)
-		

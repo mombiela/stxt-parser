@@ -1,6 +1,6 @@
-# ------------------------------------------------------------
-#                Structure of a Definition
-# ------------------------------------------------------------
+# ------------------------------------------------------------------------------------
+#                              Structure of a Definition
+# ------------------------------------------------------------------------------------
  
 Namespace (www.semantictext.info/namespace.stxt): www.semantictext.info/namespace.stxt
     
@@ -20,7 +20,7 @@ Namespace (www.semantictext.info/namespace.stxt): www.semantictext.info/namespac
             Node: node name (type)
             Values of Type:
             
-            STRING: Literal of text (DEFAULT TYPE)
+            STRING: Literal of text (**DEFAULT TYPE**)
             TEXT (multiline): Multiline text
             NUMBER: 123, -123, 12.55, -3.14296, -2.5e-7
             BOOLEAN: true / false
@@ -33,29 +33,38 @@ Namespace (www.semantictext.info/namespace.stxt): www.semantictext.info/namespac
             REGEX: After trimming, regexp to apply
             HEXADECIMAL: Hexadecimal value. Example: 536F6D652048657861646563696D616C2056616C7565
             BASE64 (multiline): Base64 value. Example: U29tZSBCYXNlNjQgVmFsdWU=
-            ENUM: Composed of allowed values            
+            ENUM: Composed of allowed values      
+            
+            Examples of Node:
+            Node: node of type string
+            Node: contact email (TEXT)
         
     Node: Child
         Description:
-            Child: (namespace) name of child (count)
+            Child: (type|namespace) name of child (count)
+            
             Values of count:
             
-            *: Any number (**Default if not specified**)
+            *: Any number (**DEFAULT COUNT**)
             +: 1 or more
             ?: 0 or 1
             n: An exact number
             n+: n or more
             n-: n or less
             
-            Namespace is optional
+            Values of type (optional) are the same as Node:
             
-            Examples:
+            STRING
+            TEXT
+            ...
+            
+            Examples of child:
             
             Child: name (1)
-            Child: web site (?)
-            Child: section
+            Child: (URL) web site (?)
+            Child: (TEXT) section
             Child: section (*)
-            Child: (www.demo.com/name_namespace.stxt) Section
+            Child: (www.demo.com/name_namespace.stxt) Section (*)
     
     Node: Description (TEXT)
     	

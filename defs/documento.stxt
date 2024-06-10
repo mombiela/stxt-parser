@@ -1,42 +1,27 @@
-# ------------------------
-# Definición de documentos
-# ------------------------
-
 Namespace (www.semantictext.info/namespace.stxt): www.dokumentando.com/documento.stxt
     
     Node: documento
         Child: titulo (1)
-        Child: cuerpo (1)
+        Child: (TEXT) cuerpo (1)
         Child: autor (1)
-        Child: fecha creacion (1)
-        Child: ultima modificacion (1)
-        Child: email contacto (1)
-        Child: sitio web (1)
+        Child: (DATE) fecha creacion (1)
+        Child: (TIMESTAMP) ultima modificacion (1)
+        Child: (EMAIL) email contacto (1)
+        Child: (URL) sitio web (1)
         Child: codigo postal (1)
-        Child: es publico (1)
-        Child: color tema (1)
+        Child: (BOOLEAN) es publico (1)
+        Child: (HEXADECIMAL) color tema (1)
         Child: secciones (1)
         Child: tipo documento (1)
 
-    Node: titulo
-    Node: cuerpo (TEXT)
-    Node: autor
-    Node: fecha creacion (DATE)
-    Node: ultima modificacion (TIMESTAMP)
-    Node: email contacto (EMAIL)
-    Node: sitio web (URL)
-    
     Node: codigo postal (REGEX)
         Pattern: ^\d{5}$
         
-    Node: es publico (BOOLEAN)
-    Node: color tema (HEXADECIMAL)
-    Node: seccion (TEXT)
-    
     Node: secciones
-        Child: seccion (+)
+        Child: (TEXT) seccion (+)
         
     Node: tipo documento (ENUM)
         Value: 'informe'
         Value: 'articulo'
         Value: 'ensayo'
+

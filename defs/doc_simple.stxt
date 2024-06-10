@@ -5,8 +5,5 @@ Definition(www.semantictext.info/namespace.stxt): www.dokumentando.com/doc_simpl
         Child: secciones (?)
     
     Node: secciones
-        Child: seccion (+)
+        Child: (TEXT) seccion (+)
 
-    Node: seccion
-    Node: titulo
-    
