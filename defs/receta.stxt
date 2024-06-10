@@ -12,14 +12,14 @@ Namespace (www.semantictext.info/namespace.stxt): www.kocinando.com/receta.stxt
 	    Child: dificultad (1)
 	    Child: calorias (?)
 	    Child: comensales (1)
-	
+
 	Node: ingrediente
 	    Child: cantidad (1)
 	    Child: unidades (1)
-	
+
 	Node: ingredientes
 	    Child: ingrediente (+)
-	
+
 	Node: paso
 	    Child: numero (1)
 	    Child: descripcion paso (1)
@@ -29,11 +29,12 @@ Namespace (www.semantictext.info/namespace.stxt): www.kocinando.com/receta.stxt
 	
 	Node: nombre receta
 	Node: descripcion (TEXT)
+	
 	Node: dificultad (ENUM)
 	    Value: 'fácil'
 	    Value: 'media'
 	    Value: 'difícil'
-	
+	    
 	Node: calorias (NUMBER)
 	Node: comensales (NUMBER)
 	Node: nombre

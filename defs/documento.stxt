@@ -5,87 +5,38 @@
 Namespace (www.semantictext.info/namespace.stxt): www.dokumentando.com/documento.stxt
     
     Node: documento
-        Description: 
-            Un documento genérico que contiene varios tipos de datos y estructuras.
-    
-        Child: titulo
-            Count: 1
-    
-        Child: cuerpo
-            Count: 1
-    
-        Child: autor
-            Count: 1
-    
-        Child: fecha creacion
-            Count: 1
-    
-        Child: ultima modificacion
-            Count: 1
-    
-        Child: email contacto
-            Count: 1
-    
-        Child: sitio web
-            Count: 1
-    
-        Child: codigo postal
-            Count: 1
-    
-        Child: es publico
-            Count: 1
-    
-        Child: color tema
-            Count: 1
-    
-        Child: secciones
-            Count: 1
-    
-        Child: tipo documento
-            Count: 1
-    
+        Child: titulo (1)
+        Child: cuerpo (1)
+        Child: autor (1)
+        Child: fecha creacion (1)
+        Child: ultima modificacion (1)
+        Child: email contacto (1)
+        Child: sitio web (1)
+        Child: codigo postal (1)
+        Child: es publico (1)
+        Child: color tema (1)
+        Child: secciones (1)
+        Child: tipo documento (1)
+
     Node: titulo
-    
-    Node: cuerpo
-        Type: TEXT
-    
+    Node: cuerpo (TEXT)
     Node: autor
+    Node: fecha creacion (DATE)
+    Node: ultima modificacion (TIMESTAMP)
+    Node: email contacto (EMAIL)
+    Node: sitio web (URL)
     
-    Node: fecha creacion
-        Type: DATE
-    
-    Node: ultima modificacion
-        Type: TIMESTAMP
-    
-    Node: email contacto
-        Type: EMAIL
-    
-    Node: sitio web
-        Type: URL
-    
-    Node: codigo postal
-        Type: REGEX
+    Node: codigo postal (REGEX)
         Pattern: ^\d{5}$
-    
-    Node: es publico
-        Type: BOOLEAN
-    
-    Node: color tema
-        Type: HEXADECIMAL
-    
-    Node: seccion
-        Type: TREE
-        Child: nombre
-            Count: 1
-        Child: contenido
-            Count: 1
+        
+    Node: es publico (BOOLEAN)
+    Node: color tema (HEXADECIMAL)
+    Node: seccion (TEXT)
     
     Node: secciones
-        Child: seccion
-            Count: +
-    
-    Node: tipo documento
-        Type: ENUM
+        Child: seccion (+)
+        
+    Node: tipo documento (ENUM)
         Value: 'informe'
         Value: 'articulo'
         Value: 'ensayo'
