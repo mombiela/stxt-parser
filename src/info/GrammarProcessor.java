@@ -11,7 +11,7 @@ public class GrammarProcessor implements NodeProcessor
     
     static
     {
-	// Nodes type NODE
+        // Nodes type NODE
         nodes.add("namespace definition");
         nodes.add("node definition");
         nodes.add("child");
@@ -27,7 +27,7 @@ public class GrammarProcessor implements NodeProcessor
     @Override
     public void processNodeOnCreation(Node node) throws ParserException 
     {
-	// TODO Auto-generated method stub
+        // TODO Auto-generated method stub
         System.out.println(".... check node creation: " + node.getName());
         node.setNamespace(NAMESPACE);
     }
@@ -35,7 +35,7 @@ public class GrammarProcessor implements NodeProcessor
     @Override
     public void processNodeOnCompletion(Node node) throws ParserException 
     {
-	// TODO Auto-generated method stub
+        // TODO Auto-generated method stub
         System.out.println(".... check node completion: " + node.getName() + " -> " + node.getNamespace());
     }
 }

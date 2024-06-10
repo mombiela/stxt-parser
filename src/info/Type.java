@@ -23,30 +23,30 @@ public class Type
     
     static
     {
-	ALL_TYPES.add(TEXT);
-	ALL_TYPES.add(STRING);
-	ALL_TYPES.add(NUMBER);
-	ALL_TYPES.add(BOOLEAN);
-	ALL_TYPES.add(REGEX);
-	ALL_TYPES.add(ENUM);
-	ALL_TYPES.add(DATE);
-	ALL_TYPES.add(TIMESTAMP);
-	ALL_TYPES.add(EMAIL);
-	ALL_TYPES.add(URL);
-	ALL_TYPES.add(HEXADECIMAL);
-	ALL_TYPES.add(BASE64);
-	
-	MULTILINE_TYPES.add(TEXT);
-	MULTILINE_TYPES.add(BASE64);
-	MULTILINE_TYPES.add(HEXADECIMAL);
+    	ALL_TYPES.add(TEXT);
+    	ALL_TYPES.add(STRING);
+    	ALL_TYPES.add(NUMBER);
+    	ALL_TYPES.add(BOOLEAN);
+    	ALL_TYPES.add(REGEX);
+    	ALL_TYPES.add(ENUM);
+    	ALL_TYPES.add(DATE);
+    	ALL_TYPES.add(TIMESTAMP);
+    	ALL_TYPES.add(EMAIL);
+    	ALL_TYPES.add(URL);
+    	ALL_TYPES.add(HEXADECIMAL);
+    	ALL_TYPES.add(BASE64);
+    	
+    	MULTILINE_TYPES.add(TEXT);
+    	MULTILINE_TYPES.add(BASE64);
+    	MULTILINE_TYPES.add(HEXADECIMAL);
     }
     
     public static boolean isValidType(String type)
     {
-	return ALL_TYPES.contains(type);
+        return ALL_TYPES.contains(type);
     }
     public static boolean isMultiline(String type)
     {
-	return MULTILINE_TYPES.contains(type);
+        return MULTILINE_TYPES.contains(type);
     }
 }

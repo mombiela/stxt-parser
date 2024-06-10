@@ -37,10 +37,10 @@ public class Parser
     
     public Document parse(String content) throws ParserException, IOException 
     {
-	// Sanitary check
-	content = LineParser.removeUTF8BOM(content);
+        // Sanitary check
+        content = LineParser.removeUTF8BOM(content);
 	
-	// Parse
+	    // Parse
         Document document = new Document();
         Stack<Node> stack = new Stack<>();
         Node currentRoot = null;
@@ -134,22 +134,22 @@ public class Parser
 
     private Node createNode(IndentResult result, int lineNumber) 
     {
-	String line = result.getLineWithoutIndent();
-	String[] parts = line.split(":", 3);
-	String name = parts[0].trim();
-	
-	Node node = new Node();
-	node.setName(name);
-	node.setLineCreation(lineNumber);
-	if (parts.length > 2) 
-	{
-	    node.setValue(parts[2].trim());
-	}
-	else if (parts.length > 1) 
-	{
-	    node.setValue(parts[1].trim());
-	}
-	return node;
+    	String line = result.getLineWithoutIndent();
+    	String[] parts = line.split(":", 3);
+    	String name = parts[0].trim();
+    	
+    	Node node = new Node();
+    	node.setName(name);
+    	node.setLineCreation(lineNumber);
+    	if (parts.length > 2) 
+    	{
+    	    node.setValue(parts[2].trim());
+    	}
+    	else if (parts.length > 1) 
+    	{
+    	    node.setValue(parts[1].trim());
+    	}
+    	return node;
     }
 
     // -------------------

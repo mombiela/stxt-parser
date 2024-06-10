@@ -3,28 +3,33 @@ package info;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Document 
+public class Document
 {
     private List<Node> documents;
 
-    public Document() {
+    public Document()
+    {
         this.documents = new ArrayList<>();
     }
 
-    public void addDocument(Node doc) {
+    public void addDocument(Node doc)
+    {
         documents.add(doc);
     }
 
-    public List<Node> getDocuments() {
+    public List<Node> getDocuments()
+    {
         return documents;
     }
 
-    public void setDocuments(List<Node> documents) {
+    public void setDocuments(List<Node> documents)
+    {
         this.documents = documents;
     }
 
     @Override
-    public String toString() {
+    public String toString()
+    {
         return "Document{documents=" + documents + '}';
     }
 }

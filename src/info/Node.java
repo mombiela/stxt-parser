@@ -18,7 +18,7 @@ public class Node
 
     public Node()
     {
-	this.childs = new ArrayList<>();
+        this.childs = new ArrayList<>();
     }
     
     public String getType()
