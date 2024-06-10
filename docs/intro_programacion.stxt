@@ -14,17 +14,17 @@ documento(www.dokumentando.com/documento.stxt):
     tipo documento: articulo
     secciones:
         seccion:
-            nombre: Fundamentos de Programación
+            titulo: Fundamentos de Programación
             contenido:
                 La programación implica el uso de lenguajes de programación para crear soluciones a problemas.
                 Existen diversos paradigmas de programación, incluyendo programación estructurada, orientada a objetos, y funcional.
         seccion:
-            nombre: Lenguajes de Programación
+            titulo: Lenguajes de Programación
             contenido:
                 Los lenguajes de programación son herramientas que permiten a los programadores comunicarse con las computadoras.
                 Ejemplos de lenguajes populares incluyen Python, Java, C++, y JavaScript.
         seccion:
-            nombre: Buenas Prácticas
+            titulo: Buenas Prácticas
             contenido:
                 Es importante seguir buenas prácticas de programación, como la escritura de código limpio y comentado.
                 Además, se recomienda el uso de control de versiones y pruebas de software para asegurar la calidad del código.
