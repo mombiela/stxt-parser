@@ -2,124 +2,86 @@
 # Receta
 # ------
 
-Namespace Definition(www.semantictext.info/namespace.stxt):
+Namespace (www.semantictext.info/namespace.stxt): www.kocinando.com/receta.stxt
 
-	Namespace: www.kocinando.com/receta.stxt
-	
-	Node:
-	    Name: receta
-	    Type: TREE
+	Node: receta
 	    Description: 
 	        Una receta son las instrucciones y materiales 
 	        necesarios para preparar un plato de cocina.
 	
-	    Child:
-	        Name: nombre receta
+	    Child: nombre receta
 	        Count: 1
 	
-	    Child:
-	        Name: descripcion
+	    Child: descripcion
 	        Count: 1
 	
-	    Child:
-	        Name: ingredientes
+	    Child: ingredientes
 	        Count: 1
 	
-	    Child:
-	        Name: pasos
+	    Child: pasos
 	        Count: 1
 	
-	    Child:
-	        Name: dificultad
+	    Child: dificultad
 	        Count: 1
 	
-	    Child:
-	        Name: calorias
+	    Child: calorias
 	        Count: ?
 	
-	    Child:
-	        Name: comensales
+	    Child: comensales
 	        Count: 1
 	
-	Node:
-	    Name: ingrediente
-	    Type: TREE
-	    Child:
-	        Name: nombre
+	Node: ingrediente
+	    Child: nombre
 	        Count: 1
 	
-	    Child:
-	        Name: cantidad
+	    Child: cantidad
 	        Count: 1
 	
-	    Child:
-	        Name: unidades
+	    Child: unidades
 	        Count: 1
 	
-	Node:
-	    Name: ingredientes
-	    Type: TREE
-	    Child:
-	        Name: ingrediente
+	Node: ingredientes
+	    Child: ingrediente
 	        Count: +
 	
-	Node:
-	    Name: paso
-	    Type: TREE
-	    Child:
-	        Name: numero
+	Node: paso
+	    Child: numero
 	        Count: 1
 	
-	    Child:
-	        Name: descripcion paso
+	    Child: descripcion paso
 	        Count: 1
 	
-	Node:
-	    Name: pasos
-	    Type: TREE
-	    Child:
-	        Name: paso
+	Node: pasos
+	    Child: paso
 	        Count: +
 	
-	Node:
-	    Name: nombre receta
-	    Type: STRING
+	Node: nombre receta
 	
 	Node:
 	    Name: descripcion
 	    Type: TEXT
 	
-	Node:
-	    Name: dificultad
+	Node: dificultad
 	    Type: ENUM
 	    Value: 'fácil'
 	    Value: 'media'
 	    Value: 'difícil'
 	
-	Node:
-	    Name: calorias
+	Node: calorias
 	    Type: NUMBER
 	
-	Node:
-	    Name: comensales
+	Node: comensales
 	    Type: NUMBER
 	
-	Node:
-	    Name: nombre
-	    Type: STRING
+	Node: nombre
 	
-	Node:
-	    Name: cantidad
+	Node: cantidad
 	    Type: NUMBER
 	
-	Node:
-	    Name: unidades
-	    Type: STRING
+	Node: unidades
 	
-	Node:
-	    Name: numero
+	Node: numero
 	    Type: NUMBER
 	
-	Node:
-	    Name: descripcion paso
+	Node: descripcion paso
 	    Type: TEXT

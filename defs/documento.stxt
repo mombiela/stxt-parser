@@ -2,124 +2,89 @@
 # Definición de documentos
 # ------------------------
 
-Namespace Definition(www.semantictext.info/namespace.stxt):
-
-    Namespace: www.dokumentando.com/documento.stxt
+Namespace (www.semantictext.info/namespace.stxt): www.dokumentando.com/documento.stxt
     
-    Node:
-        Name: documento
-        Type: TREE
+    Node: documento
         Description: 
             Un documento genérico que contiene varios tipos de datos y estructuras.
     
-        Child:
-            Name: titulo
+        Child: titulo
             Count: 1
     
-        Child:
-            Name: cuerpo
+        Child: cuerpo
             Count: 1
     
-        Child:
-            Name: autor
+        Child: autor
             Count: 1
     
-        Child:
-            Name: fecha creacion
+        Child: fecha creacion
             Count: 1
     
-        Child:
-            Name: ultima modificacion
+        Child: ultima modificacion
             Count: 1
     
-        Child:
-            Name: email contacto
+        Child: email contacto
             Count: 1
     
-        Child:
-            Name: sitio web
+        Child: sitio web
             Count: 1
     
-        Child:
-            Name: codigo postal
+        Child: codigo postal
             Count: 1
     
-        Child:
-            Name: es publico
+        Child: es publico
             Count: 1
     
-        Child:
-            Name: color tema
+        Child: color tema
             Count: 1
     
-        Child:
-            Name: secciones
+        Child: secciones
             Count: 1
     
-        Child:
-            Name: tipo documento
+        Child: tipo documento
             Count: 1
     
-    Node:
-        Name: titulo
-        Type: STRING
+    Node: titulo
     
-    Node:
-        Name: cuerpo
+    Node: cuerpo
         Type: TEXT
     
-    Node:
-        Name: autor
-        Type: STRING
+    Node: autor
     
-    Node:
-        Name: fecha creacion
+    Node: fecha creacion
         Type: DATE
     
-    Node:
-        Name: ultima modificacion
+    Node: ultima modificacion
         Type: TIMESTAMP
     
-    Node:
-        Name: email contacto
+    Node: email contacto
         Type: EMAIL
     
-    Node:
-        Name: sitio web
+    Node: sitio web
         Type: URL
     
-    Node:
-        Name: codigo postal
+    Node: codigo postal
         Type: REGEX
         Pattern: ^\d{5}$
     
-    Node:
-        Name: es publico
+    Node: es publico
         Type: BOOLEAN
     
-    Node:
-        Name: color tema
+    Node: color tema
         Type: HEXADECIMAL
     
-    Node:
-        Name: seccion
+    Node: seccion
         Type: TREE
-        Child:
-            Name: nombre
+        Child: nombre
             Count: 1
-        Child:
-            Name: contenido
+        Child: contenido
             Count: 1
     
-    Node:
-        Name: secciones
-        Type: TREE
-        Child:
-            Name: seccion
+    Node: secciones
+        Child: seccion
             Count: +
     
-    Node:
-        Name: tipo documento
+    Node: tipo documento
         Type: ENUM
         Value: 'informe'
         Value: 'articulo'

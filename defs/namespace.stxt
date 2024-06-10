@@ -2,14 +2,11 @@
 #                Structure of a Definition
 # ------------------------------------------------------------
 #  
-#  Namespace Definition
-#     Namespace (1)
+#  Namespace: name of namespace
 #     Description (?)
-#     Node (*)
-#         Name (1)
-#         Type (1)
-#             TREE
-#             STRING (Single line)
+#     Node (*): name of node
+#         Type (?)
+#             STRING (Single line). **DEFAULT**
 #             TEXT (Multiline)
 #             NUMBER
 #             DATE
@@ -19,93 +16,54 @@
 #             REGEX
 #             BOOLEAN (true/false)
 #             HEXADECIMAL (Multiline, FF5733...)
-#             BASE64 (Multiline, 
+#             BASE64 (Multiline)
 #             ENUM
 #         Description (?)
-#         Pattern (1, only REGEX)
-#         Value (+, only ENUM)
-#         Child (+, only TREE)
-#             Name (1)
+#         Pattern (1, only type REGEX)
+#         Value (+, only type ENUM)
+#         Child (*): name of node
 #             Namespace (?, default the current namespace)
-#             Count (1)
-#                 *: Any number
-#                 +: 1 or more
+#             Count (?)
+#                 *: Any number **DEFAULT**
 #                 ?: 0/1
+#                 +: 1 or more
 #                 n: An exact number
 #                 n+: n or more
 #                 n-: n or minus
 # ---------------------------------------------------------
  
-Namespace Definition(www.semantictext.info/namespace.stxt):
-
-    Namespace: www.semantictext.info/namespace.stxt
+Namespace (www.semantictext.info/namespace.stxt): www.semantictext.info/namespace.stxt
     
     Description: The ROOT namespace of all namespaces. Is the main definition.
     
-    Node:
-        Name: Namespace Definition
-        Type: TREE
-        Child:
-            Name: Namespace
-            Count: 1
-        Child:
-            Name: Description
+    Node: Namespace
+        Child: Description
             Count: ?
-        Child:
-            Name: Node
-            Count: *
+        Child: Node
     
-    Node:
-        Name: Node
-        Type: TREE
-        Child:
-            Name: Name
-            Count: 1
-        Child:
-            Name: Description
+    Node: Node
+        Child: Description
             Count: ?
-        Child:
-            Name: Type
-            Count: 1
-        Child:
-            Name: Pattern
+        Child: Type
             Count: ?
-        Child:
-            Name: Value
-            Count: *
-        Child:
-            Name: Child
-            Count: *
+        Child: Pattern
+            Count: ?
+        Child: Value
+        Child: Child
         
-    Node:
-        Name: Child
-        Type: TREE
-        Child:
-            Name: Name
-            Count: 1
-        Child:
-            Name: Namespace
+    Node: Child
+        Child: Namespace
             Count: ?
-        Child:
-            Name: Count
+        Child: Count
             Count: 1
     
-    Node:
-        Name: Name
-        Type: STRING
+    Node: Namespace
     
-    Node:
-        Name: Namespace
-        Type: STRING
-    
-    Node:
-        Name: Description
+    Node: Description
         Type: TEXT
     
-    Node:
-        Name: Type
+    Node: Type
         Type: ENUM
-        Value: TREE
         Value: STRING
         Value: TEXT
         Value: NUMBER
@@ -119,8 +77,7 @@ Namespace Definition(www.semantictext.info/namespace.stxt):
         Value: BASE64
         Value: ENUM
         Description:
-            * TREE: Composed of childs
-            * STRING: Literal of text
+            * STRING: Literal of text (DEFAULT TYPE)
             * TEXT (multiline): Multiline text
             * NUMBER: 123, -123, 12.55, -3.14296, -2.5e-7
             * BOOLEAN: true / false
@@ -135,8 +92,7 @@ Namespace Definition(www.semantictext.info/namespace.stxt):
             * BASE64 (multiline): Base64 value. Example: U29tZSBCYXNlNjQgVmFsdWU=
             * ENUM: Composed of allowed values            
                     
-    Node:
-        Name: Count
+    Node: Count
         Type: REGEX
         Pattern: ^(\*|\+|\?|(\d+(\+|\-)?))$
         Description:
@@ -147,12 +103,8 @@ Namespace Definition(www.semantictext.info/namespace.stxt):
             n+: n or more
             n-: n or less
             
-    Node:
-        Name: Pattern
-        Type: STRING
+    Node: Pattern
         Description: A regexp expresion. Example of only digits: ^\d+$
         
-    Node:
-        Name: Value
-        Type: STRING
+    Node: Value
 
