@@ -12,16 +12,12 @@ public class GrammarProcessor implements NodeProcessor
     static
     {
         // Nodes type NODE
-        nodes.add("namespace definition");
-        nodes.add("node definition");
+        nodes.add("namespace");
+        nodes.add("node");
         nodes.add("child");
         
         // Nodes type TEXT
-        nodesText.add("namespace");
-        nodesText.add("name");
         nodesText.add("description");
-        nodesText.add("count");
-        nodesText.add("type");
     }
     
     @Override
