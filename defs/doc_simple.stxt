@@ -1,9 +1,9 @@
 Definition(www.semantictext.info/namespace.stxt): www.dokumentando.com/doc_simple.stxt
 
     Node: documento
-        Child: titulo (1)
-        Child: secciones (?)
+        Child: (1) titulo
+        Child: (?) secciones
     
     Node: secciones
-        Child: (TEXT) seccion (+)
+        Child: (+) seccion (TEXT)
 

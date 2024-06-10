@@ -6,15 +6,15 @@ Namespace (www.semantictext.info/namespace.stxt): www.semantictext.info/namespac
     
     Description: The ROOT namespace of all namespaces. Is the main definition.
     
-    Node: Namespace
-        Child: Description (?)
-        Child: Node (*)
+    Node: Namespace (STRING)
+        Child: (?) Description
+        Child: (*) Node
     
-    Node: Node
-        Child: Description (?)
-        Child: Pattern (?)
-        Child: Value (*)
-        Child: Child (*)
+    Node: Node (STRING)
+        Child: (?) Description (TEXT)
+        Child: (?) Pattern
+        Child: (*) Value
+        Child: (*) Child
         
         Description:
             Node: node name (type)
@@ -38,13 +38,14 @@ Namespace (www.semantictext.info/namespace.stxt): www.semantictext.info/namespac
             Examples of Node:
             Node: node of type string
             Node: contact email (TEXT)
+            Node: postal code (REGEX)
+            	Pattern: ^\d+$
         
-    Node: Child
+    Node: Child (STRING)
         Description:
-            Child: (type|namespace) name of child (count)
+            Child: (count) name of child (type|namespace) 
             
             Values of count:
-            
             *: Any number (**DEFAULT COUNT**)
             +: 1 or more
             ?: 0 or 1
@@ -52,24 +53,14 @@ Namespace (www.semantictext.info/namespace.stxt): www.semantictext.info/namespac
             n+: n or more
             n-: n or less
             
-            Values of type (optional) are the same as Node:
-            
-            STRING
-            TEXT
-            ...
+            Type (optional) are the same as Node: STRING, TEXT,...
+            Namespace (opcional): The namespace of the child
             
             Examples of child:
-            
-            Child: name (1)
-            Child: (URL) web site (?)
-            Child: (TEXT) section
-            Child: section (*)
-            Child: (www.demo.com/name_namespace.stxt) Section (*)
+            Child: (1) name
+            Child: (?) web site (URL) 
+            Child: section (TEXT)
+            Child: section
+            Child: (*) Section (www.demo.com/name_namespace.stxt) 
     
-    Node: Description (TEXT)
-    	
-    Node: Pattern
-        Description: A regexp expresion. Example of only digits: ^\d+$
-        
-    Node: Value
 
