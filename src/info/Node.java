@@ -11,7 +11,7 @@ public class Node
 
     private String name;
     private String namespace;
-    private String type = Type.STRING;
+    private String type;
     private String value;
     private List<Node> childs;
     private int lineCreation;
