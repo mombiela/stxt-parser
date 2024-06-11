@@ -25,13 +25,13 @@ public class GrammarProcessor implements NodeProcessor
     {
         // TODO Auto-generated method stub
         System.out.println(".... check node creation: " + node.getName());
-        node.setNamespace(NAMESPACE);
+        //node.setMetadata("namespace", NAMESPACE);
     }
 
     @Override
     public void processNodeOnCompletion(Node node) throws ParserException 
     {
         // TODO Auto-generated method stub
-        System.out.println(".... check node completion: " + node.getName() + " -> " + node.getNamespace());
+        System.out.println(".... check node completion: " + node.getName());
     }
 }

@@ -1,7 +1,9 @@
 package info;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Node
 {
@@ -10,32 +12,32 @@ public class Node
     // -------------------------------------
 
     private String name;
-    private String namespace;
-    private String type;
     private String value;
     private List<Node> childs;
     private int lineCreation;
+    private Map<String, Object> metadata = new HashMap<String, Object>();
+    private boolean multiline;
 
     public Node()
     {
         this.childs = new ArrayList<>();
     }
     
-    public String getType()
-    {
-        return type;
-    }
-
-    public void setType(String type)
-    {
-        this.type = type;
-    }
-
     public String getValue()
     {
         return value;
     }
+    
+    public Object getMetadata(String key)
+    {
+        return metadata.get(key);
+    }
 
+    public void setMetadata(String key, Object value)
+    {
+        metadata.put(key, value);
+    }
+    
     public String getTvalue()
     {
         return value != null ? value.trim() : "";
@@ -66,16 +68,6 @@ public class Node
         this.name = name;
     }
 
-    public String getNamespace()
-    {
-        return namespace;
-    }
-
-    public void setNamespace(String namespace)
-    {
-        this.namespace = namespace;
-    }
-
     public int getLineCreation()
     {
         return lineCreation;
@@ -93,31 +85,27 @@ public class Node
     @Override
     public String toString()
     {
-        return toString(1);
+        return toString(0);
     }
 
     private String toString(int level)
     {
         StringBuffer result = new StringBuffer();
-        result.append("<Node> name=" + name + ", namespace=" + namespace + ", lineCreation=" + lineCreation + ", type=" + type + ", value=" + value + ", childs=");
-        if (childs == null)
+        
+        for (int i = 0; i<level; i++) result.append("    ");
+        result.append("<" + name + " (line:" + lineCreation + ")> " + metadata);
+        result.append("\n");
+        
+        if (childs!=null & childs.size()>0)
         {
-            result.append("[]");
-        }
-        else
-        {
-            result.append("\n");
-            int numNode = 0;
             for (int j = 0; j < childs.size(); j++)
             {
-                for (int i = 0; i < level; i++) result.append("\t");
                 Node c = childs.get(j);
-                result.append("[" + numNode + "]" + c.toString(level + 1));
-                if (j != childs.size() - 1) result.append("\n");
-                numNode++;
+                result.append(c.toString(level+1));
+                result.append("\n");
             }
         }
-        return result.toString();
+        return result.toString().replaceAll("\n\n", "\n");
     }
 
     // Fast access methods to children
@@ -143,10 +131,6 @@ public class Node
     
     public boolean isMultiline()
     {
-	return Type.isMultiline(type);
-    }
-    public boolean isValidType()
-    {
-	return Type.isValidType(type);
+        return multiline;
     }
 }

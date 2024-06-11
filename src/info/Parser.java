@@ -44,7 +44,6 @@ public class Parser
         Document document = new Document();
         Stack<Node> stack = new Stack<>();
         Node currentRoot = null;
-        
         int lineNumber = 0;
         
         // Get reader
@@ -72,13 +71,13 @@ public class Parser
             // Multiline
             if (lastNodeMultiline && result.getIndentLevel()>stack.size())
             {
-        	lastNode.setValue(lastNode.getValue() + "\n" + result.getLineWithoutIndent()); // TODO Revisar caso value = null
+                lastNode.setValue(lastNode.getValue() + "\n" + result.getLineWithoutIndent()); // TODO Revisar caso value = null
             }
             
             // Parseo normal
             int indentLevel = result.getIndentLevel();
             Node node = createNode(result, lineNumber); // Pasar el número de línea y el namespace al crear el nodo
-
+            
             for (NodeProcessor processor : nodeProcessors) 
             {
                 processor.processNodeOnCreation(node);
@@ -110,6 +109,7 @@ public class Parser
                 }
                 if (!stack.isEmpty())
                 {
+                    // TODO Before add ->
                     stack.peek().addChild(node);
                 }
                 stack.push(node);
@@ -169,7 +169,7 @@ public class Parser
         List<String> nodeStack = new ArrayList<>();
         if (stack != null)
         {
-            for (Node n: stack) nodeStack.add(n.getName() + "(" + n.getType() + ")");
+            for (Node n: stack) nodeStack.add(n.getName());
         }
         return nodeStack.toString();
     }    
