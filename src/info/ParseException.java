@@ -4,8 +4,8 @@ public class ParseException extends Exception
 {
     private static final long serialVersionUID = 1L;
 
-    public ParseException(String message) 
+    public ParseException(String message, int line) 
     {
-        super(message);
+        super("Line " + line + ": " + message);
     }
 }

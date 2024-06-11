@@ -31,7 +31,7 @@ public class GrammarProcessor implements NodeProcessor
             // First node
             TextSplitter nameSplit = TextSplitter.split(node.getName());
             if (!NAMESPACE.equals(nameSplit.getSuffix())) 
-                throw new ParseException("Namespace is '" + nameSplit.getSuffix() + "' and should be: " + NAMESPACE);
+                throw new ParseException("Namespace is '" + nameSplit.getSuffix() + "' and should be: " + NAMESPACE, node.getLineCreation());
         }
         else
         {
