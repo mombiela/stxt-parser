@@ -15,6 +15,7 @@ public class GrammarProcessor implements NodeProcessor
         nodes.add("node");
         nodes.add("child");
         nodes.add("description");
+        
     }
     
     @Override
@@ -39,6 +40,11 @@ public class GrammarProcessor implements NodeProcessor
             throw new ParseException("Node name not valid: " + node.getName(), node.getLineCreation());
         }
         
+        // Node text
+        if (node.getName().equalsIgnoreCase("description"))
+        {
+            node.setMultiline(true);
+        }
         //node.setMetadata("namespace", NAMESPACE);
     }
 

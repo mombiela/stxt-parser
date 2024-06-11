@@ -18,6 +18,11 @@ public class Node
     private Map<String, Object> metadata = new HashMap<String, Object>();
     private boolean multiline;
 
+    public void setMultiline(boolean multiline)
+    {
+        this.multiline = multiline;
+    }
+
     public Node()
     {
         this.childs = new ArrayList<>();
