@@ -14,7 +14,7 @@ public class TestTextSplitter
 
     private static void testSplit(String input)
     {
-        TextSplitter splitter1 = new TextSplitter(input);
+        TextSplitter splitter1 = TextSplitter.split(input);
         System.out.println("*** INPUT: " + input);
         System.out.println("Prefix: " + splitter1.getPrefix());
         System.out.println("Central Text: " + splitter1.getCentralText());

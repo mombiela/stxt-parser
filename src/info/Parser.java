@@ -23,19 +23,19 @@ public class Parser
         nodeProcessors.add(processor);
     }
 
-    public Document parseURI(String uri) throws IOException, ParserException
+    public Document parseURI(String uri) throws IOException, ParseException
     {
         String content = Utils.getUrlContent(new URL(uri));
         return parse(content);
     }
     
-    public Document parseFile(File srcFile) throws IOException, ParserException
+    public Document parseFile(File srcFile) throws IOException, ParseException
     {
         String content = UtilsFile.readFileContent(srcFile);
         return parse(content);
     }
     
-    public Document parse(String content) throws ParserException, IOException 
+    public Document parse(String content) throws ParseException, IOException 
     {
         // Sanitary check
         content = LineParser.removeUTF8BOM(content);
@@ -78,19 +78,13 @@ public class Parser
             int indentLevel = result.getIndentLevel();
             Node node = createNode(result, lineNumber); // Pasar el número de línea y el namespace al crear el nodo
             
-            for (NodeProcessor processor : nodeProcessors) 
-            {
-                processor.processNodeOnCreation(node);
-            }
+            processCreation(node, stack.size());
 
             if (indentLevel == 0) 
             {
                 if (currentRoot != null) 
                 {
-                    for (NodeProcessor processor : nodeProcessors) 
-                    {
-                        processor.processNodeOnCompletion(currentRoot);
-                    }
+                    processCompletion(currentRoot);
                     document.addDocument(currentRoot);
                 }
                 currentRoot = node;
@@ -102,15 +96,15 @@ public class Parser
                 while (stack.size() > indentLevel) 
                 {
                     Node finishedNode = stack.pop();
-                    for (NodeProcessor processor : nodeProcessors) 
-                    {
-                        processor.processNodeOnCompletion(finishedNode);
-                    }
+                    processCompletion(finishedNode);
                 }
                 if (!stack.isEmpty())
                 {
                     // TODO Before add ->
-                    stack.peek().addChild(node);
+                    Node peek = stack.peek();
+                    processBeforeAddNode(peek, node);
+                    peek.addChild(node);
+                    processAfterAddNode(peek, node);
                 }
                 stack.push(node);
             }
@@ -119,10 +113,7 @@ public class Parser
 
         if (currentRoot != null) 
         {
-            for (NodeProcessor processor : nodeProcessors) 
-            {
-                processor.processNodeOnCompletion(currentRoot);
-            }
+            processCompletion(currentRoot);
             document.addDocument(currentRoot);
         }
         System.out.println("***********************************************************************************");
@@ -131,6 +122,37 @@ public class Parser
         
         return document;
     }
+
+    private void processCreation(Node node, int stackSize) throws ParseException
+    {
+        for (NodeProcessor processor : nodeProcessors) 
+        {
+            processor.processNodeOnCreation(node, stackSize);
+        }
+    }
+
+    private void processCompletion(Node node) throws ParseException
+    {
+        for (NodeProcessor processor : nodeProcessors) 
+        {
+            processor.processNodeOnCompletion(node);
+        }
+    }
+    
+    private void processBeforeAddNode(Node parent, Node child) throws ParseException
+    {
+        for (NodeProcessor processor : nodeProcessors) 
+        {
+            processor.processBeforeAdd(parent, child);
+        }
+    }
+    private void processAfterAddNode(Node parent, Node child) throws ParseException
+    {
+        for (NodeProcessor processor : nodeProcessors) 
+        {
+            processor.processAfterAdd(parent, child);
+        }
+    }    
 
     private Node createNode(IndentResult result, int lineNumber) 
     {

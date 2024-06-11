@@ -7,17 +7,17 @@ import org.junit.jupiter.api.Test;
 
 import info.Document;
 import info.Node;
-import info.ParserException;
+import info.ParseException;
 
 public class TestParser01 extends AbstractTestParser
 {
-    public static void main(String[] args) throws IOException, ParserException
+    public static void main(String[] args) throws IOException, ParseException
     {
         new TestParser01().mainTest();
     }
     
     @Test
-    public void mainTest() throws IOException, ParserException
+    public void mainTest() throws IOException, ParseException
     {
         System.out.println("Inici");
         

@@ -1,58 +1,47 @@
 package info;
 
-public class TextSplitter
-{
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+public class TextSplitter {
     private String prefix;
     private String centralText;
     private String suffix;
 
-    public TextSplitter(String input)
-    {
+    private TextSplitter(String input) {
         splitText(input);
     }
 
-    private void splitText(String input)
+    public static TextSplitter split(String input)
     {
-        int prefixStart = input.indexOf("(");
-        int prefixEnd = input.indexOf(")");
+        return new TextSplitter(input);
+    }
+    
+    private void splitText(String input) {
+        Pattern pattern = Pattern.compile("(\\(([^)]*)\\))?(.*?)(\\(([^)]*)\\))?$");
+        Matcher matcher = pattern.matcher(input);
 
-        if (prefixStart != -1 && prefixEnd != -1 && prefixEnd > prefixStart)
-        {
-            prefix = input.substring(prefixStart + 1, prefixEnd).trim();
-            input = input.substring(prefixEnd + 1).trim();
-        }
-        else
-        {
-            prefix = "";
-        }
-
-        int suffixStart = input.lastIndexOf("(");
-        int suffixEnd = input.lastIndexOf(")");
-
-        if (suffixStart != -1 && suffixEnd != -1 && suffixEnd > suffixStart)
-        {
-            centralText = input.substring(0, suffixStart).trim();
-            suffix = input.substring(suffixStart + 1, suffixEnd).trim();
-        }
-        else
-        {
+        if (matcher.matches()) {
+            prefix = matcher.group(2) != null ? matcher.group(2).trim() : null;
+            centralText = matcher.group(3) != null ? matcher.group(3).trim() : null;
+            suffix = matcher.group(5) != null ? matcher.group(5).trim() : null;
+        } else {
             centralText = input.trim();
-            suffix = "";
+            prefix = null;
+            suffix = null;
         }
     }
 
-    public String getPrefix()
-    {
+    public String getPrefix() {
         return prefix;
     }
 
-    public String getCentralText()
-    {
+    public String getCentralText() {
         return centralText;
     }
 
-    public String getSuffix()
-    {
+    public String getSuffix() {
         return suffix;
     }
+
 }

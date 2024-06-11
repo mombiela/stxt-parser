@@ -21,17 +21,44 @@ public class GrammarProcessor implements NodeProcessor
     }
     
     @Override
-    public void processNodeOnCreation(Node node) throws ParserException 
+    public void processNodeOnCreation(Node node, int stackSize) throws ParseException 
     {
         // TODO Auto-generated method stub
-        System.out.println(".... check node creation: " + node.getName());
+        System.out.println(".... Node creation: <" + node.getName() + "> stack: " + stackSize);
+        
+        if (stackSize == 0)
+        {
+            // First node
+            TextSplitter nameSplit = TextSplitter.split(node.getName());
+            if (!NAMESPACE.equals(nameSplit.getSuffix())) 
+                throw new ParseException("Namespace is '" + nameSplit.getSuffix() + "' and should be: " + NAMESPACE);
+        }
+        else
+        {
+            // Not first node
+            
+        }
         //node.setMetadata("namespace", NAMESPACE);
     }
 
     @Override
-    public void processNodeOnCompletion(Node node) throws ParserException 
+    public void processNodeOnCompletion(Node node) throws ParseException 
     {
         // TODO Auto-generated method stub
-        System.out.println(".... check node completion: " + node.getName());
+        System.out.println(".... Node completion: " + node.getName());
+    }
+
+    @Override
+    public void processBeforeAdd(Node parent, Node child)
+    {
+        // TODO Auto-generated method stub
+        System.out.println(".... Before add " + child.getName() + " to " + parent.getName());
+    }
+
+    @Override
+    public void processAfterAdd(Node parent, Node child)
+    {
+        // TODO Auto-generated method stub
+        System.out.println(".... After add " + child.getName() + " to " + parent.getName());
     }
 }
