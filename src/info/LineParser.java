@@ -57,6 +57,9 @@ public class LineParser
             if (lastNodeMultiline && level > lastLevel) break;
         }
 
+        System.out.println("level = " + level);
+        System.out.println("last level = " + lastLevel);
+        System.out.println("last node multiline: " + lastNodeMultiline);
         // In case of text, check if it's a comment or not (depends on the comment's level)
         if (lastNodeMultiline && level <= lastLevel) 
         {

@@ -90,12 +90,14 @@ public class Parser
         
         // Log line // TODO Delete
         System.out.println("***********************************************************************************");
+        System.out.println("Line: '" + line + "'");
         System.out.println("Line " + lineNumber + ": " + result);
         
         // Multiline
         if (lastNodeMultiline && result.getIndentLevel()>=stack.size())
         {
             lastNode.setValue(lastNode.getValue() + "\n" + result.getLineWithoutIndent()); // TODO Revisar caso value = null
+            System.out.println("NEW VALUE MULTILINE: '" + lastNode.getValue() + "'");
             return;
         }
         
