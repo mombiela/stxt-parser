@@ -12,7 +12,11 @@ import java.util.Stack;
 public class Parser 
 {
     private List<NodeProcessor> nodeProcessors;
-
+    Document document = new Document();
+    Stack<Node> stack = new Stack<>();
+    Node currentRoot = null;
+    int lineNumber = 0;
+    
     public Parser() 
     {
         this.nodeProcessors = new ArrayList<>();
@@ -37,15 +41,15 @@ public class Parser
     
     public Document parse(String content) throws ParseException, IOException 
     {
+        // Inicialize all
+        document = new Document();
+        stack = new Stack<>();
+        currentRoot = null;
+        lineNumber = 0;
+        
         // Sanitary check
         content = LineParser.removeUTF8BOM(content);
 	
-	    // Parse
-        Document document = new Document();
-        Stack<Node> stack = new Stack<>();
-        Node currentRoot = null;
-        int lineNumber = 0;
-        
         // Get reader
         BufferedReader in = new BufferedReader(new StringReader(content));
 
@@ -55,59 +59,7 @@ public class Parser
             System.out.println("***********************************************************************************");
             lineNumber++;
             
-            // Last node
-            Node lastNode = null;
-            if (stack.size()>0) lastNode = stack.peek();
-            boolean lastNodeMultiline = false;
-            if (lastNode != null) lastNodeMultiline = lastNode.isMultiline();
-            
-            // Parse Line
-            IndentResult result = LineParser.parseLine(line, lastNodeMultiline, stack.size());
-            System.out.println(result);
-
-            // Commentario
-            if (result == null) continue;
-            
-            // Multiline
-            if (lastNodeMultiline && result.getIndentLevel()>stack.size())
-            {
-                lastNode.setValue(lastNode.getValue() + "\n" + result.getLineWithoutIndent()); // TODO Revisar caso value = null
-            }
-            
-            // Parseo normal
-            int indentLevel = result.getIndentLevel();
-            Node node = createNode(result, lineNumber); // Pasar el número de línea y el namespace al crear el nodo
-            
-            processCreation(node, stack.size());
-
-            if (indentLevel == 0) 
-            {
-                if (currentRoot != null) 
-                {
-                    processCompletion(currentRoot);
-                    document.addDocument(currentRoot);
-                }
-                currentRoot = node;
-                stack.clear();
-                stack.push(currentRoot);
-            } 
-            else 
-            {
-                while (stack.size() > indentLevel) 
-                {
-                    Node finishedNode = stack.pop();
-                    processCompletion(finishedNode);
-                }
-                if (!stack.isEmpty())
-                {
-                    // TODO Before add ->
-                    Node peek = stack.peek();
-                    processBeforeAddNode(peek, node);
-                    peek.addChild(node);
-                    processAfterAddNode(peek, node);
-                }
-                stack.push(node);
-            }
+            processLine(line);
             System.out.println("\n" + currentRoot);
         }
 
@@ -116,6 +68,7 @@ public class Parser
             processCompletion(currentRoot);
             document.addDocument(currentRoot);
         }
+        
         System.out.println("***********************************************************************************");
         System.out.println("END *******************************************************************************");
         System.out.println("***********************************************************************************");
@@ -123,11 +76,68 @@ public class Parser
         return document;
     }
 
-    private void processCreation(Node node, int stackSize) throws ParseException
+    private void processLine(String line) throws ParseException
+    {
+        // Last node
+        Node lastNode = null;
+        if (stack.size()>0) lastNode = stack.peek();
+        
+        // Last node multiline
+        boolean lastNodeMultiline = false;
+        if (lastNode != null) lastNodeMultiline = lastNode.isMultiline();
+        
+        // Parse Line
+        IndentResult result = LineParser.parseLine(line, lastNodeMultiline, stack.size());
+        System.out.println(result);
+
+        // Commentario
+        if (result == null) return;
+        
+        // Multiline
+        if (lastNodeMultiline && result.getIndentLevel()>stack.size())
+        {
+            lastNode.setValue(lastNode.getValue() + "\n" + result.getLineWithoutIndent()); // TODO Revisar caso value = null
+        }
+        
+        // Normal parser
+        int indentLevel = result.getIndentLevel();
+        Node node = createNode(result);
+        processCreation(node);
+
+        if (indentLevel == 0) 
+        {
+            if (currentRoot != null) 
+            {
+                processCompletion(currentRoot);
+                document.addDocument(currentRoot);
+            }
+            currentRoot = node;
+            stack.clear();
+            stack.push(currentRoot);
+        } 
+        else 
+        {
+            while (stack.size() > indentLevel) 
+            {
+                Node finishedNode = stack.pop();
+                processCompletion(finishedNode);
+            }
+            if (!stack.isEmpty())
+            {
+                Node peek = stack.peek();
+                processBeforeAddNode(peek, node);
+                peek.addChild(node);
+                processAfterAddNode(peek, node);
+            }
+            stack.push(node);
+        }
+    }
+
+    private void processCreation(Node node) throws ParseException
     {
         for (NodeProcessor processor : nodeProcessors) 
         {
-            processor.processNodeOnCreation(node, stackSize);
+            processor.processNodeOnCreation(node, stack.size());
         }
     }
 
@@ -154,7 +164,7 @@ public class Parser
         }
     }    
 
-    private Node createNode(IndentResult result, int lineNumber) 
+    private Node createNode(IndentResult result) 
     {
     	String line = result.getLineWithoutIndent();
     	String name = line;
