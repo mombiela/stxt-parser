@@ -135,20 +135,20 @@ public class Parser
     private Node createNode(IndentResult result, int lineNumber) 
     {
     	String line = result.getLineWithoutIndent();
-    	String[] parts = line.split(":", 2);
-    	String name = parts[0].trim();
+    	String name = line;
+    	String value = null;
+    	
+    	int i = line.indexOf(':');
+    	if (i != -1)
+    	{
+    	    name = line.substring(0,i).trim();
+    	    value = line.substring(i+1).trim();
+    	}
     	
     	Node node = new Node();
     	node.setName(name);
     	node.setLineCreation(lineNumber);
-    	if (parts.length > 2) 
-    	{
-    	    node.setValue(parts[2].trim());
-    	}
-    	else if (parts.length > 1) 
-    	{
-    	    node.setValue(parts[1].trim());
-    	}
+    	node.setValue(value);
     	return node;
     }
 

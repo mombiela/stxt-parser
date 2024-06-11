@@ -136,14 +136,11 @@ public class Node
 
     private String getValueShort()
     {
-        if (value == null) return "<NULL>";
+        if (value == null) return "NULL";
         String valueShow = value;
         int i = valueShow.indexOf("\n");
         if (i!=-1) valueShow = valueShow.substring(0, i) + "...";
-        //if (valueShow.length()>10) valueShow = valueShow.substring(0, 9) + "...";
-        return valueShow;
-        //return value.length() + " chars: " + valueShow;
-    }
-
-    
+        if (valueShow.length()>30) valueShow = valueShow.substring(0, 28) + "...";
+        return value.length() + " chars: " + valueShow;
+    }    
 }
