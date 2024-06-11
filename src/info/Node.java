@@ -23,6 +23,11 @@ public class Node
         this.childs = new ArrayList<>();
     }
     
+    public boolean isMultiline()
+    {
+        return multiline;
+    }
+    
     public String getValue()
     {
         return value;
@@ -78,42 +83,6 @@ public class Node
         this.lineCreation = lineCreation;
     }
 
-    // ----------------
-    // ToString methods
-    // ----------------
-
-    @Override
-    public String toString()
-    {
-        return toString(0);
-    }
-
-    private String toString(int level)
-    {
-        StringBuffer result = new StringBuffer();
-        
-        for (int i = 0; i<level; i++) result.append("    ");
-        result.append("<" + name + " (line:" + lineCreation + ")> " + getValueShort() + metadata);
-        result.append("\n");
-        
-        if (childs!=null & childs.size()>0)
-        {
-            for (int j = 0; j < childs.size(); j++)
-            {
-                Node c = childs.get(j);
-                result.append(c.toString(level+1));
-                result.append("\n");
-            }
-        }
-        return result.toString().replaceAll("\n\n", "\n");
-    }
-
-    private String getValueShort()
-    {
-        if (value == null) return "<NULL>";
-        else return "<" + value.length() + " chars>";
-    }
-
     // Fast access methods to children
     public List<Node> getChilds(String cname)
     {
@@ -135,8 +104,46 @@ public class Node
         return result.get(0);
     }
     
-    public boolean isMultiline()
+    // ----------------
+    // ToString methods
+    // ----------------
+
+    @Override
+    public String toString()
     {
-        return multiline;
+        return toString(0);
     }
+
+    private String toString(int level)
+    {
+        StringBuffer result = new StringBuffer();
+        
+        for (int i = 0; i<level; i++) result.append("    ");
+        result.append("<" + name + " (line:" + lineCreation + ")> <" + getValueShort() + "> " + metadata);
+        result.append("\n");
+        
+        if (childs!=null & childs.size()>0)
+        {
+            for (int j = 0; j < childs.size(); j++)
+            {
+                Node c = childs.get(j);
+                result.append(c.toString(level+1));
+                result.append("\n");
+            }
+        }
+        return result.toString().replaceAll("\n\n", "\n");
+    }
+
+    private String getValueShort()
+    {
+        if (value == null) return "<NULL>";
+        String valueShow = value;
+        int i = valueShow.indexOf("\n");
+        if (i!=-1) valueShow = valueShow.substring(0, i) + "...";
+        //if (valueShow.length()>10) valueShow = valueShow.substring(0, 9) + "...";
+        return valueShow;
+        //return value.length() + " chars: " + valueShow;
+    }
+
+    
 }
