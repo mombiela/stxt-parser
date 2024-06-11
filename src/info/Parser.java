@@ -114,7 +114,7 @@ public class Parser
                 }
                 stack.push(node);
             }
-            printAllStack("END", stack, lineNumber);
+            System.out.println("\n" + currentRoot);
         }
 
         if (currentRoot != null) 
@@ -151,27 +151,4 @@ public class Parser
     	node.setValue(value);
     	return node;
     }
-
-    // -------------------
-    // Métodos utilitarios
-    // -------------------
-    
-    private void printAllStack(String tag, Stack<Node> stack, int lineNum)
-    {
-        System.out.println(String.format("%03d", lineNum) + " " + tag + ": "
-            + " LevelStack = " + stack.size()
-            + ", NodeStack = "+ printNodeStack(stack) 
-        );
-    }
-
-    private String printNodeStack(Stack<Node> stack)
-    {
-        List<String> nodeStack = new ArrayList<>();
-        if (stack != null)
-        {
-            for (Node n: stack) nodeStack.add(n.getName());
-        }
-        return nodeStack.toString();
-    }    
-    
 }
