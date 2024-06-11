@@ -6,7 +6,6 @@ import java.util.Set;
 public class GrammarProcessor implements NodeProcessor
 {
     private static final Set<String> nodes = new HashSet<>();
-    private static final Set<String> nodesText = new HashSet<>();
     private static final String NAMESPACE = "www.semantictext.info/namespace.stxt";
     
     static
@@ -15,9 +14,7 @@ public class GrammarProcessor implements NodeProcessor
         nodes.add("namespace");
         nodes.add("node");
         nodes.add("child");
-        
-        // Nodes type TEXT
-        nodesText.add("description");
+        nodes.add("description");
     }
     
     @Override
@@ -26,18 +23,22 @@ public class GrammarProcessor implements NodeProcessor
         // TODO Auto-generated method stub
         System.out.println(".... Node creation: <" + node.getName() + "> stack: " + stackSize);
         
+        // First node
         if (stackSize == 0)
         {
-            // First node
             TextSplitter nameSplit = TextSplitter.split(node.getName());
             if (!NAMESPACE.equals(nameSplit.getSuffix())) 
                 throw new ParseException("Namespace is '" + nameSplit.getSuffix() + "' and should be: " + NAMESPACE, node.getLineCreation());
+            node.setName(nameSplit.getCentralText());
+            node.setMetadata("namespace", NAMESPACE);
         }
-        else
+        
+        // Check name
+        if (!nodes.contains(node.getName().toLowerCase()))
         {
-            // Not first node
-            
+            throw new ParseException("Node name not valid: " + node.getName(), node.getLineCreation());
         }
+        
         //node.setMetadata("namespace", NAMESPACE);
     }
 
