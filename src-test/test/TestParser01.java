@@ -20,17 +20,20 @@ public class TestParser01 extends AbstractTestParser
     public void mainTest() throws IOException, ParseException
     {
         System.out.println("Inici");
-        
-        Document doc = parser.parseFile(new File("defs/doc_simple.stxt"));
 
-        Node n = doc.getDocuments().get(0);
-        System.out.println(n);
-        /*
-        System.out.println("************************");
-        System.out.println(n.toSTXT());
-        System.out.println("************************");
-        System.out.println(n.toSTXTCompact());
-        */
+        File[] files = new File("defs").listFiles();
+        for (File f: files)
+        {
+            if (!f.getName().equals("doc_simple.stxt")) continue;
+            
+            System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+            System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+            System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+            System.out.println(f.getAbsolutePath());
+            Document doc = parser.parseFile(f);
+            Node n = doc.getDocuments().get(0);
+            System.out.println(n);
+        }
         
         System.out.println("End");
     }

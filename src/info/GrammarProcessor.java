@@ -15,7 +15,8 @@ public class GrammarProcessor implements NodeProcessor
         nodes.add("node");
         nodes.add("child");
         nodes.add("description");
-        
+        nodes.add("pattern");
+        nodes.add("value");
     }
     
     @Override

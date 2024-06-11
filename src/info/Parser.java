@@ -88,7 +88,7 @@ public class Parser
         
         // Parse Line
         IndentResult result = LineParser.parseLine(line, lastNodeMultiline, stack.size());
-        System.out.println(result);
+        System.out.println("Line " + lineNumber + ": " + result);
         //System.out.println(lastNodeMultiline);
 
         // Commentario
