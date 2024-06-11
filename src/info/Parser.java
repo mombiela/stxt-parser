@@ -11,17 +11,10 @@ import java.util.Stack;
 
 public class Parser 
 {
-    private List<NodeProcessor> nodeProcessors;
-    Document document = new Document();
-    Stack<Node> stack = new Stack<>();
-    Node currentRoot = null;
-    int lineNumber = 0;
+    // ----------------
+    // Parseo principal
+    // ----------------
     
-    public Parser() 
-    {
-        this.nodeProcessors = new ArrayList<>();
-    }
-
     public void addNodeProcessor(NodeProcessor processor) 
     {
         nodeProcessors.add(processor);
@@ -38,6 +31,16 @@ public class Parser
         String content = UtilsFile.readFileContent(srcFile);
         return parse(content);
     }
+
+    // ---------------------------------
+    // Variables internas funcionamiento
+    // ---------------------------------
+    
+    private List<NodeProcessor> nodeProcessors = new ArrayList<>();
+    Document document = new Document();
+    Stack<Node> stack = new Stack<>();
+    Node currentRoot = null;
+    int lineNumber = 0;
     
     public Document parse(String content) throws ParseException, IOException 
     {
@@ -56,11 +59,8 @@ public class Parser
         String line = null;
         while ((line = in.readLine()) != null) 
         {
-            System.out.println("***********************************************************************************");
             lineNumber++;
-            
             processLine(line);
-            System.out.println("\n" + currentRoot);
         }
 
         if (currentRoot != null) 
@@ -68,10 +68,6 @@ public class Parser
             processCompletion(currentRoot);
             document.addDocument(currentRoot);
         }
-        
-        System.out.println("***********************************************************************************");
-        System.out.println("END *******************************************************************************");
-        System.out.println("***********************************************************************************");
         
         return document;
     }
@@ -88,11 +84,13 @@ public class Parser
         
         // Parse Line
         IndentResult result = LineParser.parseLine(line, lastNodeMultiline, stack.size());
-        System.out.println("Line " + lineNumber + ": " + result);
-        //System.out.println(lastNodeMultiline);
 
         // Commentario
         if (result == null) return;
+        
+        // Log line // TODO Delete
+        System.out.println("***********************************************************************************");
+        System.out.println("Line " + lineNumber + ": " + result);
         
         // Multiline
         if (lastNodeMultiline && result.getIndentLevel()>=stack.size())
@@ -133,6 +131,9 @@ public class Parser
             }
             stack.push(node);
         }
+        
+        // TODO Log end delete
+        System.out.println("\n" + currentRoot);
     }
 
     private void processCreation(Node node) throws ParseException

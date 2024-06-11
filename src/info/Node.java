@@ -145,7 +145,7 @@ public class Node
         String valueShow = value;
         int i = valueShow.indexOf("\n");
         if (i!=-1) valueShow = valueShow.substring(0, i) + "...";
-        if (valueShow.length()>30) valueShow = valueShow.substring(0, 28) + "...";
+        if (valueShow.length()>40) valueShow = valueShow.substring(0, 38) + "...";
         return value.length() + " chars: " + valueShow;
     }    
 }
