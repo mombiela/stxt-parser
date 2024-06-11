@@ -135,7 +135,7 @@ public class Parser
     private Node createNode(IndentResult result, int lineNumber) 
     {
     	String line = result.getLineWithoutIndent();
-    	String[] parts = line.split(":", 3);
+    	String[] parts = line.split(":", 2);
     	String name = parts[0].trim();
     	
     	Node node = new Node();

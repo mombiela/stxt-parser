@@ -93,7 +93,7 @@ public class Node
         StringBuffer result = new StringBuffer();
         
         for (int i = 0; i<level; i++) result.append("    ");
-        result.append("<" + name + " (line:" + lineCreation + ")> " + metadata);
+        result.append("<" + name + " (line:" + lineCreation + ")> " + getValueShort() + metadata);
         result.append("\n");
         
         if (childs!=null & childs.size()>0)
@@ -106,6 +106,12 @@ public class Node
             }
         }
         return result.toString().replaceAll("\n\n", "\n");
+    }
+
+    private String getValueShort()
+    {
+        if (value == null) return "<NULL>";
+        else return "<" + value.length() + " chars>";
     }
 
     // Fast access methods to children
