@@ -46,7 +46,6 @@ public class TestParser02 extends AbstractTestParser
     private void printNamespace(Namespace n)
     {
         System.out.println("Namespace: " + n.getName());
-        System.out.println("Description: " + n.getDescription());
         for (String nodeName: n.getNodes().keySet())
         {
             NamespaceNode node = n.getNode(nodeName);

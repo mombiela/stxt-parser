@@ -1,10 +1,7 @@
 package info;
 
-import java.net.URL;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 public class GrammarProcessor implements NodeProcessor
 {
@@ -14,31 +11,6 @@ public class GrammarProcessor implements NodeProcessor
     
     private static final boolean debug = true;
     private static final String ROOT_NAMESPACE = "www.semantictext.info/namespace.stxt";
-    private static final String NAMESPACE   = "namespace";
-    private static final String NODE        = "node";
-    private static final String CHILD       = "child";
-    private static final String PATTERN     = "pattern";
-    private static final String VALUE       = "value";
-    private static final String DESCRIPTION = "description";
-    
-    private static final Set<String> NODES = new HashSet<>();
-    private static final Set<String> MULTILINE_NODES = new HashSet<>();
-    private static final Set<String> ALL_NODES = new HashSet<>();
-    
-    static
-    {
-        // Nodes type NODE
-        NODES.add(NAMESPACE);
-        NODES.add(NODE);
-        NODES.add(CHILD);
-        NODES.add(PATTERN);
-        NODES.add(VALUE);
-        
-        MULTILINE_NODES.add(DESCRIPTION);
-        
-        ALL_NODES.addAll(NODES);
-        ALL_NODES.addAll(MULTILINE_NODES);
-    }
     
     // -----------
     // Main parser
@@ -46,6 +18,7 @@ public class GrammarProcessor implements NodeProcessor
     
     private List<Namespace> namespaces = new ArrayList<>();
     private Namespace currentNamespace = null;
+    private NamespaceNode lastNode = null;
     
     public List<Namespace> getNamespaces()
     {
@@ -58,32 +31,26 @@ public class GrammarProcessor implements NodeProcessor
         if (debug) System.out.println(".... Node creation: <" + node.getName() + "> stack: " + node.getLevelCreation());
         
         // Node name
-        String nodeName = node.getName().toLowerCase();
+        String nodeName = node.getName();
         
         // First node special
         if (node.getLevelCreation() == 0)
         {
             TextSplitter nodeNameSplit = TextSplitter.split(nodeName);
             nodeName = nodeNameSplit.getCentralText();
+            
             if (!nodeNameSplit.getSuffix().equals(ROOT_NAMESPACE)) 
                 throw new ParseException("Namespace not valid: " + nodeNameSplit.getSuffix(), node.getLineCreation());
             
             if (nodeNameSplit.getPrefix()!=null)
                 throw new ParseException("Line not valid", node.getLineCreation());
+            
+            createNameSpace(node, nodeName);
         }
-        
-        // Check name
-        if (!ALL_NODES.contains(nodeName))
-            throw new ParseException("Node name not valid: " + node.getName(), node.getLineCreation());
-        
-        // Multiline
-        if (MULTILINE_NODES.contains(nodeName)) 
-            node.setMultiline(true);
-        
-        // Check name
-        if (nodeName.equals(NAMESPACE)) createNameSpace(node, nodeName);
-        else if (nodeName.equals(NODE)) updateCreateNode(node);
-        
+        else
+        {
+            updateCreateNode(node);
+        }
     }
 
     @Override
@@ -127,21 +94,31 @@ public class GrammarProcessor implements NodeProcessor
     
     private void updateCreateNode(Node node) throws ParseException
     {
-        if (node.getLevelCreation() != 1) 
-            throw new ParseException("Node not in valid position: " + node.getLevelCreation(), node.getLineCreation());
+        String name = node.getName().trim();
         
+        if (name.length()==0)
+        {
+            // Nodo de valores (ENUM/REGEX)
+            // add to pattern or values node.getValue()
+        }
+        else
+        {
+            // Nodo normal
+            NamespaceNode nsNode = currentNamespace.getNode(name);
+            if (nsNode == null)
+            {
+                nsNode = new NamespaceNode();
+                nsNode.setName(name);
+                currentNamespace.setNode(name, nsNode);
+            }
+        }
+        
+        /*
         TextSplitter nodeParts = TextSplitter.split(node.getValue());
         
         String name = nodeParts.getCentralText().toLowerCase();
         String type = nodeParts.getSuffix();
         if (type != null) type = type.toUpperCase();
-        NamespaceNode nsNode = currentNamespace.getNode(name);
-        if (nsNode == null)
-        {
-            nsNode = new NamespaceNode();
-            nsNode.setName(name);
-            currentNamespace.setNode(name, nsNode);
-        }
         // Update type
         if (type != null)
         {
@@ -159,12 +136,7 @@ public class GrammarProcessor implements NodeProcessor
                 }
             }
         }
-    }
-
-    private void validateType(String type, Node node) throws ParseException
-    {
-        if (!Type.isValidType(type)) 
-            throw new ParseException("Type not valid: " + type, node.getLineCreation());
+        */
     }
 
     // -------------------
@@ -173,22 +145,14 @@ public class GrammarProcessor implements NodeProcessor
 
     private void validateNamespaceFormat(String namespace, int lineNumber) throws ParseException
     {
-        if (!isValidNamespace(namespace)) throw new ParseException("Namespace not valid: " + namespace, lineNumber);
+        if (!Type.isValidNamespace(namespace)) throw new ParseException("Namespace not valid: " + namespace, lineNumber);
     }
     
-    private boolean isValidNamespace(String namespace)
+    private void validateType(String type, Node node) throws ParseException
     {
-        if (!namespace.endsWith(".stxt")) return false;
-        
-        try
-        {
-            new URL("https://" + namespace);
-            return true;
-        }
-        catch (Exception e)
-        {
-            return false;
-        }
+        if (!Type.isValidType(type)) 
+            throw new ParseException("Type not valid: " + type, node.getLineCreation());
     }
+
     
 }

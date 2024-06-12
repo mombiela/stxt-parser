@@ -90,7 +90,10 @@ public class Parser
         // Multiline
         if (lastNodeMultiline && result.getIndentLevel()>=stack.size())
         {
-            lastNode.setValue(lastNode.getValue() + "\n" + result.getLineWithoutIndent());
+            String lastValue = lastNode.getValue();
+            if (lastValue != null)  lastNode.setValue(lastValue + "\n" + result.getLineWithoutIndent());
+            else                    lastNode.setValue(result.getLineWithoutIndent());
+
             showCurrentRoot();
             return;
         }

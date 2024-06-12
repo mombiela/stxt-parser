@@ -7,7 +7,6 @@ public class Namespace
 {
     private Map<String, NamespaceNode> nodes = new LinkedHashMap<String, NamespaceNode>();
     private String name;
-    private String description;
     
     public Map<String, NamespaceNode> getNodes()
     {
@@ -29,24 +28,12 @@ public class Namespace
         this.nodes = nodes;
     }
 
-    public String getDescription()
-    {
-        return description;
-    }
-
-    public void setDescription(String description)
-    {
-        this.description = description;
-    }
-
     @Override
     public String toString()
     {
         StringBuilder builder = new StringBuilder();
         builder.append("Namespace [name=");
         builder.append(name);
-        builder.append(", description=");
-        builder.append(description);
         builder.append(", nodes=");
         builder.append(nodes);
         builder.append("]");

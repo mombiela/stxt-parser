@@ -1,9 +1,14 @@
 Namespace(www.semantictext.info/namespace.stxt): www.dokumentando.com/doc_simple.stxt
 
 	Documento
-        titulo: (1)
-        secciones: (*)
+        Título: (1)
+        Secciones: (*)
         Description: (1) TEXT
+        Tipo Documento: (1) ENUM
+        	: informe
+        	: artículo
+        	: ensayo
+        
     Secciones
         Seccion: (+) TEXT
 

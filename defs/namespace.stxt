@@ -22,16 +22,16 @@ Namespace (www.semantictext.info/namespace.stxt): www.semantictext.info/namespac
 #   URL: https://www.semantictext.info/namespace.stxt
 #   REGEX: Regular Expresion. Example:
 #   	Postal Code: REGEX
-#			(Pattern): ^\d{5}$
+#			: ^\d{5}$
 #   HEXADECIMAL (multiline): 536F6D652048657861646563696D616C2056616C7565
 #   BASE64 (multiline): Base64 value. Example: U29tZSBCYXNlNjQgVmFsdWU=
 #   ENUM: Composed of allowed values. Example:
 #       Dificulty: ENUM
-#			(Value): Very Easy
-#			(Value): Easy
-#			(Value): Normal
-#			(Value): Hard
-#			(Value): Very Hard
+#			: Very Easy
+#			: Easy
+#			: Normal
+#			: Hard
+#			: Very Hard
 #         
 #   =====
 #   Count

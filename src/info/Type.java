@@ -1,5 +1,6 @@
 package info;
 
+import java.net.URL;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -52,4 +53,19 @@ public class Type
     {
         return MULTILINE_TYPES.contains(type);
     }
+    public static boolean isValidNamespace(String namespace)
+    {
+        if (!namespace.endsWith(".stxt")) return false;
+        
+        try
+        {
+            new URL("https://" + namespace);
+            return true;
+        }
+        catch (Exception e)
+        {
+            return false;
+        }
+    }
+
 }
