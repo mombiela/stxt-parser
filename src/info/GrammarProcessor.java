@@ -6,8 +6,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import com.sun.org.apache.xml.internal.serialize.LineSeparator;
-
 public class GrammarProcessor implements NodeProcessor
 {
     // -----------------------------
@@ -135,6 +133,8 @@ public class GrammarProcessor implements NodeProcessor
         TextSplitter nodeParts = TextSplitter.split(node.getValue());
         
         String name = nodeParts.getCentralText().toLowerCase();
+        String type = nodeParts.getSuffix();
+        if (type != null) type = type.toUpperCase();
         NamespaceNode nsNode = currentNamespace.getNode(name);
         if (nsNode == null)
         {
@@ -142,6 +142,29 @@ public class GrammarProcessor implements NodeProcessor
             nsNode.setName(name);
             currentNamespace.setNode(name, nsNode);
         }
+        // Update type
+        if (type != null)
+        {
+            if (nsNode.getType() == null)
+            {
+                validateType(type, node);
+                nsNode.setType(type);
+            }
+            else
+            {
+                // check equals
+                if (!nsNode.getType().equals(type))
+                {
+                    throw new ParseException("Type alredy defined: " + nsNode.getType() + " != " + type, node.getLineCreation());
+                }
+            }
+        }
+    }
+
+    private void validateType(String type, Node node)
+    {
+        // TODO Auto-generated method stub
+        
     }
 
     // -------------------
