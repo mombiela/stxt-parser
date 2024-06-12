@@ -1,5 +1,6 @@
 package info;
 
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -71,6 +72,7 @@ public class GrammarProcessor implements NodeProcessor
             node.setMetadata(NAMESPACE, ROOT_NAMESPACE);
             
             // Create new namespace
+            validateNamespaceFormat(node.getValue(), node.getLineCreation());
             currentNamespace = new Namespace();
             currentNamespace.setName(node.getValue());
             namespaces.add(currentNamespace);
@@ -107,4 +109,29 @@ public class GrammarProcessor implements NodeProcessor
     {
         if (debug) System.out.println(".... After add " + child.getName() + " to " + parent.getName());
     }
+    
+    // -------------------
+    // Métodos utilitarios
+    // -------------------
+
+    private void validateNamespaceFormat(String namespace, int lineNumber) throws ParseException
+    {
+        if (!isValidNamespace(namespace)) throw new ParseException("Namespace not valid: " + namespace, lineNumber);
+    }
+    
+    private boolean isValidNamespace(String namespace)
+    {
+        if (!namespace.endsWith(".stxt")) return false;
+        
+        try
+        {
+            new URL("https://" + namespace);
+            return true;
+        }
+        catch (Exception e)
+        {
+            return false;
+        }
+    }
+    
 }
