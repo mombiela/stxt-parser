@@ -4,28 +4,19 @@
 
 Namespace (www.semantictext.info/namespace.stxt): www.kocinando.com/receta.stxt
 
-	Node: receta
-	    Child: (1) nombre receta
-	    Child: (1) descripcion (TEXT)
-	    Child: (1) ingredientes
-	    Child: (1) pasos
-	    Child: (1) dificultad (ENUM)
-		    (Value): 'fácil'
-		    (Value): 'media'
-	    	(Value): 'difícil'
-	    Child: (?) calorias (NUMBER)
-	    Child: (1) comensales (NUMBER)
-
-	Node: ingrediente
-	    Child: (1) cantidad (NUMBER)
-	    Child: (1) unidades (NUMBER)
-
-	Node: ingredientes
-	    Child: (+) ingrediente
-
-	Node: paso (NUMBER)
-	    Child: (1) descripcion paso (TEXT)
-	
-	Node: pasos
-	    Child: (+) paso
-	    
+	Receta
+	    Nombre Receta: (1)
+	    Descripción: (1) TEXT
+	    Ingredientes: (1)
+			Ingrediente: (+)
+	    		Cantidad: (1) NUMBER
+	    		Unidades: (1) (NUMBER)
+	    Pasos: (1)
+	    	Paso: (1) NUMBER
+	    	Descripción paso: (1) TEXT
+		Dificultad: (?) ENUM
+		   	: 'fácil'
+		   	: 'media'
+	    	: 'difícil'
+	    Calorias: (?) NUMBER
+	    Comensales: NUMBER

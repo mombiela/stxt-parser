@@ -10,6 +10,7 @@ public class TestTextSplitter
         testSplit("texto central (texto sufijo)");
         testSplit("(texto prefix) texto central");
         testSplit("texto central");
+        testSplit("(otro)");
     }
 
     private static void testSplit(String input)

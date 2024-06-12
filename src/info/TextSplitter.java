@@ -8,7 +8,8 @@ public class TextSplitter {
     private String centralText;
     private String suffix;
 
-    private TextSplitter(String input) {
+    private TextSplitter(String input) 
+    {
         splitText(input);
     }
 
@@ -30,6 +31,7 @@ public class TextSplitter {
             prefix = null;
             suffix = null;
         }
+        if (centralText.length()==0) centralText = null;
     }
 
     public String getPrefix() {

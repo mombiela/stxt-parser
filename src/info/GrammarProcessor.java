@@ -71,7 +71,6 @@ public class GrammarProcessor implements NodeProcessor
         if (debug) System.out.println(".... After add " + child.getName() + " to " + parent.getName());
     }
     
-
     // ---------
     // Namespace
     // ---------
@@ -103,18 +102,37 @@ public class GrammarProcessor implements NodeProcessor
         }
         else
         {
+            String type = null;
+            String count = null;
+            String namespace = null;
+            if (node.getValue()!=null)
+            {
+                TextSplitter nodeParts = TextSplitter.split(node.getValue());
+                count = nodeParts.getPrefix();
+                type = nodeParts.getCentralText();
+                namespace = nodeParts.getSuffix();
+            }            
+            
             // Nodo normal
             NamespaceNode nsNode = currentNamespace.getNode(name);
             if (nsNode == null)
             {
                 nsNode = new NamespaceNode();
                 nsNode.setName(name);
+                nsNode.setType(type);
                 currentNamespace.setNode(name, nsNode);
             }
+            else
+            {
+        	if (type != null) 
+        	    throw new ParseException("Type should be defined the first time only", node.getLineCreation());
+            }
+            
+            // Buscamos tipo
+            
         }
         
         /*
-        TextSplitter nodeParts = TextSplitter.split(node.getValue());
         
         String name = nodeParts.getCentralText().toLowerCase();
         String type = nodeParts.getSuffix();
