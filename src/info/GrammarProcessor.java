@@ -82,6 +82,7 @@ public class GrammarProcessor implements NodeProcessor
         
         // Check name
         if (nodeName.equals(NAMESPACE)) updateNameSpace(node, nodeName);
+        else if (nodeName.equals(NODE)) updateNode(node);
         
     }
 
@@ -123,6 +124,17 @@ public class GrammarProcessor implements NodeProcessor
         currentNamespace = new Namespace();
         currentNamespace.setName(node.getValue());
         namespaces.add(currentNamespace);
+    }
+
+    // ----
+    // Node
+    // ----
+    
+    private void updateNode(Node node) throws ParseException
+    {
+        if (node.getLevelCreation() != 1) 
+            throw new ParseException("Node not in valid position: " + node.getLevelCreation(), node.getLineCreation());
+        
     }
 
     // -------------------
