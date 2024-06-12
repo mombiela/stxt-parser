@@ -3,114 +3,76 @@
 # ------------------------------------------------------------------------------------
  
 Namespace (www.semantictext.info/namespace.stxt): www.semantictext.info/namespace.stxt
-    
-    Node: Namespace (NAMESPACE)
-        Child: (?) Description
-        Child: (*) Node
-    
-    Node: Node
-        Child: (?) Description (TEXT)
-        Child: (?) Pattern
-        Child: (*) Value
-        Child: (*) Child
-        
-        
-    Description: The ROOT namespace of all namespaces. Is the main definition.
-        More information on https://www.semantictext.info
-        
-        =====
-        Types
-        =====
-        
-        STRING: Literal of text (**DEFAULT TYPE**)
-        NAMESPACE: A valid name of namespace (url without https:// ending with .stxt)
-        TEXT (multiline): Multiline text
-        NUMBER: 123, -123, 12.55, -3.14296, -2.5e-7,...
-        BOOLEAN: true / false
-        DATE (YYYY-MM-DD): 
-        TIMESTAMP (ISO 8601): 2024-06-08T14:30:00Z, 2024-06-08T16:30:00+02:00,...
-        EMAIL: admin@example.com
-        URL: https://www.semantictext.info/namespace.stxt
-        REGEX: Regular Expresion. Example:
-        	Node: Postal Code (REGEX)
-        	    Pattern: ^\d{5}$
-        HEXADECIMAL (multiline): 536F6D652048657861646563696D616C2056616C7565
-        BASE64 (multiline): Base64 value. Example: U29tZSBCYXNlNjQgVmFsdWU=
-        ENUM: Composed of allowed values. Example:
-            Node: Dificulty (ENUM)
-                Value: very easy
-                Value: easy
-                Value: normal
-                Value: hard
-                Value: very hard
-              
-        ====
-        Node
-        ====
-            
-        Node: node name (type)
-            
-        =====    
-        Child
-        =====    
-        
-        Child: (count) name of child (type|namespace) 
-            
-        =====
-        Count
-        =====
-        
-        *: Any number (**DEFAULT COUNT**)
-        +: 1 or more
-        ?: 0 or 1
-        n: An exact number
-        n+: n or more
-        n-: n or less
-            
-            Examples of child:
-            Child: (1) name
-            Child: (?) web site (URL) 
-            Child: section (TEXT)
-            Child: section
-            Child: (*) Section (www.demo.com/name_namespace.stxt)
-             
-        ------------------
-        Example Definition
-        ------------------
-        
-        Definition (www.semantictext.info/namespace.stxt): www.sample_namespace.com/simple_document.stxt
 
-            Node: document
-                Child: (1) title
-                Child: (?) autor
-                Child: (*) reference
-                Child: (?) sections
-    
-            Node: secctions
-            	Child: (+) section
-            
-            Node: section
-                Child: (?) metadata (www.sample_namespace.com/other_document.stxt) 
-                Child: (1) content (TEXT)
-                
-        ----------------
-        Example document
-        ----------------
-        
-        Document (www.sample_namespace.com/simple_document.stxt):
-        	Title: A title
-        	Autor: Name of the Autor
-        	Reference: Ref1
-        	Reference: Ref2
-        	
-        	Sections:
-        		Section: First Section
-        			Content:
-        				This is a multiline
-        				content 1
-        		Section: Second Section
-        			Content:
-        				This is a multiline
-        				content 2
-
-
+#   This is a root namespace. A namespace with no definition.
+#   More information on https://www.semantictext.info/
+#   
+#   =====
+#   Types
+#   =====
+#   
+#   STRING: Literal of text (**DEFAULT TYPE**)
+#   NAMESPACE: A valid name of namespace (url without https:// ending with .stxt)
+#   TEXT (multiline): Multiline text
+#   NUMBER: 123, -123, 12.55, -3.14296, -2.5e-7,...
+#   BOOLEAN: true / false
+#   DATE (YYYY-MM-DD): 
+#   TIMESTAMP (ISO 8601): 2024-06-08T14:30:00Z, 2024-06-08T16:30:00+02:00,...
+#   EMAIL: admin@example.com
+#   URL: https://www.semantictext.info/namespace.stxt
+#   REGEX: Regular Expresion. Example:
+#   	Postal Code: REGEX
+#			(Pattern): ^\d{5}$
+#   HEXADECIMAL (multiline): 536F6D652048657861646563696D616C2056616C7565
+#   BASE64 (multiline): Base64 value. Example: U29tZSBCYXNlNjQgVmFsdWU=
+#   ENUM: Composed of allowed values. Example:
+#       Dificulty: ENUM
+#			(Value): Very Easy
+#			(Value): Easy
+#			(Value): Normal
+#			(Value): Hard
+#			(Value): Very Hard
+#         
+#   =====
+#   Count
+#   =====
+#   
+#   *: Any number (**DEFAULT COUNT**)
+#   +: 1 or more
+#   ?: 0 or 1
+#   n: An exact number
+#   n+: n or more
+#   n-: n or less
+#       
+#       Examples of child:
+#       Child: (1) name
+#       Child: (?) web site (URL) 
+#       Child: section (TEXT)
+#       Child: section
+#       Child: (*) Section (www.demo.com/name_namespace.stxt)
+#        
+#   ------------------
+#   Example Definition
+#   ------------------
+#   
+#   Definition (www.semantictext.info/namespace.stxt): www.sample_namespace.com/simple_document.stxt
+#   
+#       Node: document
+#           Child: (1) title
+#           Child: (?) autor
+#           Child: (*) reference
+#           Child: (?) sections
+#   
+#       Node: secctions
+#       	Child: (+) section
+#       
+#       Node: section
+#           Child: (?) metadata (www.sample_namespace.com/other_document.stxt) 
+#           Child: (1) content (TEXT)
+#           
+#   ----------------
+#   Example document
+#   ----------------
+#   
+#   Document (www.sample_namespace.com/simple_document.stxt):
+#   	Title: A title

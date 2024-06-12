@@ -1,11 +1,9 @@
 Namespace(www.semantictext.info/namespace.stxt): www.dokumentando.com/doc_simple.stxt
-	Node: documento
-        Child: (1) titulo
-        Child: (*) secciones
-        Description:
-            Documento principal
-            Es simple, sólo para probar
-				Hola!!    
-    Node: secciones
-        Child: (+) seccion (TEXT)
+
+	Documento
+        titulo: (1)
+        secciones: (*)
+        Description: (1) TEXT
+    Secciones
+        Seccion: (+) TEXT
 

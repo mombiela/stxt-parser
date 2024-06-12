@@ -10,9 +10,9 @@ Namespace (www.semantictext.info/namespace.stxt): www.kocinando.com/receta.stxt
 	    Child: (1) ingredientes
 	    Child: (1) pasos
 	    Child: (1) dificultad (ENUM)
-		    Value: 'fácil'
-		    Value: 'media'
-	    	Value: 'difícil'
+		    (Value): 'fácil'
+		    (Value): 'media'
+	    	(Value): 'difícil'
 	    Child: (?) calorias (NUMBER)
 	    Child: (1) comensales (NUMBER)
 
