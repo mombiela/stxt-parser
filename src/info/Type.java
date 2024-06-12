@@ -5,40 +5,43 @@ import java.util.Set;
 
 public class Type 
 {
-    public static final String TEXT         	= "TEXT";
-    public static final String STRING       	= "STRING";
-    public static final String NUMBER       	= "NUMBER";
-    public static final String BOOLEAN      	= "BOOLEAN";
-    public static final String REGEX          	= "REGEX";
-    public static final String ENUM          	= "ENUM";
+    public static final String TEXT         = "TEXT";
+    public static final String STRING       = "STRING";
+    public static final String NUMBER       = "NUMBER";
+    public static final String BOOLEAN      = "BOOLEAN";
+    public static final String REGEX        = "REGEX";
+    public static final String ENUM         = "ENUM";
     public static final String DATE       	= "DATE";
-    public static final String TIMESTAMP       	= "TIMESTAMP";
+    public static final String TIMESTAMP    = "TIMESTAMP";
     public static final String EMAIL       	= "EMAIL";
-    public static final String URL          	= "URL";
+    public static final String URL          = "URL";
     public static final String HEXADECIMAL	= "HEXADECIMAL";
-    public static final String BASE64       	= "BASE64";
+    public static final String BASE64       = "BASE64";
+    public static final String NAMESPACE    = "NAMESPACE";
     
     private static final Set<String> MULTILINE_TYPES = new HashSet<>();
+    private static final Set<String> SINGLELINE_TYPES = new HashSet<>();
     private static final Set<String> ALL_TYPES = new HashSet<>();
     
     static
     {
-    	ALL_TYPES.add(TEXT);
-    	ALL_TYPES.add(STRING);
-    	ALL_TYPES.add(NUMBER);
-    	ALL_TYPES.add(BOOLEAN);
-    	ALL_TYPES.add(REGEX);
-    	ALL_TYPES.add(ENUM);
-    	ALL_TYPES.add(DATE);
-    	ALL_TYPES.add(TIMESTAMP);
-    	ALL_TYPES.add(EMAIL);
-    	ALL_TYPES.add(URL);
-    	ALL_TYPES.add(HEXADECIMAL);
-    	ALL_TYPES.add(BASE64);
+    	SINGLELINE_TYPES.add(STRING);
+    	SINGLELINE_TYPES.add(NUMBER);
+    	SINGLELINE_TYPES.add(BOOLEAN);
+    	SINGLELINE_TYPES.add(REGEX);
+    	SINGLELINE_TYPES.add(ENUM);
+    	SINGLELINE_TYPES.add(DATE);
+    	SINGLELINE_TYPES.add(TIMESTAMP);
+    	SINGLELINE_TYPES.add(EMAIL);
+    	SINGLELINE_TYPES.add(URL);
+    	SINGLELINE_TYPES.add(NAMESPACE);
     	
     	MULTILINE_TYPES.add(TEXT);
     	MULTILINE_TYPES.add(BASE64);
     	MULTILINE_TYPES.add(HEXADECIMAL);
+    	
+    	ALL_TYPES.addAll(SINGLELINE_TYPES);
+    	ALL_TYPES.addAll(MULTILINE_TYPES);
     }
     
     public static boolean isValidType(String type)

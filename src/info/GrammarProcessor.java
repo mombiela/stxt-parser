@@ -161,10 +161,10 @@ public class GrammarProcessor implements NodeProcessor
         }
     }
 
-    private void validateType(String type, Node node)
+    private void validateType(String type, Node node) throws ParseException
     {
-        // TODO Auto-generated method stub
-        
+        if (!Type.isValidType(type)) 
+            throw new ParseException("Type not valid: " + type, node.getLineCreation());
     }
 
     // -------------------
