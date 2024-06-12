@@ -9,12 +9,11 @@ Namespace (www.semantictext.info/namespace.stxt): www.semantictext.info/namespac
         Child: (*) Node
     
     Node: Node
-        Child: (?) Description
+        Child: (?) Description (TEXT)
         Child: (?) Pattern
         Child: (*) Value
         Child: (*) Child
         
-    Node: Description (TEXT)
         
     Description: The ROOT namespace of all namespaces. Is the main definition.
         More information on https://www.semantictext.info
