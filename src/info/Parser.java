@@ -43,6 +43,7 @@ public class Parser
     Stack<Node> stack = new Stack<>();
     Node currentRoot = null;
     int lineNumber = 0;
+    int currentLevel = 0;
     
     public Document parse(String content) throws ParseException, IOException 
     {
@@ -51,6 +52,7 @@ public class Parser
         stack = new Stack<>();
         currentRoot = null;
         lineNumber = 0;
+        currentLevel = 0;
         
         // Sanitary check
         content = LineParser.removeUTF8BOM(content);
@@ -77,41 +79,31 @@ public class Parser
     private void processLine(String line) throws ParseException
     {
         // Last node
-        Node lastNode = null;
-        if (stack.size()>0) lastNode = stack.peek();
-        
-        // Last node multiline
-        boolean lastNodeMultiline = false;
-        if (lastNode != null) lastNodeMultiline = lastNode.isMultiline();
+        Node lastNode = stack.size() > 0 ? stack.peek(): null;
+        boolean lastNodeMultiline = lastNode != null && lastNode.isMultiline();
         
         // Parse Line
         IndentResult result = LineParser.parseLine(line, lastNodeMultiline, stack.size());
-
-        // Commentario
         if (result == null) return;
-        
-        // Log line
-        if (debug)
-        {
-            System.out.println("***********************************************************************************");
-            System.out.println("Line: '" + line + "'");
-            System.out.println("Line " + lineNumber + ": " + result);
-        }
+        showLine(line, result);
         
         // Multiline
         if (lastNodeMultiline && result.getIndentLevel()>=stack.size())
         {
             lastNode.setValue(lastNode.getValue() + "\n" + result.getLineWithoutIndent());
-            if (debug) System.out.println("NEW VALUE MULTILINE: '" + lastNode.getValue() + "'");
+            showCurrentRoot();
             return;
         }
         
         // Normal parser
-        int indentLevel = result.getIndentLevel();
+        if (result.getIndentLevel() > currentLevel + 1) 
+            throw new ParseException("Level of indent incorrect: " + result.getIndentLevel(), lineNumber);
+        
+        currentLevel = result.getIndentLevel();
         Node node = createNode(result);
         processCreation(node);
 
-        if (indentLevel == 0) 
+        if (currentLevel == 0) 
         {
             if (currentRoot != null) 
             {
@@ -124,23 +116,38 @@ public class Parser
         } 
         else 
         {
-            while (stack.size() > indentLevel) 
+            // Complete stack
+            while (stack.size() > currentLevel) 
             {
                 Node finishedNode = stack.pop();
                 processCompletion(finishedNode);
             }
-            if (!stack.isEmpty())
-            {
-                Node peek = stack.peek();
-                processBeforeAddNode(peek, node);
-                peek.addChild(node);
-                processAfterAddNode(peek, node);
-            }
+            
+            // Normal insert child
+            Node peek = stack.peek();
+            processBeforeAddNode(peek, node);
+            peek.addChild(node);
+            processAfterAddNode(peek, node);
             stack.push(node);
         }
         
         // Final log
+        showCurrentRoot();
+    }
+
+    private void showCurrentRoot()
+    {
         if (debug) System.out.println("\n" + currentRoot);
+    }
+
+    private void showLine(String line, IndentResult result)
+    {
+        if (debug)
+        {
+            System.out.println("***********************************************************************************");
+            System.out.println("Line: '" + line + "'");
+            System.out.println("Line " + lineNumber + ": " + result);
+        }
     }
 
     private void processCreation(Node node) throws ParseException
