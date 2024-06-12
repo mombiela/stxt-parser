@@ -33,12 +33,12 @@ public class Namespace
     public String toString()
     {
         StringBuilder builder = new StringBuilder();
-        builder.append("Namespace [nodes=");
-        builder.append(nodes);
-        builder.append(", name=");
+        builder.append("Namespace [name=");
         builder.append(name);
         builder.append(", description=");
         builder.append(description);
+        builder.append(", nodes=");
+        builder.append(nodes);
         builder.append("]");
         return builder.toString();
     }

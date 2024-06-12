@@ -60,36 +60,29 @@ public class GrammarProcessor implements NodeProcessor
         // Node name
         String nodeName = node.getName().toLowerCase();
         
-        // First node
+        // First node special
         if (stackSize == 0)
         {
-            TextSplitter nameSplit = TextSplitter.split(nodeName);
+            TextSplitter nodeNameSplit = TextSplitter.split(nodeName);
+            nodeName = nodeNameSplit.getCentralText();
+            if (!nodeNameSplit.getSuffix().equals(ROOT_NAMESPACE)) 
+                throw new ParseException("Namespace not valid: " + nodeNameSplit.getSuffix(), node.getLineCreation());
             
-            if (!ROOT_NAMESPACE.equals(nameSplit.getSuffix())) 
-                throw new ParseException("Namespace is '" + nameSplit.getSuffix() + "' and should be: " + ROOT_NAMESPACE, node.getLineCreation());
-            
-            node.setName(nameSplit.getCentralText());
-            node.setMetadata(NAMESPACE, ROOT_NAMESPACE);
-            
-            // Create new namespace
-            validateNamespaceFormat(node.getValue(), node.getLineCreation());
-            currentNamespace = new Namespace();
-            currentNamespace.setName(node.getValue());
-            namespaces.add(currentNamespace);
+            if (nodeNameSplit.getPrefix()!=null)
+                throw new ParseException("Line not valid", node.getLineCreation());
         }
         
         // Check name
-        if (!ALL_NODES.contains(node.getName().toLowerCase()))
-        {
+        if (!ALL_NODES.contains(nodeName))
             throw new ParseException("Node name not valid: " + node.getName(), node.getLineCreation());
-        }
         
-        // Node text
-        if (node.getName().equalsIgnoreCase("description"))
-        {
+        // Multiline
+        if (MULTILINE_NODES.contains(nodeName)) 
             node.setMultiline(true);
-        }
-        //node.setMetadata("namespace", NAMESPACE);
+        
+        // Check name
+        if (nodeName.equals(NAMESPACE)) updateNameSpace(stackSize, node, nodeName);
+        
     }
 
     @Override
@@ -110,6 +103,26 @@ public class GrammarProcessor implements NodeProcessor
         if (debug) System.out.println(".... After add " + child.getName() + " to " + parent.getName());
     }
     
+
+    // ---------
+    // Namespace
+    // ---------
+    
+    private void updateNameSpace(int stackSize, Node node, String nodeName) throws ParseException
+    {
+        if (stackSize != 0) throw new ParseException("Namespace not in valid position: " + stackSize, node.getLineCreation());
+        createNewNamespace(node, nodeName);
+    }
+
+    private void createNewNamespace(Node node, String nodeName) throws ParseException
+    {
+        // Create new namespace
+        validateNamespaceFormat(node.getValue(), node.getLineCreation());
+        currentNamespace = new Namespace();
+        currentNamespace.setName(node.getValue());
+        namespaces.add(currentNamespace);
+    }
+
     // -------------------
     // Métodos utilitarios
     // -------------------
