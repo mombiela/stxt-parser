@@ -6,10 +6,12 @@ import info.Parser;
 public class AbstractTestParser
 {
     protected Parser parser;
+    protected GrammarProcessor grammarProcessor;
     
     public AbstractTestParser()
     {
         parser = new Parser();
-        parser.addNodeProcessor(new GrammarProcessor());
+        grammarProcessor = new GrammarProcessor();
+        parser.addNodeProcessor(grammarProcessor);
     }
 }

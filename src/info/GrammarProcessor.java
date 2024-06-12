@@ -1,42 +1,83 @@
 package info;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 public class GrammarProcessor implements NodeProcessor
 {
-    private static final Set<String> nodes = new HashSet<>();
-    private static final String NAMESPACE = "www.semantictext.info/namespace.stxt";
+    // -----------------------------
+    // Configuration and static vars
+    // -----------------------------
+    
+    private static final boolean debug = true;
+    private static final String ROOT_NAMESPACE = "www.semantictext.info/namespace.stxt";
+    private static final String NAMESPACE   = "namespace";
+    private static final String NODE        = "node";
+    private static final String CHILD       = "child";
+    private static final String PATTERN     = "pattern";
+    private static final String VALUE       = "value";
+    private static final String DESCRIPTION = "description";
+    
+    private static final Set<String> NODES = new HashSet<>();
+    private static final Set<String> MULTILINE_NODES = new HashSet<>();
+    private static final Set<String> ALL_NODES = new HashSet<>();
     
     static
     {
         // Nodes type NODE
-        nodes.add("namespace");
-        nodes.add("node");
-        nodes.add("child");
-        nodes.add("description");
-        nodes.add("pattern");
-        nodes.add("value");
+        NODES.add(NAMESPACE);
+        NODES.add(NODE);
+        NODES.add(CHILD);
+        NODES.add(PATTERN);
+        NODES.add(VALUE);
+        
+        MULTILINE_NODES.add(DESCRIPTION);
+        
+        ALL_NODES.addAll(NODES);
+        ALL_NODES.addAll(MULTILINE_NODES);
+    }
+    
+    // -----------
+    // Main parser
+    // -----------
+    
+    private List<Namespace> namespaces = new ArrayList<>();
+    private Namespace currentNamespace = null;
+    
+    public List<Namespace> getNamespaces()
+    {
+        return namespaces;
     }
     
     @Override
     public void processNodeOnCreation(Node node, int stackSize) throws ParseException 
     {
-        // TODO Auto-generated method stub
-        System.out.println(".... Node creation: <" + node.getName() + "> stack: " + stackSize);
+        if (debug) System.out.println(".... Node creation: <" + node.getName() + "> stack: " + stackSize);
+        
+        // Node name
+        String nodeName = node.getName().toLowerCase();
         
         // First node
         if (stackSize == 0)
         {
-            TextSplitter nameSplit = TextSplitter.split(node.getName());
-            if (!NAMESPACE.equals(nameSplit.getSuffix())) 
-                throw new ParseException("Namespace is '" + nameSplit.getSuffix() + "' and should be: " + NAMESPACE, node.getLineCreation());
+            TextSplitter nameSplit = TextSplitter.split(nodeName);
+            
+            if (!ROOT_NAMESPACE.equals(nameSplit.getSuffix())) 
+                throw new ParseException("Namespace is '" + nameSplit.getSuffix() + "' and should be: " + ROOT_NAMESPACE, node.getLineCreation());
+            
             node.setName(nameSplit.getCentralText());
-            node.setMetadata("namespace", NAMESPACE);
+            node.setMetadata(NAMESPACE, ROOT_NAMESPACE);
+            
+            // Create new namespace
+            currentNamespace = new Namespace();
+            currentNamespace.setName(node.getValue());
+            namespaces.add(currentNamespace);
         }
         
         // Check name
-        if (!nodes.contains(node.getName().toLowerCase()))
+        if (!ALL_NODES.contains(node.getName().toLowerCase()))
         {
             throw new ParseException("Node name not valid: " + node.getName(), node.getLineCreation());
         }
@@ -52,21 +93,18 @@ public class GrammarProcessor implements NodeProcessor
     @Override
     public void processNodeOnCompletion(Node node) throws ParseException 
     {
-        // TODO Auto-generated method stub
-        System.out.println(".... Node completion: " + node.getName());
+        if (debug) System.out.println(".... Node completion: " + node.getName());
     }
 
     @Override
     public void processBeforeAdd(Node parent, Node child)
     {
-        // TODO Auto-generated method stub
-        System.out.println(".... Before add " + child.getName() + " to " + parent.getName());
+        if (debug) System.out.println(".... Before add " + child.getName() + " to " + parent.getName());
     }
 
     @Override
     public void processAfterAdd(Node parent, Node child)
     {
-        // TODO Auto-generated method stub
-        System.out.println(".... After add " + child.getName() + " to " + parent.getName());
+        if (debug) System.out.println(".... After add " + child.getName() + " to " + parent.getName());
     }
 }

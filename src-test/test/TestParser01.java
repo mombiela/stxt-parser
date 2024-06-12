@@ -6,6 +6,7 @@ import java.io.IOException;
 import org.junit.jupiter.api.Test;
 
 import info.Document;
+import info.Namespace;
 import info.Node;
 import info.ParseException;
 
@@ -32,6 +33,11 @@ public class TestParser01 extends AbstractTestParser
             System.out.println(f.getAbsolutePath());
             Document doc = parser.parseFile(f);
             Node n = doc.getDocuments().get(0);
+            System.out.println(n);
+        }
+        for (Namespace n: grammarProcessor.getNamespaces())
+        {
+            System.out.println("======================================================");
             System.out.println(n);
         }
         
