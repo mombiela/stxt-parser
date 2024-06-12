@@ -7,6 +7,8 @@ import org.junit.jupiter.api.Test;
 
 import info.Document;
 import info.Namespace;
+import info.NamespaceChild;
+import info.NamespaceNode;
 import info.Node;
 import info.ParseException;
 
@@ -38,10 +40,26 @@ public class TestParser01 extends AbstractTestParser
         for (Namespace n: grammarProcessor.getNamespaces())
         {
             System.out.println("======================================================");
-            System.out.println(n);
+            printNamespace(n);
         }
         
         System.out.println("End");
+    }
+
+    private void printNamespace(Namespace n)
+    {
+        System.out.println("Namespace: " + n.getName());
+        System.out.println("Description: " + n.getDescription());
+        for (String nodeName: n.getNodes().keySet())
+        {
+            NamespaceNode node = n.getNode(nodeName);
+            System.out.println("NODE: " + node.getName() + ", type: " + node.getType());
+            for (String childName: node.getChilds().keySet())
+            {
+                NamespaceChild child = node.getChilds().get(childName);
+                System.out.println("\tChild: " + child);
+            }
+        }
     }
 
 }

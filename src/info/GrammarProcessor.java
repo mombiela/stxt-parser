@@ -6,6 +6,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import com.sun.org.apache.xml.internal.serialize.LineSeparator;
+
 public class GrammarProcessor implements NodeProcessor
 {
     // -----------------------------
@@ -130,7 +132,9 @@ public class GrammarProcessor implements NodeProcessor
         if (node.getLevelCreation() != 1) 
             throw new ParseException("Node not in valid position: " + node.getLevelCreation(), node.getLineCreation());
         
-        String name = node.getName().toLowerCase();
+        TextSplitter nodeParts = TextSplitter.split(node.getValue());
+        
+        String name = nodeParts.getCentralText().toLowerCase();
         NamespaceNode nsNode = currentNamespace.getNode(name);
         if (nsNode == null)
         {

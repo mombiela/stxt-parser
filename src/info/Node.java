@@ -50,11 +50,6 @@ public class Node
         metadata.put(key, value);
     }
     
-    public String getTvalue()
-    {
-        return value != null ? value.trim() : "";
-    }
-
     public void setValue(String value)
     {
         this.value = value;
