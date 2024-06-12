@@ -11,6 +11,8 @@ import java.util.Stack;
 
 public class Parser 
 {
+    private static final boolean debug = true;
+    
     // ----------------
     // Parseo principal
     // ----------------
@@ -88,16 +90,19 @@ public class Parser
         // Commentario
         if (result == null) return;
         
-        // Log line // TODO Delete
-        System.out.println("***********************************************************************************");
-        System.out.println("Line: '" + line + "'");
-        System.out.println("Line " + lineNumber + ": " + result);
+        // Log line
+        if (debug)
+        {
+            System.out.println("***********************************************************************************");
+            System.out.println("Line: '" + line + "'");
+            System.out.println("Line " + lineNumber + ": " + result);
+        }
         
         // Multiline
         if (lastNodeMultiline && result.getIndentLevel()>=stack.size())
         {
-            lastNode.setValue(lastNode.getValue() + "\n" + result.getLineWithoutIndent()); // TODO Revisar caso value = null
-            System.out.println("NEW VALUE MULTILINE: '" + lastNode.getValue() + "'");
+            lastNode.setValue(lastNode.getValue() + "\n" + result.getLineWithoutIndent());
+            if (debug) System.out.println("NEW VALUE MULTILINE: '" + lastNode.getValue() + "'");
             return;
         }
         
@@ -134,8 +139,8 @@ public class Parser
             stack.push(node);
         }
         
-        // TODO Log end delete
-        System.out.println("\n" + currentRoot);
+        // Final log
+        if (debug) System.out.println("\n" + currentRoot);
     }
 
     private void processCreation(Node node) throws ParseException

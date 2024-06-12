@@ -14,11 +14,16 @@ public class LineParser
     private static final Pattern EMPTY_LINE = Pattern.compile("^\\s*$");
     private static final Pattern COMMENT_LINE = Pattern.compile("^\\s*\\#.*$");
     
-    public static IndentResult parseLine(String aLine, boolean lastNodeMultiline, int lastLevel) 
+    public static IndentResult parseLine(String aLine, boolean lastNodeMultiline, int stackSize) 
     {
         // Validate if empty line or comment
-        if (!lastNodeMultiline && (EMPTY_LINE.matcher(aLine).matches() || COMMENT_LINE.matcher(aLine).matches()))
-            return null;
+        if (!lastNodeMultiline)
+        {
+            if (EMPTY_LINE.matcher(aLine).matches() || COMMENT_LINE.matcher(aLine).matches())
+            {
+                return null;
+            }
+        }
 
         // Obtain the level and pointer
         int level = 0;
@@ -54,17 +59,14 @@ public class LineParser
             pointer++;
 
             // Validate that text can only have one more level, so no information is lost
-            if (lastNodeMultiline && level > lastLevel) break;
+            if (lastNodeMultiline && level >= stackSize) break;
         }
 
-        System.out.println("level = " + level);
-        System.out.println("last level = " + lastLevel);
-        System.out.println("last node multiline: " + lastNodeMultiline);
-        // In case of text, check if it's a comment or not (depends on the comment's level)
-        if (lastNodeMultiline && level <= lastLevel) 
+        // In case of text, check if it's a comment or not to preserve empty line (depends on the comment's level)
+        if (lastNodeMultiline && level < stackSize)
         {
-            if (EMPTY_LINE.matcher(aLine).matches())    return new IndentResult(lastLevel + 1, "");
-            if (COMMENT_LINE.matcher(aLine).matches())  return null;
+            if (EMPTY_LINE.matcher(aLine).matches())    return new IndentResult(stackSize, ""); // Preserve empty line
+            if (COMMENT_LINE.matcher(aLine).matches())  return null; // It's a comment
         }
 
         return new IndentResult(level, aLine.substring(pointer));
@@ -75,24 +77,4 @@ public class LineParser
         if (s.startsWith(UTF8_BOM)) s = s.substring(1);
         return s;
     }
-
-    
-    // ---------
-    // Test Main
-    // ---------
-
-    public static void main(String[] args) {
-        System.out.println("Start");
-
-        System.out.println(parseLine("\t\t   \t    A recipe is the instructions, materials, etc.", false, 0));
-        System.out.println(parseLine("4:A recipe is the instructions, materials, etc.", false, 0));
-        System.out.println(parseLine("  #4:A recipe is the instructions, materials, etc.", false, 0));
-        System.out.println(parseLine("  #4:A recipe is the instructions, materials, etc.", true, 0));
-        System.out.println(parseLine("  \t   \t   ", false, 1));
-        System.out.println(parseLine("  \t   \t   ", true, 1));
-        System.out.println(parseLine("", true, 1));
-
-        System.out.println("End");
-    }
-
 }
