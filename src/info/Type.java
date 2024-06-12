@@ -12,11 +12,11 @@ public class Type
     public static final String BOOLEAN      = "BOOLEAN";
     public static final String REGEX        = "REGEX";
     public static final String ENUM         = "ENUM";
-    public static final String DATE       	= "DATE";
+    public static final String DATE         = "DATE";
     public static final String TIMESTAMP    = "TIMESTAMP";
-    public static final String EMAIL       	= "EMAIL";
+    public static final String EMAIL        = "EMAIL";
     public static final String URL          = "URL";
-    public static final String HEXADECIMAL	= "HEXADECIMAL";
+    public static final String HEXADECIMAL  = "HEXADECIMAL";
     public static final String BASE64       = "BASE64";
     public static final String NAMESPACE    = "NAMESPACE";
     
