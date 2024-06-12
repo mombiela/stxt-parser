@@ -81,8 +81,8 @@ public class GrammarProcessor implements NodeProcessor
             node.setMultiline(true);
         
         // Check name
-        if (nodeName.equals(NAMESPACE)) updateNameSpace(node, nodeName);
-        else if (nodeName.equals(NODE)) updateNode(node);
+        if (nodeName.equals(NAMESPACE)) createNameSpace(node, nodeName);
+        else if (nodeName.equals(NODE)) updateCreateNode(node);
         
     }
 
@@ -109,16 +109,11 @@ public class GrammarProcessor implements NodeProcessor
     // Namespace
     // ---------
     
-    private void updateNameSpace(Node node, String nodeName) throws ParseException
+    private void createNameSpace(Node node, String nodeName) throws ParseException
     {
         if (node.getLevelCreation() != 0) 
             throw new ParseException("Namespace not in valid position: " + node.getLevelCreation(), node.getLineCreation());
         
-        createNewNamespace(node, nodeName);
-    }
-
-    private void createNewNamespace(Node node, String nodeName) throws ParseException
-    {
         // Create new namespace
         validateNamespaceFormat(node.getValue(), node.getLineCreation());
         currentNamespace = new Namespace();
@@ -130,11 +125,19 @@ public class GrammarProcessor implements NodeProcessor
     // Node
     // ----
     
-    private void updateNode(Node node) throws ParseException
+    private void updateCreateNode(Node node) throws ParseException
     {
         if (node.getLevelCreation() != 1) 
             throw new ParseException("Node not in valid position: " + node.getLevelCreation(), node.getLineCreation());
         
+        String name = node.getName().toLowerCase();
+        NamespaceNode nsNode = currentNamespace.getNode(name);
+        if (nsNode == null)
+        {
+            nsNode = new NamespaceNode();
+            nsNode.setName(name);
+            currentNamespace.setNode(name, nsNode);
+        }
     }
 
     // -------------------

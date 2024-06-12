@@ -13,6 +13,16 @@ public class Namespace
     {
         return nodes;
     }
+    
+    public NamespaceNode getNode(String name)
+    {
+        return nodes.get(name);
+    }
+
+    public void setNode(String name, NamespaceNode node)
+    {
+        nodes.put(name, node);
+    }
 
     public void setNodes(Map<String, NamespaceNode> nodes)
     {

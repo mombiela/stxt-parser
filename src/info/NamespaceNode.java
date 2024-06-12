@@ -1,12 +1,13 @@
 package info;
 
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 public class NamespaceNode
 {
     private String name;
     private String type;
-    private List<NamespaceChild> childs;
+    private Map<String, NamespaceChild> childs = new HashMap<>();
     
     public String getName()
     {
@@ -16,13 +17,13 @@ public class NamespaceNode
     {
         this.name = name;
     }
-    public List<NamespaceChild> getChilds()
+    public Map<String, NamespaceChild> getChilds()
     {
         return childs;
     }
-    public void setChilds(List<NamespaceChild> childs)
+    public void setChild(String name, NamespaceChild child)
     {
-        this.childs = childs;
+        this.childs.put(name, child);
     }
     public String getType()
     {
@@ -32,4 +33,17 @@ public class NamespaceNode
     {
         this.type = type;
     }    
+    @Override
+    public String toString()
+    {
+        StringBuilder builder = new StringBuilder();
+        builder.append("NamespaceNode [name=");
+        builder.append(name);
+        builder.append(", type=");
+        builder.append(type);
+        builder.append(", childs=");
+        builder.append(childs);
+        builder.append("]");
+        return builder.toString();
+    }
 }
