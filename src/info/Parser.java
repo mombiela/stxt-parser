@@ -154,7 +154,7 @@ public class Parser
     {
         for (NodeProcessor processor : nodeProcessors) 
         {
-            processor.processNodeOnCreation(node, stack.size());
+            processor.processNodeOnCreation(node);
         }
     }
 
@@ -194,9 +194,8 @@ public class Parser
     	    value = line.substring(i+1).trim();
     	}
     	
-    	Node node = new Node();
+    	Node node = new Node(lineNumber, currentLevel);
     	node.setName(name);
-    	node.setLineCreation(lineNumber);
     	node.setValue(value);
     	return node;
     }

@@ -13,21 +13,23 @@ public class Node
 
     private String name;
     private String value;
-    private List<Node> childs;
+    private List<Node> childs = new ArrayList<>();
     private int lineCreation;
+    private int levelCreation;
     private Map<String, Object> metadata = new HashMap<String, Object>();
     private boolean multiline;
 
+    public Node(int line, int level)
+    {
+        this.levelCreation = level;
+        this.lineCreation = line;
+    }
+    
     public void setMultiline(boolean multiline)
     {
         this.multiline = multiline;
     }
 
-    public Node()
-    {
-        this.childs = new ArrayList<>();
-    }
-    
     public boolean isMultiline()
     {
         return multiline;
@@ -81,11 +83,6 @@ public class Node
     public int getLineCreation()
     {
         return lineCreation;
-    }
-
-    public void setLineCreation(int lineCreation)
-    {
-        this.lineCreation = lineCreation;
     }
 
     // Fast access methods to children
@@ -147,5 +144,10 @@ public class Node
         if (i!=-1) valueShow = valueShow.substring(0, i) + "...";
         if (valueShow.length()>40) valueShow = valueShow.substring(0, 38) + "...";
         return value.length() + " chars: " + valueShow;
+    }
+
+    public int getLevelCreation()
+    {
+        return levelCreation;
     }    
 }

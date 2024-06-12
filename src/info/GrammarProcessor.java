@@ -53,15 +53,15 @@ public class GrammarProcessor implements NodeProcessor
     }
     
     @Override
-    public void processNodeOnCreation(Node node, int stackSize) throws ParseException 
+    public void processNodeOnCreation(Node node) throws ParseException 
     {
-        if (debug) System.out.println(".... Node creation: <" + node.getName() + "> stack: " + stackSize);
+        if (debug) System.out.println(".... Node creation: <" + node.getName() + "> stack: " + node.getLevelCreation());
         
         // Node name
         String nodeName = node.getName().toLowerCase();
         
         // First node special
-        if (stackSize == 0)
+        if (node.getLevelCreation() == 0)
         {
             TextSplitter nodeNameSplit = TextSplitter.split(nodeName);
             nodeName = nodeNameSplit.getCentralText();
@@ -81,7 +81,7 @@ public class GrammarProcessor implements NodeProcessor
             node.setMultiline(true);
         
         // Check name
-        if (nodeName.equals(NAMESPACE)) updateNameSpace(stackSize, node, nodeName);
+        if (nodeName.equals(NAMESPACE)) updateNameSpace(node, nodeName);
         
     }
 
@@ -108,9 +108,11 @@ public class GrammarProcessor implements NodeProcessor
     // Namespace
     // ---------
     
-    private void updateNameSpace(int stackSize, Node node, String nodeName) throws ParseException
+    private void updateNameSpace(Node node, String nodeName) throws ParseException
     {
-        if (stackSize != 0) throw new ParseException("Namespace not in valid position: " + stackSize, node.getLineCreation());
+        if (node.getLevelCreation() != 0) 
+            throw new ParseException("Namespace not in valid position: " + node.getLevelCreation(), node.getLineCreation());
+        
         createNewNamespace(node, nodeName);
     }
 
