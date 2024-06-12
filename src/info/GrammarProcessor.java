@@ -29,12 +29,17 @@ public class GrammarProcessor implements NodeProcessor
     public void processNodeOnCreation(Node node) throws ParseException 
     {
         if (debug) System.out.println(".... Node creation: <" + node.getName() + "> stack: " + node.getLevelCreation());
+    }
+
+    @Override
+    public void processNodeOnCompletion(Node node) throws ParseException 
+    {
+        if (debug) System.out.println(".... Node completion: " + node.getName());
         
         // Node name
         String nodeName = node.getName();
         
-        // First node special
-        if (node.getLevelCreation() == 0)
+        if (node.getLevelCreation()==0)
         {
             TextSplitter nodeNameSplit = TextSplitter.split(nodeName);
             nodeName = nodeNameSplit.getCentralText();
@@ -46,17 +51,9 @@ public class GrammarProcessor implements NodeProcessor
                 throw new ParseException("Line not valid", node.getLineCreation());
             
             createNameSpace(node, nodeName);
+            
+            for (Node n: node.getChilds()) updateNamespace(n);
         }
-        else
-        {
-            updateCreateNode(node);
-        }
-    }
-
-    @Override
-    public void processNodeOnCompletion(Node node) throws ParseException 
-    {
-        if (debug) System.out.println(".... Node completion: " + node.getName());
     }
 
     @Override
@@ -90,6 +87,11 @@ public class GrammarProcessor implements NodeProcessor
     // ----
     // Node
     // ----
+    
+    private void updateNamespace(Node node) 
+    {
+	// TODO Auto-generated method stub
+    }
     
     private void updateCreateNode(Node node) throws ParseException
     {

@@ -11,7 +11,7 @@ import java.util.Stack;
 
 public class Parser 
 {
-    private static final boolean debug = true;
+    private static final boolean debug = false;
     
     // ----------------
     // Parseo principal
