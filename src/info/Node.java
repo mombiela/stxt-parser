@@ -127,7 +127,7 @@ public class Node
         result.append("<" + name + " (line:" + lineCreation + ")> <" + getValueShort() + "> " + metadata);
         result.append("\n");
         
-        if (childs!=null & childs.size()>0)
+        if (childs!=null && childs.size()>0)
         {
             for (int j = 0; j < childs.size(); j++)
             {
