@@ -121,6 +121,7 @@ public class GrammarProcessor extends BasicProcessor
                     {
                         TextSplitter split = TextSplitter.split(value);
                         String num = split.getPrefix();
+                        if (num == null) throw new ParseException("Count is requiered", child.getLineCreation());
                         String namespace = split.getSuffix();
                         nsChild.setNum(num != null ? num : "*");
                         nsChild.setNamespace(namespace);
