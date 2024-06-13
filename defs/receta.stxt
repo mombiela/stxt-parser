@@ -10,7 +10,7 @@ Namespace (www.semantictext.info/namespace.stxt): www.kocinando.com/receta.stxt
 	    Ingredientes: (1)
 			Ingrediente: (+)
 	    		Cantidad: (1) NUMBER
-	    		Unidades: (1) (NUMBER)
+	    		Unidades: (1) NUMBER
 	    Pasos: (1)
 	    	Paso: (1) NUMBER
 	    	Descripción paso: (1) TEXT

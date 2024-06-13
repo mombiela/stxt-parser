@@ -73,12 +73,10 @@ public class GrammarProcessor extends BasicProcessor
     {
         String name = node.getName();
         String type = null;
-        String namespace = null;
         if (node.getValue()!=null)
         {
             TextSplitter nodeParts = TextSplitter.split(node.getValue());
             type = nodeParts.getCentralText();
-            namespace = nodeParts.getSuffix();
         }         
         
         // Nodo normal
@@ -89,7 +87,6 @@ public class GrammarProcessor extends BasicProcessor
             nsNode.setName(name);
             nsNode.setType(type);
             currentNamespace.setNode(name, nsNode);
-            if (Type.NAMESPACE.equals(type) && namespace!=null) nsNode.getValues().add(namespace);
             if (type != null) validateType(type, node);
             if (type == null) nsNode.setType(Type.getDefault());
         }
@@ -104,7 +101,7 @@ public class GrammarProcessor extends BasicProcessor
         if (childs != null)
         {
             if (Type.isMultiline(type) && childs.size()>0) 
-                throw new ParseException("Type " + type + " not allows childs", node.getLineCreation());
+                throw new ParseException("Type " + type + " not allows childs", childs.get(0).getLineCreation());
                 
             for (Node child: childs)
             {
@@ -124,11 +121,18 @@ public class GrammarProcessor extends BasicProcessor
                     {
                         TextSplitter split = TextSplitter.split(value);
                         String num = split.getPrefix();
+                        String namespace = split.getSuffix();
                         nsChild.setNum(num != null ? num : "*");
+                        nsChild.setNamespace(namespace);
+                        if (namespace != null && !Type.isValidNamespace(namespace))
+                        {
+                            throw new ParseException("Namespace not valid: " + namespace, child.getLineCreation());
+                        }
                     }
                     
-                    // process child
-                    updateNamespace(child);
+                    // process child (only if not contains namespace!)
+                    if (nsChild.getNamespace()==null)
+                        updateNamespace(child);
                 }
                 else
                 {

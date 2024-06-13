@@ -18,7 +18,6 @@ public class Type
     public static final String URL          = "URL";
     public static final String HEXADECIMAL  = "HEXADECIMAL";
     public static final String BASE64       = "BASE64";
-    public static final String NAMESPACE    = "NAMESPACE";
     
     private static final Set<String> MULTILINE_TYPES = new HashSet<>();
     private static final Set<String> SINGLELINE_TYPES = new HashSet<>();
@@ -41,7 +40,6 @@ public class Type
     	SINGLELINE_TYPES.add(TIMESTAMP);
     	SINGLELINE_TYPES.add(EMAIL);
     	SINGLELINE_TYPES.add(URL);
-    	SINGLELINE_TYPES.add(NAMESPACE);
     	
     	MULTILINE_TYPES.add(TEXT);
     	MULTILINE_TYPES.add(BASE64);
@@ -52,7 +50,7 @@ public class Type
     	
     	VALUES_TYPES.add(ENUM);
     	VALUES_TYPES.add(REGEX);
-    	VALUES_TYPES.add(NAMESPACE);
+    	//VALUES_TYPES.add(NAMESPACE);
     }
     
     public static boolean isValidType(String type)

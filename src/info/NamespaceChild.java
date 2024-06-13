@@ -39,8 +39,11 @@ public class NamespaceChild
         builder.append(name);
         builder.append(", num=");
         builder.append(num);
-        builder.append(", namespace=");
-        builder.append(namespace);
+        if (namespace != null)
+        {
+            builder.append(", namespace=");
+            builder.append(namespace);
+        }
         builder.append("]");
         return builder.toString();
     }    
