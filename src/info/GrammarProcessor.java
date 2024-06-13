@@ -109,6 +109,9 @@ public class GrammarProcessor extends BasicProcessor
                 if (!childName.isEmpty())
                 {
                     // add child to node
+                    NamespaceChild nsChild = new NamespaceChild();
+                    nsChild.setName(childName);
+                    nsNode.getChilds().put(childName, nsChild);
                     
                     // process child
                     updateNamespace(child);
@@ -116,14 +119,8 @@ public class GrammarProcessor extends BasicProcessor
                 else
                 {
                     // VALUE/PATTERN/NAMESPACE
-                    if (Type.isValuesType(type))
-                    {
-                        nsNode.getValues().add(child.getValue());
-                    }
-                    else
-                    {
-                        throw new ParseException("Type not allow values: " + type, node.getLineCreation());
-                    }
+                    if (Type.isValuesType(type))    nsNode.getValues().add(child.getValue());
+                    else                            throw new ParseException("Type not allow values: " + type, node.getLineCreation());
                 }
             }
         }
