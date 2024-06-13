@@ -5,12 +5,6 @@ import java.util.List;
 
 public class NamespaceProcessor extends NodeBasicProcessor
 {
-    // -----------------------------
-    // Configuration and static vars
-    // -----------------------------
-    
-    private static final String ROOT_NAMESPACE = "www.semantictext.info/namespace.stxt";
-    
     // -----------
     // Main parser
     // -----------
@@ -37,7 +31,7 @@ public class NamespaceProcessor extends NodeBasicProcessor
             LineSplitter nodeNameSplit = LineSplitter.split(nodeName);
             nodeName = nodeNameSplit.centralText;
             
-            if (!ROOT_NAMESPACE.contentEquals(nodeNameSplit.suffix)) 
+            if (!Constants.ROOT_NAMESPACE.contentEquals(nodeNameSplit.suffix)) 
                 throw new ParseException("Namespace not valid: " + nodeNameSplit.suffix, node.getLineCreation());
             
             if (nodeNameSplit.prefix != null)
