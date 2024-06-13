@@ -3,13 +3,12 @@ package info;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GrammarProcessor implements NodeProcessor
+public class GrammarProcessor extends BasicProcessor
 {
     // -----------------------------
     // Configuration and static vars
     // -----------------------------
     
-    private static final boolean debug = true;
     private static final String ROOT_NAMESPACE = "www.semantictext.info/namespace.stxt";
     
     // -----------
@@ -18,19 +17,12 @@ public class GrammarProcessor implements NodeProcessor
     
     private List<Namespace> namespaces = new ArrayList<>();
     private Namespace currentNamespace = null;
-    private NamespaceNode lastNode = null;
     
     public List<Namespace> getNamespaces()
     {
         return namespaces;
     }
     
-    @Override
-    public void processNodeOnCreation(Node node) throws ParseException 
-    {
-        if (debug) System.out.println(".... Node creation: <" + node.getName() + "> stack: " + node.getLevelCreation());
-    }
-
     @Override
     public void processNodeOnCompletion(Node node) throws ParseException 
     {
@@ -41,6 +33,7 @@ public class GrammarProcessor implements NodeProcessor
         
         if (node.getLevelCreation()==0)
         {
+            // Validation
             TextSplitter nodeNameSplit = TextSplitter.split(nodeName);
             nodeName = nodeNameSplit.getCentralText();
             
@@ -49,25 +42,13 @@ public class GrammarProcessor implements NodeProcessor
             
             if (nodeNameSplit.getPrefix()!=null)
                 throw new ParseException("Line not valid", node.getLineCreation());
-            
+
+            // Create namespace
             createNameSpace(node, nodeName);
-            
             for (Node n: node.getChilds()) updateNamespace(n);
         }
     }
 
-    @Override
-    public void processBeforeAdd(Node parent, Node child)
-    {
-        if (debug) System.out.println(".... Before add " + child.getName() + " to " + parent.getName());
-    }
-
-    @Override
-    public void processAfterAdd(Node parent, Node child)
-    {
-        if (debug) System.out.println(".... After add " + child.getName() + " to " + parent.getName());
-    }
-    
     // ---------
     // Namespace
     // ---------
@@ -88,77 +69,66 @@ public class GrammarProcessor implements NodeProcessor
     // Node
     // ----
     
-    private void updateNamespace(Node node) 
+    private void updateNamespace(Node node) throws ParseException 
     {
-	// TODO Auto-generated method stub
-    }
-    
-    private void updateCreateNode(Node node) throws ParseException
-    {
-        String name = node.getName().trim();
-        
-        if (name.length()==0)
+        String name = node.getName();
+        String type = null;
+        String count = null;
+        String namespace = null;
+        if (node.getValue()!=null)
         {
-            // Nodo de valores (ENUM/REGEX)
-            // add to pattern or values node.getValue()
+            TextSplitter nodeParts = TextSplitter.split(node.getValue());
+            count = nodeParts.getPrefix();
+            type = nodeParts.getCentralText();
+            namespace = nodeParts.getSuffix();
+        }         
+        
+        // Nodo normal
+        NamespaceNode nsNode = currentNamespace.getNode(name);
+        if (nsNode == null)
+        {
+            nsNode = new NamespaceNode();
+            nsNode.setName(name);
+            nsNode.setType(type);
+            currentNamespace.setNode(name, nsNode);
+            if (Type.NAMESPACE.equals(type) && namespace!=null) nsNode.getValues().add(namespace);
+            if (type != null) validateType(type, node);
         }
         else
         {
-            String type = null;
-            String count = null;
-            String namespace = null;
-            if (node.getValue()!=null)
-            {
-                TextSplitter nodeParts = TextSplitter.split(node.getValue());
-                count = nodeParts.getPrefix();
-                type = nodeParts.getCentralText();
-                namespace = nodeParts.getSuffix();
-            }            
-            
-            // Nodo normal
-            NamespaceNode nsNode = currentNamespace.getNode(name);
-            if (nsNode == null)
-            {
-                nsNode = new NamespaceNode();
-                nsNode.setName(name);
-                nsNode.setType(type);
-                currentNamespace.setNode(name, nsNode);
-            }
-            else
-            {
-        	if (type != null) 
-        	    throw new ParseException("Type should be defined the first time only", node.getLineCreation());
-            }
-            
-            // Buscamos tipo
-            
+            if (type != null) 
+                throw new ParseException("Type should be defined the first time only", node.getLineCreation());
         }
         
-        /*
-        
-        String name = nodeParts.getCentralText().toLowerCase();
-        String type = nodeParts.getSuffix();
-        if (type != null) type = type.toUpperCase();
-        // Update type
-        if (type != null)
+        List<Node> childs = node.getChilds();
+        if (childs != null)
         {
-            if (nsNode.getType() == null)
+            for (Node child: childs)
             {
-                validateType(type, node);
-                nsNode.setType(type);
-            }
-            else
-            {
-                // check equals
-                if (!nsNode.getType().equals(type))
+                String childName = child.getName();
+                if (!childName.isEmpty())
                 {
-                    throw new ParseException("Type alredy defined: " + nsNode.getType() + " != " + type, node.getLineCreation());
+                    // add child to node
+                    
+                    // process child
+                    updateNamespace(child);
+                }
+                else
+                {
+                    // VALUE/PATTERN/NAMESPACE
+                    if (Type.isValuesType(type))
+                    {
+                        nsNode.getValues().add(child.getValue());
+                    }
+                    else
+                    {
+                        throw new ParseException("Type not allow values: " + type, node.getLineCreation());
+                    }
                 }
             }
         }
-        */
     }
-
+    
     // -------------------
     // Métodos utilitarios
     // -------------------

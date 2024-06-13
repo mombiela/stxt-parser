@@ -49,7 +49,7 @@ public class TestParser02 extends AbstractTestParser
         for (String nodeName: n.getNodes().keySet())
         {
             NamespaceNode node = n.getNode(nodeName);
-            System.out.println("NODE: " + node.getName() + ", type: " + node.getType());
+            System.out.println("NODE: " + node.getName() + ", type: " + node.getType() + " -> " + node.getValues());
             for (String childName: node.getChilds().keySet())
             {
                 NamespaceChild child = node.getChilds().get(childName);

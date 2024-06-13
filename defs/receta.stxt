@@ -15,8 +15,8 @@ Namespace (www.semantictext.info/namespace.stxt): www.kocinando.com/receta.stxt
 	    	Paso: (1) NUMBER
 	    	Descripción paso: (1) TEXT
 		Dificultad: (?) ENUM
-		   	: 'fácil'
-		   	: 'media'
-	    	: 'difícil'
+		   	: fácil
+		   	: media
+	    	: difícil
 	    Calorias: (?) NUMBER
 	    Comensales: NUMBER

@@ -1,6 +1,7 @@
 package info;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
@@ -9,17 +10,8 @@ public class NamespaceNode
     private String name;
     private String type;
     private Map<String, NamespaceChild> childs = new HashMap<>();
-    private String pattern;
-    private Set<String> values = null;
+    private Set<String> values = new HashSet<String>();
     
-    public String getPattern()
-    {
-        return pattern;
-    }
-    public void setPattern(String pattern)
-    {
-        this.pattern = pattern;
-    }
     public Set<String> getValues()
     {
         return values;
@@ -66,8 +58,6 @@ public class NamespaceNode
         builder.append(type);
         builder.append(", values=");
         builder.append(values);
-        builder.append(", pattern=");
-        builder.append(pattern);
         builder.append(", childs=");
         builder.append(childs);
         builder.append("]");

@@ -12,7 +12,10 @@ Namespace (www.semantictext.info/namespace.stxt): www.semantictext.info/namespac
 #   =====
 #   
 #   STRING: Literal of text (**DEFAULT TYPE**)
-#   NAMESPACE: A valid name of namespace (url without https:// ending with .stxt)
+#   NAMESPACE: A valid name of namespace (url without https:// ending with .stxt). Example
+#		Document: (1) NAMESPACE
+#			:www.documenta.com/document.stxt
+#		Document: (1) NAMESPACE (www.documenta.com/document.stxt)
 #   TEXT (multiline): Multiline text
 #   NUMBER: 123, -123, 12.55, -3.14296, -2.5e-7,...
 #   BOOLEAN: true / false

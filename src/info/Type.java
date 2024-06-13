@@ -23,6 +23,7 @@ public class Type
     private static final Set<String> MULTILINE_TYPES = new HashSet<>();
     private static final Set<String> SINGLELINE_TYPES = new HashSet<>();
     private static final Set<String> ALL_TYPES = new HashSet<>();
+    private static final Set<String> VALUES_TYPES = new HashSet<>();
     
     static
     {
@@ -43,6 +44,10 @@ public class Type
     	
     	ALL_TYPES.addAll(SINGLELINE_TYPES);
     	ALL_TYPES.addAll(MULTILINE_TYPES);
+    	
+    	VALUES_TYPES.add(ENUM);
+    	VALUES_TYPES.add(REGEX);
+    	VALUES_TYPES.add(NAMESPACE);
     }
     
     public static boolean isValidType(String type)
@@ -52,6 +57,10 @@ public class Type
     public static boolean isMultiline(String type)
     {
         return MULTILINE_TYPES.contains(type);
+    }
+    public static boolean isValuesType(String type)
+    {
+        return VALUES_TYPES.contains(type);
     }
     public static boolean isValidNamespace(String namespace)
     {

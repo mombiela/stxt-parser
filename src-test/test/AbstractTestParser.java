@@ -12,6 +12,7 @@ public class AbstractTestParser
     {
         parser = new Parser();
         grammarProcessor = new GrammarProcessor();
+        //grammarProcessor.debug = true;
         parser.addNodeProcessor(grammarProcessor);
     }
 }

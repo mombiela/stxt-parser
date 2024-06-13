@@ -14,7 +14,7 @@ Namespace (www.semantictext.info/namespace.stxt): www.dokumentando.com/documento
         Codigo Postal: (1) REGEX
         	: ^\d{5}$
         Es Público: (1) BOOLEAN 
-        Color Tema: ? HEXADECIMAL 
+        Color Tema: (?) HEXADECIMAL 
         Secciones: (1)
 	        Sección: (+)
         Tipo Documento: (1) ENUM
