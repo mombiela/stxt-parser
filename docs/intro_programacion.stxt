@@ -1,7 +1,8 @@
-documento(www.dokumentando.com/documento.stxt):
+Documento(www.dokumentando.com/documento.stxt): 123456-179
+
     titulo: Introducción a la Programación
     autor: Juan Pérez
-    cuerpo:
+    cuerpo
         La programación es el proceso de crear software mediante la escritura de código.
         Este documento proporciona una visión general de los conceptos básicos de programación.
     fecha creacion: 2024-06-08

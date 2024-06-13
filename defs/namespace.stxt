@@ -57,22 +57,34 @@ Namespace (www.semantictext.info/namespace.stxt): www.semantictext.info/namespac
 #   
 #   Definition (www.semantictext.info/namespace.stxt): www.sample_namespace.com/simple_document.stxt
 #   
-#       Node: document
-#           Child: (1) title
-#           Child: (?) autor
-#           Child: (*) reference
-#           Child: (?) sections
+#       document
+#           title: (1)
+#           autor: (?)
+#           reference: (*)
+#           sections: (?)
 #   
-#       Node: secctions
-#       	Child: (+) section
-#       
-#       Node: section
-#           Child: (?) metadata (www.sample_namespace.com/other_document.stxt) 
-#           Child: (1) content (TEXT)
+#       	secctions: (1)
+#       		section: (+)
+#					metadata: (?) (www.sample_namespace.com/other_document.stxt) 
+#           		content: (1) TEXT
 #           
 #   ----------------
 #   Example document
 #   ----------------
 #   
-#   Document (www.sample_namespace.com/simple_document.stxt):
+#   Document (www.sample_namespace.com/simple_document.stxt)
 #   	Title: A title
+#		Autor: An autor
+#		Reference: Ref 1
+#		Reference: Ref 2
+#		Secions:
+#			Section: Section 1
+#				Content
+#					This is a multiline content
+#					Second line
+#						<xml>
+#							Demo
+#						</xml>
+
+
+

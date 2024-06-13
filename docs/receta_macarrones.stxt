@@ -2,7 +2,8 @@
 # Receta macarrones
 # -----------------
 
-documento(www.dokumentando.com/documento.stxt):
+Documento(www.dokumentando.com/documento.stxt)
+
     titulo: Receta de Pizza de Jamón
     autor: María López
     cuerpo:
