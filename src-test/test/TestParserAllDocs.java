@@ -2,7 +2,9 @@ package test;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import org.junit.jupiter.api.Test;
@@ -15,6 +17,8 @@ import info.Parser;
 
 public class TestParserAllDocs
 {
+    private static final boolean DEBUG = false;
+    
     public static void main(String[] args) throws IOException, ParseException
     {
         new TestParserAllDocs().mainTest();
@@ -28,11 +32,23 @@ public class TestParserAllDocs
         Set<String> multilineNodes = new HashSet<>();
         multilineNodes.add("contenido");
         multilineNodes.add("cuerpo");
+        multilineNodes.add("Foto");
+        multilineNodes.add("observacion");    
+        multilineNodes.add("Preparación");
+        multilineNodes.add("text");
+        multilineNodes.add("Descripción");
+        multilineNodes.add("Observaciones");
+        multilineNodes.add("binary");
+        multilineNodes.add("hexadecimal");
+        multilineNodes.add("base64");
         
         // Create parser
         Parser parser = createBasicParser(multilineNodes);
         
-        File[] files = new File("docs").listFiles();
+        List<File> files = new ArrayList<>();
+        for (File f: new File("docs").listFiles()) files.add(f);
+        for (File f: new File("examples").listFiles()) files.add(f);
+        
         for (File f: files)
         {
             if (!f.getName().endsWith(".stxt")) continue;
@@ -54,7 +70,7 @@ public class TestParserAllDocs
         Parser parser = new Parser();
         BasicProcessor basicProcessor = new BasicProcessor();
         basicProcessor.setMultilineNodes(multilineNodes);
-        basicProcessor.debug = true;
+        basicProcessor.debug = DEBUG;
         parser.addNodeProcessor(basicProcessor);
         
         return parser;
