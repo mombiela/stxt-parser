@@ -116,7 +116,7 @@ public class Node
         StringBuffer result = new StringBuffer();
         
         for (int i = 0; i<level; i++) result.append("    ");
-        result.append("<" + name + " (line:" + lineCreation + ")> <" + getValueShort() + "> " + metadata);
+        result.append("<" + name + " (line:" + lineCreation + ") " + metadata + ": " + getValueShort());
         result.append("\n");
         
         if (childs!=null && childs.size()>0)
@@ -133,12 +133,10 @@ public class Node
 
     private String getValueShort()
     {
-        if (value == null) return "NULL";
+        if (value == null) return "<NULL>";
         String valueShow = value;
-        int i = valueShow.indexOf("\n");
-        if (i!=-1) valueShow = valueShow.substring(0, i) + "...";
-        if (valueShow.length()>40) valueShow = valueShow.substring(0, 38) + "...";
-        return value.length() + " chars: " + valueShow;
+        valueShow = valueShow.replaceAll("\n", "\\\\n");
+        return valueShow;
     }
 
     public int getLevelCreation()
