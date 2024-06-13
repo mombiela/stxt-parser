@@ -55,7 +55,7 @@ public class Parser
         currentLevel = 0;
         
         // Sanitary check
-        content = LineParser.removeUTF8BOM(content);
+        content = LineIndent.removeUTF8BOM(content);
 	
         // Get reader
         BufferedReader in = new BufferedReader(new StringReader(content));
@@ -83,26 +83,26 @@ public class Parser
         boolean lastNodeMultiline = lastNode != null && lastNode.isMultiline();
         
         // Parse Line
-        IndentResult result = LineParser.parseLine(line, lastNodeMultiline, stack.size());
+        LineIndent result = LineIndent.parseLine(line, lastNodeMultiline, stack.size());
         if (result == null) return;
         showLine(line, result);
         
         // Multiline
-        if (lastNodeMultiline && result.getIndentLevel()>=stack.size())
+        if (lastNodeMultiline && result.indentLevel>=stack.size())
         {
             String lastValue = lastNode.getValue();
-            if (lastValue != null)  lastNode.setValue(lastValue + "\n" + result.getLineWithoutIndent());
-            else                    lastNode.setValue(result.getLineWithoutIndent());
+            if (lastValue != null)  lastNode.setValue(lastValue + "\n" + result.lineWithoutIndent);
+            else                    lastNode.setValue(result.lineWithoutIndent);
 
             showCurrentRoot();
             return;
         }
         
         // Normal parser
-        if (result.getIndentLevel() > currentLevel + 1) 
-            throw new ParseException("Level of indent incorrect: " + result.getIndentLevel(), lineNumber);
+        if (result.indentLevel > currentLevel + 1) 
+            throw new ParseException("Level of indent incorrect: " + result.indentLevel, lineNumber);
         
-        currentLevel = result.getIndentLevel();
+        currentLevel = result.indentLevel;
         Node node = createNode(result);
         processCreation(node);
 
@@ -143,7 +143,7 @@ public class Parser
         if (debug) System.out.println("\n" + currentRoot);
     }
 
-    private void showLine(String line, IndentResult result)
+    private void showLine(String line, LineIndent result)
     {
         if (debug)
         {
@@ -184,9 +184,9 @@ public class Parser
         }
     }    
 
-    private Node createNode(IndentResult result) 
+    private Node createNode(LineIndent result) 
     {
-    	String line = result.getLineWithoutIndent();
+    	String line = result.lineWithoutIndent;
     	String name = line;
     	String value = null;
     	

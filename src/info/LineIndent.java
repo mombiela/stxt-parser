@@ -2,10 +2,19 @@ package info;
 
 import java.util.regex.Pattern;
 
-public class LineParser
+public class LineIndent
 {
     public static final String UTF8_BOM = "\uFEFF";
 
+    public final int indentLevel;
+    public final String lineWithoutIndent;
+    
+    private LineIndent(int level, String line)
+    {
+        this.indentLevel = level;
+        this.lineWithoutIndent = line;
+    }
+    
     // ---------
     // Constants
     // ---------
@@ -14,7 +23,7 @@ public class LineParser
     private static final Pattern EMPTY_LINE = Pattern.compile("^\\s*$");
     private static final Pattern COMMENT_LINE = Pattern.compile("^\\s*\\#.*$");
     
-    public static IndentResult parseLine(String aLine, boolean lastNodeMultiline, int stackSize) 
+    public static LineIndent parseLine(String aLine, boolean lastNodeMultiline, int stackSize) 
     {
         // Validate if empty line or comment
         if (!lastNodeMultiline)
@@ -65,11 +74,11 @@ public class LineParser
         // In case of text, check if it's a comment or not to preserve empty line (depends on the comment's level)
         if (lastNodeMultiline && level < stackSize)
         {
-            if (EMPTY_LINE.matcher(aLine).matches())    return new IndentResult(stackSize, ""); // Preserve empty line
+            if (EMPTY_LINE.matcher(aLine).matches())    return new LineIndent(stackSize, ""); // Preserve empty line
             if (COMMENT_LINE.matcher(aLine).matches())  return null; // It's a comment
         }
 
-        return new IndentResult(level, aLine.substring(pointer));
+        return new LineIndent(level, aLine.substring(pointer));
     }
 
     public static String removeUTF8BOM(String s) 
