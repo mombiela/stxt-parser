@@ -3,6 +3,8 @@ package info;
 import java.net.URL;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Type 
 {
@@ -23,6 +25,18 @@ public class Type
     private static final Set<String> SINGLELINE_TYPES = new HashSet<>();
     private static final Set<String> ALL_TYPES = new HashSet<>();
     private static final Set<String> VALUES_TYPES = new HashSet<>();
+    private static final Set<String> ALLOWED_COUNT = new HashSet<>();
+    
+    private static final Pattern P_BINARY       = Pattern.compile("^(0|1|\\s)+$");
+    private static final Pattern P_BOOLEAN      = Pattern.compile("^0|1$");
+    private static final Pattern P_HEXADECIMAL  = Pattern.compile("^([a-f0-9]|\\s)+$");
+    private static final Pattern P_INTEGER      = Pattern.compile("^(\\-|\\+)?\\d+$");
+    private static final Pattern P_NATURAL      = Pattern.compile("^\\d+$");
+    private static final Pattern P_NUMBER       = Pattern.compile("^(\\-|\\+)?\\d+\\.\\d+(e(\\-|\\+)?\\d+)?$");
+    private static final Pattern P_RATIONAL     = Pattern.compile("^(\\-|\\+)?\\d+\\/\\d+$");
+    
+    private static final Pattern COUNT = Pattern.compile("^\\d+(\\+|-)?$");
+    
     
     public static String getDefault()
     {
@@ -50,7 +64,10 @@ public class Type
     	
     	VALUES_TYPES.add(ENUM);
     	VALUES_TYPES.add(REGEX);
-    	//VALUES_TYPES.add(NAMESPACE);
+    	
+    	ALLOWED_COUNT.add("*");
+    	ALLOWED_COUNT.add("+");
+    	ALLOWED_COUNT.add("?");
     }
     
     public static boolean isValidType(String type)
@@ -79,5 +96,15 @@ public class Type
             return false;
         }
     }
+    public static boolean isValidCount(String num)
+    {
+        return ALLOWED_COUNT.contains(num) || validateValue(COUNT, num);
+    }
+    
+    private static boolean validateValue(Pattern pattern, String value)
+    {
+        Matcher m = pattern.matcher(value);
+        return m.matches();
+    }    
 
 }

@@ -122,6 +122,7 @@ public class NamespaceProcessor extends NodeBasicProcessor
                         LineSplitter split = LineSplitter.split(value);
                         String num = split.prefix;
                         if (num == null) throw new ParseException("Count is requiered", child.getLineCreation());
+                        if (!Type.isValidCount(num)) throw new ParseException("Count is not valid: " + num, child.getLineCreation());
                         String namespace = split.suffix;
                         nsChild.setNum(num != null ? num : "*");
                         nsChild.setNamespace(namespace);
