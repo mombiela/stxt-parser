@@ -34,13 +34,13 @@ public class NamespaceProcessor extends BasicProcessor
         if (node.getLevelCreation()==0)
         {
             // Validation
-            TextSplitter nodeNameSplit = TextSplitter.split(nodeName);
-            nodeName = nodeNameSplit.getCentralText();
+            LineSplitter nodeNameSplit = LineSplitter.split(nodeName);
+            nodeName = nodeNameSplit.centralText;
             
-            if (!nodeNameSplit.getSuffix().equals(ROOT_NAMESPACE)) 
-                throw new ParseException("Namespace not valid: " + nodeNameSplit.getSuffix(), node.getLineCreation());
+            if (!ROOT_NAMESPACE.contentEquals(nodeNameSplit.suffix)) 
+                throw new ParseException("Namespace not valid: " + nodeNameSplit.suffix, node.getLineCreation());
             
-            if (nodeNameSplit.getPrefix()!=null)
+            if (nodeNameSplit.prefix != null)
                 throw new ParseException("Line not valid", node.getLineCreation());
 
             // Create namespace
@@ -75,8 +75,8 @@ public class NamespaceProcessor extends BasicProcessor
         String type = null;
         if (node.getValue()!=null)
         {
-            TextSplitter nodeParts = TextSplitter.split(node.getValue());
-            type = nodeParts.getCentralText();
+            LineSplitter nodeParts = LineSplitter.split(node.getValue());
+            type = nodeParts.centralText;
         }         
         
         // Nodo normal
@@ -119,10 +119,10 @@ public class NamespaceProcessor extends BasicProcessor
                     String value = child.getValue();
                     if (value != null)
                     {
-                        TextSplitter split = TextSplitter.split(value);
-                        String num = split.getPrefix();
+                        LineSplitter split = LineSplitter.split(value);
+                        String num = split.prefix;
                         if (num == null) throw new ParseException("Count is requiered", child.getLineCreation());
-                        String namespace = split.getSuffix();
+                        String namespace = split.suffix;
                         nsChild.setNum(num != null ? num : "*");
                         nsChild.setNamespace(namespace);
                         if (namespace != null)
@@ -130,7 +130,7 @@ public class NamespaceProcessor extends BasicProcessor
                             if (!Type.isValidNamespace(namespace))
                                 throw new ParseException("Namespace not valid: " + namespace, child.getLineCreation());
                             
-                            if (split.getCentralText()!=null)
+                            if (split.centralText!=null)
                                 throw new ParseException("Namespace not allow type: " + namespace, child.getLineCreation());
                         }
                     }

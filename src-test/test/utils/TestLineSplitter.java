@@ -1,8 +1,8 @@
 package test.utils;
 
-import info.TextSplitter;
+import info.LineSplitter;
 
-public class TestTextSplitter
+public class TestLineSplitter
 {
     public static void main(String[] args)
     {
@@ -15,10 +15,10 @@ public class TestTextSplitter
 
     private static void testSplit(String input)
     {
-        TextSplitter splitter1 = TextSplitter.split(input);
+        LineSplitter splitter1 = LineSplitter.split(input);
         System.out.println("*** INPUT: " + input);
-        System.out.println("Prefix: " + splitter1.getPrefix());
-        System.out.println("Central Text: " + splitter1.getCentralText());
-        System.out.println("Suffix: " + splitter1.getSuffix());
+        System.out.println("Prefix: " + splitter1.prefix);
+        System.out.println("Central Text: " + splitter1.centralText);
+        System.out.println("Suffix: " + splitter1.suffix);
     }
 }
