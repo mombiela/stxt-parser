@@ -12,11 +12,11 @@ import info.NamespaceNode;
 import info.Node;
 import info.ParseException;
 
-public class TestParser02 extends AbstractTestParser
+public class TestParserAllDefs extends AbstractTestParser
 {
     public static void main(String[] args) throws IOException, ParseException
     {
-        new TestParser02().mainTest();
+        new TestParserAllDefs().mainTest();
     }
     
     @Test
