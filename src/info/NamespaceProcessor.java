@@ -3,7 +3,7 @@ package info;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GrammarProcessor extends BasicProcessor
+public class NamespaceProcessor extends BasicProcessor
 {
     // -----------------------------
     // Configuration and static vars
