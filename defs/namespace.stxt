@@ -12,10 +12,6 @@ Namespace (www.semantictext.info/namespace.stxt): www.semantictext.info/namespac
 #   =====
 #   
 #   STRING: Literal of text (**DEFAULT TYPE**)
-#   NAMESPACE: A valid name of namespace (url without https:// ending with .stxt). Example
-#		Document: (1) NAMESPACE
-#			:www.documenta.com/document.stxt
-#		Document: (1) NAMESPACE (www.documenta.com/document.stxt)
 #   TEXT (multiline): Multiline text
 #   NUMBER: 123, -123, 12.55, -3.14296, -2.5e-7,...
 #   BOOLEAN: true / false
@@ -26,6 +22,7 @@ Namespace (www.semantictext.info/namespace.stxt): www.semantictext.info/namespac
 #   REGEX: Regular Expresion. Example:
 #   	Postal Code: REGEX
 #			: ^\d{5}$
+#           : ^\d{12}$
 #   HEXADECIMAL (multiline): 536F6D652048657861646563696D616C2056616C7565
 #   BASE64 (multiline): Base64 value. Example: U29tZSBCYXNlNjQgVmFsdWU=
 #   ENUM: Composed of allowed values. Example:

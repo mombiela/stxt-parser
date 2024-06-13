@@ -125,9 +125,13 @@ public class GrammarProcessor extends BasicProcessor
                         String namespace = split.getSuffix();
                         nsChild.setNum(num != null ? num : "*");
                         nsChild.setNamespace(namespace);
-                        if (namespace != null && !Type.isValidNamespace(namespace))
+                        if (namespace != null)
                         {
-                            throw new ParseException("Namespace not valid: " + namespace, child.getLineCreation());
+                            if (!Type.isValidNamespace(namespace))
+                                throw new ParseException("Namespace not valid: " + namespace, child.getLineCreation());
+                            
+                            if (split.getCentralText()!=null)
+                                throw new ParseException("Namespace not allow type: " + namespace, child.getLineCreation());
                         }
                     }
                     
