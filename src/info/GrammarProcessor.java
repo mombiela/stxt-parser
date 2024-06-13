@@ -73,12 +73,10 @@ public class GrammarProcessor extends BasicProcessor
     {
         String name = node.getName();
         String type = null;
-        String count = null;
         String namespace = null;
         if (node.getValue()!=null)
         {
             TextSplitter nodeParts = TextSplitter.split(node.getValue());
-            count = nodeParts.getPrefix();
             type = nodeParts.getCentralText();
             namespace = nodeParts.getSuffix();
         }         
@@ -108,10 +106,21 @@ public class GrammarProcessor extends BasicProcessor
                 String childName = child.getName();
                 if (!childName.isEmpty())
                 {
-                    // add child to node
+                    // New child
                     NamespaceChild nsChild = new NamespaceChild();
-                    nsChild.setName(childName);
                     nsNode.getChilds().put(childName, nsChild);
+                    
+                    // Add name
+                    nsChild.setName(childName);
+
+                    // Add count
+                    String value = child.getValue();
+                    if (value != null)
+                    {
+                        TextSplitter split = TextSplitter.split(value);
+                        String num = split.getPrefix();
+                        nsChild.setNum(num != null ? num : "*");
+                    }
                     
                     // process child
                     updateNamespace(child);
