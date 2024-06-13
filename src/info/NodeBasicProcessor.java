@@ -2,7 +2,7 @@ package info;
 
 import java.util.Set;
 
-public class BasicProcessor implements NodeProcessor
+public class NodeBasicProcessor implements NodeProcessor
 {
     // -------------
     // Configuration

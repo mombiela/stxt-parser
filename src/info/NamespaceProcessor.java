@@ -3,7 +3,7 @@ package info;
 import java.util.ArrayList;
 import java.util.List;
 
-public class NamespaceProcessor extends BasicProcessor
+public class NamespaceProcessor extends NodeBasicProcessor
 {
     // -----------------------------
     // Configuration and static vars

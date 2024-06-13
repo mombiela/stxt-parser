@@ -9,9 +9,8 @@ import java.util.Set;
 
 import org.junit.jupiter.api.Test;
 
-import info.BasicProcessor;
-import info.Document;
 import info.Node;
+import info.NodeBasicProcessor;
 import info.ParseException;
 import info.Parser;
 
@@ -57,8 +56,8 @@ public class TestParserAllDocs
             System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
             System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
             System.out.println(f.getAbsolutePath());
-            Document doc = parser.parseFile(f);
-            Node n = doc.getDocuments().get(0);
+            List<Node> docs = parser.parseFile(f);
+            Node n = docs.get(0);
             System.out.println(n);
         }
         
@@ -68,7 +67,7 @@ public class TestParserAllDocs
     private Parser createBasicParser(Set<String> multilineNodes)
     {
         Parser parser = new Parser();
-        BasicProcessor basicProcessor = new BasicProcessor();
+        NodeBasicProcessor basicProcessor = new NodeBasicProcessor();
         basicProcessor.setMultilineNodes(multilineNodes);
         basicProcessor.debug = DEBUG;
         parser.addNodeProcessor(basicProcessor);

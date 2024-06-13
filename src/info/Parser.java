@@ -22,13 +22,13 @@ public class Parser
         nodeProcessors.add(processor);
     }
 
-    public Document parseURI(String uri) throws IOException, ParseException
+    public List<Node> parseURI(String uri) throws IOException, ParseException
     {
         String content = Utils.getUrlContent(new URL(uri));
         return parse(content);
     }
     
-    public Document parseFile(File srcFile) throws IOException, ParseException
+    public List<Node> parseFile(File srcFile) throws IOException, ParseException
     {
         String content = UtilsFile.readFileContent(srcFile);
         return parse(content);
@@ -39,16 +39,16 @@ public class Parser
     // ---------------------------------
     
     private List<NodeProcessor> nodeProcessors = new ArrayList<>();
-    Document document = new Document();
+    List<Node> document = null;
     Stack<Node> stack = new Stack<>();
     Node currentRoot = null;
     int lineNumber = 0;
     int currentLevel = 0;
     
-    public Document parse(String content) throws ParseException, IOException 
+    public List<Node> parse(String content) throws ParseException, IOException 
     {
         // Inicialize all
-        document = new Document();
+        document = new ArrayList<Node>();
         stack = new Stack<>();
         currentRoot = null;
         lineNumber = 0;
@@ -70,7 +70,7 @@ public class Parser
         if (currentRoot != null) 
         {
             processCompletion(currentRoot);
-            document.addDocument(currentRoot);
+            document.add(currentRoot);
         }
         
         return document;
@@ -111,7 +111,7 @@ public class Parser
             if (currentRoot != null) 
             {
                 processCompletion(currentRoot);
-                document.addDocument(currentRoot);
+                document.add(currentRoot);
             }
             currentRoot = node;
             stack.clear();

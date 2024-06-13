@@ -2,10 +2,10 @@ package test;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-import info.Document;
 import info.Namespace;
 import info.NamespaceChild;
 import info.NamespaceNode;
@@ -33,8 +33,8 @@ public class TestParser01 extends AbstractTestParser
             System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
             System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
             System.out.println(f.getAbsolutePath());
-            Document doc = parser.parseFile(f);
-            Node n = doc.getDocuments().get(0);
+            List<Node> docs = parser.parseFile(f);
+            Node n = docs.get(0);
             System.out.println(n);
         }
         for (Namespace n: grammarProcessor.getNamespaces())
