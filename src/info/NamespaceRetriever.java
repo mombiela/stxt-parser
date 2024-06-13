@@ -20,7 +20,7 @@ public class NamespaceRetriever
     
     public Set<String> getAllNamespaces()
     {
-        return new HashSet(CACHE.keySet());
+        return new HashSet<>(CACHE.keySet());
     }
     
     private void addGrammarDefinition(String content, String expected) throws IOException, ParseException
