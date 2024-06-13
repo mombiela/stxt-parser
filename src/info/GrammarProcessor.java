@@ -91,6 +91,7 @@ public class GrammarProcessor extends BasicProcessor
             currentNamespace.setNode(name, nsNode);
             if (Type.NAMESPACE.equals(type) && namespace!=null) nsNode.getValues().add(namespace);
             if (type != null) validateType(type, node);
+            if (type == null) nsNode.setType(Type.getDefault());
         }
         else
         {

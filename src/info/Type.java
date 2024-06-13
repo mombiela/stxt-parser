@@ -25,6 +25,11 @@ public class Type
     private static final Set<String> ALL_TYPES = new HashSet<>();
     private static final Set<String> VALUES_TYPES = new HashSet<>();
     
+    public static String getDefault()
+    {
+        return STRING;
+    }
+    
     static
     {
     	SINGLELINE_TYPES.add(STRING);
