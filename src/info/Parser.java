@@ -195,6 +195,7 @@ public class Parser
     	{
     	    name = line.substring(0,i).trim();
     	    value = line.substring(i+1).trim();
+    	    if (value.isEmpty()) value = null;
     	}
     	
     	Node node = new Node(lineNumber, currentLevel);

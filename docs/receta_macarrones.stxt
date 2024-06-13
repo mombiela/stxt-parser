@@ -20,7 +20,7 @@ Documento(www.dokumentando.com/documento.stxt)
     secciones:
         seccion:
             nombre: Ingredientes
-            contenido:
+            contenido
                 - 250g de harina de trigo
                 - 150ml de agua
                 - 10g de levadura fresca
@@ -32,7 +32,7 @@ Documento(www.dokumentando.com/documento.stxt)
                 - Orégano al gusto
         seccion:
             nombre: Instrucciones
-            contenido:
+            contenido
                 1. En un bol grande, mezcla la harina con la sal.
                 2. Disuelve la levadura en el agua tibia y añádela a la mezcla de harina.
                 3. Agrega el aceite de oliva y amasa hasta obtener una masa homogénea.
