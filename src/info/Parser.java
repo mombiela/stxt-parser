@@ -83,7 +83,7 @@ public class Parser
         boolean lastNodeMultiline = lastNode != null && lastNode.isMultiline();
         
         // Parse Line
-        LineIndent result = LineIndent.parseLine(line, lastNodeMultiline, stack.size());
+        LineIndent result = LineIndent.parseLine(line, lastNodeMultiline, stack.size(), lineNumber);
         if (result == null) return;
         showLine(line, result);
         

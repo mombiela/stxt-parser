@@ -23,7 +23,7 @@ public class LineIndent
     private static final Pattern EMPTY_LINE = Pattern.compile("^\\s*$");
     private static final Pattern COMMENT_LINE = Pattern.compile("^\\s*\\#.*$");
     
-    public static LineIndent parseLine(String aLine, boolean lastNodeMultiline, int stackSize) 
+    public static LineIndent parseLine(String aLine, boolean lastNodeMultiline, int stackSize, int numLine) throws ParseException
     {
         // Validate if empty line or comment
         if (!lastNodeMultiline)
@@ -70,6 +70,7 @@ public class LineIndent
             // Validate that text can only have one more level, so no information is lost
             if (lastNodeMultiline && level >= stackSize) break;
         }
+        if (spaces != 0) throw new ParseException("Invalid number spaces", numLine);
 
         // In case of text, check if it's a comment or not to preserve empty line (depends on the comment's level)
         if (lastNodeMultiline && level < stackSize)
