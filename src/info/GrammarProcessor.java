@@ -99,8 +99,12 @@ public class GrammarProcessor extends BasicProcessor
         }
         
         List<Node> childs = node.getChilds();
+        
         if (childs != null)
         {
+            if (Type.isMultiline(type) && childs.size()>0) 
+                throw new ParseException("Type " + type + " not allows childs", node.getLineCreation());
+                
             for (Node child: childs)
             {
                 String childName = child.getName();
