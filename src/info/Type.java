@@ -27,16 +27,7 @@ public class Type
     private static final Set<String> VALUES_TYPES = new HashSet<>();
     private static final Set<String> ALLOWED_COUNT = new HashSet<>();
     
-    private static final Pattern P_BINARY       = Pattern.compile("^(0|1|\\s)+$");
-    private static final Pattern P_BOOLEAN      = Pattern.compile("^0|1$");
-    private static final Pattern P_HEXADECIMAL  = Pattern.compile("^([a-f0-9]|\\s)+$");
-    private static final Pattern P_INTEGER      = Pattern.compile("^(\\-|\\+)?\\d+$");
-    private static final Pattern P_NATURAL      = Pattern.compile("^\\d+$");
-    private static final Pattern P_NUMBER       = Pattern.compile("^(\\-|\\+)?\\d+\\.\\d+(e(\\-|\\+)?\\d+)?$");
-    private static final Pattern P_RATIONAL     = Pattern.compile("^(\\-|\\+)?\\d+\\/\\d+$");
-    
     private static final Pattern COUNT = Pattern.compile("^\\d+(\\+|-)?$");
-    
     
     public static String getDefault()
     {

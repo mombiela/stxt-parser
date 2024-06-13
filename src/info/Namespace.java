@@ -32,11 +32,17 @@ public class Namespace
     public String toString()
     {
         StringBuilder builder = new StringBuilder();
-        builder.append("Namespace [name=");
-        builder.append(name);
-        builder.append(", nodes=");
-        builder.append(nodes);
-        builder.append("]");
+        builder.append("Namespace: " + name + "\n");
+        for (String nodeName: nodes.keySet())
+        {
+            NamespaceNode node = nodes.get(nodeName);
+            builder.append("NODE: " + node.getName() + ", type: " + node.getType() + " -> " + node.getValues() + "\n");
+            for (String childName: node.getChilds().keySet())
+            {
+                NamespaceChild child = node.getChilds().get(childName);
+                builder.append("\tChild: " + child + "\n");
+            }
+        }
         return builder.toString();
     }
 
