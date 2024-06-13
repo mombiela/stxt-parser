@@ -116,7 +116,7 @@ public class Node
         StringBuffer result = new StringBuffer();
         
         for (int i = 0; i<level; i++) result.append("    ");
-        result.append("<" + name + " (line:" + lineCreation + ") " + metadata + ": " + getValueShort());
+        result.append("<" + name + "> (line:" + lineCreation + ") " + metadata + ": " + getValueShort());
         result.append("\n");
         
         if (childs!=null && childs.size()>0)
