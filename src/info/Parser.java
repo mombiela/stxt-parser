@@ -76,7 +76,7 @@ public class Parser
         return document;
     }
 
-    private void processLine(String line) throws ParseException
+    private void processLine(String line) throws ParseException, IOException
     {
         // Last node
         Node lastNode = stack.size() > 0 ? stack.peek(): null;
@@ -153,7 +153,7 @@ public class Parser
         }
     }
 
-    private void processCreation(Node node) throws ParseException
+    private void processCreation(Node node) throws ParseException, IOException
     {
         for (NodeProcessor processor : nodeProcessors) 
         {
@@ -161,7 +161,7 @@ public class Parser
         }
     }
 
-    private void processCompletion(Node node) throws ParseException
+    private void processCompletion(Node node) throws ParseException, IOException
     {
         for (NodeProcessor processor : nodeProcessors) 
         {
@@ -169,14 +169,14 @@ public class Parser
         }
     }
     
-    private void processBeforeAddNode(Node parent, Node child) throws ParseException
+    private void processBeforeAddNode(Node parent, Node child) throws ParseException, IOException
     {
         for (NodeProcessor processor : nodeProcessors) 
         {
             processor.processBeforeAdd(parent, child);
         }
     }
-    private void processAfterAddNode(Node parent, Node child) throws ParseException
+    private void processAfterAddNode(Node parent, Node child) throws ParseException, IOException
     {
         for (NodeProcessor processor : nodeProcessors) 
         {
