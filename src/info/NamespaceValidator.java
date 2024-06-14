@@ -18,6 +18,7 @@ public class NamespaceValidator
     private static final Pattern P_INTEGER      = Pattern.compile("^(\\-|\\+)?\\d+$");
     private static final Pattern P_NATURAL      = Pattern.compile("^\\d+$");
     private static final Pattern P_NUMBER       = Pattern.compile("^(\\-|\\+)?\\d+(\\.\\d+(e(\\-|\\+)?\\d+)?)?$");
+    private static final Pattern P_DATE         = Pattern.compile("^\\d{4}-\\d{2}-\\d{2}$");
     
     public static void validateValue(NamespaceNode nsNode, Node n) throws IOException, ParseException
     {
@@ -31,6 +32,7 @@ public class NamespaceValidator
         else if (NamespaceType.NUMBER.equals(nodeType))             validateNumber(n);
         else if (NamespaceType.TEXT.equals(nodeType))               validateText(n);
         else if (NamespaceType.STRING.equals(nodeType))             validateText(n);
+        else if (NamespaceType.DATE.equals(nodeType))               validateDate(n);
         else if (NamespaceType.ENUM.equals(nodeType))               validateEnum(n, nsNode.getValues());
         else throw new ParseException("Node type not supported: " + nodeType, n.getLineCreation());            
     }
@@ -107,6 +109,11 @@ public class NamespaceValidator
     private static void validateBoolean(Node n) throws ParseException
     {
         validateValue(n, P_BOOLEAN, "Invalid boolean");
+    }
+
+    private static void validateDate(Node n) throws ParseException
+    {
+        validateValue(n, P_DATE, "Invalid date");
     }
 
     private static void validateHexadecimal(Node n) throws ParseException
