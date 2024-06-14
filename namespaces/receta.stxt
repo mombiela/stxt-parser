@@ -10,10 +10,10 @@ Namespace (www.semantictext.info/namespace.stxt): www.kocinando.com/receta.stxt
 	    Ingredientes: (1)
 			Ingrediente: (+)
 	    		Cantidad: (1) NUMBER
-	    		Unidades: (1) NUMBER
+	    		Unidades: (1)
 	    		Nombre: (1)
 	    Pasos: (1)
-	    	Paso: (1) NUMBER
+	    	Paso: (1) NATURAL
 	    	Descripción: (1)
 		Dificultad: (?) ENUM
 		   	: fácil

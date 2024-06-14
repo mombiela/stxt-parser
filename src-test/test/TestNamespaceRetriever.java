@@ -12,7 +12,7 @@ public class TestNamespaceRetriever extends AbstractTestParser
     public static void main(String[] args) throws IOException, ParseException
     {
         NamespaceRetriever nsRetriver = new NamespaceRetriever();
-        nsRetriver.addGrammarDefinitionsFromDir(new File("defs"));
+        nsRetriver.addGrammarDefinitionsFromDir(new File("namespaces"));
         Set<String> namespaces = nsRetriver.getAllNamespaces();
         
         for (String namespace: namespaces)

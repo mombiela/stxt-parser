@@ -22,7 +22,7 @@ public class TestParser01 extends AbstractTestParser
     {
         System.out.println("Inici");
 
-        File[] files = new File("defs").listFiles();
+        File[] files = new File("namespaces").listFiles();
         for (File f: files)
         {
             if (!f.getName().equals("doc_simple.stxt")) continue;

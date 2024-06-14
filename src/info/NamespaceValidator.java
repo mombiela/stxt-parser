@@ -13,6 +13,12 @@ import java.util.regex.Pattern;
 
 public class NamespaceValidator
 {
+    private static final Pattern P_BOOLEAN      = Pattern.compile("^0|1$");
+    private static final Pattern P_HEXADECIMAL  = Pattern.compile("^([a-f0-9]|\\s)+$");
+    private static final Pattern P_INTEGER      = Pattern.compile("^(\\-|\\+)?\\d+$");
+    private static final Pattern P_NATURAL      = Pattern.compile("^\\d+$");
+    private static final Pattern P_NUMBER       = Pattern.compile("^(\\-|\\+)?\\d+\\.\\d+(e(\\-|\\+)?\\d+)?$");
+    
     public static void validateCount(NamespaceNode nsNode, Node node) throws ParseException
     {
         Map<String, Integer> count = new HashMap<>();
@@ -78,12 +84,6 @@ public class NamespaceValidator
         }
     }
 
-    private static final Pattern P_BOOLEAN      = Pattern.compile("^0|1$");
-    private static final Pattern P_HEXADECIMAL  = Pattern.compile("^([a-f0-9]|\\s)+$");
-    private static final Pattern P_INTEGER      = Pattern.compile("^(\\-|\\+)?\\d+$");
-    private static final Pattern P_NATURAL      = Pattern.compile("^\\d+$");
-    private static final Pattern P_NUMBER       = Pattern.compile("^(\\-|\\+)?\\d+\\.\\d+(e(\\-|\\+)?\\d+)?$");
-    
     public static void validateValue(NamespaceNode nsNode, Node n) throws IOException, ParseException
     {
         String nodeType = nsNode.getType();
@@ -94,7 +94,8 @@ public class NamespaceValidator
         else if (NamespaceType.NATURAL.equals(nodeType))            validateNatural(n);
         else if (NamespaceType.URL.equals(nodeType))                validateUrl(n);
         else if (NamespaceType.NUMBER.equals(nodeType))             validateNumber(n);
-        else if (NamespaceType.TEXT.equals(nodeType))                validateText(n);
+        else if (NamespaceType.TEXT.equals(nodeType))               validateText(n);
+        else if (NamespaceType.STRING.equals(nodeType))             validateText(n);
         else throw new ParseException("Node type not supported: " + nodeType, n.getLineCreation());            
     }
 
@@ -178,10 +179,8 @@ public class NamespaceValidator
 
     private static void validateValue(Node n, Pattern pattern, String error) throws ParseException
     {
-        n.setValue(n.getValue().trim());
-        String value = n.getValue().toLowerCase(Locale.ENGLISH);
-        Matcher m = pattern.matcher(value);
-        if (!m.matches()) throw new ParseException(n.getName() + ": " + error, n.getLineCreation());
+        Matcher m = pattern.matcher(n.getValue());
+        if (!m.matches()) throw new ParseException(n.getName() + ": " + error + " (" + n.getValue() + ")", n.getLineCreation());
     }
     
     

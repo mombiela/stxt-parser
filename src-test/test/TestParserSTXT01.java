@@ -15,7 +15,7 @@ public class TestParserSTXT01
         
         // Creamos parser
         NamespaceRetriever namespaceRetriever = new NamespaceRetriever();
-        namespaceRetriever.addGrammarDefinitionsFromDir(new File("defs"));
+        namespaceRetriever.addGrammarDefinitionsFromDir(new File("namespaces"));
         STXTParser parser = new STXTParser(namespaceRetriever);
         
         // Ejecutamos con fichero

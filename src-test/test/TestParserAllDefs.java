@@ -22,7 +22,7 @@ public class TestParserAllDefs extends AbstractTestParser
     {
         System.out.println("Inici");
 
-        File[] files = new File("defs").listFiles();
+        File[] files = new File("namespaces").listFiles();
         for (File f: files)
         {
             System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
