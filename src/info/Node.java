@@ -87,7 +87,7 @@ public class Node
 
         for (Node child: childs)
         {
-            if (child.getName().equalsIgnoreCase(cname)) result.add(child);
+            if (child.getName().equals(cname)) result.add(child);
         }
 
         return result;
