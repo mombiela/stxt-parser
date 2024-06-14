@@ -8,21 +8,21 @@ import java.util.regex.Pattern;
 
 public class NamespaceType 
 {
-    private static final String TEXT         = "TEXT";
-    private static final String STRING       = "STRING";
-    private static final String NUMBER       = "NUMBER";
-    private static final String BOOLEAN      = "BOOLEAN";
-    private static final String REGEX        = "REGEX";
-    private static final String ENUM         = "ENUM";
-    private static final String DATE         = "DATE";
-    private static final String TIMESTAMP    = "TIMESTAMP";
-    private static final String EMAIL        = "EMAIL";
-    private static final String URL          = "URL";
-    private static final String HEXADECIMAL  = "HEXADECIMAL";
-    private static final String BASE64       = "BASE64";
-    private static final String EMPTY        = "EMPTY";
-    private static final String INTEGER      = "INTEGER";
-    private static final String NATURAL      = "NATURAL";
+    public static final String TEXT         = "TEXT";
+    public static final String STRING       = "STRING";
+    public static final String NUMBER       = "NUMBER";
+    public static final String BOOLEAN      = "BOOLEAN";
+    public static final String REGEX        = "REGEX";
+    public static final String ENUM         = "ENUM";
+    public static final String DATE         = "DATE";
+    public static final String TIMESTAMP    = "TIMESTAMP";
+    public static final String EMAIL        = "EMAIL";
+    public static final String URL          = "URL";
+    public static final String HEXADECIMAL  = "HEXADECIMAL";
+    public static final String BASE64       = "BASE64";
+    public static final String EMPTY        = "EMPTY";
+    public static final String INTEGER      = "INTEGER";
+    public static final String NATURAL      = "NATURAL";
     
     private static final Set<String> MULTILINE_TYPES = new HashSet<>();
     private static final Set<String> SINGLELINE_TYPES = new HashSet<>();
