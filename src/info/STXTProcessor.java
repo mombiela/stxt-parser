@@ -57,7 +57,7 @@ public class STXTProcessor extends BasicProcessor
             throw new ParseException("Not found " + child.getName() + "in namespace " + namespaceChildString, child.getLineCreation());
         
         // Insertamos según tipo
-        child.setMultiline(Type.isMultiline(childNode.getType()));
+        child.setMultiline(NamespaceType.isMultiline(childNode.getType()));
     }
 
     // ------------

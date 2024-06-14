@@ -6,7 +6,7 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class Type 
+public class NamespaceType 
 {
     public static final String TEXT         = "TEXT";
     public static final String STRING       = "STRING";

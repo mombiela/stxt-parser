@@ -82,7 +82,7 @@ public class NamespaceProcessor extends BasicProcessor
             nsNode.setType(type);
             currentNamespace.setNode(name, nsNode);
             if (type != null) validateType(type, node);
-            if (type == null) nsNode.setType(Type.getDefault());
+            if (type == null) nsNode.setType(NamespaceType.getDefault());
         }
         else
         {
@@ -94,7 +94,7 @@ public class NamespaceProcessor extends BasicProcessor
         
         if (childs != null)
         {
-            if (Type.isMultiline(type) && childs.size()>0) 
+            if (NamespaceType.isMultiline(type) && childs.size()>0) 
                 throw new ParseException("Type " + type + " not allows childs", childs.get(0).getLineCreation());
                 
             for (Node child: childs)
@@ -116,13 +116,13 @@ public class NamespaceProcessor extends BasicProcessor
                         LineSplitter split = LineSplitter.split(value);
                         String num = split.prefix;
                         if (num == null) throw new ParseException("Count is requiered", child.getLineCreation());
-                        if (!Type.isValidCount(num)) throw new ParseException("Count is not valid: " + num, child.getLineCreation());
+                        if (!NamespaceType.isValidCount(num)) throw new ParseException("Count is not valid: " + num, child.getLineCreation());
                         String namespace = split.suffix;
                         nsChild.setNum(num != null ? num : "*");
                         nsChild.setNamespace(namespace);
                         if (namespace != null)
                         {
-                            if (!Type.isValidNamespace(namespace))
+                            if (!NamespaceType.isValidNamespace(namespace))
                                 throw new ParseException("Namespace not valid: " + namespace, child.getLineCreation());
                             
                             if (split.centralText!=null)
@@ -137,7 +137,7 @@ public class NamespaceProcessor extends BasicProcessor
                 else
                 {
                     // VALUE/PATTERN/NAMESPACE
-                    if (Type.isValuesType(type))    nsNode.getValues().add(child.getValue());
+                    if (NamespaceType.isValuesType(type))    nsNode.getValues().add(child.getValue());
                     else                            throw new ParseException("Type not allow values: " + type, node.getLineCreation());
                 }
             }
@@ -150,12 +150,12 @@ public class NamespaceProcessor extends BasicProcessor
 
     private void validateNamespaceFormat(String namespace, int lineNumber) throws ParseException
     {
-        if (!Type.isValidNamespace(namespace)) throw new ParseException("Namespace not valid: " + namespace, lineNumber);
+        if (!NamespaceType.isValidNamespace(namespace)) throw new ParseException("Namespace not valid: " + namespace, lineNumber);
     }
     
     private void validateType(String type, Node node) throws ParseException
     {
-        if (!Type.isValidType(type)) 
+        if (!NamespaceType.isValidType(type)) 
             throw new ParseException("Type not valid: " + type, node.getLineCreation());
     }
 
