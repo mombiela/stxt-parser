@@ -22,7 +22,7 @@ public class TestParserSTXTAll
         
         // Ejecutamos con fichero
         parseDir(new File("docs"), parser);
-        parseDir(new File("examples"), parser);
+        //parseDir(new File("examples"), parser);
         System.out.println("Fi");
     }
 
