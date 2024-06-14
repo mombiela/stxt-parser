@@ -20,8 +20,6 @@ public class NamespaceProcessor extends BasicProcessor
     @Override
     public void processNodeOnCompletion(Node node) throws ParseException 
     {
-        if (debug) System.out.println(".... Node completion: " + node.getName());
-        
         // Node name
         String nodeName = node.getName();
         
@@ -157,7 +155,5 @@ public class NamespaceProcessor extends BasicProcessor
     {
         if (!NamespaceType.isValidType(type)) 
             throw new ParseException("Type not valid: " + type, node.getLineCreation());
-    }
-
-    
+    }    
 }

@@ -50,7 +50,6 @@ public class TestParserBasic1
         Parser parser = new Parser();
         BasicProcessor basicProcessor = new BasicProcessor();
         basicProcessor.setMultilineNodes(multilineNodes);
-        basicProcessor.debug = true;
         parser.addNodeProcessor(basicProcessor);
         
         return parser;

@@ -16,8 +16,6 @@ import info.semantictext.Parser;
 
 public class TestParserAllDocs
 {
-    private static final boolean DEBUG = false;
-    
     public static void main(String[] args) throws IOException, ParseException
     {
         new TestParserAllDocs().mainTest();
@@ -69,7 +67,6 @@ public class TestParserAllDocs
         Parser parser = new Parser();
         BasicProcessor basicProcessor = new BasicProcessor();
         basicProcessor.setMultilineNodes(multilineNodes);
-        basicProcessor.debug = DEBUG;
         parser.addNodeProcessor(basicProcessor);
         
         return parser;
