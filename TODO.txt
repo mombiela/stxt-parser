@@ -1,6 +1,5 @@
 * Revisar que todo documento en mayúsculas, minúsculas (coherente). Hacer en base.
 * Revisar que los nodos de namespace no están "casi repetidos" (upper, lower, etc.)
 * Revisar contenidos de tipos
-* Revisar número de nodos correcto según count
 * Validar regex en gramática
 * Cachear regex en validador
