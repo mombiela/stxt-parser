@@ -1,8 +1,5 @@
 * Base64 eliminar espacios y saltos de línea
 * Revisar que todo documento en mayúsculas, minúsculas (coherente). Hacer en base.
 * Revisar que los nodos de namespace no están "casi repetidos" (upper, lower, etc.)
-* Revisar contenidos de tipos
-* Validar regex en gramática
 * Cachear regex en validador
-* Hacer un node.getValue(nombre child único) (sólo funciona si un sólo child, parecido a propiedad json)
 * Revisar si hacemos Base64 parseado por tipo o no (o metadata value)

@@ -64,8 +64,6 @@ public class NamespaceValidator
             count.put(childName, count.getOrDefault(childName, 0) + 1);
         }
         
-        System.out.println("Check node " + node.getName() + " -> " + count);
-        
         for (NamespaceChild chNode: nsNode.getChilds().values())
         {
             verifyCount(chNode, count.getOrDefault(chNode.getName(), 0), node);
@@ -74,8 +72,6 @@ public class NamespaceValidator
     
     private static void verifyCount(NamespaceChild chNode, int num, Node node) throws ParseException
     {
-        // TODO Auto-generated method stub
-        System.out.println("\tVerify " + chNode.getName() + " with count " + chNode.getNum() + " with actual " + num);
         String count = chNode.getNum();
         
         if (count.equals("*")) 
