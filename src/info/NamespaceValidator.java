@@ -41,9 +41,15 @@ public class NamespaceValidator
             // OK
             return;
         }
-        else if (count.equals("?") && num > 1) 
+        else if (count.equals("?")) 
         {
-            throw new ParseException("Node " + node.getName() + " can have only 1 child of type " + chNode.getName(), node.getLineCreation());
+            if (num > 1)
+                throw new ParseException("Node " + node.getName() + " can have only 1 child of type " + chNode.getName(), node.getLineCreation());
+        }
+        else if (count.equals("+"))
+        {
+            if (num == 0)
+                throw new ParseException("Node " + node.getName() + " should have at least 1 child of type " + chNode.getName(), node.getLineCreation());
         }
     }
 
