@@ -2,8 +2,10 @@
 # Receta macarrones
 # -----------------
 
-Documento
-    cuerpo
-        Esta receta te guiará a través de los pasos necesarios para preparar una deliciosa pizza de jamón en casa.
-        Sigue las instrucciones cuidadosamente para obtener los mejores resultados.
-    fecha creacion: 2024-06-08
+Receta(www.kocinando.com/receta.stxt)
+	Pasos
+		Paso: 1
+		Descripción
+	        Esta receta te guiará a través de los pasos necesarios para preparar una deliciosa pizza de jamón en casa.
+	        Sigue las instrucciones cuidadosamente para obtener los mejores resultados.
+    Dificultad: media

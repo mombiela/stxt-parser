@@ -7,7 +7,7 @@ import info.NamespaceRetriever;
 import info.Node;
 import info.STXTParser;
 
-public class TestParserSTXT
+public class TestParserSTXT02
 {
     public static void main(String[] args) throws Exception
     {
@@ -19,7 +19,7 @@ public class TestParserSTXT
         STXTParser parser = new STXTParser(namespaceRetriever);
         
         // Ejecutamos con fichero
-        List<Node> nodes = parser.parseFile(new File("docs/intro_programacion.stxt"));
+        List<Node> nodes = parser.parseFile(new File("docs/receta_1.stxt"));
         
         for (Node n: nodes)
         {

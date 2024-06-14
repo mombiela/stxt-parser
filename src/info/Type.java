@@ -20,6 +20,7 @@ public class Type
     public static final String URL          = "URL";
     public static final String HEXADECIMAL  = "HEXADECIMAL";
     public static final String BASE64       = "BASE64";
+    public static final String EMPYT        = "EMPTY";
     
     private static final Set<String> MULTILINE_TYPES = new HashSet<>();
     private static final Set<String> SINGLELINE_TYPES = new HashSet<>();
