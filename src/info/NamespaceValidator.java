@@ -170,7 +170,7 @@ public class NamespaceValidator
         }
         catch (Exception e)
         {
-            throw new ParseException("Invalid Base64 value: " + n.getValue(), n.getLineCreation());
+            throw new ParseException("Node '" + n.getName() + "' has invalid Base64 value: " + n.getValue(), n.getLineCreation());
         }
     }
     

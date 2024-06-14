@@ -13,7 +13,7 @@ Cliente(www.gymstxt.com/client.stxt):
 		Nombre: Shila
 		Primer apellido: Kween
 		Edad: 28
-		Cliente vip: 1
+		Cliente vip: true
 		Foto:
 			R0lGODlhlgCNALMAAFtepau07X2I1tvg+pOe42dwwMPK9vz+/AAAAAAAAAAAAAAAAAAAAAAAAAAA
 			AAAAACH5BAAAAAAALAAAAACWAI0AAwT/8MhJq7046827/2AojmRpnmiqrmzrvnAsz3Rt3/Vg7Mbg

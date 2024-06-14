@@ -1,3 +1,4 @@
+* Base64 eliminar espacios y saltos de línea
 * Revisar que todo documento en mayúsculas, minúsculas (coherente). Hacer en base.
 * Revisar que los nodos de namespace no están "casi repetidos" (upper, lower, etc.)
 * Revisar contenidos de tipos
