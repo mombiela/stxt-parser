@@ -19,7 +19,7 @@ public class TestParserSTXT01
         STXTParser parser = new STXTParser(namespaceRetriever);
         
         // Ejecutamos con fichero
-        List<Node> nodes = parser.parseFile(new File("docs/intro_programacion.stxt"));
+        List<Node> nodes = parser.parseFile(new File("docs/receta_1.stxt"));
         
         for (Node n: nodes)
         {

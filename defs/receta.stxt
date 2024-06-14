@@ -20,4 +20,4 @@ Namespace (www.semantictext.info/namespace.stxt): www.kocinando.com/receta.stxt
 	    	: difícil
 	    Calorias: (?) NUMBER
 	    Comensales: (?) NUMBER
-	    Documento: (*) (www.dokumentando.com/documento.stxt)
+	    Documento: (*) (www.dokumentando.com/doc_simple.stxt)
