@@ -20,6 +20,19 @@ public class NamespaceValidator
     private static final Pattern P_NUMBER       = Pattern.compile("^(\\-|\\+)?\\d+(\\.\\d+(e(\\-|\\+)?\\d+)?)?$");
     private static final Pattern P_DATE         = Pattern.compile("^\\d{4}-\\d{2}-\\d{2}$");
     
+    private static final String ISO_8601_PATTERN =
+            "^\\d{4}-\\d{2}-\\d{2}" +               // Date (YYYY-MM-DD)
+            "T" +                                   // Time delimiter
+            "\\d{2}:\\d{2}(:\\d{2}(\\.\\d{3})?)?" + // Time (HH:mm:ss.sss) with optional seconds and milliseconds
+            "(Z|[+-]\\d{2}:\\d{2})?$";              // Time zone (Z or ±HH:mm)
+
+    private static final Pattern P_TIMESTAMP = Pattern.compile(ISO_8601_PATTERN);    
+    
+    private static final String EMAIL_PATTERN =
+            "^(?=.{1,256})(?=.{1,64}@.{1,255}$)(?=.{1,64}@.{1,63}\\..{1,63}$)[A-Za-z0-9!#$%&'*+/=?^_`{|}~.-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$";
+
+    private static final Pattern P_EMAIL = Pattern.compile(EMAIL_PATTERN);    
+    
     public static void validateValue(NamespaceNode nsNode, Node n) throws IOException, ParseException
     {
         String nodeType = nsNode.getType();
@@ -33,6 +46,8 @@ public class NamespaceValidator
         else if (NamespaceType.TEXT.equals(nodeType))               validateText(n);
         else if (NamespaceType.STRING.equals(nodeType))             validateText(n);
         else if (NamespaceType.DATE.equals(nodeType))               validateDate(n);
+        else if (NamespaceType.EMAIL.equals(nodeType))              validateEmail(n);
+        else if (NamespaceType.TIMESTAMP.equals(nodeType))          validateTimestamp(n);
         else if (NamespaceType.ENUM.equals(nodeType))               validateEnum(n, nsNode.getValues());
         else throw new ParseException("Node type not supported: " + nodeType, n.getLineCreation());            
     }
@@ -114,6 +129,16 @@ public class NamespaceValidator
     private static void validateDate(Node n) throws ParseException
     {
         validateValue(n, P_DATE, "Invalid date");
+    }
+
+    private static void validateTimestamp(Node n) throws ParseException
+    {
+        validateValue(n, P_TIMESTAMP, "Invalid timestamp");
+    }
+
+    private static void validateEmail(Node n) throws ParseException
+    {
+        validateValue(n, P_EMAIL, "Invalid email");
     }
 
     private static void validateHexadecimal(Node n) throws ParseException
