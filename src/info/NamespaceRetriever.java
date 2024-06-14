@@ -12,6 +12,15 @@ import java.util.Set;
 public class NamespaceRetriever
 {
     private Map<String, Namespace> CACHE = new HashMap<>();
+    private boolean allowInternet = false;
+    
+    public NamespaceRetriever()
+    {
+    }
+    public NamespaceRetriever(boolean allowInternet)
+    {
+        this.allowInternet = allowInternet;
+    }
     
     public void addGrammarDefinition(String content) throws IOException, ParseException
     {
@@ -69,10 +78,12 @@ public class NamespaceRetriever
         if (CACHE.containsKey(namespace)) return CACHE.get(namespace);
 	
         // Search on the internet
-        URL uri = new URL("https://" + namespace);
-        String fileContent = Utils.getUrlContent(uri);
-        
-        addGrammarDefinition(fileContent, namespace);
+        if (allowInternet)
+        {
+            URL uri = new URL("https://" + namespace);
+            String fileContent = Utils.getUrlContent(uri);
+            addGrammarDefinition(fileContent, namespace);
+        }
 
         return CACHE.get(namespace);
     }

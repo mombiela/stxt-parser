@@ -38,17 +38,34 @@ class STXTProcessor extends NodeBasicProcessor
     @Override
     public void processBeforeAdd(Node parent, Node child) throws IOException, ParseException
     {
-        System.out.println("**** " + child.getName() + " -> " + parent.getName());
-        
         // Get namespace parent
         String parentNamespace = (String) parent.getMetadata(NAMESPACE);
         String parentName = parent.getName();
         
-        NamespaceNode node = namespaceRetriever.getNameSpace(parentNamespace).getNode(parentName);
+        NamespaceNode nsNodeParent = namespaceRetriever.getNameSpace(parentNamespace).getNode(parentName);
         
         // Check child name exist
-        if (!node.getChilds().containsKey(child.getName()))
+        NamespaceChild nsChild = nsNodeParent.getChilds().get(child.getName());
+        if (nsChild == null)
             throw new ParseException("Name not valid: " + child.getName(), child.getLineCreation());
+
+        // Obtenemos el namespace del child
+        String namespaceChildString = nsChild.getNamespace();
+        if (namespaceChildString == null) namespaceChildString = parentNamespace;
+        child.setMetadata(NAMESPACE, namespaceChildString);
+        
+        // Buscamos namespace
+        Namespace namespaceChild = namespaceRetriever.getNameSpace(namespaceChildString);
+        if (namespaceChild == null)
+            throw new ParseException("Not found namespace " + namespaceChildString, child.getLineCreation());
+        
+        // Buscamos definición de nodo
+        NamespaceNode childNode = namespaceChild.getNode(child.getName());
+        if (childNode == null)
+            throw new ParseException("Not found " + child.getName() + "in namespace " + namespaceChildString, child.getLineCreation());
+        
+        // Insertamos según tipo
+        child.setMultiline(Type.isMultiline(childNode.getType()));
     }
 
     // ------------
@@ -67,7 +84,8 @@ class STXTProcessor extends NodeBasicProcessor
         if (ns == null) throw new ParseException("Namespace unknown: " + namespace, node.getLineCreation());
         
         // Check exist name
-        if (!ns.getNodes().containsKey(name))
+        NamespaceNode nsNode = ns.getNode(name);
+        if (nsNode == null)
             throw new ParseException("Name " + name + " not found in namespace " + namespace, node.getLineCreation());
         
         // Cambiamos nombre
