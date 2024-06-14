@@ -34,6 +34,9 @@ public class STXTProcessor extends BasicProcessor
         NamespaceNode nsNode = namespaceRetriever.getNameSpace(namespace).getNode(node.getName());
         
         NamespaceValidator.validateCount(nsNode, node);
+        
+        // Validamos nodo
+        NamespaceValidator.validateValue(nsNode, node);
     }
     
     @Override
@@ -67,9 +70,6 @@ public class STXTProcessor extends BasicProcessor
         
         // Insertamos según tipo
         child.setMultiline(NamespaceType.isMultiline(childNode.getType()));
-        
-        // Validamos nodo
-        NamespaceValidator.validateValue(childNode, child);
     }
 
     // ------------

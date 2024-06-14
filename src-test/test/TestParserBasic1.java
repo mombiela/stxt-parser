@@ -28,11 +28,12 @@ public class TestParserBasic1
         Set<String> multilineNodes = new HashSet<>();
         multilineNodes.add("contenido");
         multilineNodes.add("cuerpo");
+        multilineNodes.add("Foto");
         
         // Create parser
         Parser parser = createBasicParser(multilineNodes);
         
-        File f = new File("docs/receta_1.stxt");
+        File f = new File("docs/client.stxt");
         System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
         System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
         System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
@@ -40,7 +41,6 @@ public class TestParserBasic1
         List<Node> docs = parser.parseFile(f);
         Node n = docs.get(0);
         System.out.println(n);
-        System.out.println("'" + n.getChild("cuerpo").getValue() + "'");
         
         System.out.println("End");
     }
