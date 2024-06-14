@@ -16,7 +16,7 @@ Documento(www.dokumentando.com/documento.stxt)
     Código Postal: 54321
     Es Público: true
     Color Tema: #FF6347
-    Tipo Documento: receta
+    Tipo Documento: artículo
     Secciones
         Sección:
             Título: Ingredientes

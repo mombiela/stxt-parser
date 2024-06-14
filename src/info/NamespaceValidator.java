@@ -13,8 +13,8 @@ import java.util.regex.Pattern;
 
 public class NamespaceValidator
 {
-    private static final Pattern P_BOOLEAN      = Pattern.compile("^0|1$");
-    private static final Pattern P_HEXADECIMAL  = Pattern.compile("^([a-f0-9]|\\s)+$");
+    private static final Pattern P_BOOLEAN      = Pattern.compile("^(true|false)$");
+    private static final Pattern P_HEXADECIMAL  = Pattern.compile("^\\#?([A-Fa-f0-9]|\\s)+$");
     private static final Pattern P_INTEGER      = Pattern.compile("^(\\-|\\+)?\\d+$");
     private static final Pattern P_NATURAL      = Pattern.compile("^\\d+$");
     private static final Pattern P_NUMBER       = Pattern.compile("^(\\-|\\+)?\\d+(\\.\\d+(e(\\-|\\+)?\\d+)?)?$");
@@ -49,6 +49,7 @@ public class NamespaceValidator
         else if (NamespaceType.EMAIL.equals(nodeType))              validateEmail(n);
         else if (NamespaceType.TIMESTAMP.equals(nodeType))          validateTimestamp(n);
         else if (NamespaceType.ENUM.equals(nodeType))               validateEnum(n, nsNode.getValues());
+        else if (NamespaceType.REGEX.equals(nodeType))              validateRegex(n, nsNode.getValues());
         else throw new ParseException("Node type not supported: " + nodeType, n.getLineCreation());            
     }
 
@@ -182,6 +183,16 @@ public class NamespaceValidator
     {
         if (!values.contains(n.getValue()))
             throw new ParseException("Node '" + n.getName() + "' has value not allowed: " + n.getValue(), n.getLineCreation());
+    }
+    
+    private static void validateRegex(Node n, Set<String> values) throws ParseException
+    {
+        for (String value: values)
+        {
+            Pattern p = Pattern.compile(value);
+            if (p.matcher(n.getValue()).matches()) return;
+        }
+        throw new ParseException("Node '" + n.getName() + "' has value not allowed: " + n.getValue(), n.getLineCreation());
     }
     
     private static void validateUrl(Node n) throws ParseException

@@ -12,7 +12,7 @@ Documento(www.dokumentando.com/documento.stxt): 123456-179
     Código Postal: 12345
     Es Público: true
     Color Tema: #FF5733
-    Tipo Documento: articulo
+    Tipo Documento: artículo
     Secciones:
         Sección:
             Título: Fundamentos de Programación
