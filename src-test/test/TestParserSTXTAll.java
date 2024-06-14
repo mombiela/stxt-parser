@@ -21,14 +21,19 @@ public class TestParserSTXTAll
         STXTParser parser = new STXTParser(namespaceRetriever);
         
         // Ejecutamos con fichero
-        File[] dirs = new File("docs").listFiles();
+        parseDir(new File("docs"), parser);
+        parseDir(new File("examples"), parser);
+        System.out.println("Fi");
+    }
+
+    private static void parseDir(File file, STXTParser parser) throws IOException, ParseException
+    {
+        File[] dirs = file.listFiles();
         for (File f: dirs)
         {
             if (!f.getName().endsWith(".stxt")) continue;
-            
             parseFile(parser, f);
         }
-        System.out.println("Fi");
     }
 
     private static void parseFile(STXTParser parser, File f) throws IOException, ParseException
