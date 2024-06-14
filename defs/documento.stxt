@@ -7,8 +7,8 @@ Namespace (www.semantictext.info/namespace.stxt): www.dokumentando.com/documento
         Título: (1)
         Cuerpo: (1) 
         Autor: (1) 
-        Fecha Creacion: (1) DATE
-        Ultima modificacion: (1) TIMESTAMP
+        Fecha Creación: (1) DATE
+        Última modificacion: (1) TIMESTAMP
         Email Contacto: (1) EMAIL 
         Sitio Web: (1) URL
         Codigo Postal: (1) REGEX
