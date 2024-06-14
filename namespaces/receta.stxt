@@ -6,14 +6,14 @@ Namespace (www.semantictext.info/namespace.stxt): www.kocinando.com/receta.stxt
 
 	Receta
 	    Nombre Receta: (1)
-	    Descripción: (1) TEXT
+	    Descripción: (?) TEXT
 	    Ingredientes: (1)
 			Ingrediente: (+)
 	    		Cantidad: (1) NUMBER
 	    		Unidades: (1)
 	    		Nombre: (1)
 	    Pasos: (1)
-	    	Paso: (1) NATURAL
+	    	Paso: (+) NATURAL
 	    	Descripción: (1)
 		Dificultad: (?) ENUM
 		   	: fácil

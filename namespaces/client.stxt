@@ -7,7 +7,7 @@ Namespace(www.semantictext.info/namespace.stxt): www.gymstxt.com/client.stxt
 	Datos Personales
 		Nombre: (1)
 		Primer apellido: (1)
-		Segundo apellido: (1)
+		Segundo apellido: (?)
 		Edad: (?) NUMBER 
 		Cliente vip: (?) BOOLEAN
 		Foto: (*) BASE64

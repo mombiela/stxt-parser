@@ -23,21 +23,11 @@ Type List(www.semantictext.info/type_check.stxt):
 	integer: +43242423424242
 	integer: -5432424242
 	#integer: 534534.532
-	rational: 43242/543252
-	rational: -542345/53453
-	rational: +523553/5353
-	#rational: +535353.532/5325
 	number: +52352.53252
 	number: -523523.52325
 	number: +52345.532e-10
 	number: -523423.5432e10
 	#number: 53252.53252e+10.23
-	binary:
-		100101010101101
-		100101010101101
-		100101010101101
-		100101010101101
-	#binary: 10101010110120101
 	hexadecimal: 
 		f52360Abcdef000
 		f52360Abcdef000
@@ -49,9 +39,9 @@ Type List(www.semantictext.info/type_check.stxt):
 		SG9sYSBNdW5kbyEhISEhIUhvbGEgTXVuZG8hISEhISFIb2xhIE11bmRvISEhISEhSG9sYSBNdW5k
 		byEhISEhIQ==
 	#base64:fdaskfaskf�fa
-	boolean: 1
-	boolean: 0
-	boolean: 0
+	boolean: true
+	boolean: false
+	boolean: false
 	#boolean: 2
 	url:http://www.google.com
 	
