@@ -78,13 +78,13 @@ public class Parser
 
     private void processLine(String line) throws ParseException, IOException
     {
-        // Last node
+        // Last node multiline
         Node lastNode = stack.size() > 0 ? stack.peek(): null;
         boolean lastNodeMultiline = lastNode != null && lastNode.isMultiline();
         
         // Parse Line
         LineIndent result = LineIndent.parseLine(line, lastNodeMultiline, stack.size(), lineNumber);
-        if (result == null) return;
+        if (result == null) return; // is a comment
         showLine(line, result);
         
         // Multiline
@@ -138,21 +138,30 @@ public class Parser
         showCurrentRoot();
     }
 
-    private void showCurrentRoot()
+    private Node createNode(LineIndent result) 
     {
-        if (debug) System.out.println("\n" + currentRoot);
-    }
-
-    private void showLine(String line, LineIndent result)
-    {
-        if (debug)
+        String line = result.lineWithoutIndent;
+        String name = line;
+        String value = null;
+        
+        int i = line.indexOf(':');
+        if (i != -1)
         {
-            System.out.println("***********************************************************************************");
-            System.out.println("Line: '" + line + "'");
-            System.out.println("Line " + lineNumber + ": " + result);
+            name = line.substring(0,i).trim();
+            value = line.substring(i+1).trim();
+            if (value.isEmpty()) value = null;
         }
+        
+        Node node = new Node(lineNumber, currentLevel);
+        node.setName(name);
+        node.setValue(value);
+        return node;
     }
-
+    
+    // ----------
+    // Processors
+    // ----------
+    
     private void processCreation(Node node) throws ParseException, IOException
     {
         for (NodeProcessor processor : nodeProcessors) 
@@ -184,23 +193,22 @@ public class Parser
         }
     }    
 
-    private Node createNode(LineIndent result) 
+    // ---------------
+    // Printer methods
+    // ---------------
+    
+    private void showCurrentRoot()
     {
-    	String line = result.lineWithoutIndent;
-    	String name = line;
-    	String value = null;
-    	
-    	int i = line.indexOf(':');
-    	if (i != -1)
-    	{
-    	    name = line.substring(0,i).trim();
-    	    value = line.substring(i+1).trim();
-    	    if (value.isEmpty()) value = null;
-    	}
-    	
-    	Node node = new Node(lineNumber, currentLevel);
-    	node.setName(name);
-    	node.setValue(value);
-    	return node;
+        if (debug) System.out.println("\n" + currentRoot);
+    }
+
+    private void showLine(String line, LineIndent result)
+    {
+        if (debug)
+        {
+            System.out.println("***********************************************************************************");
+            System.out.println("Line: '" + line + "'");
+            System.out.println("Line " + lineNumber + ": " + result);
+        }
     }
 }
