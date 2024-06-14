@@ -6,7 +6,6 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.Base64;
 import java.util.HashMap;
-import java.util.Locale;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -17,7 +16,7 @@ public class NamespaceValidator
     private static final Pattern P_HEXADECIMAL  = Pattern.compile("^([a-f0-9]|\\s)+$");
     private static final Pattern P_INTEGER      = Pattern.compile("^(\\-|\\+)?\\d+$");
     private static final Pattern P_NATURAL      = Pattern.compile("^\\d+$");
-    private static final Pattern P_NUMBER       = Pattern.compile("^(\\-|\\+)?\\d+\\.\\d+(e(\\-|\\+)?\\d+)?$");
+    private static final Pattern P_NUMBER       = Pattern.compile("^(\\-|\\+)?\\d+(\\.\\d+(e(\\-|\\+)?\\d+)?)?$");
     
     public static void validateCount(NamespaceNode nsNode, Node node) throws ParseException
     {
@@ -181,7 +180,5 @@ public class NamespaceValidator
     {
         Matcher m = pattern.matcher(n.getValue());
         if (!m.matches()) throw new ParseException(n.getName() + ": " + error + " (" + n.getValue() + ")", n.getLineCreation());
-    }
-    
-    
+    }    
 }
