@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
 
+// NOT THREAD SAFE!!
 public class Parser 
 {
     private static final boolean debug = false;
