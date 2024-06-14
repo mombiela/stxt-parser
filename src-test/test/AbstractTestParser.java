@@ -1,7 +1,7 @@
 package test;
 
-import info.NamespaceProcessor;
-import info.Parser;
+import info.semantictext.NamespaceProcessor;
+import info.semantictext.Parser;
 
 public class AbstractTestParser
 {

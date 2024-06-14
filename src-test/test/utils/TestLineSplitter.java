@@ -1,6 +1,6 @@
 package test.utils;
 
-import info.LineSplitter;
+import info.semantictext.LineSplitter;
 
 public class TestLineSplitter
 {

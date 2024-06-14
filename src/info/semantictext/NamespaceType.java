@@ -1,4 +1,4 @@
-package info;
+package info.semantictext;
 
 import java.net.URL;
 import java.util.HashSet;

@@ -4,10 +4,10 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
-import info.NamespaceRetriever;
-import info.Node;
-import info.ParseException;
-import info.STXTParser;
+import info.semantictext.NamespaceRetriever;
+import info.semantictext.Node;
+import info.semantictext.ParseException;
+import info.semantictext.STXTParser;
 
 public class TestParserSTXTAll
 {

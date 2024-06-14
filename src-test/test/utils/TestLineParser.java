@@ -1,7 +1,7 @@
 package test.utils;
 
-import info.LineIndent;
-import info.ParseException;
+import info.semantictext.LineIndent;
+import info.semantictext.ParseException;
 
 public class TestLineParser
 {

@@ -1,4 +1,4 @@
-package info;
+package info.semantictext;
 
 import java.io.File;
 import java.io.IOException;

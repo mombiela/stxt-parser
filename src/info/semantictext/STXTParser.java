@@ -1,4 +1,4 @@
-package info;
+package info.semantictext;
 
 public class STXTParser extends Parser
 {

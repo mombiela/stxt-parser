@@ -1,4 +1,4 @@
-package info;
+package info.semantictext;
 
 public class ParseException extends Exception 
 {

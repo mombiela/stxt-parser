@@ -6,9 +6,9 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-import info.Namespace;
-import info.Node;
-import info.ParseException;
+import info.semantictext.Namespace;
+import info.semantictext.Node;
+import info.semantictext.ParseException;
 
 public class TestParser01 extends AbstractTestParser
 {

@@ -3,9 +3,9 @@ package test;
 import java.io.File;
 import java.util.List;
 
-import info.NamespaceRetriever;
-import info.Node;
-import info.STXTParser;
+import info.semantictext.NamespaceRetriever;
+import info.semantictext.Node;
+import info.semantictext.STXTParser;
 
 public class TestParserSTXT01
 {

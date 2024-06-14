@@ -4,8 +4,8 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Set;
 
-import info.NamespaceRetriever;
-import info.ParseException;
+import info.semantictext.NamespaceRetriever;
+import info.semantictext.ParseException;
 
 public class TestNamespaceRetriever extends AbstractTestParser
 {

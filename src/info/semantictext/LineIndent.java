@@ -1,4 +1,4 @@
-package info;
+package info.semantictext;
 
 import java.util.regex.Pattern;
 

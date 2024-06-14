@@ -1,4 +1,4 @@
-package info;
+package info.semantictext;
 
 import java.io.BufferedReader;
 import java.io.File;

@@ -9,10 +9,10 @@ import java.util.Set;
 
 import org.junit.jupiter.api.Test;
 
-import info.Node;
-import info.BasicProcessor;
-import info.ParseException;
-import info.Parser;
+import info.semantictext.BasicProcessor;
+import info.semantictext.Node;
+import info.semantictext.ParseException;
+import info.semantictext.Parser;
 
 public class TestParserAllDocs
 {
