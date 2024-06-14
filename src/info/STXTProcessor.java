@@ -28,6 +28,15 @@ public class STXTProcessor extends BasicProcessor
     }
 
     @Override
+    public void processNodeOnCompletion(Node node) throws ParseException, IOException
+    {
+        String namespace = (String) node.getMetadata(NAMESPACE);
+        NamespaceNode nsNode = namespaceRetriever.getNameSpace(namespace).getNode(node.getName());
+        
+        NamespaceValidator.validateCount(nsNode, node);
+    }
+    
+    @Override
     public void processBeforeAdd(Node parent, Node child) throws IOException, ParseException
     {
         // Get namespace parent
@@ -58,6 +67,9 @@ public class STXTProcessor extends BasicProcessor
         
         // Insertamos según tipo
         child.setMultiline(NamespaceType.isMultiline(childNode.getType()));
+        
+        // Validamos nodo
+        NamespaceValidator.validateValue(childNode, child);
     }
 
     // ------------
@@ -83,5 +95,8 @@ public class STXTProcessor extends BasicProcessor
         // Cambiamos nombre
         node.setName(name);
         node.setMetadata(NAMESPACE, namespace);
+        
+        // Validamos primer nodo
+        NamespaceValidator.validateValue(nsNode, node);
     }
 }
