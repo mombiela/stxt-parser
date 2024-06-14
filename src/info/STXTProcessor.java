@@ -2,7 +2,7 @@ package info;
 
 import java.io.IOException;
 
-public class STXTProcessor extends NodeBasicProcessor
+public class STXTProcessor extends BasicProcessor
 {
     private static final String NAMESPACE = "namespace";
     

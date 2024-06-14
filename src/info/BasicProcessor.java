@@ -3,7 +3,7 @@ package info;
 import java.io.IOException;
 import java.util.Set;
 
-public class NodeBasicProcessor implements NodeProcessor
+public class BasicProcessor implements NodeProcessor
 {
     // -------------
     // Configuration

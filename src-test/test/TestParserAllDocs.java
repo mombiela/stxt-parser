@@ -10,7 +10,7 @@ import java.util.Set;
 import org.junit.jupiter.api.Test;
 
 import info.Node;
-import info.NodeBasicProcessor;
+import info.BasicProcessor;
 import info.ParseException;
 import info.Parser;
 
@@ -67,7 +67,7 @@ public class TestParserAllDocs
     private Parser createBasicParser(Set<String> multilineNodes)
     {
         Parser parser = new Parser();
-        NodeBasicProcessor basicProcessor = new NodeBasicProcessor();
+        BasicProcessor basicProcessor = new BasicProcessor();
         basicProcessor.setMultilineNodes(multilineNodes);
         basicProcessor.debug = DEBUG;
         parser.addNodeProcessor(basicProcessor);
