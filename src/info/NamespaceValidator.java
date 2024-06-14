@@ -56,17 +56,23 @@ public class NamespaceValidator
         else if (count.endsWith("+"))
         {
             int expectedNum = Integer.parseInt(count.substring(0, count.length()-1));
+            if (num < expectedNum)
+                throw new ParseException("Node '" + node.getName() + "' should have at least " 
+                        + expectedNum + " childs of name '" + chNode.getName() + "', and have " + num, node.getLineCreation());
         }
         else if (count.endsWith("-"))
         {
             int expectedNum = Integer.parseInt(count.substring(0, count.length()-1));
+            if (num > expectedNum)
+                throw new ParseException("Node '" + node.getName() + "' should have maximum of " 
+                        + expectedNum + " childs of name '" + chNode.getName() + "', and have " + num, node.getLineCreation());
         }
         else
         {
             int expectedNum = Integer.parseInt(count);
             if (expectedNum != num)
                 throw new ParseException("Node '" + node.getName() + "' should have " 
-                        + expectedNum + " of child of name '" + chNode.getName() + "' and have " + num, node.getLineCreation());
+                        + expectedNum + " of child of name '" + chNode.getName() + "', and have " + num, node.getLineCreation());
         }
     }
 
