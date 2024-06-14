@@ -7,6 +7,7 @@ import java.net.URL;
 import java.util.Base64;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -18,6 +19,22 @@ public class NamespaceValidator
     private static final Pattern P_NATURAL      = Pattern.compile("^\\d+$");
     private static final Pattern P_NUMBER       = Pattern.compile("^(\\-|\\+)?\\d+(\\.\\d+(e(\\-|\\+)?\\d+)?)?$");
     
+    public static void validateValue(NamespaceNode nsNode, Node n) throws IOException, ParseException
+    {
+        String nodeType = nsNode.getType();
+        if (NamespaceType.BASE64.equals(nodeType))                  validateBase64(n);
+        else if (NamespaceType.BOOLEAN.equals(nodeType))            validateBoolean(n);
+        else if (NamespaceType.HEXADECIMAL.equals(nodeType))        validateHexadecimal(n);
+        else if (NamespaceType.INTEGER.equals(nodeType))            validateInteger(n);
+        else if (NamespaceType.NATURAL.equals(nodeType))            validateNatural(n);
+        else if (NamespaceType.URL.equals(nodeType))                validateUrl(n);
+        else if (NamespaceType.NUMBER.equals(nodeType))             validateNumber(n);
+        else if (NamespaceType.TEXT.equals(nodeType))               validateText(n);
+        else if (NamespaceType.STRING.equals(nodeType))             validateText(n);
+        else if (NamespaceType.ENUM.equals(nodeType))               validateEnum(n, nsNode.getValues());
+        else throw new ParseException("Node type not supported: " + nodeType, n.getLineCreation());            
+    }
+
     public static void validateCount(NamespaceNode nsNode, Node node) throws ParseException
     {
         Map<String, Integer> count = new HashMap<>();
@@ -83,21 +100,6 @@ public class NamespaceValidator
         }
     }
 
-    public static void validateValue(NamespaceNode nsNode, Node n) throws IOException, ParseException
-    {
-        String nodeType = nsNode.getType();
-        if (NamespaceType.BASE64.equals(nodeType))                  validateBase64(n);
-        else if (NamespaceType.BOOLEAN.equals(nodeType))            validateBoolean(n);
-        else if (NamespaceType.HEXADECIMAL.equals(nodeType))        validateHexadecimal(n);
-        else if (NamespaceType.INTEGER.equals(nodeType))            validateInteger(n);
-        else if (NamespaceType.NATURAL.equals(nodeType))            validateNatural(n);
-        else if (NamespaceType.URL.equals(nodeType))                validateUrl(n);
-        else if (NamespaceType.NUMBER.equals(nodeType))             validateNumber(n);
-        else if (NamespaceType.TEXT.equals(nodeType))               validateText(n);
-        else if (NamespaceType.STRING.equals(nodeType))             validateText(n);
-        else throw new ParseException("Node type not supported: " + nodeType, n.getLineCreation());            
-    }
-
     // ------------------------
     // Validation of simple nodes
     // ------------------------
@@ -142,6 +144,12 @@ public class NamespaceValidator
     private static void validateText(Node n) throws ParseException
     {
         // No validation, but trim trailing line breaks
+    }
+    
+    private static void validateEnum(Node n, Set<String> values) throws ParseException
+    {
+        if (!values.contains(n.getValue()))
+            throw new ParseException("Node '" + n.getName() + "' has value not allowed: " + n.getValue(), n.getLineCreation());
     }
     
     private static void validateUrl(Node n) throws ParseException
