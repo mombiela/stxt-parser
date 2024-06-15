@@ -160,11 +160,18 @@ public class Parser
         int i = line.indexOf(':');
         if (i != -1)
         {
-            name = line.substring(0,i).trim();
-            if (name.isEmpty()) name = null;
+            name = line.substring(0,i).trim(); // Always trim name
+            value = line.substring(i+1);
             
-            value = line.substring(i+1).trim(); // TODO Trim or not trim?
-            if (value.isEmpty()) value = null;
+            if (name.isEmpty()) // Multiline
+            {
+        	name = null;
+            }
+            else
+            {
+        	value = value.trim();
+                if (value.isEmpty()) value = null;
+            }
         }
         
         Node node = new Node(lineNumber, currentLevel);

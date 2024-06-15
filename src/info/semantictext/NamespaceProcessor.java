@@ -129,7 +129,6 @@ public class NamespaceProcessor extends BasicProcessor
 
                     // Add count
                     String value = child.getValue();
-                    System.out.println("value = '" + value + "'");
                     
                     if (value != null)
                     {
