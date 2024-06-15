@@ -7,14 +7,16 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 
 import info.semantictext.Namespace;
+import info.semantictext.NamespaceProcessor;
 import info.semantictext.Node;
 import info.semantictext.ParseException;
+import info.semantictext.Parser;
 
-public class TestParserAllDefs extends AbstractTestParser
+public class TestNamespaceProcessorAll
 {
     public static void main(String[] args) throws IOException, ParseException
     {
-        new TestParserAllDefs().mainTest();
+        new TestNamespaceProcessorAll().mainTest();
     }
     
     @Test
@@ -22,6 +24,10 @@ public class TestParserAllDefs extends AbstractTestParser
     {
         System.out.println("Inici");
 
+        Parser parser = new Parser();
+        NamespaceProcessor nsProcessor = new NamespaceProcessor();
+        parser.addNodeProcessor(nsProcessor);
+        
         File[] files = new File("namespaces").listFiles();
         for (File f: files)
         {
@@ -33,7 +39,7 @@ public class TestParserAllDefs extends AbstractTestParser
             Node n = docs.get(0);
             System.out.println(n);
         }
-        for (Namespace n: grammarProcessor.getNamespaces())
+        for (Namespace n: nsProcessor.getNamespaces())
         {
             System.out.println("======================================================");
             System.out.println(n);

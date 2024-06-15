@@ -12,7 +12,7 @@ import java.util.Stack;
 // NOT THREAD SAFE!!
 public class Parser 
 {
-    private static final boolean debug = false;
+    public boolean debug = false;
     
     // ----------------
     // Parseo principal
@@ -84,27 +84,31 @@ public class Parser
         boolean lastNodeMultiline = lastNode != null && lastNode.isMultiline();
         
         // Parse Line
-        LineIndent result = LineIndent.parseLine(line, lastNodeMultiline, stack.size(), lineNumber);
-        if (result == null) return; // is a comment
-        showLine(line, result);
+        LineIndent lineIndent = LineIndent.parseLine(line, lastNodeMultiline, stack.size(), lineNumber);
+        if (lineIndent == null) return; // is a comment
+        showLine(line, lineIndent);
         
-        // Multiline
-        if (lastNodeMultiline && result.indentLevel>=stack.size())
+        // Multiline (implícit)
+        if (lastNodeMultiline && lineIndent.indentLevel>=stack.size())
         {
-            String lastValue = lastNode.getValue();
-            if (lastValue != null)  lastNode.setValue(lastValue + "\n" + result.lineWithoutIndent);
-            else                    lastNode.setValue(result.lineWithoutIndent);
-
-            showCurrentRoot();
+            addMultilineValue(lastNode, lineIndent.lineWithoutIndent);
             return;
         }
         
         // Normal parser
-        if (result.indentLevel > currentLevel + 1) 
-            throw new ParseException("Level of indent incorrect: " + result.indentLevel, lineNumber);
+        if (lineIndent.indentLevel > currentLevel + 1) 
+            throw new ParseException("Level of indent incorrect: " + lineIndent.indentLevel, lineNumber);
         
-        currentLevel = result.indentLevel;
-        Node node = createNode(result);
+        currentLevel = lineIndent.indentLevel;
+        Node node = createNode(lineIndent);
+        
+        // Multiline (explícit)
+        if (node.getName()==null && lastNode != null)
+        {
+            addMultilineValue(lastNode, node.getValue());
+            return;
+        }
+        
         processCreation(node);
 
         if (currentLevel == 0) 
@@ -139,7 +143,15 @@ public class Parser
         showCurrentRoot();
     }
 
-    private Node createNode(LineIndent result) 
+    private void addMultilineValue(Node lastNode, String value) {
+	String lastValue = lastNode.getValue();
+	if (lastValue != null)  lastNode.setValue(lastValue + "\n" + value);
+	else                    lastNode.setValue(value);
+
+	showCurrentRoot();
+    }
+
+    private Node createNode(LineIndent result) throws ParseException 
     {
         String line = result.lineWithoutIndent;
         String name = line;
@@ -149,7 +161,9 @@ public class Parser
         if (i != -1)
         {
             name = line.substring(0,i).trim();
-            value = line.substring(i+1).trim();
+            if (name.isEmpty()) name = null;
+            
+            value = line.substring(i+1).trim(); // TODO Trim or not trim?
             if (value.isEmpty()) value = null;
         }
         

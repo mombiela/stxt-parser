@@ -6,10 +6,12 @@ import java.util.Set;
 
 import org.junit.jupiter.api.Test;
 
+import info.semantictext.NamespaceProcessor;
 import info.semantictext.NamespaceRetriever;
 import info.semantictext.ParseException;
+import info.semantictext.Parser;
 
-public class TestNamespaceRetriever extends AbstractTestParser
+public class TestNamespaceRetriever
 {
     public static void main(String[] args) throws IOException, ParseException
     {
@@ -19,6 +21,10 @@ public class TestNamespaceRetriever extends AbstractTestParser
     @Test
     public void mainTest() throws IOException, ParseException
     {
+        Parser parser = new Parser();
+        NamespaceProcessor nsProcessor = new NamespaceProcessor();
+        parser.addNodeProcessor(nsProcessor);
+        
         NamespaceRetriever nsRetriver = new NamespaceRetriever();
         nsRetriver.addGrammarDefinitionsFromDir(new File("namespaces"));
         Set<String> namespaces = nsRetriver.getAllNamespaces();

@@ -1,7 +1,9 @@
 package info.semantictext;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class NamespaceProcessor extends BasicProcessor
 {
@@ -65,11 +67,23 @@ public class NamespaceProcessor extends BasicProcessor
     {
         String name = node.getName();
         String type = null;
-        if (node.getValue()!=null)
+        final String nodeValue = node.getValue();
+        Set<String> values = null;
+        
+        if (nodeValue!=null)
         {
-            LineSplitter nodeParts = LineSplitter.split(node.getValue());
+            // VALUE/PATTERN
+            String[] nodeValueParts = nodeValue.split("\\n");
+            if (nodeValueParts.length > 1)
+            {
+        	type = nodeValueParts[0];
+        	values = new HashSet<>();
+        	for (int i = 1; i<nodeValueParts.length; i++) values.add(nodeValueParts[i].trim());
+            }
+            
+            LineSplitter nodeParts = LineSplitter.split(nodeValueParts[0]);
             type = nodeParts.centralText;
-        }         
+        }        
         
         // Nodo normal
         NamespaceNode nsNode = currentNamespace.getNode(name);
@@ -81,6 +95,12 @@ public class NamespaceProcessor extends BasicProcessor
             currentNamespace.setNode(name, nsNode);
             if (type != null) validateType(type, node);
             if (type == null) nsNode.setType(NamespaceType.getDefault());
+            
+            if (values != null)
+            {
+        	if (NamespaceType.isValuesType(type)) 	nsNode.setValues(values);
+        	else                            	throw new ParseException("Type not allow values: " + type, node.getLineCreation());
+            }
         }
         else
         {
@@ -109,8 +129,15 @@ public class NamespaceProcessor extends BasicProcessor
 
                     // Add count
                     String value = child.getValue();
+                    System.out.println("value = '" + value + "'");
+                    
                     if (value != null)
                     {
+                	
+                        // VALUE/PATTERN
+                        String[] valueParts = value.split("\\n");
+                        if (valueParts.length > 1) value = valueParts[0];
+                	
                         LineSplitter split = LineSplitter.split(value);
                         String num = split.prefix;
                         if (num == null) throw new ParseException("Count is requiered", child.getLineCreation());
@@ -131,12 +158,6 @@ public class NamespaceProcessor extends BasicProcessor
                     // process child (only if not contains namespace!)
                     if (nsChild.getNamespace()==null)
                         updateNamespace(child);
-                }
-                else
-                {
-                    // VALUE/PATTERN/NAMESPACE
-                    if (NamespaceType.isValuesType(type))    nsNode.getValues().add(child.getValue());
-                    else                            throw new ParseException("Type not allow values: " + type, node.getLineCreation());
                 }
             }
         }
