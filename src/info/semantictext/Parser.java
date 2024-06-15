@@ -168,7 +168,7 @@ public class Parser
         }
         
         Node node = new Node(lineNumber, currentLevel);
-        node.setName(name);
+        node.setName(name == null ? name: name.toLowerCase());
         node.setValue(value);
         return node;
     }
