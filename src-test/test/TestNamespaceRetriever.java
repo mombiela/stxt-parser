@@ -4,12 +4,20 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Set;
 
+import org.junit.jupiter.api.Test;
+
 import info.semantictext.NamespaceRetriever;
 import info.semantictext.ParseException;
 
 public class TestNamespaceRetriever extends AbstractTestParser
 {
     public static void main(String[] args) throws IOException, ParseException
+    {
+	new TestNamespaceRetriever().mainTest();
+    }   
+    
+    @Test
+    public void mainTest() throws IOException, ParseException
     {
         NamespaceRetriever nsRetriver = new NamespaceRetriever();
         nsRetriver.addGrammarDefinitionsFromDir(new File("namespaces"));
@@ -21,5 +29,5 @@ public class TestNamespaceRetriever extends AbstractTestParser
             System.out.println(namespace);
             System.out.println(nsRetriver.getNameSpace(namespace));
         }
-    }    
+    }
 }

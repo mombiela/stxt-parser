@@ -1,15 +1,25 @@
 package test;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.List;
+
+import org.junit.jupiter.api.Test;
 
 import info.semantictext.NamespaceRetriever;
 import info.semantictext.Node;
+import info.semantictext.ParseException;
 import info.semantictext.STXTParser;
 
 public class TestParserSTXT01
 {
     public static void main(String[] args) throws Exception
+    {
+	new TestParserSTXT01().mainTest();
+    }
+    
+    @Test
+    public void mainTest() throws IOException, ParseException
     {
         System.out.println("Inici");
         
@@ -30,5 +40,5 @@ public class TestParserSTXT01
         }
         
         System.out.println("Fi");
-    }
+    }   
 }

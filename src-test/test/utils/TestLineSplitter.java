@@ -1,10 +1,15 @@
 package test.utils;
 
+import java.io.IOException;
+
+import org.junit.jupiter.api.Test;
+
 import info.semantictext.LineSplitter;
 
 public class TestLineSplitter
 {
-    public static void main(String[] args)
+    @Test
+    public void mainTest() throws IOException
     {
         testSplit("(texto prefix) texto central (texto sufijo)");
         testSplit("texto central (texto sufijo)");

@@ -16,12 +16,12 @@ public class Base64Read
 {
     @Test
     public void mainTest() throws IOException {
-	String text = UtilsFile.readFileContent(new File("examples/foto.base64.txt"));
+	String text = UtilsFile.readFileContent(new File("docs/foto.base64.txt"));
 	System.out.println(text);
 	byte[] fotoBytes = Base64.getDecoder().decode(Utils.cleanupString(text));
 	System.out.println(fotoBytes.length);
 	
-	byte[] fotoBytesReal = UtilsFile.readFile(new File("examples/foto.gif"));
+	byte[] fotoBytesReal = UtilsFile.readFile(new File("docs/foto.gif"));
 	assertTrue(Arrays.equals(fotoBytes, fotoBytesReal));
     }
 }

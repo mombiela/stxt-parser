@@ -44,7 +44,6 @@ public class TestParserAllDocs
         
         List<File> files = new ArrayList<>();
         for (File f: new File("docs").listFiles()) files.add(f);
-        for (File f: new File("examples").listFiles()) files.add(f);
         
         for (File f: files)
         {

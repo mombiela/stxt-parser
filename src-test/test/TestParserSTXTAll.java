@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
+import org.junit.jupiter.api.Test;
+
 import info.semantictext.NamespaceRetriever;
 import info.semantictext.Node;
 import info.semantictext.ParseException;
@@ -12,6 +14,12 @@ import info.semantictext.STXTParser;
 public class TestParserSTXTAll
 {
     public static void main(String[] args) throws Exception
+    {
+	new TestParserSTXTAll().mainTest();
+    }
+    
+    @Test
+    public void mainTest() throws IOException, ParseException
     {
         System.out.println("Inici");
         
