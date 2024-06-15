@@ -1,5 +1,5 @@
-* lowercase names
-* :value
+* :value -> VALUE en node!!
+* Todo con ':' o error (o comentario)
 * Base64 eliminar espacios y saltos de línea
 * Revisar que todo documento en mayúsculas, minúsculas (coherente). Hacer en base.
 * Revisar que los nodos de namespace no están "casi repetidos" (upper, lower, etc.)
