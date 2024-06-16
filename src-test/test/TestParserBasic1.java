@@ -28,7 +28,7 @@ public class TestParserBasic1
         Set<String> multilineNodes = new HashSet<>();
         multilineNodes.add("contenido");
         multilineNodes.add("cuerpo");
-        multilineNodes.add("Foto");
+        multilineNodes.add("foto");
         
         // Create parser
         Parser parser = createBasicParser(multilineNodes);

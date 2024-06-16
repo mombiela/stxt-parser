@@ -14,11 +14,11 @@ import info.semantictext.Node;
 import info.semantictext.ParseException;
 import info.semantictext.Parser;
 
-public class TestParserAllDocs
+public class TestParserBasicAll
 {
     public static void main(String[] args) throws IOException, ParseException
     {
-        new TestParserAllDocs().mainTest();
+        new TestParserBasicAll().mainTest();
     }
     
     @Test
@@ -29,15 +29,17 @@ public class TestParserAllDocs
         Set<String> multilineNodes = new HashSet<>();
         multilineNodes.add("contenido");
         multilineNodes.add("cuerpo");
-        multilineNodes.add("Foto");
+        multilineNodes.add("foto");
         multilineNodes.add("observacion");    
-        multilineNodes.add("Preparación");
+        multilineNodes.add("preparación");
         multilineNodes.add("text");
-        multilineNodes.add("Descripción");
-        multilineNodes.add("Observaciones");
+        multilineNodes.add("descripción");
+        multilineNodes.add("description");
+        multilineNodes.add("observaciones");
         multilineNodes.add("binary");
         multilineNodes.add("hexadecimal");
         multilineNodes.add("base64");
+        multilineNodes.add("ingredientes");        
         
         // Create parser
         Parser parser = createBasicParser(multilineNodes);
