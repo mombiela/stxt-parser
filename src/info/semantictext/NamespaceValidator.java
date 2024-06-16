@@ -47,6 +47,7 @@ public class NamespaceValidator
         else if (NamespaceType.STRING.equals(nodeType))             validateText(n);
         else if (NamespaceType.DATE.equals(nodeType))               validateDate(n);
         else if (NamespaceType.EMAIL.equals(nodeType))              validateEmail(n);
+        else if (NamespaceType.EMPTY.equals(nodeType))              validateEmtpy(n);
         else if (NamespaceType.TIMESTAMP.equals(nodeType))          validateTimestamp(n);
         else if (NamespaceType.ENUM.equals(nodeType))               validateEnum(n, nsNode.getValues());
         else if (NamespaceType.REGEX.equals(nodeType))              validateRegex(n, nsNode.getValues());
@@ -153,6 +154,14 @@ public class NamespaceValidator
         validateValue(n, P_NUMBER, "Invalid number");
     }
 
+    private static void validateEmtpy(Node n) throws ParseException
+    {
+	if (n.getValue()!=null || (n.getValues() != null && n.getValues().size()>0))
+	{
+	    throw new ParseException("Node '" + n.getName() + "' has to be empty", n.getLineCreation());
+	}
+    }
+    
     private static void validateBase64(Node n) throws ParseException
     {
         try
