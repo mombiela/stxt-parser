@@ -143,10 +143,9 @@ public class Parser
         showCurrentRoot();
     }
 
-    private void addMultilineValue(Node lastNode, String value) {
-	String lastValue = lastNode.getValue();
-	if (lastValue != null)  lastNode.setValue(lastValue + "\n" + value);
-	else                    lastNode.setValue(value);
+    private void addMultilineValue(Node lastNode, String value) 
+    {
+	lastNode.addValue(value);
 
 	showCurrentRoot();
     }
@@ -174,10 +173,7 @@ public class Parser
             }
         }
         
-        Node node = new Node(lineNumber, currentLevel);
-        node.setName(name == null ? name: name.toLowerCase());
-        node.setValue(value);
-        return node;
+        return new Node(lineNumber, currentLevel, name == null ? name: name.toLowerCase(), value);
     }
     
     // ----------

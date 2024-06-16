@@ -138,11 +138,6 @@ public class NamespaceValidator
         validateValue(n, P_EMAIL, "Invalid email");
     }
 
-    private static void validateHexadecimal(Node n) throws ParseException
-    {
-        validateValue(n, P_HEXADECIMAL, "Invalid hexadecimal");
-    }
-
     private static void validateInteger(Node n) throws ParseException
     {
         validateValue(n, P_INTEGER, "Invalid integer");
@@ -162,13 +157,21 @@ public class NamespaceValidator
     {
         try
         {
-            Base64.getDecoder().decode(Utils.cleanupString(n.getValue()));
+            Base64.getDecoder().decode(Utils.cleanupString(n.getAllValuesText()));
         }
         catch (Exception e)
         {
-            throw new ParseException("Node '" + n.getName() + "' has invalid Base64 value: " + n.getValue(), n.getLineCreation());
+            throw new ParseException("Node '" + n.getName() + "' Invalid Base64", n.getLineCreation());
         }
     }
+    
+    private static void validateHexadecimal(Node n) throws ParseException
+    {
+	String hex = Utils.cleanupString(n.getAllValuesText());
+	Matcher m = P_HEXADECIMAL.matcher(hex);
+	if (!m.matches()) throw new ParseException("Node '" + n.getName() + "' Invalid hexadecimal", n.getLineCreation());
+    }
+    
     
     private static void validateText(Node n) throws ParseException
     {

@@ -12,17 +12,20 @@ public class Node
     // -------------------------------------
 
     private String name;
-    private String value;
+    private final String value;
+    private final List<String> values = new ArrayList<>();
+    private final int lineCreation;
+    private final int levelCreation;
     private List<Node> childs = new ArrayList<>();
-    private int lineCreation;
-    private int levelCreation;
     private Map<String, Object> metadata = new HashMap<String, Object>();
     private boolean multiline;
 
-    public Node(int line, int level)
+    public Node(int line, int level, String name, String value)
     {
         this.levelCreation = level;
         this.lineCreation = line;
+        this.name = name;
+        this.value = value;
     }
     
     public void setMultiline(boolean multiline)
@@ -50,11 +53,6 @@ public class Node
         metadata.put(key, value);
     }
     
-    public void setValue(String value)
-    {
-        this.value = value;
-    }
-
     public List<Node> getChilds()
     {
         return childs;
@@ -69,10 +67,10 @@ public class Node
     {
         return name;
     }
-
+    
     public void setName(String name)
     {
-        this.name = name;
+	this.name = name;
     }
 
     public int getLineCreation()
@@ -80,6 +78,47 @@ public class Node
         return lineCreation;
     }
 
+    public void addValue(String value)
+    {
+	this.values.add(value);
+    }
+    
+    public List<String> getValues()
+    {
+	return values;
+    }
+    
+    public String getValuesText()
+    {
+	StringBuffer result = new StringBuffer();
+	
+	boolean first = true;
+	for (String value: values) 
+	{
+	    if (first) 
+	    {
+		result.append(value);
+		first = false;
+	    }
+	    else result.append("\n").append(value);
+	}
+	
+	return result.toString();
+    }
+    
+    public String getAllValuesText()
+    {
+        StringBuilder result = new StringBuilder();
+
+        if (value != null) {
+            result.append(value).append("\n");
+        }
+        
+        result.append(getValuesText());
+        
+        return result.toString();
+    }    
+    
     // Fast access methods to children
     public List<Node> getChilds(String cname)
     {
@@ -124,7 +163,7 @@ public class Node
         StringBuffer result = new StringBuffer();
         
         for (int i = 0; i<level; i++) result.append("    ");
-        result.append("<" + name + "> (line:" + lineCreation + ") " + metadata + ": " + getValueShort());
+        result.append("<" + name + "> (line:" + lineCreation + ") " + metadata + ": '" + getValueShort() + "', values = " + values);
         result.append("\n");
         
         if (childs!=null && childs.size()>0)
@@ -142,9 +181,7 @@ public class Node
     private String getValueShort()
     {
         if (value == null) return "<NULL>";
-        String valueShow = value;
-        valueShow = valueShow.replaceAll("\n", "\\\\n");
-        return valueShow;
+        return value;
     }
 
     public int getLevelCreation()

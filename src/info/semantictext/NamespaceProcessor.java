@@ -67,21 +67,10 @@ public class NamespaceProcessor extends BasicProcessor
     {
         String name = node.getName();
         String type = null;
-        final String nodeValue = node.getValue();
-        Set<String> values = null;
         
-        if (nodeValue!=null)
+        if (node.getValue()!=null)
         {
-            // VALUE/PATTERN
-            String[] nodeValueParts = nodeValue.split("\\n");
-            if (nodeValueParts.length > 1)
-            {
-        	type = nodeValueParts[0];
-        	values = new HashSet<>();
-        	for (int i = 1; i<nodeValueParts.length; i++) values.add(nodeValueParts[i].trim());
-            }
-            
-            LineSplitter nodeParts = LineSplitter.split(nodeValueParts[0]);
+            LineSplitter nodeParts = LineSplitter.split(node.getValue());
             type = nodeParts.centralText;
         }        
         
@@ -96,9 +85,12 @@ public class NamespaceProcessor extends BasicProcessor
             if (type != null) validateType(type, node);
             if (type == null) nsNode.setType(NamespaceType.getDefault());
             
-            if (values != null)
+            if (node.getValues().size()>0)
             {
-        	if (NamespaceType.isValuesType(type)) 	nsNode.setValues(values);
+        	Set<String> allowedValues = new HashSet<>();
+        	for (String value: node.getValues()) allowedValues.add(value.trim());
+        	
+        	if (NamespaceType.isValuesType(type)) 	nsNode.setValues(allowedValues);
         	else                            	throw new ParseException("Type not allow values: " + type, node.getLineCreation());
             }
         }
@@ -132,11 +124,7 @@ public class NamespaceProcessor extends BasicProcessor
                     
                     if (value != null)
                     {
-                	
                         // VALUE/PATTERN
-                        String[] valueParts = value.split("\\n");
-                        if (valueParts.length > 1) value = valueParts[0];
-                	
                         LineSplitter split = LineSplitter.split(value);
                         String num = split.prefix;
                         if (num == null) throw new ParseException("Count is requiered", child.getLineCreation());
