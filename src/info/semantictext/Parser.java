@@ -18,7 +18,7 @@ public class Parser
     // Parseo principal
     // ----------------
     
-    public void addNodeProcessor(NodeProcessor processor) 
+    public void addNodeProcessor(Processor processor) 
     {
         nodeProcessors.add(processor);
     }
@@ -39,7 +39,7 @@ public class Parser
     // Variables internas funcionamiento
     // ---------------------------------
     
-    private List<NodeProcessor> nodeProcessors = new ArrayList<>();
+    private List<Processor> nodeProcessors = new ArrayList<>();
     List<Node> document = null;
     Stack<Node> stack = new Stack<>();
     Node currentRoot = null;
@@ -182,7 +182,7 @@ public class Parser
     
     private void processCreation(Node node) throws ParseException, IOException
     {
-        for (NodeProcessor processor : nodeProcessors) 
+        for (Processor processor : nodeProcessors) 
         {
             processor.processNodeOnCreation(node);
         }
@@ -190,7 +190,7 @@ public class Parser
 
     private void processCompletion(Node node) throws ParseException, IOException
     {
-        for (NodeProcessor processor : nodeProcessors) 
+        for (Processor processor : nodeProcessors) 
         {
             processor.processNodeOnCompletion(node);
         }
@@ -198,14 +198,14 @@ public class Parser
     
     private void processBeforeAddNode(Node parent, Node child) throws ParseException, IOException
     {
-        for (NodeProcessor processor : nodeProcessors) 
+        for (Processor processor : nodeProcessors) 
         {
             processor.processBeforeAdd(parent, child);
         }
     }
     private void processAfterAddNode(Node parent, Node child) throws ParseException, IOException
     {
-        for (NodeProcessor processor : nodeProcessors) 
+        for (Processor processor : nodeProcessors) 
         {
             processor.processAfterAdd(parent, child);
         }

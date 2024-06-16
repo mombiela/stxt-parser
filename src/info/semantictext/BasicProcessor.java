@@ -3,7 +3,7 @@ package info.semantictext;
 import java.io.IOException;
 import java.util.Set;
 
-public class BasicProcessor implements NodeProcessor
+public class BasicProcessor implements Processor
 {
     // -------------
     // Configuration

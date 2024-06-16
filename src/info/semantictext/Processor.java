@@ -2,7 +2,7 @@ package info.semantictext;
 
 import java.io.IOException;
 
-public interface NodeProcessor 
+public interface Processor 
 {
     void processNodeOnCreation(Node node) throws ParseException, IOException;
     void processNodeOnCompletion(Node node) throws ParseException, IOException;
