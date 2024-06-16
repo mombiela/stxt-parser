@@ -4,7 +4,7 @@
 
 Namespace (www.semantictext.info/namespace.stxt): www.kocinando.com/receta.stxt
 
-	Receta
+	Receta:
 	    Nombre Receta: (1)
 	    Descripción: (?) TEXT
 	    Ingredientes: (1)

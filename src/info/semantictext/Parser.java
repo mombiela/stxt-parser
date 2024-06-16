@@ -157,20 +157,19 @@ public class Parser
         String value = null;
         
         int i = line.indexOf(':');
-        if (i != -1)
+        if (i==-1) throw new ParseException("Line not valid: " + line, lineNumber);
+
+        name = line.substring(0,i).trim(); // Always trim name
+        value = line.substring(i+1);
+        
+        if (name.isEmpty()) // Multiline
         {
-            name = line.substring(0,i).trim(); // Always trim name
-            value = line.substring(i+1);
-            
-            if (name.isEmpty()) // Multiline
-            {
-        	name = null;
-            }
-            else
-            {
-        	value = value.trim();
-                if (value.isEmpty()) value = null;
-            }
+    	    name = null;
+        }
+        else
+        {
+            value = value.trim();
+            if (value.isEmpty()) value = null;
         }
         
         return new Node(lineNumber, currentLevel, name == null ? name: name.toLowerCase(), value);

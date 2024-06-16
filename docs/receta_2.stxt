@@ -2,7 +2,7 @@
 # Receta macarrones
 # -----------------
 
-Documento(www.dokumentando.com/documento.stxt)
+Documento(www.dokumentando.com/documento.stxt):
 
     Título: Receta de Pizza de Jamón
     Autor: María López
@@ -17,10 +17,10 @@ Documento(www.dokumentando.com/documento.stxt)
     Es Público: true
     Color Tema: #FF6347
     Tipo Documento: artículo
-    Secciones
+    Secciones:
         Sección:
             Título: Ingredientes
-            Contenido
+            Contenido:
                 - 250g de harina de trigo
                 - 150ml de agua
                 - 10g de levadura fresca
@@ -32,7 +32,7 @@ Documento(www.dokumentando.com/documento.stxt)
                 - Orégano al gusto
         Sección:
             Título: Instrucciones
-            Contenido
+            Contenido:
                 1. En un bol grande, mezcla la harina con la sal.
                 2. Disuelve la levadura en el agua tibia y añádela a la mezcla de harina.
                 3. Agrega el aceite de oliva y amasa hasta obtener una masa homogénea.
@@ -45,7 +45,7 @@ Documento(www.dokumentando.com/documento.stxt)
                 10. Retira la pizza del horno, espolvorea orégano al gusto y sirve caliente.
         Sección:
             Título: Información Nutricional
-            Contenido
+            Contenido:
                 Calorías por porción: 350 kcal
                 Proteínas: 18g
                 Grasas: 12g

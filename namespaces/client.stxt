@@ -1,10 +1,10 @@
 Namespace(www.semantictext.info/namespace.stxt): www.gymstxt.com/client.stxt
 
-	Cliente
+	Cliente:
 		Datos Personales: (1)
 		Datos Bancarios: (1)
 	
-	Datos Personales
+	Datos Personales:
 		Nombre: (1)
 		Primer apellido: (1)
 		Segundo apellido: (?)
@@ -12,7 +12,7 @@ Namespace(www.semantictext.info/namespace.stxt): www.gymstxt.com/client.stxt
 		Cliente vip: (?) BOOLEAN
 		Foto: (*) BASE64
 		
-	Datos Bancarios
+	Datos Bancarios:
 		Titular cuenta: (?)
 	    Número cuenta: (1) 
 	
