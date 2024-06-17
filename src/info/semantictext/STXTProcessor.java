@@ -2,7 +2,7 @@ package info.semantictext;
 
 import java.io.IOException;
 
-public class STXTProcessor extends BasicProcessor
+public class STXTProcessor extends SimpleProcessor
 {
     private static final String NAMESPACE = "namespace";
     

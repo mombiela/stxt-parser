@@ -1,11 +1,12 @@
 package info.semantictext;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-public class NamespaceProcessor extends BasicProcessor
+public class NamespaceProcessor implements Processor
 {
     // -----------
     // Main parser
@@ -166,5 +167,20 @@ public class NamespaceProcessor extends BasicProcessor
     {
         if (!NamespaceType.isValidType(type)) 
             throw new ParseException("Type not valid: " + type, node.getLineCreation());
+    }
+
+    @Override
+    public void processNodeOnCreation(Node node) throws ParseException, IOException
+    {
+    }
+
+    @Override
+    public void processBeforeAdd(Node parent, Node child) throws ParseException, IOException
+    {
+    }
+
+    @Override
+    public void processAfterAdd(Node parent, Node child) throws ParseException, IOException
+    {
     }    
 }

@@ -9,7 +9,7 @@ import java.util.Set;
 
 import org.junit.jupiter.api.Test;
 
-import info.semantictext.BasicProcessor;
+import info.semantictext.SimpleProcessor;
 import info.semantictext.Node;
 import info.semantictext.ParseException;
 import info.semantictext.Parser;
@@ -66,7 +66,7 @@ public class TestParserBasicAll
     private Parser createBasicParser(Set<String> multilineNodes)
     {
         Parser parser = new Parser();
-        BasicProcessor basicProcessor = new BasicProcessor();
+        SimpleProcessor basicProcessor = new SimpleProcessor();
         basicProcessor.setMultilineNodes(multilineNodes);
         parser.addNodeProcessor(basicProcessor);
         
