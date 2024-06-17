@@ -11,6 +11,7 @@ public class STXTProcessor implements Processor
     // ----------------------------------
     
     private NamespaceRetriever namespaceRetriever;
+    private boolean currentDocRaw = false;
 
     public STXTProcessor(NamespaceRetriever namespaceRetriever)
     {
@@ -30,6 +31,8 @@ public class STXTProcessor implements Processor
     @Override
     public void processNodeOnCompletion(Node node) throws ParseException, IOException
     {
+        if (currentDocRaw) return; // No process
+        
         String namespace = (String) node.getMetadata(NAMESPACE);
         NamespaceNode nsNode = namespaceRetriever.getNameSpace(namespace).getNode(node.getName());
         
@@ -45,6 +48,8 @@ public class STXTProcessor implements Processor
     @Override
     public void processBeforeAdd(Node parent, Node child) throws IOException, ParseException
     {
+        if (currentDocRaw) return; // No process
+        
         // Get namespace parent
         String parentNamespace = (String) parent.getMetadata(NAMESPACE);
         String parentName = parent.getName();
@@ -81,10 +86,17 @@ public class STXTProcessor implements Processor
     
     private void updateMainNamespace(Node node) throws IOException, ParseException
     {
-        System.out.println("Updating main namespace: " + node.getName());
         LineSplitter split = LineSplitter.split(node.getName());
         String name = split.centralText;
         String namespace = split.suffix;
+        String prefix = split.prefix;
+        
+        // Current doc raw
+        currentDocRaw = namespace == null;
+        if (currentDocRaw) return; // No process
+        
+        // Validate prefix
+        if (prefix != null) throw new ParseException("Prefix not allowed in node name: " + prefix, node.getLineCreation());
         
         // Get namespace
         Namespace ns = namespaceRetriever.getNameSpace(namespace);

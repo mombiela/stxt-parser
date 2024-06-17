@@ -11,11 +11,11 @@ import info.semantictext.Node;
 import info.semantictext.ParseException;
 import info.semantictext.STXTParser;
 
-public class TestParserSTXT01
+public class TestParserSTX01Raw
 {
     public static void main(String[] args) throws Exception
     {
-	new TestParserSTXT01().mainTest();
+	new TestParserSTX01Raw().mainTest();
     }
     
     @Test
@@ -29,7 +29,7 @@ public class TestParserSTXT01
         STXTParser parser = new STXTParser(namespaceRetriever);
         
         // Ejecutamos con fichero
-        File f = new File("docs/client.stxt");
+        File f = new File("docs/client_raw.stxt");
         System.out.println("FILE: " + f.getAbsolutePath());
         List<Node> nodes = parser.parseFile(f);
         
