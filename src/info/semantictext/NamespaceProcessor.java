@@ -34,11 +34,11 @@ public class NamespaceProcessor extends BasicProcessor
             if (!Constants.NAMESPACE.equalsIgnoreCase(nodeName))
                 throw new ParseException("Line not valid: " + nodeName, node.getLineCreation());
             
-            if (nodeNameSplit.suffix != null && !Constants.ROOT_NAMESPACE.equals(nodeNameSplit.suffix)) 
-                throw new ParseException("Namespace not valid: " + nodeNameSplit.suffix, node.getLineCreation());
+            if (nodeNameSplit.suffix != null) 
+                throw new ParseException("Namespace name not allowed in namespace definition: " + nodeNameSplit.suffix, node.getLineCreation());
             
             if (nodeNameSplit.prefix != null)
-                throw new ParseException("Line not valid", node.getLineCreation());
+                throw new ParseException("Line not valid with prefix", node.getLineCreation());
 
             // Create namespace
             createNameSpace(node, nodeName);
