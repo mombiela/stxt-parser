@@ -43,7 +43,7 @@ public class NamespaceRetriever
         List<Namespace> namespaces = new ArrayList<>();
         {
             for (Node n: namespacesNodes) 
-                namespaces.add(NamespaceTransformer.transformRawNode(n));
+                namespaces.add(NamespaceRawTransformer.transformRawNode(n));
         }
         
         if (expected != null && (namespaces.size()!= 1 || !namespaces.get(0).getName().equals(expected)))

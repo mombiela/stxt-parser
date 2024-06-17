@@ -4,7 +4,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-public class NamespaceTransformer
+public class NamespaceRawTransformer
 {
     public static Namespace transformRawNode(Node node) throws ParseException
     {
