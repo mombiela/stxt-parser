@@ -1,1 +1,0 @@
-* Don't allow explícit nodes with Namespace documents
