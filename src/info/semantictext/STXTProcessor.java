@@ -2,7 +2,7 @@ package info.semantictext;
 
 import java.io.IOException;
 
-public class STXTProcessor extends RawProcessor
+public class STXTProcessor implements Processor
 {
     private static final String NAMESPACE = "namespace";
     
@@ -117,4 +117,8 @@ public class STXTProcessor extends RawProcessor
         }
     }
 
+    @Override
+    public void processAfterAdd(Node parent, Node child) throws ParseException, IOException
+    {
+    }
 }
