@@ -1,73 +1,47 @@
 package info.semantictext;
 
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-public class NamespaceProcessor implements Processor
+public class NamespaceTransformer
 {
-    // -----------
-    // Main parser
-    // -----------
-    
-    private List<Namespace> namespaces = new ArrayList<>();
-    private Namespace currentNamespace = null;
-    
-    public List<Namespace> getNamespaces()
+    public static Namespace transformRawNode(Node node) throws ParseException
     {
-        return namespaces;
-    }
-    
-    @Override
-    public void processNodeOnCompletion(Node node) throws ParseException 
-    {
+        Namespace currentNamespace = new Namespace();
+        
         // Node name
         String nodeName = node.getName();
         
-        if (node.getLevelCreation()==0)
-        {
-            // Validation
-            LineSplitter nodeNameSplit = LineSplitter.split(nodeName);
-            nodeName = nodeNameSplit.centralText;
-            
-            if (!Constants.NAMESPACE.equalsIgnoreCase(nodeName))
-                throw new ParseException("Line not valid: " + nodeName, node.getLineCreation());
-            
-            if (nodeNameSplit.suffix != null) 
-                throw new ParseException("Namespace name not allowed in namespace definition: " + nodeNameSplit.suffix, node.getLineCreation());
-            
-            if (nodeNameSplit.prefix != null)
-                throw new ParseException("Line not valid with prefix", node.getLineCreation());
-
-            // Create namespace
-            createNameSpace(node, nodeName);
-            for (Node n: node.getChilds()) updateNamespace(n);
-        }
-    }
-
-    // ---------
-    // Namespace
-    // ---------
-    
-    private void createNameSpace(Node node, String nodeName) throws ParseException
-    {
-        if (node.getLevelCreation() != 0) 
-            throw new ParseException("Namespace not in valid position: " + node.getLevelCreation(), node.getLineCreation());
+        // Validation
+        LineSplitter nodeNameSplit = LineSplitter.split(nodeName);
+        nodeName = nodeNameSplit.centralText;
         
-        // Create new namespace
+        if (!Constants.NAMESPACE.equalsIgnoreCase(nodeName))
+            throw new ParseException("Line not valid: " + nodeName, node.getLineCreation());
+        
+        if (nodeNameSplit.suffix != null) 
+            throw new ParseException("Namespace name not allowed in namespace definition: " + nodeNameSplit.suffix, node.getLineCreation());
+        
+        if (nodeNameSplit.prefix != null)
+            throw new ParseException("Line not valid with prefix", node.getLineCreation());
+
+        // Create namespace
         validateNamespaceFormat(node.getValue(), node.getLineCreation());
         currentNamespace = new Namespace();
         currentNamespace.setName(node.getValue());
-        namespaces.add(currentNamespace);
+        
+        for (Node n: node.getChilds()) updateNamespace(n, currentNamespace);
+        
+        // Return namespace
+        return currentNamespace;
     }
 
     // ----
     // Node
     // ----
     
-    private void updateNamespace(Node node) throws ParseException 
+    private static void updateNamespace(Node node, Namespace currentNamespace) throws ParseException 
     {
         String name = node.getName();
         String type = null;
@@ -148,7 +122,7 @@ public class NamespaceProcessor implements Processor
                     
                     // process child (only if not contains namespace!)
                     if (nsChild.getNamespace()==null)
-                        updateNamespace(child);
+                        updateNamespace(child, currentNamespace);
                 }
             }
         }
@@ -158,29 +132,14 @@ public class NamespaceProcessor implements Processor
     // Métodos utilitarios
     // -------------------
 
-    private void validateNamespaceFormat(String namespace, int lineNumber) throws ParseException
+    private static void validateNamespaceFormat(String namespace, int lineNumber) throws ParseException
     {
         if (!NamespaceType.isValidNamespace(namespace)) throw new ParseException("Namespace not valid: " + namespace, lineNumber);
     }
     
-    private void validateType(String type, Node node) throws ParseException
+    private static void validateType(String type, Node node) throws ParseException
     {
         if (!NamespaceType.isValidType(type)) 
             throw new ParseException("Type not valid: " + type, node.getLineCreation());
     }
-
-    @Override
-    public void processNodeOnCreation(Node node) throws ParseException, IOException
-    {
-    }
-
-    @Override
-    public void processBeforeAdd(Node parent, Node child) throws ParseException, IOException
-    {
-    }
-
-    @Override
-    public void processAfterAdd(Node parent, Node child) throws ParseException, IOException
-    {
-    }    
 }

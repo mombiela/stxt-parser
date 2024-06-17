@@ -2,15 +2,12 @@ package test;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.List;
+import java.util.Set;
 
 import org.junit.jupiter.api.Test;
 
-import info.semantictext.Namespace;
-import info.semantictext.NamespaceProcessor;
-import info.semantictext.Node;
+import info.semantictext.NamespaceRetriever;
 import info.semantictext.ParseException;
-import info.semantictext.Parser;
 
 public class TestNamespaceProcessor1
 {
@@ -31,19 +28,15 @@ public class TestNamespaceProcessor1
         System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
         System.out.println(f.getAbsolutePath());
         
-        Parser parser = new Parser();
-        NamespaceProcessor nsProcessor = new NamespaceProcessor();
-        parser.addNodeProcessor(nsProcessor);
+        NamespaceRetriever nsRetriver = new NamespaceRetriever();
+        nsRetriver.addGrammarDefinitionsFromFile(f);
         
-        parser.debug = true;
-        List<Node> docs = parser.parseFile(f);
-        Node n = docs.get(0);
-        System.out.println(n);
-
-        for (Namespace ns: nsProcessor.getNamespaces())
+        Set<String> namespaces = nsRetriver.getAllNamespaces();
+        for (String namespace: namespaces)
         {
-            System.out.println("======================================================");
-            System.out.println(ns);
+            System.out.println("*************************************************************");
+            System.out.println(namespace);
+            System.out.println(nsRetriver.getNameSpace(namespace));
         }
         
         System.out.println("End");

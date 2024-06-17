@@ -3,6 +3,7 @@ package info.semantictext;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -34,14 +35,16 @@ public class NamespaceRetriever
     
     private void addGrammarDefinition(String content, String expected) throws IOException, ParseException
     {
-        // Parser content
+        // Parse raw Content
         Parser parser = new Parser();
-        NamespaceProcessor processor = new NamespaceProcessor();
-        parser.addNodeProcessor(processor);
-        parser.parse(content);
+        List<Node> namespacesNodes = parser.parse(content);
         
         // Get result
-        List<Namespace> namespaces = processor.getNamespaces();
+        List<Namespace> namespaces = new ArrayList<>();
+        {
+            for (Node n: namespacesNodes) 
+                namespaces.add(NamespaceTransformer.transformRawNode(n));
+        }
         
         if (expected != null && (namespaces.size()!= 1 || !namespaces.get(0).getName().equals(expected)))
             throw new ParseException("Namespace is " + namespaces.get(0).getName() + ", expected: " + expected, 0);
@@ -71,6 +74,13 @@ public class NamespaceRetriever
                 throw e;
             }
         }
+    }
+    
+    
+    public void addGrammarDefinitionsFromFile(File file) throws IOException, ParseException
+    {
+        // Read definitions from directory
+        addGrammarDefinition(UtilsFile.readFileContent(file));
     }
     
     public Namespace getNameSpace(String namespace) throws IOException, ParseException
