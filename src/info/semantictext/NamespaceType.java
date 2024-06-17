@@ -81,10 +81,9 @@ public class NamespaceType
     }
     public static boolean isValidNamespace(String namespace)
     {
-        if (!namespace.endsWith(".stxt")) return false;
-        
         try
         {
+            if (!namespace.endsWith(".stxt")) return false;
             new URL("https://" + namespace);
             return true;
         }
