@@ -15,7 +15,20 @@
 Namespace: www.semantictext.info/namespace.stxt
 
 	Node: STRING
-		Type: (?)
+		Type: (?) ENUM
+			:STRING
+			:TEXT
+			:NUMBER
+			:BOOLEAN
+			:DATE
+			:TIMESTAMP
+			:EMAIL
+			:URL
+			:REGEX
+			:ENUM
+			:EMPTY
+			:HEXADECIMAL
+			:BASE64			
 		Value: (*)
 		Child: (*)
 			Count: (1)
