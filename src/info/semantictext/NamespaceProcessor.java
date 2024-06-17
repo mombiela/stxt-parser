@@ -31,7 +31,10 @@ public class NamespaceProcessor extends BasicProcessor
             LineSplitter nodeNameSplit = LineSplitter.split(nodeName);
             nodeName = nodeNameSplit.centralText;
             
-            if (!Constants.ROOT_NAMESPACE.contentEquals(nodeNameSplit.suffix)) 
+            if (!Constants.NAMESPACE.equalsIgnoreCase(nodeName))
+                throw new ParseException("Line not valid: " + nodeName, node.getLineCreation());
+            
+            if (nodeNameSplit.suffix != null && !Constants.ROOT_NAMESPACE.equals(nodeNameSplit.suffix)) 
                 throw new ParseException("Namespace not valid: " + nodeNameSplit.suffix, node.getLineCreation());
             
             if (nodeNameSplit.prefix != null)
