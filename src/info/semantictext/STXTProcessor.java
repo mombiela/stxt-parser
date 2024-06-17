@@ -2,7 +2,7 @@ package info.semantictext;
 
 import java.io.IOException;
 
-public class STXTProcessor extends RawDocProcessor
+public class STXTProcessor extends RawProcessor
 {
     private static final String NAMESPACE = "namespace";
     
@@ -37,6 +37,9 @@ public class STXTProcessor extends RawDocProcessor
         
         // Validamos nodo
         NamespaceValidator.validateValue(nsNode, node);
+        
+        // Validamos no implicit multiline
+        validateNotImplicitMultiline(node);
     }
     
     @Override
@@ -99,4 +102,19 @@ public class STXTProcessor extends RawDocProcessor
         // Validamos primer nodo
         NamespaceValidator.validateValue(nsNode, node);
     }
+    
+    private void validateNotImplicitMultiline(Node node) throws ParseException
+    {
+        if (node.getValues() != null)
+        {
+            for (NodeLine nl: node.getValues())
+            {
+                if (nl.isExplicit())
+                {
+                    throw new ParseException("No allowed explícit multilines in NS documents", nl.getLineCreation());
+                }
+            }
+        }
+    }
+
 }

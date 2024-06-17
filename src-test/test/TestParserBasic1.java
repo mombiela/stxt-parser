@@ -8,7 +8,7 @@ import java.util.Set;
 
 import org.junit.jupiter.api.Test;
 
-import info.semantictext.RawDocProcessor;
+import info.semantictext.RawProcessor;
 import info.semantictext.Node;
 import info.semantictext.ParseException;
 import info.semantictext.Parser;
@@ -48,7 +48,7 @@ public class TestParserBasic1
     private Parser createBasicParser(Set<String> multilineNodes)
     {
         Parser parser = new Parser();
-        RawDocProcessor basicProcessor = new RawDocProcessor();
+        RawProcessor basicProcessor = new RawProcessor();
         basicProcessor.setMultilineNodes(multilineNodes);
         parser.addNodeProcessor(basicProcessor);
         
