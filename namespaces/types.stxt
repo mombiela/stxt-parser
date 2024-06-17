@@ -1,4 +1,5 @@
-Namespace (www.semantictext.info/namespace.stxt): www.semantictext.info/type_check.stxt
+Namespace: www.semantictext.info/type_check.stxt
+
 	Type List:
 		text: (+) TEXT
 		natural: (+) NATURAL

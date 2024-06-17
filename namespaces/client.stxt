@@ -1,4 +1,4 @@
-Namespace(www.semantictext.info/namespace.stxt): www.gymstxt.com/client.stxt
+Namespace: www.gymstxt.com/client.stxt
 
 	Cliente:
 		Datos Personales: (1)

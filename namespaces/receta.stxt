@@ -2,7 +2,7 @@
 # Receta
 # ------
 
-Namespace (www.semantictext.info/namespace.stxt): www.kocinando.com/receta.stxt
+Namespace: www.kocinando.com/receta.stxt
 
 	Receta:
 	    Nombre Receta: (1)
