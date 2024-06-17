@@ -1,8 +1,9 @@
-# ---------------------------------------------------
-# Structure of a Definition of Namespace
+# -----------------------------------------------------------------
+#               Structure of a Definition of Namespace
 # 
-# (More information on https://www.semantictext.info)
-# ---------------------------------------------------
+# More information on https://www.semantictext.info
+# Actually is not used
+# -----------------------------------------------------------------
  
 Namespace: www.semantictext.info/namespace.stxt
 
