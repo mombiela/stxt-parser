@@ -3,7 +3,7 @@ package info.semantictext;
 import java.io.IOException;
 import java.util.Set;
 
-public class RawProcessor implements Processor
+public class RawCustomProcessor implements Processor
 {
     // -------------
     // Configuration
