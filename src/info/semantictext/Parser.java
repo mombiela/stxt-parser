@@ -91,7 +91,7 @@ public class Parser
         // Multiline (implícit)
         if (lastNodeMultiline && lineIndent.indentLevel>=stack.size())
         {
-            addMultilineValue(lastNode, lineIndent.lineWithoutIndent);
+            addMultilineValue(lastNode, lineIndent.lineWithoutIndent, false);
             return;
         }
         
@@ -105,7 +105,7 @@ public class Parser
         // Multiline (explícit)
         if (node.getName()==null && lastNode != null)
         {
-            addMultilineValue(lastNode, node.getValue());
+            addMultilineValue(lastNode, node.getValue(), true);
             return;
         }
         
@@ -143,11 +143,11 @@ public class Parser
         showCurrentRoot();
     }
 
-    private void addMultilineValue(Node lastNode, String value) 
+    private void addMultilineValue(Node lastNode, String value, boolean explicit) 
     {
-	lastNode.addValue(value);
+        lastNode.addValue(new NodeValue(lineNumber, currentLevel, value, explicit));
 
-	showCurrentRoot();
+        showCurrentRoot();
     }
 
     private Node createNode(LineIndent result) throws ParseException 

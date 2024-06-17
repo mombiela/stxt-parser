@@ -13,7 +13,7 @@ public class Node
 
     private String name;
     private final String value;
-    private final List<String> values = new ArrayList<>();
+    private final List<NodeValue> values = new ArrayList<>();
     private final int lineCreation;
     private final int levelCreation;
     private List<Node> childs = new ArrayList<>();
@@ -78,32 +78,32 @@ public class Node
         return lineCreation;
     }
 
-    public void addValue(String value)
+    public void addValue(NodeValue value)
     {
 	this.values.add(value);
     }
     
-    public List<String> getValues()
+    public List<NodeValue> getValues()
     {
 	return values;
     }
     
     public String getValuesText()
     {
-	StringBuffer result = new StringBuffer();
+    	StringBuffer result = new StringBuffer();
+    	
+    	boolean first = true;
+    	for (NodeValue value: values) 
+    	{
+    	    if (first) 
+    	    {
+        		result.append(value.getValue());
+        		first = false;
+    	    }
+    	    else result.append("\n").append(value.getValue());
+    	}
 	
-	boolean first = true;
-	for (String value: values) 
-	{
-	    if (first) 
-	    {
-		result.append(value);
-		first = false;
-	    }
-	    else result.append("\n").append(value);
-	}
-	
-	return result.toString();
+    	return result.toString();
     }
     
     public String getAllValuesText()
