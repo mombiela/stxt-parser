@@ -20,7 +20,7 @@ public class NamespaceRawTransformer
         if (!Constants.NAMESPACE.equalsIgnoreCase(nodeName))
             throw new ParseException("Line not valid: " + nodeName, node.getLineCreation());
         
-        if (nodeNameSplit.suffix != null) 
+        if (nodeNameSplit.suffix != null)
             throw new ParseException("Namespace name not allowed in namespace definition: " + nodeNameSplit.suffix, node.getLineCreation());
         
         if (nodeNameSplit.prefix != null)
