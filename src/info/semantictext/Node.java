@@ -13,7 +13,7 @@ public class Node
 
     private String name;
     private final String value;
-    private final List<NodeValue> values = new ArrayList<>();
+    private final List<NodeLine> lines = new ArrayList<>();
     private final int lineCreation;
     private final int levelCreation;
     private List<Node> childs = new ArrayList<>();
@@ -78,14 +78,14 @@ public class Node
         return lineCreation;
     }
 
-    public void addValue(NodeValue value)
+    public void addLine(NodeLine value)
     {
-	this.values.add(value);
+	this.lines.add(value);
     }
     
-    public List<NodeValue> getValues()
+    public List<NodeLine> getValues()
     {
-	return values;
+        return lines;
     }
     
     public String getValuesText()
@@ -93,7 +93,7 @@ public class Node
     	StringBuffer result = new StringBuffer();
     	
     	boolean first = true;
-    	for (NodeValue value: values) 
+    	for (NodeLine value: lines) 
     	{
     	    if (first) 
     	    {
@@ -163,7 +163,7 @@ public class Node
         StringBuffer result = new StringBuffer();
         
         for (int i = 0; i<level; i++) result.append("    ");
-        result.append("<" + name + "> (line:" + lineCreation + ") " + metadata + ": '" + getValueShort() + "', values = " + values);
+        result.append("<" + name + "> (line:" + lineCreation + ") " + metadata + ": '" + getValueShort() + "', lines = " + lines);
         result.append("\n");
         
         if (childs!=null && childs.size()>0)

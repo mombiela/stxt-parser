@@ -1,13 +1,13 @@
 package info.semantictext;
 
-public class NodeValue
+public class NodeLine
 {
     private final String value;
     private final int lineCreation;
     private final int levelCreation;
     private final boolean explicit;
 
-    public NodeValue(int line, int level, String value, boolean explicit)
+    public NodeLine(int line, int level, String value, boolean explicit)
     {
         this.levelCreation = level;
         this.lineCreation = line;

@@ -145,7 +145,7 @@ public class Parser
 
     private void addMultilineValue(Node lastNode, String value, boolean explicit) 
     {
-        lastNode.addValue(new NodeValue(lineNumber, currentLevel, value, explicit));
+        lastNode.addLine(new NodeLine(lineNumber, currentLevel, value, explicit));
 
         showCurrentRoot();
     }

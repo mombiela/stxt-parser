@@ -92,7 +92,7 @@ public class NamespaceProcessor implements Processor
             if (node.getValues().size()>0)
             {
         	Set<String> allowedValues = new HashSet<>();
-        	for (NodeValue value: node.getValues()) allowedValues.add(value.getValue().trim());
+        	for (NodeLine value: node.getValues()) allowedValues.add(value.getValue().trim());
         	
         	if (NamespaceType.isValuesType(type)) 	nsNode.setValues(allowedValues);
         	else                            	throw new ParseException("Type not allow values: " + type, node.getLineCreation());
