@@ -116,7 +116,7 @@ public class Node
         
         result.append(getValuesText());
         
-        return result.toString();
+        return result.toString().replaceAll("(\\s*\\r?\\n)+$", "");
     }    
     
     // Fast access methods to children
