@@ -88,36 +88,20 @@ public class Node
         return lines;
     }
     
-    public String getValuesText()
-    {
-    	StringBuffer result = new StringBuffer();
-    	
-    	boolean first = true;
-    	for (NodeLine value: lines) 
-    	{
-    	    if (first) 
-    	    {
-        		result.append(value.getValue());
-        		first = false;
-    	    }
-    	    else result.append("\n").append(value.getValue());
-    	}
-	
-    	return result.toString();
-    }
-    
-    public String getAllValuesText()
+    public String getText()
     {
         StringBuilder result = new StringBuilder();
 
         if (value != null) {
             result.append(value).append("\n");
         }
-        
-        result.append(getValuesText());
+        for (NodeLine value: lines) 
+        {
+            result.append(value.getValue()).append("\n");
+        }
         
         return result.toString().replaceAll("(\\s*\\r?\\n)+$", "");
-    }    
+    }
     
     // Fast access methods to children
     public List<Node> getChilds(String cname)

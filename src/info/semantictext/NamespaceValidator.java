@@ -166,7 +166,7 @@ public class NamespaceValidator
     {
         try
         {
-            Base64.getDecoder().decode(Utils.cleanupString(n.getAllValuesText()));
+            Base64.getDecoder().decode(Utils.cleanupString(n.getText()));
         }
         catch (Exception e)
         {
@@ -176,9 +176,9 @@ public class NamespaceValidator
     
     private static void validateHexadecimal(Node n) throws ParseException
     {
-	String hex = Utils.cleanupString(n.getAllValuesText());
-	Matcher m = P_HEXADECIMAL.matcher(hex);
-	if (!m.matches()) throw new ParseException("Node '" + n.getName() + "' Invalid hexadecimal", n.getLineCreation());
+    	String hex = Utils.cleanupString(n.getText());
+    	Matcher m = P_HEXADECIMAL.matcher(hex);
+    	if (!m.matches()) throw new ParseException("Node '" + n.getName() + "' Invalid hexadecimal", n.getLineCreation());
     }
     
     
