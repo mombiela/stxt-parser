@@ -9,6 +9,19 @@ public class LineSplitter
     public final String centralText;
     public final String suffix;
 
+    public String getPrefix()
+    {
+        return prefix;
+    }
+    public String getSuffix()
+    {
+        return suffix;
+    }
+    public String getCentralText()
+    {
+        return centralText;
+    }
+    
     private LineSplitter(String prefix, String centralText, String suffix) 
     {
         this.prefix = prefix;
