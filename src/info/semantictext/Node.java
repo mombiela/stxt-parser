@@ -88,6 +88,21 @@ public class Node
         return lines;
     }
     
+    public String getTextPrefix()
+    {
+	return LineSplitter.split(getText()).getPrefix();
+    }
+    
+    public String getTextSufix()
+    {
+	return LineSplitter.split(getText()).getSuffix();
+    }
+    
+    public String getTextCentral()
+    {
+	return LineSplitter.split(getText()).getCentralText();
+    }    
+    
     public String getText()
     {
         StringBuilder result = new StringBuilder();
