@@ -119,6 +119,10 @@ public class NamespaceRawTransformer
                                 throw new ParseException("Namespace not allow type: " + namespace, child.getLineCreation());
                         }
                     }
+                    else
+                    {
+                    	nsChild.setNum("*");
+                    }
                     
                     // process child (only if not contains namespace!)
                     if (nsChild.getNamespace()==null)
