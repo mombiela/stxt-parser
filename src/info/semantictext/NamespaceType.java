@@ -79,10 +79,11 @@ public class NamespaceType
     {
         return VALUES_TYPES.contains(type);
     }
-    public static boolean isValidNamespace(String namespace)
+    public static boolean isValidNamespace(String namespace, boolean allowAll)
     {
         try
         {
+            if (allowAll && !namespace.isEmpty()) return true;
             if (namespace.startsWith("@")) return true;
             if (!namespace.endsWith(".stxt")) return false;
             new URL("https://" + namespace);

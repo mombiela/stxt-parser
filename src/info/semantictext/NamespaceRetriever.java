@@ -14,6 +14,7 @@ public class NamespaceRetriever
 {
     private Map<String, Namespace> CACHE = new HashMap<>();
     private boolean allowInternet = false;
+    private boolean allowAllNamespaceDefinitions = false;
     
     public NamespaceRetriever()
     {
@@ -21,6 +22,11 @@ public class NamespaceRetriever
     public NamespaceRetriever(boolean allowInternet)
     {
         this.allowInternet = allowInternet;
+    }
+    public NamespaceRetriever(boolean allowInternet, boolean allowAllNamespaceDefinitions)
+    {
+        this.allowInternet = allowInternet;
+        this.allowAllNamespaceDefinitions = allowAllNamespaceDefinitions;
     }
     
     public void addGrammarDefinition(String content) throws IOException, ParseException
@@ -43,7 +49,7 @@ public class NamespaceRetriever
         List<Namespace> namespaces = new ArrayList<>();
         {
             for (Node n: namespacesNodes) 
-                namespaces.add(NamespaceRawTransformer.transformRawNode(n));
+                namespaces.add(NamespaceRawTransformer.transformRawNode(n, allowAllNamespaceDefinitions));
         }
         
         if (expected != null && (namespaces.size()!= 1 || !namespaces.get(0).getName().equals(expected)))

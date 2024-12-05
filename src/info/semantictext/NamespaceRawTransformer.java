@@ -6,7 +6,7 @@ import java.util.Set;
 
 public class NamespaceRawTransformer
 {
-    public static Namespace transformRawNode(Node node) throws ParseException
+    public static Namespace transformRawNode(Node node, boolean allowAll) throws ParseException
     {
         Namespace currentNamespace = new Namespace();
         
@@ -27,11 +27,11 @@ public class NamespaceRawTransformer
             throw new ParseException("Line not valid with prefix", node.getLineCreation());
 
         // Create namespace
-        validateNamespaceFormat(node.getValue(), node.getLineCreation());
+        validateNamespaceFormat(node.getValue(), node.getLineCreation(), allowAll);
         currentNamespace = new Namespace();
         currentNamespace.setName(node.getValue());
         
-        for (Node n: node.getChilds()) updateNamespace(n, currentNamespace);
+        for (Node n: node.getChilds()) updateNamespace(n, currentNamespace, allowAll);
         
         // Return namespace
         return currentNamespace;
@@ -41,7 +41,7 @@ public class NamespaceRawTransformer
     // Node
     // ----
     
-    private static void updateNamespace(Node node, Namespace currentNamespace) throws ParseException 
+    private static void updateNamespace(Node node, Namespace currentNamespace, boolean allowAll) throws ParseException 
     {
         String name = node.getName();
         String type = null;
@@ -112,7 +112,7 @@ public class NamespaceRawTransformer
                         nsChild.setNamespace(namespace);
                         if (namespace != null)
                         {
-                            if (!NamespaceType.isValidNamespace(namespace))
+                            if (!NamespaceType.isValidNamespace(namespace, allowAll))
                                 throw new ParseException("Namespace not valid: " + namespace, child.getLineCreation());
                             
                             if (split.centralText!=null)
@@ -126,7 +126,7 @@ public class NamespaceRawTransformer
                     
                     // process child (only if not contains namespace!)
                     if (nsChild.getNamespace()==null)
-                        updateNamespace(child, currentNamespace);
+                        updateNamespace(child, currentNamespace, allowAll);
                 }
             }
         }
@@ -136,9 +136,9 @@ public class NamespaceRawTransformer
     // Métodos utilitarios
     // -------------------
 
-    private static void validateNamespaceFormat(String namespace, int lineNumber) throws ParseException
+    private static void validateNamespaceFormat(String namespace, int lineNumber, boolean allowAll) throws ParseException
     {
-        if (!NamespaceType.isValidNamespace(namespace)) throw new ParseException("Namespace not valid: " + namespace, lineNumber);
+        if (!NamespaceType.isValidNamespace(namespace, allowAll)) throw new ParseException("Namespace not valid: " + namespace, lineNumber);
     }
     
     private static void validateType(String type, Node node) throws ParseException
