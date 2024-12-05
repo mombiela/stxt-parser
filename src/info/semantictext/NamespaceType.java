@@ -83,6 +83,7 @@ public class NamespaceType
     {
         try
         {
+            if (namespace.startsWith("@")) return true;
             if (!namespace.endsWith(".stxt")) return false;
             new URL("https://" + namespace);
             return true;

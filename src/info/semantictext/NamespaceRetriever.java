@@ -52,7 +52,7 @@ public class NamespaceRetriever
         // Add result
         for (Namespace ns: namespaces)
         {
-            String name = ns.getName();
+            String name = ns.getName().toLowerCase();
             if (CACHE.containsKey(name)) throw new ParseException("Namespace already exist: " + name, 0);
             CACHE.put(name, ns);
         }
