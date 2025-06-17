@@ -11,10 +11,8 @@ Import jar: [stxt-1.0.0.jar](https://github.com/mombiela/stxt-parser/raw/master/
 To parse a STxT document:
 
 ```
-// Create parser
-NamespaceRetriever namespaceRetriever = new NamespaceRetriever();
-namespaceRetriever.addGrammarDefinitionsFromDir(dir);
-STXTParser parser = new STXTParser(namespaceRetriever);
+// Create parser (ThreadSafe)
+STXTParser parser = new STXTParser(new File(dir));
 
 // Parse File
 List<Node> nodes = parser.parseFile(f);

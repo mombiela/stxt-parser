@@ -6,7 +6,6 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-import info.semantictext.NamespaceRetriever;
 import info.semantictext.Node;
 import info.semantictext.ParseException;
 import info.semantictext.STXTParser;
@@ -24,9 +23,7 @@ public class TestParserSTXT01
         System.out.println("Inici");
         
         // Creamos parser
-        NamespaceRetriever namespaceRetriever = new NamespaceRetriever();
-        namespaceRetriever.addGrammarDefinitionsFromDir(new File("namespaces"));
-        STXTParser parser = new STXTParser(namespaceRetriever);
+        STXTParser parser = new STXTParser(new File("namespaces"));
         
         // Ejecutamos con fichero
         File f = new File("docs/client.stxt");
