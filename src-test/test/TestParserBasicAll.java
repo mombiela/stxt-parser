@@ -27,7 +27,7 @@ public class TestParserBasicAll
         Parser parser = createBasicParser();
         
         List<File> files = new ArrayList<>();
-        for (File f: new File("docs").listFiles()) files.add(f);
+        for (File f: new File("namespaces").listFiles()) files.add(f);
         
         for (File f: files)
         {

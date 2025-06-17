@@ -1,18 +1,18 @@
-Namespace: com.gym.docs
+0:Namespace: com.gym.docs
 
-	Cliente:
-		Datos Personales: (1)
-		Datos Bancarios: (1)
+1:Cliente:
+2:Datos Personales: (1)
+2:Datos Bancarios: (1)
 	
-	Datos Personales:
-		Nombre: (1)
-		Primer apellido: (1)
-		Segundo apellido: (?)
-		Edad: (?) NUMBER 
-		Cliente vip: (?) BOOLEAN
-		Foto: (*) BASE64
+1:Datos Personales:
+2:Nombre: (1)
+2:Primer apellido: (1)
+2:Segundo apellido: (?)
+2:Edad: (?) NUMBER 
+2:Cliente vip: (?) BOOLEAN
+2:Foto: (*) BASE64
 		
-	Datos Bancarios:
-		Titular cuenta: (?)
-	    Número cuenta: (1) 
+1:Datos Bancarios:
+2:Titular cuenta: (?)
+2:Número cuenta: (1) 
 	
