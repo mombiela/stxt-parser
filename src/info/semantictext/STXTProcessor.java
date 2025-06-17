@@ -36,10 +36,10 @@ public class STXTProcessor implements Processor
         String namespace = (String) node.getMetadata(NAMESPACE);
         NamespaceNode nsNode = namespaceRetriever.getNameSpace(namespace).getNode(node.getName());
         
-        NamespaceValidator.validateCount(nsNode, node);
+        NamespaceNodeValidator.validateCount(nsNode, node);
         
         // Validamos nodo
-        NamespaceValidator.validateValue(nsNode, node);
+        NamespaceNodeValidator.validateValue(nsNode, node);
         
         // Validamos no implicit multiline
         validateNotImplicitMultiline(node);
@@ -77,7 +77,7 @@ public class STXTProcessor implements Processor
             throw new ParseException("Not found " + child.getName() + "in namespace " + namespaceChildString, child.getLineCreation());
         
         // Insertamos según tipo
-        child.setMultiline(NamespaceType.isMultiline(childNode.getType()));
+        child.setMultiline(NamespaceNodeType.isMultiline(childNode.getType()));
     }
 
     // ------------
@@ -112,7 +112,7 @@ public class STXTProcessor implements Processor
         node.setMetadata(NAMESPACE, namespace);
         
         // Validamos primer nodo
-        NamespaceValidator.validateValue(nsNode, node);
+        NamespaceNodeValidator.validateValue(nsNode, node);
     }
     
     private void validateNotImplicitMultiline(Node node) throws ParseException

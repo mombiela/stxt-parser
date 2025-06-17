@@ -7,7 +7,7 @@ import java.io.IOException;
 
 import org.junit.jupiter.api.Test;
 
-import info.semantictext.NamespaceType;
+import info.semantictext.NamespaceNodeType;
 import info.semantictext.ParseException;
 
 public class TestNamespaceNameValid
@@ -34,6 +34,6 @@ public class TestNamespaceNameValid
 
     private boolean validNamespace(String ns)
     {
-        return NamespaceType.isValidNamespace(ns);
+        return NamespaceNodeType.isValidNamespace(ns);
     }
 }
