@@ -1,6 +1,5 @@
 package info.semantictext;
 
-import java.net.URL;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.regex.Matcher;
@@ -80,11 +79,10 @@ public class NamespaceType
     {
         return VALUES_TYPES.contains(type);
     }
-    public static boolean isValidNamespace(String namespace, boolean allowAll)
+    public static boolean isValidNamespace(String namespace)
     {
         try
         {
-            if (allowAll && !namespace.isEmpty()) return true;
             return validateValue(NAMESPACE_VALID,namespace);
         }
         catch (Exception e)

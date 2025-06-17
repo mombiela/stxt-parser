@@ -34,6 +34,6 @@ public class TestNamespaceNameValid
 
     private boolean validNamespace(String ns)
     {
-        return NamespaceType.isValidNamespace(ns, false);
+        return NamespaceType.isValidNamespace(ns);
     }
 }

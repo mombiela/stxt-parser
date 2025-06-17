@@ -12,14 +12,9 @@ import java.util.Set;
 public class NamespaceRetriever
 {
     private Map<String, Namespace> CACHE = new HashMap<>();
-    private boolean allowAllNamespaceDefinitions = false;
     
     public NamespaceRetriever()
     {
-    }
-    public NamespaceRetriever(boolean allowAllNamespaceDefinitions)
-    {
-        this.allowAllNamespaceDefinitions = allowAllNamespaceDefinitions;
     }
     
     public void addGrammarDefinition(String content) throws IOException, ParseException
@@ -42,7 +37,7 @@ public class NamespaceRetriever
         List<Namespace> namespaces = new ArrayList<>();
         {
             for (Node n: namespacesNodes) 
-                namespaces.add(NamespaceRawTransformer.transformRawNode(n, allowAllNamespaceDefinitions));
+                namespaces.add(NamespaceRawTransformer.transformRawNode(n));
         }
         
         if (expected != null && (namespaces.size()!= 1 || !namespaces.get(0).getName().equals(expected)))
