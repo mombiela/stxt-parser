@@ -31,6 +31,7 @@ public class NamespaceType
     private static final Set<String> ALLOWED_COUNT = new HashSet<>();
     
     private static final Pattern COUNT = Pattern.compile("^\\d+(\\+|-)?$");
+    private static final Pattern NAMESPACE_VALID = Pattern.compile("^[a-zA-Z0-9]+(\\.[a-zA-Z0-9]+)*$");
     
     public static String getDefault()
     {
@@ -84,10 +85,7 @@ public class NamespaceType
         try
         {
             if (allowAll && !namespace.isEmpty()) return true;
-            if (namespace.startsWith("@")) return true;
-            if (!namespace.endsWith(".stxt")) return false;
-            new URL("https://" + namespace);
-            return true;
+            return validateValue(NAMESPACE_VALID,namespace);
         }
         catch (Exception e)
         {
