@@ -15,10 +15,10 @@ Namespace: com.kocinando.receta
 	    Pasos: (1)
 	    	Paso: (+) NATURAL
 	    	Descripción: (1)
-		Dificultad: (?) ENUM
-		   	: fácil
-		   	: media
-	    	: difícil
+		:Dificultad: (?) ENUM
+		   	fácil
+		   	media
+	    	difícil
 	    Calorias: (?) NUMBER
 	    Comensales: (?) NUMBER
 	    Documento: (*) (com.dokumentando.doc_simple)

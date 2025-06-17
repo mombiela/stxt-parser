@@ -148,24 +148,28 @@ public class Parser
         String line = result.lineWithoutIndent;
         String name = line;
         String value = null;
+        boolean multiline = false;
+        
+        if (line.startsWith(":")) // Multiline explícit
+        {
+            multiline = true;
+            line = line.substring(1);
+        }
         
         int i = line.indexOf(':');
         if (i==-1) throw new ParseException("Line not valid: " + line, lineNumber);
 
         name = line.substring(0,i).trim(); // Always trim name
+        if (name.isEmpty()) throw new ParseException("Line not valid: " + line, lineNumber);
+        
         value = line.substring(i+1);
+        value = value.trim();
+        if (value.isEmpty()) value = null;
         
-        if (name.isEmpty()) // Multiline
-        {
-    	    name = null;
-        }
-        else
-        {
-            value = value.trim();
-            if (value.isEmpty()) value = null;
-        }
+        Node rs = new Node(lineNumber, currentLevel, name.toLowerCase(), value);
+        if (multiline) rs.setMultiline(true);
         
-        return new Node(lineNumber, currentLevel, name == null ? name: name.toLowerCase(), value);
+        return rs;
     }
     
     // ----------

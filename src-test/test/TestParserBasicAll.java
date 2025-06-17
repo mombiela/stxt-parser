@@ -26,23 +26,8 @@ public class TestParserBasicAll
     {
         System.out.println("Inici");
 
-        Set<String> multilineNodes = new HashSet<>();
-        multilineNodes.add("contenido");
-        multilineNodes.add("cuerpo");
-        multilineNodes.add("foto");
-        multilineNodes.add("observacion");    
-        multilineNodes.add("preparación");
-        multilineNodes.add("text");
-        multilineNodes.add("descripción");
-        multilineNodes.add("description");
-        multilineNodes.add("observaciones");
-        multilineNodes.add("binary");
-        multilineNodes.add("hexadecimal");
-        multilineNodes.add("base64");
-        multilineNodes.add("ingredientes");        
-        
         // Create parser
-        Parser parser = createBasicParser(multilineNodes);
+        Parser parser = createBasicParser();
         
         List<File> files = new ArrayList<>();
         for (File f: new File("docs").listFiles()) files.add(f);
@@ -63,11 +48,10 @@ public class TestParserBasicAll
         System.out.println("End");
     }
 
-    private Parser createBasicParser(Set<String> multilineNodes)
+    private Parser createBasicParser()
     {
         Parser parser = new Parser();
         RawCustomProcessor basicProcessor = new RawCustomProcessor();
-        basicProcessor.setMultilineNodes(multilineNodes);
         parser.addNodeProcessor(basicProcessor);
         
         return parser;

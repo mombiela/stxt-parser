@@ -15,20 +15,20 @@
 Namespace: dev.stxt.namespace
 
 	Node: STRING
-		Type: (?) ENUM
-			:STRING
-			:TEXT
-			:NUMBER
-			:BOOLEAN
-			:DATE
-			:TIMESTAMP
-			:EMAIL
-			:URL
-			:REGEX
-			:ENUM
-			:EMPTY
-			:HEXADECIMAL
-			:BASE64			
+		:Type: (?) ENUM
+			STRING
+			TEXT
+			NUMBER
+			BOOLEAN
+			DATE
+			TIMESTAMP
+			EMAIL
+			URL
+			REGEX
+			ENUM
+			EMPTY
+			HEXADECIMAL
+			BASE64			
 		Value: (*)
 		Child: (*)
 			Count: (1)

@@ -12,13 +12,13 @@ Namespace: com.dokumentando.documento
         Última modificacion: (1) TIMESTAMP
         Email Contacto: (1) EMAIL 
         Sitio Web: (1) URL
-        Código Postal: (1) REGEX
-        	: ^\d{5}$
+        :Código Postal: (1) REGEX
+        	^\d{5}$
         Es Público: (1) BOOLEAN 
         Color Tema: (?) HEXADECIMAL 
         Secciones: (1)
 	        Sección: (+)
-        Tipo Documento: (1) ENUM
-        	: informe
-        	: artículo
-        	: ensayo
+        :Tipo Documento: (1) ENUM
+        	informe
+        	artículo
+        	ensayo

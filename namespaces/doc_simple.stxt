@@ -4,10 +4,10 @@ Namespace: com.dokumentando.doc_simple
         Título: (1)
         Secciones: (*)
         Description: (1) TEXT
-        Tipo Documento: (1) ENUM
-        	:informe
-        	:artículo
-        	:ensayo
+        :Tipo Documento: (1) ENUM
+        	informe
+        	artículo
+        	ensayo
         
     Secciones:
         Seccion: (+) TEXT

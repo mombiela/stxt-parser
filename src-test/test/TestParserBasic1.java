@@ -2,16 +2,14 @@ package test;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import org.junit.jupiter.api.Test;
 
-import info.semantictext.RawCustomProcessor;
 import info.semantictext.Node;
 import info.semantictext.ParseException;
 import info.semantictext.Parser;
+import info.semantictext.RawCustomProcessor;
 
 public class TestParserBasic1
 {
@@ -25,15 +23,10 @@ public class TestParserBasic1
     {
         System.out.println("Inici");
 
-        Set<String> multilineNodes = new HashSet<>();
-        multilineNodes.add("contenido");
-        multilineNodes.add("cuerpo");
-        multilineNodes.add("foto");
-        
         // Create parser
-        Parser parser = createBasicParser(multilineNodes);
+        Parser parser = createBasicParser();
         
-        File f = new File("docs/client.stxt");
+        File f = new File("docs/client_raw.stxt");
         System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
         System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
         System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
@@ -45,11 +38,10 @@ public class TestParserBasic1
         System.out.println("End");
     }
 
-    private Parser createBasicParser(Set<String> multilineNodes)
+    private Parser createBasicParser()
     {
         Parser parser = new Parser();
         RawCustomProcessor basicProcessor = new RawCustomProcessor();
-        basicProcessor.setMultilineNodes(multilineNodes);
         parser.addNodeProcessor(basicProcessor);
         
         return parser;

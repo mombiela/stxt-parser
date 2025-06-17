@@ -9,13 +9,8 @@ public class RawCustomProcessor implements Processor
     // Configuration
     // -------------
     
-    private Set<String> multilineNodes;
     private Set<String> allowedNames;
     
-    public void setMultilineNodes(Set<String> multilineNodes)
-    {
-        this.multilineNodes = multilineNodes;
-    }
     public void setAllowedNames(Set<String> allowedNames)
     {
         this.allowedNames = allowedNames;
@@ -28,9 +23,6 @@ public class RawCustomProcessor implements Processor
     @Override
     public void processNodeOnCreation(Node node) throws ParseException, IOException
     {
-        if (multilineNodes != null && multilineNodes.contains(node.getName()))
-            node.setMultiline(true);
-        
         if (allowedNames != null && !allowedNames.contains(node.getName()))
             throw new ParseException("Node name not allowed: " + node.getName(), node.getLineCreation());
     }
@@ -38,15 +30,18 @@ public class RawCustomProcessor implements Processor
     @Override
     public void processNodeOnCompletion(Node node) throws ParseException, IOException 
     {
+        // No oper
     }
 
     @Override
     public void processBeforeAdd(Node parent, Node child) throws ParseException, IOException
     {
+        // No oper
     }
 
     @Override
     public void processAfterAdd(Node parent, Node child) throws ParseException, IOException
     {
+        // No oper
     }    
 }
