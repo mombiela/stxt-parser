@@ -23,6 +23,9 @@ public class TestNamespaceNameValid
         System.out.println("Inici");
 
         assertTrue(validNamespace("com.demo.example"));
+        assertTrue(validNamespace("com.demo_hola.example"));
+        assertTrue(validNamespace("co_m.demo_hola.example"));
+        assertTrue(validNamespace("co-m.demo-hola.example"));
         assertTrue(validNamespace("Example"));
         assertFalse(validNamespace("com.demo..example"));
         

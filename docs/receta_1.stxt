@@ -2,7 +2,7 @@
 # Receta macarrones
 # -----------------
 
-Receta(www.kocinando.com/receta.stxt):
+Receta(com.kocinando.receta):
 	Nombre Receta: Una receta
 	Descripción: Esta es una receta de ejemplo
 	Pasos:

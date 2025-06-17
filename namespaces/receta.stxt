@@ -2,7 +2,7 @@
 # Receta
 # ------
 
-Namespace: www.kocinando.com/receta.stxt
+Namespace: com.kocinando.receta
 
 	Receta:
 	    Nombre Receta: (1)
@@ -21,4 +21,4 @@ Namespace: www.kocinando.com/receta.stxt
 	    	: difícil
 	    Calorias: (?) NUMBER
 	    Comensales: (?) NUMBER
-	    Documento: (*) (www.dokumentando.com/doc_simple.stxt)
+	    Documento: (*) (com.dokumentando.doc_simple)

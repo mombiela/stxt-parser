@@ -2,7 +2,7 @@
 # Iniciamos la receta
 # -------------------
 
-Receta(www.kocinando.com/receta.stxt):
+Receta(com.kocinando.receta):
 
 	Nombre Receta: Hola!
 	

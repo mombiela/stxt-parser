@@ -2,7 +2,7 @@
 # Receta
 # ------
 
-Namespace: www.kocinando.com/recetario.stxt
+Namespace: com.kocinando.recetario
 
 	Recetario:
-		Receta: (+) (www.kocinando.com/receta.stxt)
+		Receta: (+) (com.kocinando.receta)

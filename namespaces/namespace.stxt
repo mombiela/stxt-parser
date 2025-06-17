@@ -12,7 +12,7 @@
 # 
 # -----------------------------------------------------------------
  
-Namespace: www.semantictext.info/namespace.stxt
+Namespace: dev.stxt.namespace
 
 	Node: STRING
 		Type: (?) ENUM

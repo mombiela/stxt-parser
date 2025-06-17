@@ -30,7 +30,7 @@ Si has entendido esto te pasaré ejemplos completos funcionales para que lo acab
 [Adjuntar documentos]
 Te he pasado 3 documentos: 
 * intro_programacion.stxt es el documento funcional de ejemplo. 
-* documento.stxt especifica como debe ser un documento del namespace 'www.dokumentando.com/documento.stxt'
+* documento.stxt especifica como debe ser un documento del namespace 'com.dokumentando.documento'
 * namespace.stxt indica como se construyen los namespace. 
 ¿Los has entendido bien hasta aquí?
 

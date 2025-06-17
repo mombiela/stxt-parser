@@ -31,7 +31,7 @@ public class NamespaceType
     private static final Set<String> ALLOWED_COUNT = new HashSet<>();
     
     private static final Pattern COUNT = Pattern.compile("^\\d+(\\+|-)?$");
-    private static final Pattern NAMESPACE_VALID = Pattern.compile("^[a-zA-Z0-9]+(\\.[a-zA-Z0-9]+)*$");
+    private static final Pattern NAMESPACE_VALID = Pattern.compile("^[a-zA-Z0-9_\\-]+(\\.[a-zA-Z0-9_\\-]+)*$");
     
     public static String getDefault()
     {

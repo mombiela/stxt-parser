@@ -1,4 +1,4 @@
-Namespace: www.semantictext.info/type_check.stxt
+Namespace: dev.stxt.type_check
 
 	Type List:
 		text: (+) TEXT
