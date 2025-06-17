@@ -22,6 +22,7 @@ public class LineIndent
     // Patterns
     private static final Pattern EMPTY_LINE = Pattern.compile("^\\s*$");
     private static final Pattern COMMENT_LINE = Pattern.compile("^\\s*\\#.*$");
+    private static final Pattern COMPACT_LINE = Pattern.compile("^\\d+");
     
     public static LineIndent parseLine(String aLine, boolean lastNodeMultiline, int stackSize, int numLine) throws ParseException
     {
@@ -32,6 +33,13 @@ public class LineIndent
             {
                 return null;
             }
+        }
+
+        // Compact line
+        if (COMPACT_LINE.matcher(aLine).find())
+        {
+            int i = aLine.indexOf(':');
+            return new LineIndent(Integer.parseInt(aLine.substring(0,i)), aLine.substring(i+1));
         }
 
         // Obtain the level and pointer
