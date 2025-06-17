@@ -9,7 +9,6 @@ import org.junit.jupiter.api.Test;
 import info.semantictext.Node;
 import info.semantictext.ParseException;
 import info.semantictext.Parser;
-import info.semantictext.RawCustomProcessor;
 
 public class TestParserBasic1
 {
@@ -41,8 +40,6 @@ public class TestParserBasic1
     private Parser createBasicParser()
     {
         Parser parser = new Parser();
-        RawCustomProcessor basicProcessor = new RawCustomProcessor();
-        parser.addNodeProcessor(basicProcessor);
         
         return parser;
     }

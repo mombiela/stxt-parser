@@ -3,13 +3,10 @@ package test;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import org.junit.jupiter.api.Test;
 
-import info.semantictext.RawCustomProcessor;
 import info.semantictext.Node;
 import info.semantictext.ParseException;
 import info.semantictext.Parser;
@@ -51,9 +48,6 @@ public class TestParserBasicAll
     private Parser createBasicParser()
     {
         Parser parser = new Parser();
-        RawCustomProcessor basicProcessor = new RawCustomProcessor();
-        parser.addNodeProcessor(basicProcessor);
-        
         return parser;
     }
 
