@@ -2,7 +2,6 @@ package info.semantictext;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -13,19 +12,13 @@ import java.util.Set;
 public class NamespaceRetriever
 {
     private Map<String, Namespace> CACHE = new HashMap<>();
-    private boolean allowInternet = false;
     private boolean allowAllNamespaceDefinitions = false;
     
     public NamespaceRetriever()
     {
     }
-    public NamespaceRetriever(boolean allowInternet)
+    public NamespaceRetriever(boolean allowAllNamespaceDefinitions)
     {
-        this.allowInternet = allowInternet;
-    }
-    public NamespaceRetriever(boolean allowInternet, boolean allowAllNamespaceDefinitions)
-    {
-        this.allowInternet = allowInternet;
         this.allowAllNamespaceDefinitions = allowAllNamespaceDefinitions;
     }
     
@@ -91,16 +84,6 @@ public class NamespaceRetriever
     
     public Namespace getNameSpace(String namespace) throws IOException, ParseException
     {
-        if (CACHE.containsKey(namespace)) return CACHE.get(namespace);
-	
-        // Search on the internet
-        if (allowInternet)
-        {
-            URL uri = new URL("https://" + namespace);
-            String fileContent = Utils.getUrlContent(uri);
-            addGrammarDefinition(fileContent, namespace);
-        }
-
         return CACHE.get(namespace);
     }
 }

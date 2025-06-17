@@ -4,7 +4,6 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.StringReader;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
@@ -23,12 +22,6 @@ public class Parser
         nodeProcessors.add(processor);
     }
 
-    public List<Node> parseURI(String uri) throws IOException, ParseException
-    {
-        String content = Utils.getUrlContent(new URL(uri));
-        return parse(content);
-    }
-    
     public List<Node> parseFile(File srcFile) throws IOException, ParseException
     {
         String content = UtilsFile.readFileContent(srcFile);
