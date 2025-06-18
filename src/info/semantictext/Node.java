@@ -117,6 +117,17 @@ public class Node
         
         return result.toString().replaceAll("(\\s*\\r?\\n)+$", "");
     }
+    public String getTextLines()
+    {
+        StringBuilder result = new StringBuilder();
+
+        for (NodeLine value: lines) 
+        {
+            result.append(value.getValue()).append("\n");
+        }
+        
+        return result.toString().replaceAll("(\\s*\\r?\\n)+$", "");
+    }
     
     // Fast access methods to children
     public List<Node> getChilds(String cname)
@@ -145,6 +156,20 @@ public class Node
         if (result.size() > 1) throw new IllegalArgumentException("More than 1 child. Use getChilds");
         if (result.size() == 0) return null;
         return result.get(0).getValue();
+    }
+    public String getChildText(String cname)
+    {
+        List<Node> result = getChilds(cname);
+        if (result.size() > 1) throw new IllegalArgumentException("More than 1 child. Use getChilds");
+        if (result.size() == 0) return null;
+        return result.get(0).getText();
+    }
+    public String getChildTextLines(String cname)
+    {
+        List<Node> result = getChilds(cname);
+        if (result.size() > 1) throw new IllegalArgumentException("More than 1 child. Use getChilds");
+        if (result.size() == 0) return null;
+        return result.get(0).getTextLines();
     }
     
     // ----------------
