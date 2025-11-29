@@ -1,9 +1,8 @@
 package info.semantictext;
 
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.net.URISyntaxException;
-import java.net.URL;
+import java.net.URI;
 import java.util.Base64;
 import java.util.HashMap;
 import java.util.Map;
@@ -211,28 +210,17 @@ public class NamespaceNodeValidator
         }
     }
 
-    private static boolean isValidURL(String url)
+    private static boolean isValidURL(String url) 
     {
-        URL u = null;
-        try
+        try 
         {
-            u = new URL(url);
+            URI uri = new URI(url);
+            return uri.getScheme() != null && uri.getHost() != null;
         }
-        catch (MalformedURLException e)
-        {
-            return false;
-        }
-
-        try
-        {
-            u.toURI();
-        }
-        catch (URISyntaxException e)
+        catch (URISyntaxException e) 
         {
             return false;
         }
-
-        return true;
     }
 
     private static void validateValue(Node n, Pattern pattern, String error) throws ParseException
