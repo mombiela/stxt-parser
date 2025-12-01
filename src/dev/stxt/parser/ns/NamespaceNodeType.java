@@ -99,6 +99,5 @@ public class NamespaceNodeType
     {
         Matcher m = pattern.matcher(value);
         return m.matches();
-    }    
-
+    }
 }

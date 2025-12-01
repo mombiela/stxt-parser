@@ -70,11 +70,11 @@ public class NamespaceNodeValidator
         
         for (NamespaceChild chNode: nsNode.getChilds().values())
         {
-            verifyCount(chNode, count.getOrDefault(chNode.getName(), 0), node);
+            validateCount(chNode, count.getOrDefault(chNode.getName(), 0), node);
         }
     }
     
-    private static void verifyCount(NamespaceChild chNode, int num, Node node) throws ParseException
+    private static void validateCount(NamespaceChild chNode, int num, Node node) throws ParseException
     {
         String count = chNode.getNum();
         
