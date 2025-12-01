@@ -11,6 +11,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import dev.stxt.parser.Node;
+import dev.stxt.parser.NodeType;
 import dev.stxt.parser.ParseException;
 import dev.stxt.parser.utils.Utils;
 
@@ -39,21 +40,21 @@ public class NamespaceNodeValidator
     public static void validateValue(NamespaceNode nsNode, Node n) throws IOException, ParseException
     {
         String nodeType = nsNode.getType();
-        if (NamespaceNodeType.BASE64.equals(nodeType))                  validateBase64(n);
-        else if (NamespaceNodeType.BOOLEAN.equals(nodeType))            validateBoolean(n);
-        else if (NamespaceNodeType.HEXADECIMAL.equals(nodeType))        validateHexadecimal(n);
-        else if (NamespaceNodeType.INTEGER.equals(nodeType))            validateInteger(n);
-        else if (NamespaceNodeType.NATURAL.equals(nodeType))            validateNatural(n);
-        else if (NamespaceNodeType.URL.equals(nodeType))                validateUrl(n);
-        else if (NamespaceNodeType.NUMBER.equals(nodeType))             validateNumber(n);
-        else if (NamespaceNodeType.TEXT.equals(nodeType))               validateText(n);
-        else if (NamespaceNodeType.STRING.equals(nodeType))             validateText(n);
-        else if (NamespaceNodeType.DATE.equals(nodeType))               validateDate(n);
-        else if (NamespaceNodeType.EMAIL.equals(nodeType))              validateEmail(n);
-        else if (NamespaceNodeType.EMPTY.equals(nodeType))              validateEmtpy(n);
-        else if (NamespaceNodeType.TIMESTAMP.equals(nodeType))          validateTimestamp(n);
-        else if (NamespaceNodeType.ENUM.equals(nodeType))               validateEnum(n, nsNode.getValues());
-        else if (NamespaceNodeType.REGEX.equals(nodeType))              validateRegex(n, nsNode.getValues());
+        if (NodeType.BASE64.equals(nodeType))                  validateBase64(n);
+        else if (NodeType.BOOLEAN.equals(nodeType))            validateBoolean(n);
+        else if (NodeType.HEXADECIMAL.equals(nodeType))        validateHexadecimal(n);
+        else if (NodeType.INTEGER.equals(nodeType))            validateInteger(n);
+        else if (NodeType.NATURAL.equals(nodeType))            validateNatural(n);
+        else if (NodeType.URL.equals(nodeType))                validateUrl(n);
+        else if (NodeType.NUMBER.equals(nodeType))             validateNumber(n);
+        else if (NodeType.TEXT.equals(nodeType))               validateText(n);
+        else if (NodeType.STRING.equals(nodeType))             validateText(n);
+        else if (NodeType.DATE.equals(nodeType))               validateDate(n);
+        else if (NodeType.EMAIL.equals(nodeType))              validateEmail(n);
+        else if (NodeType.EMPTY.equals(nodeType))              validateEmtpy(n);
+        else if (NodeType.TIMESTAMP.equals(nodeType))          validateTimestamp(n);
+        else if (NodeType.ENUM.equals(nodeType))               validateEnum(n, nsNode.getValues());
+        else if (NodeType.REGEX.equals(nodeType))              validateRegex(n, nsNode.getValues());
         else throw new ParseException("Node type not supported: " + nodeType, n.getLineCreation());            
     }
 

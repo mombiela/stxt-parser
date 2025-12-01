@@ -7,8 +7,8 @@ import java.io.IOException;
 
 import org.junit.jupiter.api.Test;
 
+import dev.stxt.parser.NodeType;
 import dev.stxt.parser.ParseException;
-import dev.stxt.parser.ns.NamespaceNodeType;
 
 public class TestNamespaceNameValid
 {
@@ -34,6 +34,6 @@ public class TestNamespaceNameValid
 
     private boolean validNamespace(String ns)
     {
-        return NamespaceNodeType.isValidNamespace(ns);
+        return NodeType.isValidNamespace(ns);
     }
 }

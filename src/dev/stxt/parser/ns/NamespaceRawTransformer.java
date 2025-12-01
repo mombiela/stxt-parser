@@ -8,6 +8,7 @@ import dev.stxt.parser.Constants;
 import dev.stxt.parser.LineSplitter;
 import dev.stxt.parser.Node;
 import dev.stxt.parser.NodeLine;
+import dev.stxt.parser.NodeType;
 import dev.stxt.parser.ParseException;
 
 public class NamespaceRawTransformer
@@ -67,14 +68,14 @@ public class NamespaceRawTransformer
             nsNode.setType(type);
             currentNamespace.setNode(name, nsNode);
             if (type != null) validateType(type, node);
-            if (type == null) nsNode.setType(NamespaceNodeType.getDefault());
+            if (type == null) nsNode.setType(NodeType.getDefault());
             
             if (node.getValues().size()>0)
             {
         	Set<String> allowedValues = new HashSet<>();
         	for (NodeLine value: node.getValues()) allowedValues.add(value.getValue().trim());
         	
-        	if (NamespaceNodeType.isValuesType(type)) 	nsNode.setValues(allowedValues);
+        	if (NodeType.isValuesType(type)) 	nsNode.setValues(allowedValues);
         	else                            	throw new ParseException("Type not allow values: " + type, node.getLineCreation());
             }
         }
@@ -88,7 +89,7 @@ public class NamespaceRawTransformer
         
         if (childs != null)
         {
-            if (NamespaceNodeType.isMultiline(type) && childs.size()>0) 
+            if (NodeType.isMultiline(type) && childs.size()>0) 
                 throw new ParseException("Type " + type + " not allows childs", childs.get(0).getLineCreation());
                 
             for (Node child: childs)
@@ -112,13 +113,13 @@ public class NamespaceRawTransformer
                         LineSplitter split = LineSplitter.split(value);
                         String num = split.prefix;
                         if (num == null) throw new ParseException("Count is requiered", child.getLineCreation());
-                        if (!NamespaceNodeType.isValidCount(num)) throw new ParseException("Count is not valid: " + num, child.getLineCreation());
+                        if (!NodeType.isValidCount(num)) throw new ParseException("Count is not valid: " + num, child.getLineCreation());
                         String namespace = split.suffix;
                         nsChild.setNum(num != null ? num : "*");
                         nsChild.setNamespace(namespace);
                         if (namespace != null)
                         {
-                            if (!NamespaceNodeType.isValidNamespace(namespace))
+                            if (!NodeType.isValidNamespace(namespace))
                                 throw new ParseException("Namespace not valid: " + namespace, child.getLineCreation());
                             
                             if (split.centralText!=null)
@@ -144,12 +145,12 @@ public class NamespaceRawTransformer
 
     private static void validateNamespaceFormat(String namespace, int lineNumber) throws ParseException
     {
-        if (!NamespaceNodeType.isValidNamespace(namespace)) throw new ParseException("Namespace not valid: " + namespace, lineNumber);
+        if (!NodeType.isValidNamespace(namespace)) throw new ParseException("Namespace not valid: " + namespace, lineNumber);
     }
     
     private static void validateType(String type, Node node) throws ParseException
     {
-        if (!NamespaceNodeType.isValidType(type)) 
+        if (!NodeType.isValidType(type)) 
             throw new ParseException("Type not valid: " + type, node.getLineCreation());
     }
 }

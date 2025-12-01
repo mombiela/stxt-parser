@@ -1,11 +1,11 @@
-package dev.stxt.parser.ns;
+package dev.stxt.parser;
 
 import java.util.HashSet;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class NamespaceNodeType 
+public class NodeType 
 {
     public static final String TEXT         = "TEXT";
     public static final String STRING       = "STRING";

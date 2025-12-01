@@ -6,7 +6,6 @@ import java.io.IOException;
 import dev.stxt.parser.ns.Namespace;
 import dev.stxt.parser.ns.NamespaceChild;
 import dev.stxt.parser.ns.NamespaceNode;
-import dev.stxt.parser.ns.NamespaceNodeType;
 import dev.stxt.parser.ns.NamespaceNodeValidator;
 import dev.stxt.parser.ns.NamespaceRetriever;
 
@@ -87,7 +86,7 @@ public class STXTParser extends Parser
             throw new ParseException("Not found " + child.getName() + "in namespace " + namespaceChildString, child.getLineCreation());
         
         // Insertamos según tipo
-        child.setMultiline(NamespaceNodeType.isMultiline(childNode.getType()));
+        child.setMultiline(NodeType.isMultiline(childNode.getType()));
     }
 
     // ------------
