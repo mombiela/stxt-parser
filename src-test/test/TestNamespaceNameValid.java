@@ -7,8 +7,8 @@ import java.io.IOException;
 
 import org.junit.jupiter.api.Test;
 
-import info.semantictext.NamespaceNodeType;
-import info.semantictext.ParseException;
+import dev.stxt.parser.NamespaceNodeType;
+import dev.stxt.parser.ParseException;
 
 public class TestNamespaceNameValid
 {

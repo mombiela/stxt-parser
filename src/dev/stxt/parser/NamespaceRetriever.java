@@ -1,4 +1,4 @@
-package info.semantictext;
+package dev.stxt.parser;
 
 import java.io.File;
 import java.io.IOException;

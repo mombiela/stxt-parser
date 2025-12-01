@@ -1,4 +1,4 @@
-package info.semantictext;
+package dev.stxt.parser;
 
 import java.util.HashSet;
 import java.util.List;

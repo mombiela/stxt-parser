@@ -1,4 +1,4 @@
-package info.semantictext;
+package dev.stxt.parser;
 
 public class NodeLine
 {
