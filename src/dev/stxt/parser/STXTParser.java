@@ -53,9 +53,6 @@ public class STXTParser extends Parser
         
         // Validamos nodo
         NamespaceNodeValidator.validateValue(nsNode, node);
-        
-        // Validamos no implicit multiline
-        validateNotImplicitMultiline(node);
     }
     
     @Override
@@ -133,19 +130,5 @@ public class STXTParser extends Parser
     {
         // If the node lacks namespace, treat as raw.
         return node.getNamespace() == null;
-    }
-    
-    private void validateNotImplicitMultiline(Node node) throws ParseException
-    {
-        if (node.getValues() != null)
-        {
-            for (NodeLine nl: node.getValues())
-            {
-                if (nl.isExplicit())
-                {
-                    throw new ParseException("No allowed explícit multilines in NS documents", nl.getLineCreation());
-                }
-            }
-        }
-    }
+    }    
 }
