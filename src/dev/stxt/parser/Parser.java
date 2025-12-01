@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
 
+import dev.stxt.parser.utils.Utils;
 import dev.stxt.parser.utils.UtilsFile;
 
 /* Classe thread safe*/
@@ -30,7 +31,7 @@ public class Parser
         int lineNumber = 0;
         int currentLevel = 0;
 
-        content = LineIndent.removeUTF8BOM(content);
+        content = Utils.removeUTF8BOM(content);
         BufferedReader in = new BufferedReader(new StringReader(content));
 
         String line;
