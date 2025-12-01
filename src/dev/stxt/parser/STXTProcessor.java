@@ -4,8 +4,6 @@ import java.io.IOException;
 
 public class STXTProcessor implements Processor
 {
-    private static final String NAMESPACE = "namespace";
-    
     // ----------------------------------
     // Configuration and main constructor
     // ----------------------------------
@@ -32,7 +30,7 @@ public class STXTProcessor implements Processor
     {
         if (isDocRaw(node)) return; // No process
         
-        String namespace = (String) node.getMetadata(NAMESPACE);
+        String namespace = node.getNamespace();
         NamespaceNode nsNode = namespaceRetriever.getNameSpace(namespace).getNode(node.getName());
         
         NamespaceNodeValidator.validateCount(nsNode, node);
@@ -50,7 +48,7 @@ public class STXTProcessor implements Processor
         if (isDocRaw(parent)) return; // No process
         
         // Get namespace parent
-        String parentNamespace = (String) parent.getMetadata(NAMESPACE);
+        String parentNamespace = parent.getNamespace();
         String parentName = parent.getName();
         
         NamespaceNode nsNodeParent = namespaceRetriever.getNameSpace(parentNamespace).getNode(parentName);
@@ -63,7 +61,7 @@ public class STXTProcessor implements Processor
         // Obtenemos el namespace del child
         String namespaceChildString = nsChild.getNamespace();
         if (namespaceChildString == null) namespaceChildString = parentNamespace;
-        child.setMetadata(NAMESPACE, namespaceChildString);
+        child.setNamespace(namespaceChildString);
         
         // Buscamos namespace
         Namespace namespaceChild = namespaceRetriever.getNameSpace(namespaceChildString);
@@ -90,7 +88,7 @@ public class STXTProcessor implements Processor
         String namespace = split.suffix;
         String prefix = split.prefix;
         
-        // Raw document: no namespace on root. Do not set any extra metadata; leave as-is
+        // Raw document: no namespace on root. Do not set any extra field; leave as-is
         if (namespace == null) {
             return; // No process
         }
@@ -109,16 +107,15 @@ public class STXTProcessor implements Processor
         
         // Cambiamos nombre
         node.setName(name);
-        node.setMetadata(NAMESPACE, namespace);
+        node.setNamespace(namespace);
         
         // Validamos primer nodo
         NamespaceNodeValidator.validateValue(nsNode, node);
     }
     
     private boolean isDocRaw(Node node) {
-        // If the node (or its parent) lacks NAMESPACE, treat as raw.
-        // We don't traverse parents here; the root sets NAMESPACE on NS docs and children get it in processBeforeAdd.
-        return node.getMetadata(NAMESPACE) == null;
+        // If the node lacks namespace, treat as raw.
+        return node.getNamespace() == null;
     }
     
     private void validateNotImplicitMultiline(Node node) throws ParseException

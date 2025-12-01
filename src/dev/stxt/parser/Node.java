@@ -1,9 +1,7 @@
 package dev.stxt.parser;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class Node
 {
@@ -17,7 +15,7 @@ public class Node
     private final int lineCreation;
     private final int levelCreation;
     private List<Node> childs = new ArrayList<>();
-    private Map<String, Object> metadata = new HashMap<String, Object>();
+    private String namespace;
     private boolean multiline;
 
     public Node(int line, int level, String name, String value)
@@ -43,14 +41,14 @@ public class Node
         return value;
     }
     
-    public Object getMetadata(String key)
+    public String getNamespace()
     {
-        return metadata.get(key);
+        return namespace;
     }
 
-    public void setMetadata(String key, Object value)
+    public void setNamespace(String namespace)
     {
-        metadata.put(key, value);
+        this.namespace = namespace;
     }
     
     public List<Node> getChilds()
@@ -80,7 +78,7 @@ public class Node
 
     public void addLine(NodeLine value)
     {
-	this.lines.add(value);
+    	this.lines.add(value);
     }
     
     public List<NodeLine> getValues()
@@ -90,17 +88,17 @@ public class Node
     
     public String getTextPrefix()
     {
-	return LineSplitter.split(getText()).getPrefix();
+    	return LineSplitter.split(getText()).getPrefix();
     }
     
     public String getTextSufix()
     {
-	return LineSplitter.split(getText()).getSuffix();
+    	return LineSplitter.split(getText()).getSuffix();
     }
     
     public String getTextCentral()
     {
-	return LineSplitter.split(getText()).getCentralText();
+    	return LineSplitter.split(getText()).getCentralText();
     }    
     
     public String getText()
@@ -187,7 +185,7 @@ public class Node
         StringBuffer result = new StringBuffer();
         
         for (int i = 0; i<level; i++) result.append("    ");
-        result.append("<" + name + "> (line:" + lineCreation + ") " + metadata + ": '" + getValueShort() + "', lines = " + lines);
+        result.append("<" + name + "> (line:" + lineCreation + ") namespace=" + (namespace==null?"<NULL>":namespace) + ": '" + getValueShort() + "', lines = " + lines);
         result.append("\n");
         
         if (childs!=null && childs.size()>0)
