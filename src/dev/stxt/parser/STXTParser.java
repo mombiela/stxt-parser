@@ -3,6 +3,13 @@ package dev.stxt.parser;
 import java.io.File;
 import java.io.IOException;
 
+import dev.stxt.parser.ns.Namespace;
+import dev.stxt.parser.ns.NamespaceChild;
+import dev.stxt.parser.ns.NamespaceNode;
+import dev.stxt.parser.ns.NamespaceNodeType;
+import dev.stxt.parser.ns.NamespaceNodeValidator;
+import dev.stxt.parser.ns.NamespaceRetriever;
+
 public class STXTParser extends Parser
 {
     private final NamespaceRetriever namespaceRetriever;

@@ -1,4 +1,4 @@
-package dev.stxt.parser;
+package dev.stxt.parser.utils;
 
 import java.util.Locale;
 

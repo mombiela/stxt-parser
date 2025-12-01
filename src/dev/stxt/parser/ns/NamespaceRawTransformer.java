@@ -1,8 +1,14 @@
-package dev.stxt.parser;
+package dev.stxt.parser.ns;
 
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
+import dev.stxt.parser.Constants;
+import dev.stxt.parser.LineSplitter;
+import dev.stxt.parser.Node;
+import dev.stxt.parser.NodeLine;
+import dev.stxt.parser.ParseException;
 
 public class NamespaceRawTransformer
 {

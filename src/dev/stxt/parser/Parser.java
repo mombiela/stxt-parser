@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
 
+import dev.stxt.parser.utils.UtilsFile;
+
 /* Classe thread safe*/
 
 public class Parser

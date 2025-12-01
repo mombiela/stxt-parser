@@ -1,4 +1,4 @@
-package dev.stxt.parser;
+package dev.stxt.parser.ns;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -9,6 +9,10 @@ import java.util.Map;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import dev.stxt.parser.Node;
+import dev.stxt.parser.ParseException;
+import dev.stxt.parser.utils.Utils;
 
 public class NamespaceNodeValidator
 {
