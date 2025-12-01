@@ -47,7 +47,7 @@ public class LineIndent
         int pointer = 0;
         while (pointer < aLine.length()) 
         {
-            // Last char
+            // Current (last) char
             char charPointer = aLine.charAt(pointer);
 
             // Update level
