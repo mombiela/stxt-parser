@@ -4,8 +4,6 @@ import java.util.regex.Pattern;
 
 public class LineIndent
 {
-    public static final String UTF8_BOM = "\uFEFF";
-
     public final int indentLevel;
     public final String lineWithoutIndent;
     
@@ -90,9 +88,4 @@ public class LineIndent
         return new LineIndent(level, aLine.substring(pointer));
     }
 
-    public static String removeUTF8BOM(String s) 
-    {
-        if (s.startsWith(UTF8_BOM)) s = s.substring(1);
-        return s;
-    }
 }
