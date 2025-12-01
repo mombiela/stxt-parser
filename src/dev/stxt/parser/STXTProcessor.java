@@ -10,8 +10,7 @@ public class STXTProcessor implements Processor
     // Configuration and main constructor
     // ----------------------------------
     
-    private NamespaceRetriever namespaceRetriever;
-    private boolean currentDocRaw = false;
+    private final NamespaceRetriever namespaceRetriever;
 
     public STXTProcessor(NamespaceRetriever namespaceRetriever)
     {
@@ -31,7 +30,7 @@ public class STXTProcessor implements Processor
     @Override
     public void processNodeOnCompletion(Node node) throws ParseException, IOException
     {
-        if (currentDocRaw) return; // No process
+        if (isDocRaw(node)) return; // No process
         
         String namespace = (String) node.getMetadata(NAMESPACE);
         NamespaceNode nsNode = namespaceRetriever.getNameSpace(namespace).getNode(node.getName());
@@ -48,7 +47,7 @@ public class STXTProcessor implements Processor
     @Override
     public void processBeforeAdd(Node parent, Node child) throws IOException, ParseException
     {
-        if (currentDocRaw) return; // No process
+        if (isDocRaw(parent)) return; // No process
         
         // Get namespace parent
         String parentNamespace = (String) parent.getMetadata(NAMESPACE);
@@ -91,9 +90,10 @@ public class STXTProcessor implements Processor
         String namespace = split.suffix;
         String prefix = split.prefix;
         
-        // Current doc raw
-        currentDocRaw = namespace == null;
-        if (currentDocRaw) return; // No process
+        // Raw document: no namespace on root. Do not set any extra metadata; leave as-is
+        if (namespace == null) {
+            return; // No process
+        }
         
         // Validate prefix
         if (prefix != null) throw new ParseException("Prefix not allowed in node name: " + prefix, node.getLineCreation());
@@ -113,6 +113,12 @@ public class STXTProcessor implements Processor
         
         // Validamos primer nodo
         NamespaceNodeValidator.validateValue(nsNode, node);
+    }
+    
+    private boolean isDocRaw(Node node) {
+        // If the node (or its parent) lacks NAMESPACE, treat as raw.
+        // We don't traverse parents here; the root sets NAMESPACE on NS docs and children get it in processBeforeAdd.
+        return node.getMetadata(NAMESPACE) == null;
     }
     
     private void validateNotImplicitMultiline(Node node) throws ParseException
