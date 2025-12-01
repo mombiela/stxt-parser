@@ -4,7 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 
-import stxt.parser.Utils;
+import dev.stxt.parser.Utils;
 
 class TestStringCleanup 
 {

@@ -1,4 +1,4 @@
-package stxt.parser;
+package dev.stxt.parser;
 
 public class NamespaceChild
 {
