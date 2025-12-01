@@ -6,7 +6,7 @@ import java.io.IOException;
 import dev.stxt.parser.ns.Namespace;
 import dev.stxt.parser.ns.NamespaceChild;
 import dev.stxt.parser.ns.NamespaceNode;
-import dev.stxt.parser.ns.NamespaceNodeValidator;
+import dev.stxt.parser.ns.NamespaceValidator;
 import dev.stxt.parser.ns.NamespaceRetriever;
 
 public class STXTParser extends Parser
@@ -48,10 +48,10 @@ public class STXTParser extends Parser
         String namespace = node.getNamespace();
         NamespaceNode nsNode = namespaceRetriever.getNameSpace(namespace).getNode(node.getName());
         
-        NamespaceNodeValidator.validateCount(nsNode, node);
+        NamespaceValidator.validateCount(nsNode, node);
         
         // Validamos nodo
-        NamespaceNodeValidator.validateValue(nsNode, node);
+        NamespaceValidator.validateValue(nsNode, node);
     }
     
     @Override
@@ -122,7 +122,7 @@ public class STXTParser extends Parser
         node.setNamespace(namespace);
         
         // Validamos primer nodo
-        NamespaceNodeValidator.validateValue(nsNode, node);
+        NamespaceValidator.validateValue(nsNode, node);
     }
     
     private boolean isRawDoc(Node node) 

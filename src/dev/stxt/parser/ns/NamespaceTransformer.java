@@ -11,7 +11,7 @@ import dev.stxt.parser.NodeLine;
 import dev.stxt.parser.NodeType;
 import dev.stxt.parser.ParseException;
 
-public class NamespaceRawTransformer
+public class NamespaceTransformer
 {
     public static Namespace transformRawNode(Node node) throws ParseException
     {
@@ -119,7 +119,7 @@ public class NamespaceRawTransformer
                         nsChild.setNamespace(namespace);
                         if (namespace != null)
                         {
-                            if (!NodeType.isValidNamespace(namespace))
+                            if (!NamespaceValidator.isValidNamespace(namespace))
                                 throw new ParseException("Namespace not valid: " + namespace, child.getLineCreation());
                             
                             if (split.centralText!=null)
@@ -145,7 +145,7 @@ public class NamespaceRawTransformer
 
     private static void validateNamespaceFormat(String namespace, int lineNumber) throws ParseException
     {
-        if (!NodeType.isValidNamespace(namespace)) throw new ParseException("Namespace not valid: " + namespace, lineNumber);
+        if (!NamespaceValidator.isValidNamespace(namespace)) throw new ParseException("Namespace not valid: " + namespace, lineNumber);
     }
     
     private static void validateType(String type, Node node) throws ParseException
@@ -153,4 +153,5 @@ public class NamespaceRawTransformer
         if (!NodeType.isValidType(type)) 
             throw new ParseException("Type not valid: " + type, node.getLineCreation());
     }
+    
 }

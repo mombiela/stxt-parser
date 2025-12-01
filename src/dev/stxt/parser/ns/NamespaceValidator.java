@@ -15,7 +15,7 @@ import dev.stxt.parser.NodeType;
 import dev.stxt.parser.ParseException;
 import dev.stxt.parser.utils.Utils;
 
-public class NamespaceNodeValidator
+public class NamespaceValidator
 {
     private static final Pattern P_BOOLEAN      = Pattern.compile("^(true|false)$");
     private static final Pattern P_HEXADECIMAL  = Pattern.compile("^\\#?([A-Fa-f0-9]|\\s)+$");
@@ -23,6 +23,7 @@ public class NamespaceNodeValidator
     private static final Pattern P_NATURAL      = Pattern.compile("^\\d+$");
     private static final Pattern P_NUMBER       = Pattern.compile("^(\\-|\\+)?\\d+(\\.\\d+(e(\\-|\\+)?\\d+)?)?$");
     private static final Pattern P_DATE         = Pattern.compile("^\\d{4}-\\d{2}-\\d{2}$");
+    private static final Pattern NAMESPACE_VALID = Pattern.compile("^[a-zA-Z0-9_\\-]+(\\.[a-zA-Z0-9_\\-]+)*$");
     
     private static final String ISO_8601_PATTERN =
             "^\\d{4}-\\d{2}-\\d{2}" +               // Date (YYYY-MM-DD)
@@ -226,6 +227,25 @@ public class NamespaceNodeValidator
         {
             return false;
         }
+    }
+    
+    public static boolean isValidNamespace(String namespace)
+    {
+        try
+        {
+            return validateValue(NAMESPACE_VALID,namespace);
+        }
+        catch (Exception e)
+        {
+            return false;
+        }
+    }
+    
+
+    private static boolean validateValue(Pattern pattern, String value)
+    {
+        Matcher m = pattern.matcher(value);
+        return m.matches();
     }
 
     private static void validateValue(Node n, Pattern pattern, String error) throws ParseException
