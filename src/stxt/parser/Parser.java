@@ -1,4 +1,4 @@
-package dev.stxt.parser;
+package stxt.parser;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -13,13 +13,6 @@ import java.util.Stack;
 public class Parser
 {
     public boolean debug = false;
-
-    private final List<Processor> nodeProcessors = new ArrayList<>();
-
-    public void addNodeProcessor(Processor processor)
-    {
-        nodeProcessors.add(processor);
-    }
 
     public List<Node> parseFile(File srcFile) throws IOException, ParseException
     {
@@ -49,7 +42,7 @@ public class Parser
 
         if (currentRoot != null)
         {
-            processCompletion(currentRoot);
+            processOnCompletion(currentRoot);
             document.add(currentRoot);
         }
 
@@ -86,13 +79,13 @@ public class Parser
             return new LineProcessingResult(currentLevel, currentRoot);
         }
 
-        processCreation(node);
+        processOnCreation(node);
 
         if (currentLevel == 0)
         {
             if (currentRoot != null)
             {
-                processCompletion(currentRoot);
+                processOnCompletion(currentRoot);
                 document.add(currentRoot);
             }
             currentRoot = node;
@@ -104,13 +97,12 @@ public class Parser
             while (stack.size() > currentLevel)
             {
                 Node finishedNode = stack.pop();
-                processCompletion(finishedNode);
+                processOnCompletion(finishedNode);
             }
 
             Node parent = stack.peek();
-            processBeforeAddNode(parent, node);
+            processBeforeAdd(parent, node);
             parent.addChild(node);
-            processAfterAddNode(parent, node);
             stack.push(node);
         }
 
@@ -154,36 +146,19 @@ public class Parser
         return node;
     }
 
-    private void processCreation(Node node) throws ParseException, IOException
+    protected void processOnCreation(Node node) throws ParseException, IOException
     {
-        for (Processor processor : nodeProcessors)
-        {
-            processor.processNodeOnCreation(node);
-        }
+        // No action
     }
 
-    private void processCompletion(Node node) throws ParseException, IOException
+    protected void processOnCompletion(Node node) throws ParseException, IOException
     {
-        for (Processor processor : nodeProcessors)
-        {
-            processor.processNodeOnCompletion(node);
-        }
+        // No action
     }
 
-    private void processBeforeAddNode(Node parent, Node child) throws ParseException, IOException
+    protected void processBeforeAdd(Node parent, Node child) throws ParseException, IOException
     {
-        for (Processor processor : nodeProcessors)
-        {
-            processor.processBeforeAdd(parent, child);
-        }
-    }
-
-    private void processAfterAddNode(Node parent, Node child) throws ParseException, IOException
-    {
-        for (Processor processor : nodeProcessors)
-        {
-            processor.processAfterAdd(parent, child);
-        }
+        // No action
     }
 
     private void showCurrentRoot(Node root)

@@ -1,34 +1,43 @@
-package dev.stxt.parser;
+package stxt.parser;
 
+import java.io.File;
 import java.io.IOException;
 
-public class STXTProcessor implements Processor
+public class STXTParser extends Parser
 {
-    // ----------------------------------
-    // Configuration and main constructor
-    // ----------------------------------
-    
     private final NamespaceRetriever namespaceRetriever;
-
-    public STXTProcessor(NamespaceRetriever namespaceRetriever)
+    
+    // -------------
+    // Constructores
+    // -------------
+    
+    public STXTParser(NamespaceRetriever namespaceRetriever)
     {
         this.namespaceRetriever = namespaceRetriever;
+    }    
+    
+    public STXTParser(File dirNamespaces) throws IOException, ParseException
+    {
+        NamespaceRetriever namespaceRetriever = new NamespaceRetriever();
+        namespaceRetriever.addGrammarDefinitionsFromDir(dirNamespaces);
+        
+        this.namespaceRetriever = namespaceRetriever;
     }
-
+    
     // ---------------
     // Process methods
     // ---------------
     
     @Override
-    public void processNodeOnCreation(Node node) throws ParseException, IOException
+    protected void processOnCreation(Node node) throws ParseException, IOException
     {
         if (node.getLevelCreation() == 0) updateMainNamespace(node);
     }
 
     @Override
-    public void processNodeOnCompletion(Node node) throws ParseException, IOException
+    protected void processOnCompletion(Node node) throws ParseException, IOException
     {
-        if (isDocRaw(node)) return; // No process
+        if (isRawDoc(node)) return; // No process
         
         String namespace = node.getNamespace();
         NamespaceNode nsNode = namespaceRetriever.getNameSpace(namespace).getNode(node.getName());
@@ -43,9 +52,9 @@ public class STXTProcessor implements Processor
     }
     
     @Override
-    public void processBeforeAdd(Node parent, Node child) throws IOException, ParseException
+    protected void processBeforeAdd(Node parent, Node child) throws IOException, ParseException
     {
-        if (isDocRaw(parent)) return; // No process
+        if (isRawDoc(parent)) return; // No process
         
         // Get namespace parent
         String parentNamespace = parent.getNamespace();
@@ -113,7 +122,8 @@ public class STXTProcessor implements Processor
         NamespaceNodeValidator.validateValue(nsNode, node);
     }
     
-    private boolean isDocRaw(Node node) {
+    private boolean isRawDoc(Node node) 
+    {
         // If the node lacks namespace, treat as raw.
         return node.getNamespace() == null;
     }
@@ -130,10 +140,5 @@ public class STXTProcessor implements Processor
                 }
             }
         }
-    }
-
-    @Override
-    public void processAfterAdd(Node parent, Node child) throws ParseException, IOException
-    {
     }
 }

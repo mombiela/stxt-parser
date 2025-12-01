@@ -1,4 +1,4 @@
-package dev.stxt.parser;
+package stxt.parser;
 
 public class ParseException extends Exception 
 {

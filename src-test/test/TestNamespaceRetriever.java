@@ -6,8 +6,8 @@ import java.util.Set;
 
 import org.junit.jupiter.api.Test;
 
-import dev.stxt.parser.NamespaceRetriever;
-import dev.stxt.parser.ParseException;
+import stxt.parser.NamespaceRetriever;
+import stxt.parser.ParseException;
 
 public class TestNamespaceRetriever
 {

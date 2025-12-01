@@ -1,4 +1,4 @@
-package dev.stxt.parser;
+package stxt.parser;
 
 import java.util.HashSet;
 import java.util.List;

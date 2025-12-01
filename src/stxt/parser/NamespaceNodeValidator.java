@@ -1,4 +1,4 @@
-package dev.stxt.parser;
+package stxt.parser;
 
 import java.io.IOException;
 import java.net.URISyntaxException;

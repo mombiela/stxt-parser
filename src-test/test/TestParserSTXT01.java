@@ -6,9 +6,9 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-import dev.stxt.parser.Node;
-import dev.stxt.parser.ParseException;
-import dev.stxt.parser.STXTParser;
+import stxt.parser.Node;
+import stxt.parser.ParseException;
+import stxt.parser.STXTParser;
 
 public class TestParserSTXT01
 {
