@@ -1,0 +1,20 @@
+STRUCT NodeType:
+    // Tipos básicos soportados por STxT
+    CONST STRING  = "STRING"
+    CONST NUMBER  = "NUMBER"
+    CONST BOOLEAN = "BOOLEAN"
+    CONST TEXT    = "TEXT"
+
+    // Conjuntos internos de clasificación
+    SET SINGLELINE_TYPES = { STRING, NUMBER, BOOLEAN }
+    SET MULTILINE_TYPES  = { TEXT }
+    SET ALL_TYPES        = SINGLELINE_TYPES ∪ MULTILINE_TYPES
+
+FUNCTION getDefaultType() -> STRING:
+    RETURN STRING
+
+FUNCTION isValidType(type: STRING) -> BOOLEAN:
+    RETURN type ∈ ALL_TYPES
+
+FUNCTION isMultiline(type: STRING) -> BOOLEAN:
+    RETURN type ∈ MULTILINE_TYPES
