@@ -1,3 +1,4 @@
+* Revisar documentación
 * Parser Java
 	* stxt in -> json canonico, stxt compact, ns json cononico, error parseo
 * Parser Javascript (+Node.js)
