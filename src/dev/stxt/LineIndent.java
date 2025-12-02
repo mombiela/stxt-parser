@@ -2,9 +2,6 @@ package dev.stxt;
 
 import java.util.regex.Pattern;
 
-import info.semantictext.parser.Constants;
-import info.semantictext.parser.ParseException;
-
 public class LineIndent
 {
     public final int indentLevel;
@@ -82,7 +79,7 @@ public class LineIndent
             // Validate that text can only have one more level, so no information is lost
             if (lastNodeMultiline && level >= stackSize) break;
         }
-        if (spaces != 0) throw new ParseException("Invalid number spaces", numLine);
+        if (spaces != 0) throw new ParseException(numLine, "INVALID_INDENTATION", "Exceed spaces: " + spaces + ", at column " + pointer);
 
         // In case of text, check if it's a comment or not to preserve empty line (depends on the comment's level)
         if (lastNodeMultiline && level < stackSize)

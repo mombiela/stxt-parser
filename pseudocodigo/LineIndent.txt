@@ -1,0 +1,85 @@
+// filepath: c:\desarrollo\workspace_java\x-parser\pseudocodigo\LineIndent.txt
+STRUCT LineIndent:
+    indentLevel: INTEGER            // nivel de indentación calculado
+    lineWithoutIndent: STRING       // línea sin los espacios/tabs de indentación
+
+
+FUNCTION createLineIndent(level: INTEGER, line: STRING) -> LineIndent:
+    lineIndent = new LineIndent
+    lineIndent.indentLevel = level
+    lineIndent.lineWithoutIndent = line
+    RETURN lineIndent
+
+
+// --- Expresiones regulares ---
+CONST EMPTY_LINE_PATTERN = "^\s*$"                  // línea vacía o solo espacios
+CONST COMMENT_LINE_PATTERN = "^\s*\#.*$"            // línea de comentario
+CONST COMPACT_LINE_PATTERN = "^\d+"                 // línea compacta (empieza con dígito)
+
+
+FUNCTION parseLine(aLine: STRING, numLine: INTEGER, parseState: ParseState) -> LineIndent?:
+    // Obtener información del estado
+    stackSize = parseState.stack.size()
+    lastNodeMultiline = FALSE
+    IF stackSize > 0:
+        lastNode = stackPeek(parseState)
+        lastNodeMultiline = NodeType.isMultiline(lastNode.type)
+    
+    // Validar si es línea vacía o comentario (excepto en nodos multilínea)
+    IF NOT lastNodeMultiline:
+        IF aLine coincide con EMPTY_LINE_PATTERN O aLine coincide con COMMENT_LINE_PATTERN:
+            RETURN null
+    
+    // Detectar línea compacta (formato: "nivel:contenido")
+    IF aLine comienza con dígito:
+        i = índice del primer ':' en aLine
+        level = convertir aLine.substring(0, i) a INTEGER
+        content = aLine.substring(i + 1)
+        RETURN createLineIndent(level, content)
+    
+    // Calcular nivel de indentación manualmente
+    level = 0
+    spaces = 0
+    pointer = 0
+    
+    MIENTRAS pointer < aLine.length():
+        charPointer = aLine[pointer]
+        
+        // Actualizar nivel según el carácter
+        IF charPointer == SPACE:
+            spaces = spaces + 1
+            IF spaces == TAB_SPACES:
+                level = level + 1
+                spaces = 0
+        
+        ELSE IF charPointer == TAB:
+            level = level + 1
+            spaces = 0
+        
+        ELSE:
+            // Encontrado primer carácter no-indentación
+            BREAK
+        
+        pointer = pointer + 1
+        
+        // En nodos multilínea, el texto solo puede tener un nivel más que el stack
+        IF lastNodeMultiline AND level >= stackSize:
+            BREAK
+    
+    // Validar que los espacios sean múltiplos exactos de TAB_SPACES
+    IF spaces != 0:
+        THROW ParseException("Invalid number spaces", numLine)
+    
+    // En nodos multilínea con nivel menor al stack, verificar si es comentario
+    IF lastNodeMultiline AND level < stackSize:
+        IF aLine coincide con EMPTY_LINE_PATTERN:
+            // Preservar línea vacía como texto del nodo multilínea
+            RETURN createLineIndent(stackSize, "")
+        
+        IF aLine coincide con COMMENT_LINE_PATTERN:
+            // Es un comentario fuera del nodo, ignorar
+            RETURN null
+    
+    // Extraer línea sin indentación
+    lineWithoutIndent = aLine.substring(pointer)
+    RETURN createLineIndent(level, lineWithoutIndent)
