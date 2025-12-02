@@ -1,0 +1,36 @@
+* Parser Java
+	* stxt in -> json canonico, stxt compact, ns json cononico, error parseo
+* Parser Javascript (+Node.js)
+* Plugin VSCode
+* Parser Python
+* cli con node: stxt
+	* Validate: stxt file.stxt
+	* List namespaces: stxt --list-ns
+	* Import namespace:	stxt --import-ns file.stxt|uri.stxt
+	* JSON canónico: stxt --json-canonical file.stxt
+	* ...
+* cli con node, transformadores: stxt2
+		* stxt2 file.stxt file.json
+		* stxt2 file.stxt file.xml
+		* stxt2 file.stxt file.xxx
+	* Transformadores
+* Otros cli's?
+* WYSIWYG: editor en javascript para cms's
+* Contactar con Costaisa (si quieren patrocinar proyecto)
+* Documentación:
+	* Parseo en pseudocódigo
+	* Pruebas canónicas
+	* Casos de uso:
+		* Documentos corporativos (fuente de verdad)
+			* Wiki corp
+			* Manuales
+			* Contratos
+			* ...
+		* Wikipedia!! Contactar comunidad
+		* Ficheros de configuración
+		* Ficheros stxt2
+	* ...
+* Maven para java
+* Node con stxt
+* Python con stxt
+
