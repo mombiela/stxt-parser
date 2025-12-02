@@ -16,8 +16,8 @@ FUNCTION createNode(line, level, name, value) -> Node:
     node.value = value          // puede ser null si el nodo no tiene valor en línea
     node.namespace = null
     node.type = null
-    node.text = lista vacía
-    node.children = lista vacía
+    node.text = lista vacía no null
+    node.children = lista vacía no null
     RETURN node
 
 FUNCTION nodeToJson(node: Node) -> JSON_OBJECT:
