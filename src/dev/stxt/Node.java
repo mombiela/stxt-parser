@@ -3,6 +3,9 @@ package dev.stxt;
 import java.util.ArrayList;
 import java.util.List;
 
+import dev.stxt.json.JSONArray;
+import dev.stxt.json.JSONObject;
+
 public class Node
 {
     private String name;
@@ -13,7 +16,7 @@ public class Node
     private final List<String> text = new ArrayList<>();
     private final int line;
     private final int level;
-    private List<Node> children = new ArrayList<>();
+    private final List<Node> children = new ArrayList<>();
 
     public Node(int line, int level, String name, String value)
     {
@@ -23,6 +26,11 @@ public class Node
         this.value = value;
     }
 
+    public void addTextLine(String line) 
+    {
+        this.text.add(line);
+    }
+    
     public String getName()
     {
         return name;
@@ -58,11 +66,6 @@ public class Node
         return children;
     }
 
-    public void setChildren(List<Node> children)
-    {
-        this.children = children;
-    }
-
     public String getValue()
     {
         return value;
@@ -82,4 +85,38 @@ public class Node
     {
         return level;
     }    
+
+    public JSONObject toJson()
+    {
+        JSONObject obj = new JSONObject();
+        obj.put("name", this.name);
+        
+        if (this.namespace != null)
+            obj.put("namespace", this.namespace);
+        if (this.type != null)
+            obj.put("type", this.type);
+        if (this.value != null)
+            obj.put("value", this.value);
+        
+        obj.put("line", this.line);
+        obj.put("level", this.level);
+
+        // Text array
+        JSONArray jText = new JSONArray();
+        for (String t : this.text)
+        {
+            jText.put(t);
+        }
+        obj.put("text", jText);
+
+        // Children array
+        JSONArray jChildren = new JSONArray();
+        for (Node child : this.children)
+        {
+            jChildren.put(child.toJson());
+        }
+        obj.put("children", jChildren);
+
+        return obj;
+    }
 }
