@@ -1,4 +1,4 @@
-package test;
+package test_old;
 
 import java.io.File;
 import java.io.IOException;
@@ -10,11 +10,11 @@ import info.semantictext.parser.Node;
 import info.semantictext.parser.ParseException;
 import info.semantictext.parser.STXTParser;
 
-public class TestParserSTXTAll
+public class TestParserSTXT01
 {
     public static void main(String[] args) throws Exception
     {
-	new TestParserSTXTAll().mainTest();
+	new TestParserSTXT01().mainTest();
     }
     
     @Test
@@ -26,29 +26,16 @@ public class TestParserSTXTAll
         STXTParser parser = new STXTParser(new File("namespaces"));
         
         // Ejecutamos con fichero
-        parseDir(new File("docs"), parser);
-        System.out.println("Fi");
-    }
-
-    private static void parseDir(File file, STXTParser parser) throws IOException, ParseException
-    {
-        File[] dirs = file.listFiles();
-        for (File f: dirs)
-        {
-            if (!f.getName().endsWith(".stxt")) continue;
-            parseFile(parser, f);
-        }
-    }
-
-    private static void parseFile(STXTParser parser, File f) throws IOException, ParseException
-    {
-        System.out.println("********************************************************");
-        System.out.println("Parse file: " + f.getAbsolutePath());
+        File f = new File("docs/client.stxt");
+        System.out.println("FILE: " + f.getAbsolutePath());
         List<Node> nodes = parser.parseFile(f);
         
         for (Node n: nodes)
         {
+            System.out.println("****************************************************");
             System.out.println(n);
         }
-    }
+        
+        System.out.println("Fi");
+    }   
 }

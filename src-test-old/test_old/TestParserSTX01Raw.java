@@ -1,4 +1,4 @@
-package test;
+package test_old;
 
 import java.io.File;
 import java.io.IOException;
@@ -10,11 +10,11 @@ import info.semantictext.parser.Node;
 import info.semantictext.parser.ParseException;
 import info.semantictext.parser.STXTParser;
 
-public class TestParserSTXT01
+public class TestParserSTX01Raw
 {
     public static void main(String[] args) throws Exception
     {
-	new TestParserSTXT01().mainTest();
+	new TestParserSTX01Raw().mainTest();
     }
     
     @Test
@@ -26,7 +26,7 @@ public class TestParserSTXT01
         STXTParser parser = new STXTParser(new File("namespaces"));
         
         // Ejecutamos con fichero
-        File f = new File("docs/client.stxt");
+        File f = new File("docs/client_raw.stxt");
         System.out.println("FILE: " + f.getAbsolutePath());
         List<Node> nodes = parser.parseFile(f);
         

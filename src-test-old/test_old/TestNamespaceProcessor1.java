@@ -1,20 +1,19 @@
-package test;
+package test_old;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.List;
+import java.util.Set;
 
 import org.junit.jupiter.api.Test;
 
-import info.semantictext.parser.Node;
 import info.semantictext.parser.ParseException;
-import info.semantictext.parser.Parser;
+import info.semantictext.parser.ns.NamespaceRetriever;
 
-public class TestParserBasic1
+public class TestNamespaceProcessor1
 {
     public static void main(String[] args) throws IOException, ParseException
     {
-        new TestParserBasic1().mainTest();
+        new TestNamespaceProcessor1().mainTest();
     }
     
     @Test
@@ -22,26 +21,24 @@ public class TestParserBasic1
     {
         System.out.println("Inici");
 
-        // Create parser
-        Parser parser = createBasicParser();
-        
-        File f = new File("docs/client_raw.stxt");
+        File f = new File("namespaces/doc_simple.stxt");
+
         System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
         System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
         System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
         System.out.println(f.getAbsolutePath());
-        List<Node> docs = parser.parseFile(f);
-        Node n = docs.get(0);
-        System.out.println(n);
+        
+        NamespaceRetriever nsRetriver = new NamespaceRetriever();
+        nsRetriver.addGrammarDefinitionsFromFile(f);
+        
+        Set<String> namespaces = nsRetriver.getAllNamespaces();
+        for (String namespace: namespaces)
+        {
+            System.out.println("*************************************************************");
+            System.out.println(namespace);
+            System.out.println(nsRetriver.getNameSpace(namespace));
+        }
         
         System.out.println("End");
     }
-
-    private Parser createBasicParser()
-    {
-        Parser parser = new Parser();
-        
-        return parser;
-    }
-
 }
