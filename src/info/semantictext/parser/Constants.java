@@ -1,4 +1,4 @@
-package dev.stxt.parser;
+package info.semantictext.parser;
 
 public class Constants
 {

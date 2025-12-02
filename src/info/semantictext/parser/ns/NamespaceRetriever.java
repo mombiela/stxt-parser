@@ -1,4 +1,4 @@
-package dev.stxt.parser.ns;
+package info.semantictext.parser.ns;
 
 import java.io.File;
 import java.io.IOException;
@@ -9,10 +9,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import dev.stxt.parser.Node;
-import dev.stxt.parser.ParseException;
-import dev.stxt.parser.Parser;
-import dev.stxt.parser.utils.UtilsFile;
+import info.semantictext.parser.Node;
+import info.semantictext.parser.ParseException;
+import info.semantictext.parser.Parser;
+import info.semantictext.parser.utils.UtilsFile;
 
 public class NamespaceRetriever
 {

@@ -1,4 +1,4 @@
-package dev.stxt.json;
+package info.semantictext.json;
 
 /*
 Copyright (c) 2002 JSON.org

@@ -1,13 +1,13 @@
-package dev.stxt.parser;
+package info.semantictext.parser;
 
 import java.io.File;
 import java.io.IOException;
 
-import dev.stxt.parser.ns.Namespace;
-import dev.stxt.parser.ns.NamespaceChild;
-import dev.stxt.parser.ns.NamespaceNode;
-import dev.stxt.parser.ns.NamespaceValidator;
-import dev.stxt.parser.ns.NamespaceRetriever;
+import info.semantictext.parser.ns.Namespace;
+import info.semantictext.parser.ns.NamespaceChild;
+import info.semantictext.parser.ns.NamespaceNode;
+import info.semantictext.parser.ns.NamespaceRetriever;
+import info.semantictext.parser.ns.NamespaceValidator;
 
 public class STXTParser extends Parser
 {

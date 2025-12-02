@@ -1,4 +1,4 @@
-package dev.stxt.parser;
+package info.semantictext.parser;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -8,8 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
 
-import dev.stxt.parser.utils.Utils;
-import dev.stxt.parser.utils.UtilsFile;
+import info.semantictext.parser.utils.Utils;
+import info.semantictext.parser.utils.UtilsFile;
 
 /* Classe thread safe*/
 

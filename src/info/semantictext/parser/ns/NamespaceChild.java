@@ -1,4 +1,4 @@
-package dev.stxt.parser.ns;
+package info.semantictext.parser.ns;
 
 public class NamespaceChild
 {

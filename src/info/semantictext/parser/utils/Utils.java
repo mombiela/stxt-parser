@@ -1,4 +1,4 @@
-package dev.stxt.parser.utils;
+package info.semantictext.parser.utils;
 
 public class Utils
 {

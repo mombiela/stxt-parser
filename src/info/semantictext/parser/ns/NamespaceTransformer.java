@@ -1,15 +1,15 @@
-package dev.stxt.parser.ns;
+package info.semantictext.parser.ns;
 
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import dev.stxt.parser.Constants;
-import dev.stxt.parser.LineSplitter;
-import dev.stxt.parser.Node;
-import dev.stxt.parser.NodeLine;
-import dev.stxt.parser.NodeType;
-import dev.stxt.parser.ParseException;
+import info.semantictext.parser.Constants;
+import info.semantictext.parser.LineSplitter;
+import info.semantictext.parser.Node;
+import info.semantictext.parser.NodeLine;
+import info.semantictext.parser.NodeType;
+import info.semantictext.parser.ParseException;
 
 public class NamespaceTransformer
 {

@@ -4,7 +4,7 @@ import java.io.IOException;
 
 import org.junit.jupiter.api.Test;
 
-import dev.stxt.parser.LineSplitter;
+import info.semantictext.parser.LineSplitter;
 
 public class TestLineSplitter
 {

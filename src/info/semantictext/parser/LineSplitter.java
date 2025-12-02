@@ -1,4 +1,4 @@
-package dev.stxt.parser;
+package info.semantictext.parser;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

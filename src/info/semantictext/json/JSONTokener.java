@@ -1,4 +1,4 @@
-package dev.stxt.json;
+package info.semantictext.json;
 
 import java.io.BufferedReader;
 import java.io.IOException;

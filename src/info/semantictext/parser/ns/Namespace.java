@@ -1,4 +1,4 @@
-package dev.stxt.parser.ns;
+package info.semantictext.parser.ns;
 
 import java.util.LinkedHashMap;
 import java.util.Map;

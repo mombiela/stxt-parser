@@ -1,4 +1,4 @@
-package dev.stxt.json;
+package info.semantictext.json;
 
 /**
  * The JSONException is thrown by the JSON.org classes when things are amiss.

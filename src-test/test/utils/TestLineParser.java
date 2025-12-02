@@ -4,8 +4,8 @@ import java.io.IOException;
 
 import org.junit.jupiter.api.Test;
 
-import dev.stxt.parser.LineIndent;
-import dev.stxt.parser.ParseException;
+import info.semantictext.parser.LineIndent;
+import info.semantictext.parser.ParseException;
 
 public class TestLineParser
 {
