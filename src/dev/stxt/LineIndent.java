@@ -6,6 +6,11 @@ import static dev.stxt.Constants.TAB_SPACES;
 
 public class LineIndent
 {
+    // Indentation mode constants
+    private static final int MODE_NONE = 0;
+    private static final int MODE_SPACES = 1;
+    private static final int MODE_TABS = 2;
+    
     public final int indentLevel;
     public final String lineWithoutIndent;
 
@@ -107,7 +112,7 @@ public class LineIndent
 
         // 2) Cálculo de indentación con reglas estrictas (sin mezclar)
         String line = aLine;
-        String mode = "NONE"; // "NONE", "SPACES", "TABS"
+        int mode = MODE_NONE;
         int level = 0;
         int spaces = 0;
         int pointer = 0;
@@ -119,11 +124,11 @@ public class LineIndent
 
             if (c == SPACE)
             {
-                if ("NONE".equals(mode))
+                if (mode == MODE_NONE)
                 {
-                    mode = "SPACES";
+                    mode = MODE_SPACES;
                 }
-                else if ("TABS".equals(mode))
+                else if (mode == MODE_TABS)
                 {
                     throw new ParseException(numLine, "MIXED_INDENTATION", "Cannot mix spaces and tabs in indentation");
                 }
@@ -138,11 +143,11 @@ public class LineIndent
             }
             else if (c == TAB)
             {
-                if ("NONE".equals(mode))
+                if (mode == MODE_NONE)
                 {
-                    mode = "TABS";
+                    mode = MODE_TABS;
                 }
-                else if ("SPACES".equals(mode))
+                else if (mode == MODE_SPACES)
                 {
                     throw new ParseException(numLine, "MIXED_INDENTATION", "Cannot mix spaces and tabs in indentation");
                 }
@@ -166,7 +171,7 @@ public class LineIndent
         }
 
         // Validar espacios sueltos si estamos en modo SPACES
-        if ("SPACES".equals(mode) && spaces != 0)
+        if (mode == MODE_SPACES && spaces != 0)
         {
             throw new ParseException(numLine, "INVALID_INDENTATION_SPACES", "Invalid number of spaces for indentation");
         }
