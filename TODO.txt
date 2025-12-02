@@ -37,6 +37,7 @@
 * Maven con stxt
 * Node con npm stxt
 * Python con pip stxt
+* Correo: contact@stxt.dev
 * Dominios y aplicaciones
 	* ns.stxt.dev          → Repositorio de definiciones
 	* stxt.dev             → Landing + visión del proyecto
@@ -48,4 +49,5 @@
 	* plugins.stxt.dev     → Extensiones de editores
 	* ai.stxt.dev          → Integraciones con IA
 	* lab.stxt.dev         → Experimentos	
+	* org.stxt.dev         → Sugerencias, lenguaje, etc.
 
