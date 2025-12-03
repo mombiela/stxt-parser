@@ -11,6 +11,8 @@
 
 Este documento define la especificación del lenguaje **STxT (Semantic Text)**.
 
+STxT es un lenguaje **Human-First**, diseñado para que su forma natural sea legible, clara y cómoda para las personas, manteniendo al mismo tiempo una estructura estricta y fácilmente procesable por máquinas.
+
 STxT es un formato textual jerárquico y semántico diseñado para ser:
 
 * Fácil de leer y escribir.
@@ -181,7 +183,7 @@ Un documento STxT:
 ## 8.2 Reglas de Jerarquía
 
 * La indentación **MUST** aumentar de forma consecutiva.
-* Se prohíben saltos de nivel (p. ej., de nivel 0 a nivel 2).
+* Se prohíben saltos de nivel (p. ej., 0 → 2).
 * Un nodo hijo **MUST** tener mayor indentación que su padre.
 
 ---
@@ -194,7 +196,7 @@ Una línea es comentario si, tras la indentación, el primer carácter es `#`.
 
 Dentro de un bloque `[TEXT]`:
 
-* Una línea al **mismo nivel** que el texto del bloque **MUST** tratarse como **contenido**, no como comentario.
+* Una línea al **mismo nivel** del contenido **MUST** tratarse como texto.
 * Solo se considera comentario si está **al menos un nivel más indentada**.
 
 Ejemplo:
@@ -205,7 +207,7 @@ Ejemplo:
 Documento:
     # Comentario del nodo
     Seccion[TEXT]:
-        # Esto es texto (no comentario)
+        # Esto es texto
         Esto también es texto
     # Esto sí es comentario
 ```
@@ -259,7 +261,7 @@ El media type preferido para documentos STxT es:
 text/stxt
 ```
 
-Para compatibilidad, los documentos **MAY** transmitirse también como:
+Como alternativa de compatibilidad:
 
 ```
 text/plain
@@ -324,9 +326,7 @@ Indent           = ("    ")* | ("\t")*
 
 # 15. Apéndice B — Interacción con @stxt.schema
 
-El sistema de schema extiende la semántica del núcleo STxT.
-
-Tipos como:
+Los tipos semánticos extendidos:
 
 * ENUM
 * REGEX
@@ -334,7 +334,9 @@ Tipos como:
 * JSON
 * MARKDOWN
 
-**NO** forman parte del lenguaje base y deben definirse en:
+**NO** forman parte del núcleo STxT.
+
+Se definen mediante:
 
 ```
 @stxt.schema
@@ -354,4 +356,3 @@ Namespace (@stxt.schema): com.example.docs
 ---
 
 # 16. Fin del Documento
-
