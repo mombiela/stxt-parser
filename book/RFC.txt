@@ -213,7 +213,7 @@ Documento:
     Seccion[TEXT]:
         # Esto es texto, NO es un comentario
         Esto también es texto
-            # Esto NO es un comentario
+            # Esto NO es un comentario tampoco
     # Esto sí es comentario
 ```
 
