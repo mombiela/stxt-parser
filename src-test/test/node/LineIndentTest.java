@@ -1,14 +1,16 @@
 package test.node;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 import org.junit.jupiter.api.Test;
 
 import dev.stxt.LineIndent;
 import dev.stxt.Node;
-import dev.stxt.NodeType;
 import dev.stxt.ParseException;
 import dev.stxt.ParseState;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class LineIndentTest {
 
@@ -22,8 +24,7 @@ class LineIndentTest {
 
     private ParseState newStateWithMultilineTextNode() {
         ParseState state = new ParseState();
-        Node textNode = new Node(1, 0, "Content", null);
-        textNode.setType(NodeType.TEXT);
+        Node textNode = new Node(1, 0, "Content", null, true);
         state.getStack().push(textNode);
         return state;
     }

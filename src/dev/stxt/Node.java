@@ -10,7 +10,7 @@ public class Node
 {
     private String name;
     private String namespace;
-    private String type;
+    private final boolean multiline;
     
     private final String value;
     private final List<String> text = new ArrayList<>();
@@ -18,12 +18,13 @@ public class Node
     private final int level;
     private final List<Node> children = new ArrayList<>();
 
-    public Node(int line, int level, String name, String value)
+    public Node(int line, int level, String name, String value, boolean multiline)
     {
         this.level = level;
         this.line = line;
         this.name = name;
         this.value = value;
+        this.multiline = multiline;
     }
 
     public void addTextLine(String line) 
@@ -49,16 +50,6 @@ public class Node
     public void setNamespace(String namespace)
     {
         this.namespace = namespace;
-    }
-
-    public String getType()
-    {
-        return type;
-    }
-
-    public void setType(String type)
-    {
-        this.type = type;
     }
 
     public List<Node> getChildren()
@@ -93,8 +84,6 @@ public class Node
         
         if (this.namespace != null)
             obj.put("namespace", this.namespace);
-        if (this.type != null)
-            obj.put("type", this.type);
         if (this.value != null)
             obj.put("value", this.value);
         
@@ -118,5 +107,10 @@ public class Node
         obj.put("children", jChildren);
 
         return obj;
+    }
+
+    public boolean isMultiline()
+    {
+        return multiline;
     }
 }

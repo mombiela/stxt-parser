@@ -72,7 +72,7 @@ public class LineIndent
     public static LineIndent parseLine(String aLine, int numLine, ParseState parseState) throws ParseException
     {
         int stackSize = parseState.getStack().size();
-        boolean lastNodeMultiline = stackSize > 0 && NodeType.isMultiline(parseState.getStack().peek().getType());
+        boolean lastNodeMultiline = stackSize > 0 && parseState.getStack().peek().isMultiline();
 
         String trimmed = aLine.trim();
 
