@@ -328,13 +328,16 @@ Contenido lógico del bloque:
 
 Las líneas vacías finales después de `"Línea 2"` se eliminan en la representación lógica.
 
----
-
 ## 10.4 Normalización del nombre del nodo
 
-Antes de interpretar `:` o `>>`, el parser MUST extraer el nombre del nodo eliminando espacios y tabuladores a izquierda y derecha (trim).
+La normalización del nombre del nodo ya se define formalmente en la **sección 4.2**.
+Como recordatorio operativo:
 
-Esto garantiza que las siguientes variantes sean equivalentes a nivel de parseo:
+* Antes de interpretar `:` o `>>`, el parser **MUST** obtener el nombre lógico aplicando la normalización descrita en 4.2.
+* Esto implica eliminar espacios y tabuladores a izquierda y derecha del fragmento que constituye el nombre.
+* Distintas variantes con espacios siguen produciendo el mismo nombre lógico.
+
+Ejemplo recordatorio:
 
 ```stxt
 Nombre: valor
@@ -342,7 +345,9 @@ Nombre : valor
 Nombre    :   valor
 ```
 
-En todos los casos, el nombre lógico del nodo es "Nombre".
+En los tres casos, el nombre lógico del nodo es `"Nombre"`.
+
+---
 
 # 11. Reglas de Error
 
