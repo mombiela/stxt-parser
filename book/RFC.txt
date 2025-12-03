@@ -192,16 +192,12 @@ Un documento STxT:
 
 Una línea es comentario si, tras la indentación, el primer carácter es `#`.
 
-
-9.1 Comentarios dentro de TEXT
-Dentro de un bloque [TEXT]:
-
 ## 9.1 Comentarios dentro de TEXT
 
 Dentro de un bloque `[TEXT]`:
 
-* Una línea al **mismo nivel o superior ** del contenido **MUST** tratarse como texto.
-* Solo se considera comentario si está **al menos un nivel MENOS indentada**.
+* Una línea **MUST** tratarse como **texto** si su indentación es **igual o mayor** que la indentación mínima del contenido del bloque.
+* Una línea **MUST** tratarse como **comentario** únicamente si su indentación es **menor** que la indentación mínima del contenido.
 
 Ejemplo:
 
@@ -213,7 +209,7 @@ Documento:
     Seccion[TEXT]:
         # Esto es texto, NO es un comentario
         Esto también es texto
-            # Esto NO es un comentario tampoco
+            # Esto también es texto
     # Esto sí es comentario
 ```
 
@@ -324,8 +320,12 @@ Valor            = InlineValue | MultilineBlock
 InlineValue      = texto en misma línea
 MultilineBlock   = Líneas indentadas (uno o más)
 Comentario       = Indent "#" Texto
-# NOTA: La línea de Comentario MUST estar al mismo nivel de indentación
-# que su nodo padre (o menos) para ser ignorada.
+
+# NOTA:
+#  Dentro de un bloque TEXT, una línea "#" MUST considerarse comentario
+#  únicamente si su indentación es menor que la indentación mínima del
+#  contenido del bloque.
+
 Indent           = ("    ")* | ("\t")*
 ```
 
