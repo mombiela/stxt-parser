@@ -68,6 +68,39 @@ Nombre (@namespace):
 Nombre (@namespace) >>
 ```
 
+## 4.2 Normalización del nombre del nodo
+
+El nombre del nodo se toma a partir del texto comprendido entre:
+
+- El primer carácter no perteneciente a la indentación, y
+- El primer carácter que pertenezca a cualquiera de:
+  - El inicio de un namespace `(`,
+  - El carácter `:`,
+  - El operador `>>`,
+  - O el fin de línea.
+
+Sobre ese fragmento se aplica:
+
+- Eliminación de espacios y tabuladores iniciales (trim a la izquierda).
+- Eliminación de espacios y tabuladores finales (trim a la derecha).
+
+El resultado de esta normalización es el **nombre lógico del nodo**.
+
+Un nodo cuyo nombre lógico sea la cadena vacía (`""`) es inválido y **MUST** provocar un error de parseo.
+
+Ejemplos equivalentes a nivel de nombre:
+
+```stxt
+Nombre: valor
+Nombre   : valor
+   Nombre: valor
+   Nombre   : valor
+Nombre   (@ns):
+Nombre(@ns):
+Nombre   >>
+Nombre>>
+
+
 ---
 
 # 5. Nodos con `:` (inline o contenedor)
