@@ -1,0 +1,357 @@
+# STXT-SPEC-DRAFT
+
+**Semantic Text (STxT) — Core Language Specification**
+**Category:** Standards Track
+**Status:** Draft
+**Format:** Markdown (RFC-style)
+
+---
+
+# 1. Introducción
+
+Este documento define la especificación del lenguaje **STxT (Semantic Text)**.
+
+STxT es un formato textual jerárquico y semántico diseñado para ser:
+
+* Fácil de leer y escribir.
+* Simple de parsear en cualquier lenguaje.
+* Adecuado para documentos, configuraciones y contenido estructurado.
+* Extensible mediante el sistema de schemas (`@stxt.schema`).
+
+Este documento describe la **sintaxis base** del lenguaje: nodos, indentación, namespaces, tipos primitivos, valores y comentarios.
+
+---
+
+# 2. Terminología
+
+Las palabras clave **"MUST"**, **"MUST NOT"**, **"SHOULD"**, **"SHOULD NOT"**, y **"MAY"** deben interpretarse según **RFC 2119**.
+
+---
+
+# 3. Codificación del Documento
+
+Los documentos STxT **SHOULD** codificarse en **UTF-8 sin BOM**.
+
+Un parser:
+
+* **MAY** aceptar documentos que empiecen con BOM.
+* **SHOULD** emitir una advertencia en tal caso.
+
+---
+
+# 4. Unidad Sintáctica: Nodo
+
+Cada línea no vacía define un **nodo**.
+
+Sintaxis general:
+
+```
+Nombre (Namespace)[Tipo]: ValorInline
+```
+
+Elementos:
+
+* **Nombre**: obligatorio.
+* **(Namespace)**: opcional.
+* **[Tipo]**: opcional (obligatorio para TEXT).
+* `:`: obligatorio.
+* **ValorInline**: depende del tipo.
+
+## 4.1 Reglas del Nodo
+
+Un nodo:
+
+* **MUST** tener nombre.
+* **MUST** contener exactamente un `:`.
+* **MUST NOT** especificar más de un namespace o tipo.
+* **MUST** iniciar sin indentación si es nodo raíz.
+
+---
+
+# 5. Namespace
+
+Un namespace:
+
+* **MUST** comenzar con `@`.
+* **SHOULD** usar estructura jerárquica (`@a.b.c`).
+
+## 5.1 Herencia del Namespace
+
+* Un nodo con `(Namespace)` aplica ese namespace a sí mismo y a sus descendientes.
+* Un nodo sin namespace **inherits** el más cercano de sus ancestros.
+* El namespace por defecto es **`@stxt`**.
+
+---
+
+# 6. Tipos Primitivos
+
+STxT define cuatro tipos primitivos:
+
+| Tipo    | Descripción             |
+| ------- | ----------------------- |
+| STRING  | Texto de una sola línea |
+| NUMBER  | Entero o decimal        |
+| BOOLEAN | `true` / `false`        |
+| TEXT    | Texto multilínea        |
+
+## 6.1 Tipo por Omisión
+
+Un nodo sin tipo explícito **SHOULD** interpretarse como **STRING**.
+
+---
+
+# 7. Representación de Valores
+
+STxT define dos modos de representar valores:
+
+* **Inline Value**
+* **Multiline Value**
+
+## 7.1 Inline Value
+
+Un valor inline aparece en la misma línea después de `:`.
+
+Está permitido solo para:
+
+* STRING
+* NUMBER
+* BOOLEAN
+
+Reglas:
+
+* Estos tipos **MUST** contener valor inline.
+* **MUST NOT** abrir un bloque multilínea.
+
+Ejemplo válido:
+
+```
+Activo[BOOLEAN]: true
+```
+
+Ejemplo inválido:
+
+```
+Activo[BOOLEAN]:
+	true
+```
+
+## 7.2 Multiline Value
+
+Solo el tipo **TEXT** puede abrir un bloque multilínea.
+
+Reglas:
+
+* `[TEXT]` **MUST** abrir un bloque multilínea.
+* `[TEXT]` **MUST NOT** usar valor inline.
+* El bloque **MUST** comenzar en la línea siguiente con mayor indentación.
+
+Ejemplo válido:
+
+```
+Contenido[TEXT]:
+	Linea 1
+	Linea 2
+```
+
+Ejemplo inválido:
+
+```
+Contenido[TEXT]: Hola   ; Prohibido
+```
+
+---
+
+# 8. Indentación y Jerarquía
+
+La indentación define la jerarquía del documento.
+
+## 8.1 Indentación Permitida
+
+Un documento STxT:
+
+* **MAY** usar solo espacios o solo tabuladores.
+* **MUST NOT** mezclarlos.
+* Si usa espacios:
+
+  * **MUST** usar exactamente **4 espacios** por nivel.
+* Si usa tabs:
+
+  * Cada tab representa exactamente 1 nivel.
+
+## 8.2 Reglas de Jerarquía
+
+* La indentación **MUST** aumentar de forma consecutiva.
+* Se prohíben saltos de nivel (p. ej., de nivel 0 a nivel 2).
+* Un nodo hijo **MUST** tener mayor indentación que su padre.
+
+---
+
+# 9. Comentarios
+
+Una línea es comentario si, tras la indentación, el primer carácter es `#`.
+
+## 9.1 Comentarios dentro de TEXT
+
+Dentro de un bloque `[TEXT]`:
+
+* Una línea al **mismo nivel** que el texto del bloque **MUST** tratarse como **contenido**, no como comentario.
+* Solo se considera comentario si está **al menos un nivel más indentada**.
+
+Ejemplo:
+
+```stxt
+# Comentario raíz
+
+Documento:
+    # Comentario del nodo
+    Seccion[TEXT]:
+        # Esto es texto (no comentario)
+        Esto también es texto
+    # Esto sí es comentario
+```
+
+---
+
+# 10. Reglas de Error
+
+Un documento es inválido si se da alguna de las siguientes condiciones:
+
+1. STRING/NUMBER/BOOLEAN sin valor inline.
+2. TEXT con valor inline.
+3. Mezcla de valor inline y multilínea en un nodo.
+4. Mezcla de espacios y tabuladores.
+5. Espacios que no sean múltiplos de 4.
+6. Salto de nivel de indentación.
+7. Namespace sin `@`.
+8. Ausencia del carácter `:` en un nodo.
+
+Un parser conforme **MUST** rechazar el documento.
+
+---
+
+# 11. Conformidad
+
+Una implementación es conforme si:
+
+* Implementa la sintaxis descrita.
+* Aplica las reglas de indentación y jerarquía.
+* Respeta las reglas de tipos y valores.
+* Interpreta comentarios según las reglas.
+* Rechaza documentos inválidos.
+
+---
+
+# 12. Extensión de Archivo y Media Type
+
+## 12.1 Extensión de Archivo
+
+Los documentos STxT **SHOULD** usar la extensión:
+
+```
+.stxt
+```
+
+## 12.2 Media Type (MIME)
+
+El media type preferido para documentos STxT es:
+
+```
+text/stxt
+```
+
+Para compatibilidad, los documentos **MAY** transmitirse también como:
+
+```
+text/plain
+```
+
+---
+
+# 13. Ejemplos Normativos
+
+### 13.1 Documento válido
+
+```
+Documento (@com.example.docs):
+    Titulo[STRING]: Informe
+    Version[NUMBER]: 1.2
+    Activo[BOOLEAN]: true
+    Descripcion[TEXT]:
+        Primera línea
+        Segunda línea
+```
+
+### 13.2 TEXT inline (inválido)
+
+```
+Descripcion[TEXT]: Hola
+    Línea 2
+```
+
+### 13.3 Mezcla de indentación (inválido)
+
+```
+A:
+    B:
+\t\tC: valor
+```
+
+### 13.4 Comentarios en TEXT
+
+```
+Nota[TEXT]:
+    # Esto es contenido
+    Más texto
+        # Comentario real
+```
+
+---
+
+# 14. Apéndice A — Gramática (Informal)
+
+```
+Nodo             = Indent Nombre Esp? Namespace? Tipo? ":" Esp? Valor?
+Namespace        = "(" "@" Ident ")" 
+Tipo             = "[" (STRING | NUMBER | BOOLEAN | TEXT) "]"
+Valor            = InlineValue | MultilineBlock
+InlineValue      = texto en misma línea
+MultilineBlock   = Líneas indentadas (uno o más)
+Comentario       = Indent "#" Texto
+Indent           = ("    ")* | ("\t")*
+```
+
+---
+
+# 15. Apéndice B — Interacción con @stxt.schema
+
+El sistema de schema extiende la semántica del núcleo STxT.
+
+Tipos como:
+
+* ENUM
+* REGEX
+* UUID
+* JSON
+* MARKDOWN
+
+**NO** forman parte del lenguaje base y deben definirse en:
+
+```
+@stxt.schema
+```
+
+Ejemplo:
+
+```
+Namespace (@stxt.schema): com.example.docs
+    Documento:
+        Autor: (1) STRING
+        Criticidad: (?) STRING ENUM ["Alta","Media","Baja"]
+        Identificador: (1) STRING UUID
+        Notas: (*) TEXT MARKDOWN
+```
+
+---
+
+# 16. Fin del Documento
+
