@@ -53,7 +53,6 @@ Existen dos formas de nodo:
    ```stxt
    Nombre: ValorInline
    ```
-
 2. **Nodo de bloque textual (`>>`)**
 
    ```stxt
@@ -78,12 +77,12 @@ La forma con `:` define un nodo que:
 * Puede tener valor inline (opcional).
 * Puede no tener valor inline (nodo vacío).
 * Puede tener hijos (nodos anidados).
-* Su contenido estructurado está compuesto por:
+* Su contenido estructurado incluye:
 
   * La propia línea del nodo.
-  * Sus descendientes con mayor indentación, excepto dentro de bloques `>>`.
+  * Sus descendientes con mayor indentación, **excepto** dentro de bloques `>>`.
 
-Ejemplos válidos:
+Ejemplos:
 
 ```stxt
 Titulo: Informe
@@ -113,18 +112,18 @@ Seccion>>
     Acepta el operador sin espacio
 ```
 
-Reglas:
+## Reglas formales
 
-* La línea del nodo `>>` **MUST NOT** contener ningún otro contenido significativo tras `>>` (solo espacios opcionales).
-* Todas las líneas con indentación **mayor** que la del nodo `>>` pertenecen al **contenido textual del bloque**.
+* La línea del nodo `>>` **MUST NOT** contener contenido significativo tras `>>`, excepto espacios opcionales.
+* Todas las líneas con indentación **estrictamente mayor** que la del nodo `>>` pertenecen al **contenido textual del bloque**.
 * Dentro del bloque:
 
-  * El parser **MUST NOT** interpretar líneas como nodos estructurados, aunque contengan `:` o parezcan encabezados.
-  * El parser **MUST NOT** interpretar líneas que comienzan por `#` como comentarios; son texto literal.
-* El bloque termina cuando aparece una línea **no vacía** con indentación **menor o igual** a la del nodo `>>`.
-* Las **líneas vacías dentro del inline** se conservan independientemente del nivel
+  * El parser **MUST NOT** interpretar ninguna línea como nodo estructurado, aunque contenga `:` u otra sintaxis de STxT.
+  * El parser **MUST NOT** interpretar líneas que comienzan por `#` como comentarios; todas las líneas son texto literal.
+* El bloque termina cuando aparece una **línea no vacía** cuya indentación es **menor o igual** que la indentación del nodo `>>`.
+* Las líneas vacías **dentro del bloque** se conservan tal cual y **MUST NOT** cerrar el bloque, independientemente de su indentación.
 
-Ejemplo:
+### Ejemplo:
 
 ```stxt
 Bloque >>
@@ -137,15 +136,15 @@ SiguienteNodo: valor
 
 En este ejemplo:
 
-* Todo lo que está indentado por debajo de `Bloque >>` es texto literal.
-* `Hijo: valor` y `Otro hijo: SI permitido` **no** son nodos, sino texto del bloque.
-* `SiguienteNodo: valor` ya está fuera del bloque `>>`.
+* Todo lo indentado por debajo de `Bloque >>` es texto literal.
+* `Hijo: valor` y `Otro hijo: SI permitido` **no** son nodos, sino texto.
+* `SiguienteNodo: valor` está fuera del bloque `>>`.
 
 ---
 
 # 7. Namespaces
 
-Los nodos pueden definir un namespace opcional entre paréntesis:
+Un namespace es opcional y se especifica así:
 
 ```stxt
 Nodo (@com.example.docs):
@@ -154,18 +153,9 @@ Nodo (@com.example.docs):
 Reglas:
 
 * Un namespace **MUST** empezar por `@`.
-* **SHOULD** seguir formato jerárquico (`@a.b.c`).
-* Se hereda por los nodos hijos estructurados.
+* **SHOULD** usar formato jerárquico (`@a.b.c`).
+* Se hereda por los nodos hijos.
 * El namespace por defecto es **`@stxt`**.
-
-Ejemplo:
-
-```stxt
-Documento (@com.demo):
-    Autor: Joan
-    Texto >>
-        Hola mundo
-```
 
 ---
 
@@ -181,22 +171,22 @@ Un documento STxT:
 * **MUST NOT** mezclarlos.
 * Si usa espacios:
 
-  * **MUST** usar **4 espacios** por nivel.
+  * **MUST** usar exactamente **4 espacios** por nivel.
 * Si usa tabs:
 
   * Cada tab representa exactamente 1 nivel.
 
 ## 8.2 Jerarquía
 
-* La indentación **MUST** aumentar de forma consecutiva (no se permiten saltos de nivel).
+* La indentación **MUST** aumentar de forma consecutiva (no se permiten saltos).
 * Los nodos hijos **MUST** tener mayor indentación que su padre.
-* La indentación dentro de un bloque `>>` **no afecta a la jerarquía estructural**: todo se trata como texto, no como nodos.
+* La indentación dentro de un bloque `>>` **no afecta a la jerarquía estructural**: es simplemente texto.
 
 ---
 
 # 9. Comentarios
 
-Fuera de bloques `>>`, una línea es comentario si, tras su indentación, el primer carácter es `#`.
+Una línea es un comentario si, tras su indentación, el primer carácter es `#`.
 
 Ejemplo:
 
@@ -204,18 +194,17 @@ Ejemplo:
 # Comentario raíz
 Nodo:
     # Comentario interior
-    Hijo: valor
 ```
 
 ## 9.1 Comentarios dentro de bloques `>>`
 
 Dentro de un bloque `>>`:
 
-* Cualquier línea cuya indentación sea **igual o mayor** que la indentación mínima del contenido del bloque **MUST** tratarse como **texto literal**, incluso si empieza por `#`.
-* Una línea menos indentada que el bloque termina el bloque `>>` y puede ser:
+* Toda línea con indentación igual o superior a la del contenido del bloque **MUST** tratarse como texto literal, incluso si empieza por `#`.
+* Una línea menos indentada que el bloque termina el bloque y puede ser:
 
-  * Comentario (si empieza por `#`), o
-  * Otro nodo.
+  * Un comentario, si empieza por `#`.
+  * Un nodo estructurado.
 
 Ejemplo:
 
@@ -232,17 +221,17 @@ Documento:
 
 # 10. Reglas de Error
 
-Un documento es inválido si ocurre alguna de las siguientes condiciones:
+Un documento es inválido si ocurre alguna de estas condiciones:
 
 1. Mezcla de espacios y tabuladores.
 2. Espacios que no sean múltiplos de 4.
 3. Saltos en los niveles de indentación.
-4. Un nodo `>>` contiene contenido inline (no vacío) en la misma línea que `>>`.
+4. Un nodo `>>` contiene contenido inline.
 5. Un nodo no contiene ni `:` ni `>>`.
 6. Un namespace no empieza por `@`.
-7. Se usa `:` y `>>` simultáneamente en la misma línea de nodo.
+7. Se usa `:` y `>>` en la misma línea.
 
-Un parser conforme **MUST** rechazar el documento en estos casos.
+Un parser conforme **MUST** rechazar el documento.
 
 ---
 
@@ -251,10 +240,10 @@ Un parser conforme **MUST** rechazar el documento en estos casos.
 Una implementación STxT es conforme si:
 
 * Implementa la sintaxis descrita en este documento.
-* Aplica reglas estrictas de indentación y jerarquía estructurada.
+* Aplica las reglas estrictas de indentación y jerarquía.
 * Interpreta correctamente nodos con `:` y bloques `>>`.
-* Aplica la semántica de comentarios fuera de bloques `>>`.
-* Trata todo lo que hay dentro de bloques `>>` como texto literal.
+* Interpreta comentarios fuera de bloques `>>`.
+* Trata **todo** lo dentro de bloques `>>` como texto literal.
 * Rechaza documentos inválidos según la sección 10.
 
 ---
@@ -265,21 +254,21 @@ Una implementación STxT es conforme si:
 
 Los documentos STxT **SHOULD** usar la extensión:
 
-```text
+```
 .stxt
 ```
 
 ## 12.2 Media Type (MIME)
 
-Media type preferido:
+Media type oficial:
 
-```text
+```
 text/stxt
 ```
 
 Alternativa compatible:
 
-```text
+```
 text/plain
 ```
 
@@ -318,13 +307,13 @@ Documento:
     # Esto sí es comentario
 ```
 
-### 13.4 Bloque con “pseudo-hijos” (válido, todo texto)
+### 13.4 Bloque con “pseudo-hijos” (válido)
 
 ```stxt
 Bloque >>
     Texto
         Hijo: valor SI permitido
-        Otro hijo: SI Permitido
+        Otro hijo: SI permitido
     # Esto también es texto
 Siguiente: Nodo
 ```
@@ -341,22 +330,22 @@ A:
 
 # 14. Apéndice A — Gramática (Informal)
 
-```text
+```
 Nodo             = Indent Nombre NamespaceOpt (InlineOpt | BlockOpt)
 NamespaceOpt     = "(" "@" Ident ")" 
 InlineOpt        = ":" Esp? TextoInline?
 BlockOpt         = Esp? ">>"
 
 TextoInline      = cualquier contenido hasta el fin de línea
-BloqueTexto      = una o más líneas indentadas
-                   (no se parsean como nodos; son texto literal)
+BloqueTexto      = líneas indentadas (texto literal, no estructurado)
 
-Comentario       = Indent "#" Texto      ; Solo fuera de bloques '>>'
+Comentario       = Indent "#" Texto       ; Solo fuera de bloques '>>'
 
-# Regla para comentarios y bloques:
-#  - Dentro de un bloque '>>', cualquier línea con indentación >=
-#    la mínima del bloque es texto, aunque empiece por '#'.
-#  - Una línea menos indentada que el bloque termina el bloque.
+# Regla esencial:
+# Dentro de un bloque '>>', cualquier línea con indentación >= la
+# indentación mínima del bloque es texto. Las líneas vacías nunca
+# cierran el bloque. Una línea no vacía con indentación <= la del
+# nodo '>>' lo cierra.
 
 Indent           = ("    ")* | ("\t")*
 ```
@@ -367,7 +356,7 @@ Indent           = ("    ")* | ("\t")*
 
 El sistema de schema permite añadir validación y semántica adicional sin modificar la sintaxis base.
 
-Se expresa en STxT mediante el namespace especial:
+Se expresa mediante el namespace especial:
 
 ```stxt
 @stxt.schema
@@ -383,7 +372,7 @@ Namespace (@stxt.schema): com.example.docs
         Texto: (*)
 ```
 
-La interpretación de estos valores (cardinalidades, significado, restricciones) es externa al núcleo del lenguaje y depende del sistema de schema.
+El significado exacto de estas anotaciones depende del sistema de schema, no del núcleo STxT.
 
 ---
 
