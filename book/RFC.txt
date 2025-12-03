@@ -297,6 +297,20 @@ Las líneas vacías finales después de `"Línea 2"` se eliminan en la represent
 
 ---
 
+## 10.4 Normalización del nombre del nodo
+
+Antes de interpretar `:` o `>>`, el parser MUST extraer el nombre del nodo eliminando espacios y tabuladores a izquierda y derecha (trim).
+
+Esto garantiza que las siguientes variantes sean equivalentes a nivel de parseo:
+
+```stxt
+Nombre: valor
+Nombre : valor
+Nombre    :   valor
+```
+
+En todos los casos, el nombre lógico del nodo es "Nombre".
+
 # 11. Reglas de Error
 
 Un documento es inválido si ocurre alguna de estas condiciones:
