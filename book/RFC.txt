@@ -11,16 +11,17 @@
 
 Este documento define la especificación del lenguaje **STxT (Semantic Text)**.
 
-STxT es un lenguaje **Human-First**, diseñado para que su forma natural sea legible, clara y cómoda para las personas, manteniendo al mismo tiempo una estructura estricta y fácilmente procesable por máquinas.
+STxT es un lenguaje **Human-First**, diseñado para que su forma natural sea legible, clara y cómoda para las personas, manteniendo al mismo tiempo una estructura precisa y fácilmente procesable por máquinas.
 
-STxT es un formato textual jerárquico y semántico diseñado para ser:
+STxT es un formato textual jerárquico y semántico orientado a:
 
-* Fácil de leer y escribir.
-* Simple de parsear en cualquier lenguaje.
-* Adecuado para documentos, configuraciones y contenido estructurado.
-* Extensible mediante el sistema de schemas (`@stxt.schema`).
+* Representar documentos y datos de manera clara.
+* Ser extremadamente sencillo de leer y escribir.
+* Ser trivial de parsear en cualquier lenguaje.
+* Permitir tanto contenido estructurado como texto libre.
+* Extender su semántica mediante `@stxt.schema`.
 
-Este documento describe la **sintaxis base** del lenguaje: nodos, indentación, namespaces, tipos primitivos, valores y comentarios.
+Este documento describe la **sintaxis base** del lenguaje.
 
 ---
 
@@ -36,180 +37,194 @@ Los documentos STxT **SHOULD** codificarse en **UTF-8 sin BOM**.
 
 Un parser:
 
-* **MAY** aceptar documentos que empiecen con BOM.
-* **SHOULD** emitir una advertencia en tal caso.
+* **MAY** aceptar documentos que comiencen con BOM.
+* **SHOULD** emitir una advertencia si aparece.
 
 ---
 
 # 4. Unidad Sintáctica: Nodo
 
-Cada línea no vacía define un **nodo**.
+Cada línea no vacía del documento define un **nodo**.
 
-Sintaxis general:
+Existen dos formas de nodo:
 
+1. **Nodo simple o contenedor**
+
+   ```stxt
+   Nombre: ValorInline
+   ```
+
+2. **Nodo de bloque textual (`>>`)**
+
+   ```stxt
+   Nombre >>
+       línea 1
+       línea 2
+   ```
+
+Un nodo puede incluir opcionalmente un namespace:
+
+```stxt
+Nombre (@namespace):
+Nombre (@namespace) >>
 ```
-Nombre (Namespace)[Tipo]: ValorInline
-```
-
-Elementos:
-
-* **Nombre**: obligatorio.
-* **(Namespace)**: opcional.
-* **[Tipo]**: opcional (obligatorio para TEXT).
-* `:`: obligatorio.
-* **ValorInline**: depende del tipo.
-
-## 4.1 Reglas del Nodo
-
-Un nodo:
-
-* **MUST** tener nombre.
-* **MUST** contener exactamente un `:`.
-* **MUST NOT** especificar más de un namespace o tipo.
-* **MUST** iniciar sin indentación si es nodo raíz.
 
 ---
 
-# 5. Namespace
+# 5. Nodos con `:` (inline o contenedor)
 
-Un namespace:
+La forma con `:` define un nodo que:
 
-* **MUST** comenzar con `@`.
-* **SHOULD** usar estructura jerárquica (`@a.b.c`).
+* Puede tener valor inline (opcional).
+* Puede no tener valor inline (nodo vacío).
+* Puede tener hijos (nodos anidados).
+* Su contenido estructurado está compuesto por:
 
-## 5.1 Herencia del Namespace
+  * La propia línea del nodo.
+  * Sus descendientes con mayor indentación, excepto dentro de bloques `>>`.
 
-* Un nodo con `(Namespace)` aplica ese namespace a sí mismo y a sus descendientes.
-* Un nodo sin namespace **inherits** el más cercano de sus ancestros.
+Ejemplos válidos:
+
+```stxt
+Titulo: Informe
+Autor: Joan
+Nodo:
+Nodo: Valor
+Nodo:
+    SubNodo: 123
+```
+
+---
+
+# 6. Nodos con `>>` (bloque textual)
+
+La forma con `>>` define un bloque de **texto literal**.
+
+Ejemplos válidos:
+
+```stxt
+Descripcion >>
+    Línea 1
+    Línea 2
+```
+
+```stxt
+Seccion>>
+    Acepta el operador sin espacio
+```
+
+Reglas:
+
+* La línea del nodo `>>` **MUST NOT** contener ningún otro contenido significativo tras `>>` (solo espacios opcionales).
+* Todas las líneas con indentación **mayor** que la del nodo `>>` pertenecen al **contenido textual del bloque**.
+* Dentro del bloque:
+
+  * El parser **MUST NOT** interpretar líneas como nodos estructurados, aunque contengan `:` o parezcan encabezados.
+  * El parser **MUST NOT** interpretar líneas que comienzan por `#` como comentarios; son texto literal.
+* El bloque termina cuando aparece una línea **no vacía** con indentación **menor o igual** a la del nodo `>>`.
+* Las **líneas vacías dentro del inline** se conservan independientemente del nivel
+
+Ejemplo:
+
+```stxt
+Bloque >>
+    Texto
+        Hijo: valor SI permitido
+        Otro hijo: SI permitido
+    # Esto también es texto
+SiguienteNodo: valor
+```
+
+En este ejemplo:
+
+* Todo lo que está indentado por debajo de `Bloque >>` es texto literal.
+* `Hijo: valor` y `Otro hijo: SI permitido` **no** son nodos, sino texto del bloque.
+* `SiguienteNodo: valor` ya está fuera del bloque `>>`.
+
+---
+
+# 7. Namespaces
+
+Los nodos pueden definir un namespace opcional entre paréntesis:
+
+```stxt
+Nodo (@com.example.docs):
+```
+
+Reglas:
+
+* Un namespace **MUST** empezar por `@`.
+* **SHOULD** seguir formato jerárquico (`@a.b.c`).
+* Se hereda por los nodos hijos estructurados.
 * El namespace por defecto es **`@stxt`**.
 
----
+Ejemplo:
 
-# 6. Tipos Primitivos
-
-STxT define cuatro tipos primitivos:
-
-| Tipo    | Descripción             |
-| ------- | ----------------------- |
-| STRING  | Texto de una sola línea |
-| NUMBER  | Entero o decimal        |
-| BOOLEAN | `true` / `false`        |
-| TEXT    | Texto multilínea        |
-
-## 6.1 Tipo por Omisión
-
-Un nodo sin tipo explícito **SHOULD** interpretarse como **STRING**.
-
----
-
-# 7. Representación de Valores
-
-STxT define dos modos de representar valores:
-
-* **Inline Value**
-* **Multiline Value**
-
-## 7.1 Inline Value
-
-Un valor inline aparece en la misma línea después de `:`.
-
-Está permitido solo para:
-
-* STRING
-* NUMBER
-* BOOLEAN
-
-Reglas:
-
-* Estos tipos **MUST** contener valor inline.
-* **MUST NOT** abrir un bloque multilínea.
-
-Ejemplo válido:
-
-```
-Activo[BOOLEAN]: true
-```
-
-Ejemplo inválido:
-
-```
-Activo[BOOLEAN]:
-	true
-```
-
-## 7.2 Multiline Value
-
-Solo el tipo **TEXT** puede abrir un bloque multilínea.
-
-Reglas:
-
-* `[TEXT]` **MUST** abrir un bloque multilínea.
-* `[TEXT]` **MUST NOT** usar valor inline.
-* El bloque **MUST** comenzar en la línea siguiente con mayor indentación.
-
-Ejemplo válido:
-
-```
-Contenido[TEXT]:
-	Linea 1
-	Linea 2
-```
-
-Ejemplo inválido:
-
-```
-Contenido[TEXT]: Hola   ; Prohibido
+```stxt
+Documento (@com.demo):
+    Autor: Joan
+    Texto >>
+        Hola mundo
 ```
 
 ---
 
 # 8. Indentación y Jerarquía
 
-La indentación define la jerarquía del documento.
+La indentación define la jerarquía estructurada del documento.
 
 ## 8.1 Indentación Permitida
 
 Un documento STxT:
 
-* **MAY** usar solo espacios o solo tabuladores.
+* **MAY** usar únicamente espacios o únicamente tabuladores.
 * **MUST NOT** mezclarlos.
 * Si usa espacios:
 
-  * **MUST** usar exactamente **4 espacios** por nivel.
+  * **MUST** usar **4 espacios** por nivel.
 * Si usa tabs:
 
   * Cada tab representa exactamente 1 nivel.
 
-## 8.2 Reglas de Jerarquía
+## 8.2 Jerarquía
 
-* La indentación **MUST** aumentar de forma consecutiva.
-* Se prohíben saltos de nivel (p. ej., 0 → 2).
-* Un nodo hijo **MUST** tener mayor indentación que su padre.
+* La indentación **MUST** aumentar de forma consecutiva (no se permiten saltos de nivel).
+* Los nodos hijos **MUST** tener mayor indentación que su padre.
+* La indentación dentro de un bloque `>>` **no afecta a la jerarquía estructural**: todo se trata como texto, no como nodos.
 
 ---
 
 # 9. Comentarios
 
-Una línea es comentario si, tras la indentación, el primer carácter es `#`.
-
-## 9.1 Comentarios dentro de TEXT
-
-Dentro de un bloque `[TEXT]`:
-
-* Una línea **MUST** tratarse como **texto** si su indentación es **igual o mayor** que la indentación mínima del contenido del bloque.
-* Una línea **MUST** tratarse como **comentario** únicamente si su indentación es **menor** que la indentación mínima del contenido.
+Fuera de bloques `>>`, una línea es comentario si, tras su indentación, el primer carácter es `#`.
 
 Ejemplo:
 
 ```stxt
 # Comentario raíz
+Nodo:
+    # Comentario interior
+    Hijo: valor
+```
 
+## 9.1 Comentarios dentro de bloques `>>`
+
+Dentro de un bloque `>>`:
+
+* Cualquier línea cuya indentación sea **igual o mayor** que la indentación mínima del contenido del bloque **MUST** tratarse como **texto literal**, incluso si empieza por `#`.
+* Una línea menos indentada que el bloque termina el bloque `>>` y puede ser:
+
+  * Comentario (si empieza por `#`), o
+  * Otro nodo.
+
+Ejemplo:
+
+```stxt
 Documento:
-    # Comentario del nodo
-    Seccion[TEXT]:
-        # Esto es texto, NO es un comentario
-        Esto también es texto
-            # Esto también es texto
+    Texto >>
+        # Esto es texto
+        Línea normal
+            # También es texto
     # Esto sí es comentario
 ```
 
@@ -217,30 +232,30 @@ Documento:
 
 # 10. Reglas de Error
 
-Un documento es inválido si se da alguna de las siguientes condiciones:
+Un documento es inválido si ocurre alguna de las siguientes condiciones:
 
-1. STRING/NUMBER/BOOLEAN sin valor inline.
-2. TEXT con valor inline.
-3. Mezcla de valor inline y multilínea en un nodo.
-4. Mezcla de espacios y tabuladores.
-5. Espacios que no sean múltiplos de 4.
-6. Salto de nivel de indentación.
-7. Namespace sin `@`.
-8. Ausencia del carácter `:` en un nodo.
+1. Mezcla de espacios y tabuladores.
+2. Espacios que no sean múltiplos de 4.
+3. Saltos en los niveles de indentación.
+4. Un nodo `>>` contiene contenido inline (no vacío) en la misma línea que `>>`.
+5. Un nodo no contiene ni `:` ni `>>`.
+6. Un namespace no empieza por `@`.
+7. Se usa `:` y `>>` simultáneamente en la misma línea de nodo.
 
-Un parser conforme **MUST** rechazar el documento.
+Un parser conforme **MUST** rechazar el documento en estos casos.
 
 ---
 
 # 11. Conformidad
 
-Una implementación es conforme si:
+Una implementación STxT es conforme si:
 
-* Implementa la sintaxis descrita.
-* Aplica las reglas de indentación y jerarquía.
-* Respeta las reglas de tipos y valores.
-* Interpreta comentarios según las reglas.
-* Rechaza documentos inválidos.
+* Implementa la sintaxis descrita en este documento.
+* Aplica reglas estrictas de indentación y jerarquía estructurada.
+* Interpreta correctamente nodos con `:` y bloques `>>`.
+* Aplica la semántica de comentarios fuera de bloques `>>`.
+* Trata todo lo que hay dentro de bloques `>>` como texto literal.
+* Rechaza documentos inválidos según la sección 10.
 
 ---
 
@@ -250,21 +265,21 @@ Una implementación es conforme si:
 
 Los documentos STxT **SHOULD** usar la extensión:
 
-```
+```text
 .stxt
 ```
 
 ## 12.2 Media Type (MIME)
 
-El media type preferido para documentos STxT es:
+Media type preferido:
 
-```
+```text
 text/stxt
 ```
 
-Como alternativa de compatibilidad:
+Alternativa compatible:
 
-```
+```text
 text/plain
 ```
 
@@ -274,57 +289,74 @@ text/plain
 
 ### 13.1 Documento válido
 
-```
+```stxt
 Documento (@com.example.docs):
-    Titulo[STRING]: Informe
-    Version[NUMBER]: 1.2
-    Activo[BOOLEAN]: true
-    Descripcion[TEXT]:
-        Primera línea
-        Segunda línea
+    Autor: Joan
+    Fecha: 03/12/2025
+    Resumen >>
+        Este es un bloque de texto.
+        Con varias líneas.
+    Config:
+        Modo: Activo
 ```
 
-### 13.2 TEXT inline (inválido)
+### 13.2 Bloque con líneas vacías
 
-```
-Descripcion[TEXT]: Hola
+```stxt
+Texto>>
+    
     Línea 2
 ```
 
-### 13.3 Mezcla de indentación (inválido)
+### 13.3 Comentarios dentro y fuera de bloques
 
+```stxt
+Documento:
+    Cuerpo >>
+        # Esto es texto
+        Más texto
+    # Esto sí es comentario
 ```
+
+### 13.4 Bloque con “pseudo-hijos” (válido, todo texto)
+
+```stxt
+Bloque >>
+    Texto
+        Hijo: valor SI permitido
+        Otro hijo: SI Permitido
+    # Esto también es texto
+Siguiente: Nodo
+```
+
+### 13.5 Inválido: mezcla de indentación
+
+```stxt
 A:
     B:
 \t\tC: valor
-```
-
-### 13.4 Comentarios en TEXT
-
-```
-Nota[TEXT]:
-    # Esto es contenido
-    Más texto
-        # Comentario real
 ```
 
 ---
 
 # 14. Apéndice A — Gramática (Informal)
 
-```
-Nodo             = Indent Nombre Esp? Namespace? Tipo? ":" Esp? Valor?
-Namespace        = "(" "@" Ident ")" 
-Tipo             = "[" (STRING | NUMBER | BOOLEAN | TEXT) "]"
-Valor            = InlineValue | MultilineBlock
-InlineValue      = texto en misma línea
-MultilineBlock   = Líneas indentadas (uno o más)
-Comentario       = Indent "#" Texto
+```text
+Nodo             = Indent Nombre NamespaceOpt (InlineOpt | BlockOpt)
+NamespaceOpt     = "(" "@" Ident ")" 
+InlineOpt        = ":" Esp? TextoInline?
+BlockOpt         = Esp? ">>"
 
-# NOTA:
-#  Dentro de un bloque TEXT, una línea "#" MUST considerarse comentario
-#  únicamente si su indentación es menor que la indentación mínima del
-#  contenido del bloque.
+TextoInline      = cualquier contenido hasta el fin de línea
+BloqueTexto      = una o más líneas indentadas
+                   (no se parsean como nodos; son texto literal)
+
+Comentario       = Indent "#" Texto      ; Solo fuera de bloques '>>'
+
+# Regla para comentarios y bloques:
+#  - Dentro de un bloque '>>', cualquier línea con indentación >=
+#    la mínima del bloque es texto, aunque empiece por '#'.
+#  - Una línea menos indentada que el bloque termina el bloque.
 
 Indent           = ("    ")* | ("\t")*
 ```
@@ -333,32 +365,25 @@ Indent           = ("    ")* | ("\t")*
 
 # 15. Apéndice B — Interacción con @stxt.schema
 
-Los tipos semánticos extendidos:
+El sistema de schema permite añadir validación y semántica adicional sin modificar la sintaxis base.
 
-* ENUM
-* REGEX
-* UUID
-* JSON
-* MARKDOWN
+Se expresa en STxT mediante el namespace especial:
 
-**NO** forman parte del núcleo STxT.
-
-Se definen mediante:
-
-```
+```stxt
 @stxt.schema
 ```
 
 Ejemplo:
 
-```
+```stxt
 Namespace (@stxt.schema): com.example.docs
     Documento:
-        Autor: (1) STRING
-        Criticidad: (?) STRING ENUM ["Alta","Media","Baja"]
-        Identificador: (1) STRING UUID
-        Notas: (*) TEXT MARKDOWN
+        Campo1: (1)
+        Campo2: (?)
+        Texto: (*)
 ```
+
+La interpretación de estos valores (cardinalidades, significado, restricciones) es externa al núcleo del lenguaje y depende del sistema de schema.
 
 ---
 
