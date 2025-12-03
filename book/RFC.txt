@@ -192,12 +192,16 @@ Un documento STxT:
 
 Una línea es comentario si, tras la indentación, el primer carácter es `#`.
 
+
+9.1 Comentarios dentro de TEXT
+Dentro de un bloque [TEXT]:
+
 ## 9.1 Comentarios dentro de TEXT
 
 Dentro de un bloque `[TEXT]`:
 
-* Una línea al **mismo nivel** del contenido **MUST** tratarse como texto.
-* Solo se considera comentario si está **al menos un nivel más indentada**.
+* Una línea al **mismo nivel o superior ** del contenido **MUST** tratarse como texto.
+* Solo se considera comentario si está **al menos un nivel MENOS indentada**.
 
 Ejemplo:
 
@@ -207,8 +211,9 @@ Ejemplo:
 Documento:
     # Comentario del nodo
     Seccion[TEXT]:
-        # Esto es texto
+        # Esto es texto, NO es un comentario
         Esto también es texto
+            # Esto NO es un comentario
     # Esto sí es comentario
 ```
 
