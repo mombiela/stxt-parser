@@ -1,12 +1,3 @@
-Aquí tienes el **RFC completo y definitivo** incorporando los dos cambios clave:
-
-1. **Todo nodo que aparezca en `Childs>>` debe estar definido como `Node:` dentro del schema**, sin excepciones, tanto en modo *strict* como en modo no-strict.
-2. El término **`strict`** se incorpora como configuración oficial del validador, equivalente a “modo cerrado”.
-
-Este es el documento final listo para uso oficial.
-
----
-
 # STXT-SCHEMA-SPEC-DRAFT
 
 **Semantic Text (STxT) — Schema Language Specification**
@@ -100,7 +91,7 @@ Reglas:
 
 * `NombreNodo` **MUST** ser único dentro del schema.
 * Cada `Node` define la semántica del nodo en el namespace objetivo.
-* Si `Type` se omite ⇒ tipo por defecto `TEXT`.
+* Si `Type` se omite ⇒ tipo por defecto `TEXT INLINE`.
 
 ---
 
@@ -175,23 +166,23 @@ Los tipos definen:
 ## 9.1. Tabla oficial de tipos
 
 ```markdown
-| Tipo             | Formas permitidas de valor | Hijos permitidos | Descripción / Validación                                         |
-|------------------|----------------------------|------------------|-------------------------------------------------------------------|
-| TEXT             | INLINE or BLOCK            | NO               | Texto genérico. Tipo por defecto.                                |
-| TEXT INLINE      | INLINE                     | SÍ               | Texto inline.                                                     |
-| TEXT MULTILINE   | BLOCK                      | NO               | Solo bloque `>>`.                                                 |
-| BOOLEAN          | INLINE                     | SÍ               | `true` / `false`.                                                 |
-| NUMBER           | INLINE                     | SÍ               | Número JSON.                                                      |
-| DATE             | INLINE                     | SÍ               | `YYYY-MM-DD`.                                                     |
-| TIMESTAMP        | INLINE                     | SÍ               | ISO 8601.                                                         |
-| EMAIL            | INLINE                     | SÍ               | Email válido.                                                     |
-| URL              | INLINE                     | SÍ               | URL válida.                                                       |
-| UUID             | INLINE                     | SÍ               | UUID estándar.                                                    |
-| HEXADECIMAL      | INLINE                     | SÍ               | `[0-9A-Fa-f]+`.                                                   |
-| BINARY           | INLINE                     | SÍ               | Cadena binaria.                                                   |
-| BASE64           | BLOCK                      | NO               | Bloque Base64.                                                    |
-| CODE:<language>  | BLOCK                      | NO               | Código en `<language>`.                                           |
-| EMPTY            | NONE                       | SÍ               | Nodo estructural sin valor.                                       |
+| Tipo             | Formas permitidas de valor | Hijos permitidos | Descripción / Validación                                               |
+|------------------|----------------------------|------------------|------------------------------------------------------------------------|
+| TEXT INLINE      | INLINE                     | SÍ               | Texto inline. **Tipo por defecto.**                                    |
+| TEXT MULTILINE   | BLOCK                      | NO               | Solo bloque `>>`.                                                      |
+| TEXT             | INLINE or BLOCK            | NO               | Texto genérico. Puede ser inline o bloque `>>`, pero nunca tiene hijos.|
+| BOOLEAN          | INLINE                     | SÍ               | `true` / `false`.                                                      |
+| NUMBER           | INLINE                     | SÍ               | Número JSON.                                                           |
+| DATE             | INLINE                     | SÍ               | `YYYY-MM-DD`.                                                          |
+| TIMESTAMP        | INLINE                     | SÍ               | ISO 8601.                                                              |
+| EMAIL            | INLINE                     | SÍ               | Email válido.                                                          |
+| URL              | INLINE                     | SÍ               | URL válida.                                                            |
+| UUID             | INLINE                     | SÍ               | UUID estándar.                                                         |
+| HEXADECIMAL      | INLINE                     | SÍ               | `[0-9A-Fa-f]+`.                                                        |
+| BINARY           | INLINE                     | SÍ               | Cadena binaria.                                                        |
+| BASE64           | BLOCK                      | NO               | Bloque Base64.                                                         |
+| CODE:<language>  | BLOCK                      | NO               | Código en `<language>`.                                                |
+| EMPTY            | NONE                       | SÍ               | Nodo estructural sin valor.                                            |
 ```
 
 ## 9.2. Reglas clave
@@ -339,7 +330,7 @@ Esta sección define el **schema oficial** del propio sistema de schemas: el met
 
 ---
 
-## 14.2. Meta-Schema completo (versión corregida)
+## 14.2. Meta-Schema completo
 
 ```stxt
 Schema (@stxt.schema): stxt.schema
@@ -407,35 +398,9 @@ Schema (@stxt.schema): com.example.docs
     Node: Document
 ```
 
-`Document` se considera de tipo `TEXT` (por defecto).
-
----
-
-## 14.5. Ejemplo completo
-
-```stxt
-Schema (@stxt.schema): com.example.docs
-    Description: Example schema
-    Node: Document
-        Type: EMPTY
-        Childs>>
-            (1) Title
-            (*) Author
-            (?) Metadata (@com.google.html)
-    Node: Title
-        Type: TEXT INLINE
-    Node: Author
-        Type: TEXT INLINE
-```
+`Document` se considera de tipo `TEXT INLINE` (por defecto).
 
 ---
 
 # 15. Fin del Documento
 
----
-
-Si quieres, puedo generarte también:
-
-* Un **cheatsheet** muy compacto para desarrolladores.
-* Un fichero **test-suite** oficial de casos válidos e inválidos.
-* Una versión auto-contenida que combine núcleo STxT + schema para documentación pública.
