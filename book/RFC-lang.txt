@@ -44,7 +44,7 @@ Un parser:
 
 # 4. Unidad Sintáctica: Nodo
 
-Cada línea no vacía del documento define un **nodo**.
+Cada línea no vacía del documento que no sea comentario ni parte de un bloque `>>` define un **nodo**.
 
 Existen dos formas de nodo:
 
@@ -113,7 +113,7 @@ La forma con `:` define un nodo que:
 * Su contenido estructurado incluye:
 
   * La propia línea del nodo.
-  * Sus descendientes con mayor indentación.
+  * Sus descendientes con mayor indentación que no formen parte de bloques `>>`.
 
 Ejemplos:
 
@@ -513,11 +513,13 @@ Para asociar un schema al namespace `com.example.docs`, se escribe un documento:
 ```stxt
 Schema (@stxt.schema): com.example.docs
     Node: Documento
-        Type: EMPTY
         Childs>>
             (1) Campo1
             (?) Campo2
             (*) Texto
+    Node: Campo1
+    Node: Campo2
+    Node: Texto
 ```
 
 ## 16.2. Aplicación a documentos STxT
