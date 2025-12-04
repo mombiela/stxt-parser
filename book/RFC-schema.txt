@@ -376,7 +376,7 @@ Schema (@stxt.schema): stxt.schema
   Valor inline = nombre del nodo objetivo (ej. `Document`, `Autor`).
   Hijos opcionales:
 
-  * `Type` ⇒ tipo concreto (si falta ⇒ `TEXT`).
+  * `Type` ⇒ tipo concreto (si falta ⇒ `TEXT INLINE`).
   * `Childs` ⇒ bloque `Childs>>` literal.
   * `Description` ⇒ texto explicativo.
 
