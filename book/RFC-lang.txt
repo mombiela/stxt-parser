@@ -156,6 +156,8 @@ Seccion>>
 * El bloque termina cuando aparece una **línea no vacía** cuya indentación es **menor o igual** que la indentación del nodo `>>`.
 * Las líneas vacías **dentro del bloque** se conservan tal cual y **MUST NOT** cerrar el bloque, independientemente de su indentación.
 
+Nota: la eliminación de líneas vacías finales del bloque se describe en la sección 10.3.
+
 ### 6.2 Ejemplo
 
 ```stxt

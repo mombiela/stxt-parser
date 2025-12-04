@@ -228,7 +228,7 @@ Un validador **MAY** ofrecer un modo no-strict:
   * Puede aceptarse con warning.
 * Hijos no contemplados en `Childs>>`:
 
-  * Se aceptan pero se marcan como “no cubiertos por el schema”.
+  * Se aceptan pero se marcan como "no cubiertos por el schema".
 
 **Importante:**
 Incluso en modo *non-strict*, la regla **7.1** se mantiene:
