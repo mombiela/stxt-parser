@@ -68,7 +68,7 @@ Nombre (@namespace):
 Nombre (@namespace) >>
 ```
 
-## 4.2 Normalización del nombre del nodo
+## 4.1 Normalización del nombre del nodo
 
 El nombre del nodo se toma a partir del texto comprendido entre:
 
