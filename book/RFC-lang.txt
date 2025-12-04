@@ -99,7 +99,7 @@ Nombre   (@ns):
 Nombre(@ns):
 Nombre   >>
 Nombre>>
-
+```
 
 ---
 
@@ -500,7 +500,7 @@ Un schema es un documento STxT cuyo namespace es:
 
 ```stxt
 @stxt.schema
-````
+```
 
 y cuyo objetivo es definir las reglas estructurales, tipos de valor y cardinalidades de los nodos pertenecientes a un namespace concreto.
 
@@ -541,8 +541,6 @@ puede ser validado por una implementación que soporte schemas STxT:
 
 STxT **MUST NOT** imponer reglas semánticas provenientes de schemas.
 El sistema de schemas es un componente separado y opcional que opera **sobre** el STxT ya parseado.
-
-```
 
 ---
 
