@@ -402,5 +402,21 @@ Schema (@stxt.schema): com.example.docs
 
 ---
 
-# 15. Fin del Documento
+## 14.5. Ejemplo completo
 
+```stxt
+Schema (@stxt.schema): com.example.docs
+    Description: Example schema
+    Node: Document
+        Type: EMPTY
+        Childs>>
+            (1) Title
+            (*) Author
+            (?) Metadata (@com.google.html)
+    Node: Title
+        Type: TEXT INLINE
+    Node: Author
+        Type: TEXT INLINE
+```
+
+# 15. Fin del Documento
