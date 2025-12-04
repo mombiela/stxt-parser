@@ -189,6 +189,7 @@ Reglas:
 * **SHOULD** usar formato jerárquico (`@a.b.c`).
 * Se hereda por los nodos hijos.
 * El namespace por defecto es **`@stxt`**.
+* Un nodo hijo puede redefinir su namespace indicando (@otro.namespace), en cuyo caso usa ese namespace en lugar del heredado.
 
 ---
 
@@ -330,7 +331,7 @@ Las líneas vacías finales después de `"Línea 2"` se eliminan en la represent
 
 ## 10.4 Normalización del nombre del nodo
 
-La normalización del nombre del nodo ya se define formalmente en la **sección 4.2**.
+La normalización del nombre del nodo ya se define formalmente en la **sección 4.1**.
 Como recordatorio operativo:
 
 * Antes de interpretar `:` o `>>`, el parser **MUST** obtener el nombre lógico aplicando la normalización descrita en 4.2.
