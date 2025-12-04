@@ -113,7 +113,7 @@ La forma con `:` define un nodo que:
 * Su contenido estructurado incluye:
 
   * La propia línea del nodo.
-  * Sus descendientes con mayor indentación, **excepto** dentro de bloques `>>`.
+  * Sus descendientes con mayor indentación.
 
 Ejemplos:
 
@@ -161,7 +161,7 @@ Seccion>>
 ```stxt
 Bloque >>
     Texto
-        Hijo: valor SI permitido
+        Hijo: valor SI permitido, es texto, no se parsea
         Otro hijo: SI permitido
     # Esto también es texto
 SiguienteNodo: valor
