@@ -1,7 +1,7 @@
-Documento (com.dokumentando.doc_simple):
+Documento (@com.dokumentando.doc_simple):
     Título: Primer documento simple
-    Description:
-    	Este es el
-    	primer documento
-    	simple. Tiene varias líneas
+    Description>>
+		Este es el
+		primer documento
+		simple. Tiene varias líneas
     Tipo Documento: informe

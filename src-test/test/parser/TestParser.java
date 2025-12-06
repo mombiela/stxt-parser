@@ -10,11 +10,11 @@ import dev.stxt.Parser;
 import dev.stxt.Node;
 import dev.stxt.ParseException;
 
-public class TestParserBasic1
+public class TestParser
 {
     public static void main(String[] args) throws IOException, ParseException
     {
-        new TestParserBasic1().mainTest();
+        new TestParser().mainTest();
     }
     
     @Test

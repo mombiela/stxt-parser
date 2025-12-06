@@ -1,4 +1,4 @@
-Recetario(com.kocinando.recetario):
+Recetario (com.kocinando.recetario):
 
 	# --------
 	# Receta 1
@@ -26,7 +26,7 @@ Recetario(com.kocinando.recetario):
 			Paso: 2
 			Paso: 3
 			Paso: 4
-			Descripción: 
+			Descripción >>
 				Hay que vigilar este Paso, ya que 
 				no se puede garantizar su buen funcionamiento.
 				En caso de error consultar realizar una llamada 
@@ -59,7 +59,8 @@ Recetario(com.kocinando.recetario):
 			Paso: 6
 			Paso: 7
 			Paso: 8
-			Descripción: Hay que vigilar este Paso, ya que
+			Descripción >> 
+				Hay que vigilar este Paso, ya que
 				no se puede garantizar su buen funcionamiento.
 				En caso de error consultar realizar una llamada
 				al servicio único

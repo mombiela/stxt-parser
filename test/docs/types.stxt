@@ -1,7 +1,6 @@
 Type List(dev.stxt.type_check):
-	text: 
-		Esto es un texto normal
-	text: 
+	text: Esto es un texto normal
+	text>>
 		Esto es un texto
 		que pasa varias lineas.
 		
@@ -28,17 +27,18 @@ Type List(dev.stxt.type_check):
 	number: +52345.532e-10
 	number: -523423.5432e10
 	#number: 53252.53252e+10.23
-	hexadecimal: 
+	hexadecimal >>
 		f52360Abcdef000
 		f52360Abcdef000
 		f52360Abcdef000
 		f52360Abcdef000
 	#hexadecimal: f52360Abcdef00h0
-	base64:SGVsbG8gV29ybGQhISEhISEKSG9sYSBNdW5kbyEhISEhIUhvbGEgTXVuZG8hISEhISFIb2xhIE11
+	base64 >>
+		SGVsbG8gV29ybGQhISEhISEKSG9sYSBNdW5kbyEhISEhIUhvbGEgTXVuZG8hISEhISFIb2xhIE11
 		bmRvISEhISEhSG9sYSBNdW5kbyEhISEhIUhvbGEgTXVuZG8hISEhISFIb2xhIE11bmRvISEhISEh
 		SG9sYSBNdW5kbyEhISEhIUhvbGEgTXVuZG8hISEhISFIb2xhIE11bmRvISEhISEhSG9sYSBNdW5k
 		byEhISEhIQ==
-	#base64:fdaskfaskf�fa
+	#base64:fdaskfaskffa
 	boolean: true
 	boolean: false
 	boolean: false

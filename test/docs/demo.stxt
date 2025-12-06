@@ -33,7 +33,8 @@ Receta(com.kocinando.receta):
 		Paso:2
 		Paso:3
 		Paso:4
-		Descripción: Hay que vigilar este paso, ya que 
+		Descripción>>
+			Hay que vigilar este paso, ya que 
 			no se puede garantizar su buen funcionamiento.
 			En caso de error consultar realizar una llamada 
 			al servicio único

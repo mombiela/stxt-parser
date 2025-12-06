@@ -2,7 +2,7 @@
 # Datos de cliente
 # ----------------
 
-Cliente(com.gym.docs):
+Cliente (@com.gym.docs):
 
 	# ----------------
 	# Datos personales
@@ -14,7 +14,7 @@ Cliente(com.gym.docs):
 		Primer apellido: Kween
 		Edad: 28
 		Cliente vip: true
-		Foto:
+		Foto>>
 			R0lGODlhlgCNALMAAFtepau07X2I1tvg+pOe42dwwMPK9vz+/AAAAAAAAAAAAAAAAAAAAAAAAAAA
 			AAAAACH5BAAAAAAALAAAAACWAI0AAwT/8MhJq7046827/2AojmRpnmiqrmzrvnAsz3Rt3/Vg7Mbg
 			D7igsATUBQgCAYEQ2AGH0KGPR9XxAkdBIdl8Rr8qK3bJxJp5vosBmxQEvOA4yIhdvw/PonVt2OjI
