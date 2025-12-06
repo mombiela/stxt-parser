@@ -25,14 +25,14 @@ public class TestParserBasic1
         // Create parser
         Parser parser = createBasicParser();
         
-        File f = new File("docs/client_raw.stxt");
+        File f = new File("test/docs/client_raw.stxt");
         System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
         System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
         System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
         System.out.println(f.getAbsolutePath());
         List<Node> docs = parser.parseFile(f);
         Node n = docs.get(0);
-        System.out.println(n);
+        System.out.println(n.toJson().toString(3));
         
         System.out.println("End");
     }
