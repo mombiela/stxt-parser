@@ -24,7 +24,7 @@ class LineIndentTest {
 
     private ParseState newStateWithMultilineTextNode() {
         ParseState state = new ParseState();
-        Node textNode = new Node(1, 0, "Content", null, true);
+        Node textNode = new Node(1, 0, "Content", null, true, null);
         state.getStack().push(textNode);
         return state;
     }

@@ -18,11 +18,12 @@ public class Node
     private final int level;
     private final List<Node> children = new ArrayList<>();
 
-    public Node(int line, int level, String name, String value, boolean multiline)
+    public Node(int line, int level, String name, String namespace, boolean multiline, String value)
     {
         this.level = level;
         this.line = line;
         this.name = name;
+        this.namespace = namespace;
         this.value = value;
         this.multiline = multiline;
     }

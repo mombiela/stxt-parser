@@ -49,7 +49,6 @@ public class Parser
     	Stack<Node> stack = state.getStack();
         Node lastNode = !stack.isEmpty() ? stack.peek() : null;
         boolean lastNodeMultiline = lastNode != null && lastNode.isMultiline();
-        Node currentRoot = state.stackPeek();
 
         // Multilinea añadir si procede
         if (lastNodeMultiline && currentLevel >= stack.size())
@@ -59,21 +58,17 @@ public class Parser
         }
 
         // Validamos nivel inválido por encima
-        if (currentLevel > stack.size() + 1)
-            throw new ParseException(lineNumber, "IDENTATION_LEVEL_NOT_VALID", "Level of indent incorrect: " + lineIndent.indentLevel);
-
+        if (currentLevel > stack.size())
+            throw new ParseException(lineNumber, "INDENTATION_LEVEL_NOT_VALID", "Level of indent incorrect: " + currentLevel);
+        
         // Creamos nodo
-        Node node = createNode(lineIndent, lineNumber, currentLevel);
+        Node node = createNode(lineIndent, lineNumber, currentLevel, lastNode);
 
         if (currentLevel == 0)
         {
-            if (currentRoot != null)
-            {
-                state.addDocument(currentRoot);
-            }
-            currentRoot = node;
+        	state.addDocument(node);
             stack.clear();
-            stack.push(currentRoot);
+            stack.push(node);
         }
         else
         {
@@ -88,7 +83,7 @@ public class Parser
         }
     }
 
-    private Node createNode(LineIndent result, int lineNumber, int level) throws ParseException
+    private Node createNode(LineIndent result, int lineNumber, int level, Node parent) throws ParseException
     {
         String line = result.lineWithoutIndent;
         String name = null;
@@ -112,18 +107,35 @@ public class Parser
         if (textIndex != -1)
         {
         	name = line.substring(0, textIndex).trim();
-        	value = line.substring(textIndex + 1).trim();
+        	value = line.substring(textIndex + 2).trim();
         	if (!value.isEmpty()) throw new ParseException(lineNumber, "INLINE_VALUE_NOT_VALID", "Line not valid: " + line);
         	multiline = true;
         }
         
+        // Obtenemos namespace si hay
+        String namespace = parent != null ? parent.getNamespace() : "stxt";
+
+        int namespaceIndx = name.indexOf("(@");
+        int namespaceEnd  = name.lastIndexOf(')');
+
+        if (namespaceIndx != -1)
+        {
+            if (namespaceEnd <= namespaceIndx + 2)
+                throw new ParseException(lineNumber, "INVALID_NAMESPACE_DEF", "Line not valid: " + line);
+
+            namespace = name.substring(namespaceIndx + 2, namespaceEnd).trim();
+            if (namespace.isEmpty())
+                throw new ParseException(lineNumber, "INVALID_NAMESPACE_DEF", "Line not valid: " + line);
+
+            name = name.substring(0, namespaceIndx).trim();
+        }
+        
+        // Validamos nombre
         if (name.isEmpty())
             throw new ParseException(lineNumber, "INVALID_LINE", "Line not valid: " + line);
 
-        if (value.isEmpty())
-            value = null;
-
-        Node node = new Node(lineNumber, level, name, value, multiline);
+        // Creamos node
+        Node node = new Node(lineNumber, level, name, namespace, multiline, value);
         return node;
     }
 }

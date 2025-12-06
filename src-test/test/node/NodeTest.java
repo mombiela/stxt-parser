@@ -12,7 +12,7 @@ class NodeTest
     @Test
     void toJson_minimalNode_hasEmptyArraysAndNoOptionalFields() 
     {
-        Node node = new Node(1, 0, "Title", null, false);
+        Node node = new Node(1, 0, "Title", null, false, null);
 
         JSONObject json = node.toJson();
         System.out.println("JSON: " + json.toString(3));
@@ -40,12 +40,12 @@ class NodeTest
     @Test
     void toJson_fullNodeWithTextAndChild_isCorrect() 
     {
-        Node parent = new Node(1, 0, "Document", "My doc", true);
+        Node parent = new Node(1, 0, "Document", null, true, "My doc");
         parent.setNamespace("dev.stxt.example");
         parent.getText().add("Line 1");
         parent.getText().add("Line 2");
 
-        Node child = new Node(2, 1, "Title", "Hello", false);
+        Node child = new Node(2, 1, "Title", null, false, "Hello");
         parent.getChildren().add(child);
 
         JSONObject json = parent.toJson();

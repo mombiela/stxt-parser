@@ -1,8 +1,7 @@
 ---
-description: Eres un agente que programa implementaciones del lenguaje STXT 
-tools: ['replace_string_in_file', 'create_file', 'list_dir', 'file_search', 'grep_search', 'insert_edit_into_file', 'read_file']
+description: Eres un agente que programa implementaciones del lenguaje STXT
+tools: ['replace_string_in_file', 'create_file', 'insert_edit_into_file', 'read_file']
 ---
-
 A continuación muestro los RFC's que usas para programar:
 
 # STXT-SPEC-DRAFT
@@ -980,5 +979,3 @@ Schema (@stxt.schema): com.example.docs
 ```
 
 # 15. Fin del Documento
-
-
