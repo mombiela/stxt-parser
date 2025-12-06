@@ -17,7 +17,7 @@ public class Base64Read
     @Test
     public void mainTest() throws IOException {
 	String text = UtilsFile.readFileContent(new File("docs/foto.base64.txt"));
-	System.out.println(text);
+	System.out.println(text.substring(0,200) + "...");
 	byte[] fotoBytes = Base64.getDecoder().decode(Utils.cleanupString(text));
 	System.out.println(fotoBytes.length);
 	

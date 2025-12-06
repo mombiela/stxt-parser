@@ -6,7 +6,9 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -63,29 +65,33 @@ public class TestParserAllErrors
         
         try
         {
-        	parser.parseFile(file);
+            parser.parseFile(file);
             Assertions.fail("Expected ParseException for " + file);
         }
         catch (ParseException e)
         {
-        	System.out.println("OK Error at line: " + e.getLine());
-        	
-        	JsonNode json = new JsonNode();
-        	
+            System.out.println("OK Error at line: " + e.getLine());
+            
+            // Build JSON node with line and code from the exception
+            Map<String, Object> errorInfo = new HashMap<>();
+            errorInfo.put("line", e.getLine());
+            errorInfo.put("code", e.getCode());
+            JsonNode json = JSON.toJsonTree(JSON.toJson(errorInfo));
+            
             File jsonFile = new File(file.getParentFile(), file.getName().substring(0, file.getName().length()-5) + ".json");
             if (!jsonFile.exists())
             {
-            	System.out.println("Writting json..." + jsonFile.getAbsolutePath());
+                System.out.println("Writting json..." + jsonFile.getAbsolutePath());
                 System.out.println(json);
-            	FileUtils.writeStringToFile(json.toPrettyString(), jsonFile);
+                FileUtils.writeStringToFile(json.toPrettyString(), jsonFile);
             }
             else
             {
-            	System.out.println("Checking json...");
-            	String jsonFileContent = FileUtils.readFileContent(jsonFile);
-            	JsonNode treeFile = JSON.toJsonTree(jsonFileContent);
-            	assertEquals(treeFile.toString(), json.toString());
-            }        	
+                System.out.println("Checking json...");
+                String jsonFileContent = FileUtils.readFileContent(jsonFile);
+                JsonNode treeFile = JSON.toJsonTree(jsonFileContent);
+                assertEquals(treeFile.toString(), json.toString());
+            }
         }
     }
 

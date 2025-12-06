@@ -18,7 +18,7 @@ class NodeTest
         Node node = new Node(1, 0, "Title", null, false, "");
 
         JsonNode json = JSON.toJsonTree(node.toJson());
-        System.out.println("JSON: " + json.toPrettyString());
+        System.out.println("JSON: " + json.toString());
 
         // Campos básicos
         assertEquals("Title", json.get("name").asText());
