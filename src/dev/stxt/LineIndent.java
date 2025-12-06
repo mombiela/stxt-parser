@@ -93,10 +93,11 @@ public class LineIndent
         line = line.substring(pointer);
         boolean emptyLine = isEmptyLine(line);
         
-        // Multiline
-        if (lastNodeMultiline && emptyLine)
+        // Empty line
+        if (emptyLine)
         {
-        	return new LineIndent(stackSize, "");
+            if (lastNodeMultiline) return new LineIndent(stackSize, "");
+            else return null;
         }
         
         // Validar espacios sueltos si estamos en modo SPACES
@@ -105,7 +106,7 @@ public class LineIndent
             throw new ParseException(numLine, "INVALID_INDENTATION_SPACES", "Invalid number of spaces for indentation");
         }
 
-        if (isCommentLine(line) || emptyLine)
+        if (isCommentLine(line))
         {
             // Comentario real fuera del bloque de texto
             return null;
