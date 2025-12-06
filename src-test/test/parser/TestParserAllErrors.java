@@ -1,5 +1,7 @@
 package test.parser;
 
+import static org.junit.Assert.assertEquals;
+
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -11,8 +13,12 @@ import java.util.stream.Stream;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import com.fasterxml.jackson.databind.JsonNode;
+
 import dev.stxt.ParseException;
 import dev.stxt.Parser;
+import dev.stxt.utils.FileUtils;
+import dev.stxt.utils.JSON;
 
 public class TestParserAllErrors
 {
@@ -63,6 +69,23 @@ public class TestParserAllErrors
         catch (ParseException e)
         {
         	System.out.println("OK Error at line: " + e.getLine());
+        	
+        	JsonNode json = new JsonNode();
+        	
+            File jsonFile = new File(file.getParentFile(), file.getName().substring(0, file.getName().length()-5) + ".json");
+            if (!jsonFile.exists())
+            {
+            	System.out.println("Writting json..." + jsonFile.getAbsolutePath());
+                System.out.println(json);
+            	FileUtils.writeStringToFile(json.toPrettyString(), jsonFile);
+            }
+            else
+            {
+            	System.out.println("Checking json...");
+            	String jsonFileContent = FileUtils.readFileContent(jsonFile);
+            	JsonNode treeFile = JSON.toJsonTree(jsonFileContent);
+            	assertEquals(treeFile.toString(), json.toString());
+            }        	
         }
     }
 
