@@ -8,8 +8,8 @@ import dev.stxt.json.JSONObject;
 
 public class Node
 {
-    private String name;
-    private String namespace;
+    private final String name;
+    private final String namespace;
     private final boolean multiline;
     
     private final String inlineText;
@@ -40,19 +40,9 @@ public class Node
         return name;
     }
 
-    public void setName(String name)
-    {
-        this.name = name;
-    }
-
     public String getNamespace()
     {
         return namespace;
-    }
-
-    public void setNamespace(String namespace)
-    {
-        this.namespace = namespace;
     }
 
     public List<Node> getChildren()
@@ -84,12 +74,8 @@ public class Node
     {
         JSONObject obj = new JSONObject();
         obj.put("name", this.name);
-        
-        if (this.namespace != null)
-            obj.put("namespace", this.namespace);
-        if (this.inlineText != null)
-            obj.put("value", this.inlineText);
-        
+        obj.put("namespace", this.namespace);
+        obj.put("inline_text", this.inlineText);
         obj.put("line", this.line);
         obj.put("level", this.level);
 
@@ -99,7 +85,7 @@ public class Node
         {
             jText.put(t);
         }
-        obj.put("text", jText);
+        obj.put("multiline_text", jText);
 
         // Children array
         JSONArray jChildren = new JSONArray();

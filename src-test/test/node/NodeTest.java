@@ -25,10 +25,10 @@ class NodeTest
         // Opcionales no presentes
         assertFalse(json.has("namespace"));
         assertFalse(json.has("type"));
-        assertTrue(json.has("value"));
+        assertTrue(json.has("inline_text"));
 
         // Arrays siempre presentes y vacíos
-        JSONArray text = json.getJSONArray("text");
+        JSONArray text = json.getJSONArray("multiline_text");
         assertNotNull(text);
         assertEquals(0, text.length());
 
@@ -40,8 +40,7 @@ class NodeTest
     @Test
     void toJson_fullNodeWithTextAndChild_isCorrect() 
     {
-        Node parent = new Node(1, 0, "Document", null, true, "");
-        parent.setNamespace("dev.stxt.example");
+        Node parent = new Node(1, 0, "Document", "dev.stxt.example", true, "");
         parent.getText().add("Line 1");
         parent.getText().add("Line 2");
 
@@ -54,12 +53,12 @@ class NodeTest
         // Campos básicos
         assertEquals("Document", json.getString("name"));
         assertEquals("dev.stxt.example", json.getString("namespace"));
-        assertEquals("", json.getString("value"));
+        assertEquals("", json.getString("inline_text"));
         assertEquals(1, json.getInt("line"));
         assertEquals(0, json.getInt("level"));
 
         // Text
-        JSONArray text = json.getJSONArray("text");
+        JSONArray text = json.getJSONArray("multiline_text");
         assertEquals(2, text.length());
         assertEquals("Line 1", text.getString(0));
         assertEquals("Line 2", text.getString(1));
@@ -70,14 +69,14 @@ class NodeTest
 
         JSONObject childJson = children.getJSONObject(0);
         assertEquals("Title", childJson.getString("name"));
-        assertEquals("Hello", childJson.getString("value"));
+        assertEquals("Hello", childJson.getString("inline_text"));
         assertEquals(2, childJson.getInt("line"));
         assertEquals(1, childJson.getInt("level"));
 
         // El hijo también debe tener siempre arrays text / children
-        assertNotNull(childJson.getJSONArray("text"));
+        assertNotNull(childJson.getJSONArray("multiline_text"));
         assertNotNull(childJson.getJSONArray("children"));
-        assertEquals(0, childJson.getJSONArray("text").length());
+        assertEquals(0, childJson.getJSONArray("multiline_text").length());
         assertEquals(0, childJson.getJSONArray("children").length());
     }
 }
