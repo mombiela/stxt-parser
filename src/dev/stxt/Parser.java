@@ -9,6 +9,8 @@ import java.util.Stack;
 
 import dev.stxt.utils.FileUtils;
 
+import static dev.stxt.Constants.EMPTY_NAMESPACE;
+
 public class Parser
 {
     public List<Node> parseFile(File srcFile) throws IOException, ParseException
@@ -112,17 +114,17 @@ public class Parser
         }
         
         // Obtenemos namespace si hay
-        String namespace = parent != null ? parent.getNamespace() : "stxt";
+        String namespace = parent != null ? parent.getNamespace() : EMPTY_NAMESPACE;
 
-        int namespaceIndx = name.indexOf("(@");
+        int namespaceIndx = name.indexOf("(");
         int namespaceEnd  = name.lastIndexOf(')');
 
         if (namespaceIndx != -1)
         {
-            if (namespaceEnd <= namespaceIndx + 2)
+            if (namespaceEnd <= namespaceIndx + 1)
                 throw new ParseException(lineNumber, "INVALID_NAMESPACE_DEF", "Line not valid: " + line);
 
-            namespace = name.substring(namespaceIndx + 2, namespaceEnd).trim();
+            namespace = name.substring(namespaceIndx + 1, namespaceEnd).trim();
             if (namespace.isEmpty())
                 throw new ParseException(lineNumber, "INVALID_NAMESPACE_DEF", "Line not valid: " + line);
 

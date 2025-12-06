@@ -25,7 +25,7 @@ public class TestParser
         // Create parser
         Parser parser = createBasicParser();
         
-        File f = new File("test/docs/client_raw.stxt");
+        File f = new File("test/docs/client.stxt");
         System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
         System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
         System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
