@@ -73,14 +73,8 @@ public class LineIndent
 
             if (c == SPACE)
             {
-                if (mode == MODE_NONE)
-                {
-                    mode = MODE_SPACES;
-                }
-                else if (mode == MODE_TABS)
-                {
-                    throw new ParseException(numLine, "MIXED_INDENTATION", "Cannot mix spaces and tabs in indentation");
-                }
+                if (mode == MODE_NONE)		mode = MODE_SPACES;
+                else if (mode == MODE_TABS)	throw new ParseException(numLine, "MIXED_INDENTATION", "Cannot mix spaces and tabs in indentation");
 
                 spaces++;
                 if (spaces == TAB_SPACES)
@@ -88,20 +82,12 @@ public class LineIndent
                     level++;
                     spaces = 0;
                 }
-
             }
             else if (c == TAB)
             {
-                if (mode == MODE_NONE)
-                {
-                    mode = MODE_TABS;
-                }
-                else if (mode == MODE_SPACES)
-                {
-                    throw new ParseException(numLine, "MIXED_INDENTATION", "Cannot mix spaces and tabs in indentation");
-                }
+                if (mode == MODE_NONE)			mode = MODE_TABS;
+                else if (mode == MODE_SPACES)	throw new ParseException(numLine, "MIXED_INDENTATION", "Cannot mix spaces and tabs in indentation");
                 level++;
-
             }
             else
             {
