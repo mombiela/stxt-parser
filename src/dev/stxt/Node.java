@@ -3,8 +3,7 @@ package dev.stxt;
 import java.util.ArrayList;
 import java.util.List;
 
-import dev.stxt.json.JSONArray;
-import dev.stxt.json.JSONObject;
+import dev.stxt.utils.JSON;
 
 public class Node
 {
@@ -50,12 +49,12 @@ public class Node
         return children;
     }
 
-    public String getValue()
+    public String getInlineText()
     {
         return inlineText;
     }
 
-    public List<String> getText()
+    public List<String> getMultilineText()
     {
         return multilineText;
     }
@@ -70,33 +69,15 @@ public class Node
         return level;
     }    
 
-    public JSONObject toJson()
-    {
-        JSONObject obj = new JSONObject();
-        obj.put("name", this.name);
-        obj.put("namespace", this.namespace);
-        obj.put("inline_text", this.inlineText);
-        obj.put("line", this.line);
-        obj.put("level", this.level);
+	public String toJson() 
+	{
+		return JSON.toJson(this);
+	}
 
-        // Text array
-        JSONArray jText = new JSONArray();
-        for (String t : this.multilineText)
-        {
-            jText.put(t);
-        }
-        obj.put("multiline_text", jText);
-
-        // Children array
-        JSONArray jChildren = new JSONArray();
-        for (Node child : this.children)
-        {
-            jChildren.put(child.toJson());
-        }
-        obj.put("children", jChildren);
-
-        return obj;
-    }
+	public String toJsonPretty() 
+	{
+		return JSON.toJsonPretty(this);
+	}
 
     public boolean isMultiline()
     {

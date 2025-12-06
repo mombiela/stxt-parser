@@ -7,5 +7,5 @@ public class Constants
     public static final char   TAB             = '\t';
     public static final char   SPACE           = ' ';
     public static final char   SEP_NODE        = ':';
-    public static final String ENCODING        = "UTF-8";
+    public static final String ENCODINGs        = "UTF-8";
 }

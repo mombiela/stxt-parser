@@ -32,7 +32,7 @@ public class TestParser
         System.out.println(f.getAbsolutePath());
         List<Node> docs = parser.parseFile(f);
         Node n = docs.get(0);
-        System.out.println(n.toJson().toString(3));
+        System.out.println(n.toJsonPretty());
         
         System.out.println("End");
     }

@@ -2,17 +2,14 @@ package test.parser;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import org.junit.jupiter.api.Test;
 
-import dev.stxt.Parser;
 import dev.stxt.Node;
 import dev.stxt.ParseException;
+import dev.stxt.Parser;
+import dev.stxt.utils.FileUtils;
 
 public class TestParserAllDocs
 {
@@ -30,17 +27,7 @@ public class TestParserAllDocs
         Parser parser = new Parser();
         File docsDir = new File("test/docs");
 
-        List<File> stxtFiles;
-        try (Stream<Path> stream = Files.walk(docsDir.toPath()))
-        {
-            // Discover all .stxt files in test/docs recursively
-            stxtFiles = stream
-                .filter(Files::isRegularFile)
-                .filter(path -> path.toString().endsWith(".stxt"))
-                .map(Path::toFile)
-                .sorted()
-                .collect(Collectors.toList());
-        }
+        List<File> stxtFiles = FileUtils.getStxtFiles(docsDir);
 
         for (File file : stxtFiles)
         {
@@ -57,7 +44,7 @@ public class TestParserAllDocs
         List<Node> docs = parser.parseFile(file);
         for (Node node : docs)
         {
-            System.out.println(node.toJson().toString(3));
+            System.out.println(node.toJsonPretty());
         }
     }
 
