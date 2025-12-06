@@ -1,0 +1,16 @@
+# ----------------
+# Datos de cliente
+# ----------------
+
+Cliente:
+
+		# ----------------
+	# Datos personales
+	# ----------------
+	
+	Datos Personales:
+	
+		Nombre: Shila
+		Primer apellido: Kween
+		Edad: 28
+		Cliente vip: true

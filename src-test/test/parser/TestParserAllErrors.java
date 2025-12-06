@@ -17,6 +17,7 @@ import org.junit.jupiter.api.Test;
 
 import com.fasterxml.jackson.databind.JsonNode;
 
+import dev.stxt.Node;
 import dev.stxt.ParseException;
 import dev.stxt.Parser;
 import dev.stxt.utils.FileUtils;
@@ -65,7 +66,9 @@ public class TestParserAllErrors
         
         try
         {
-            parser.parseFile(file);
+            List<Node> nodes = parser.parseFile(file);
+            for (Node n: nodes) 
+            	System.out.println(n.toJsonPretty());
             Assertions.fail("Expected ParseException for " + file);
         }
         catch (ParseException e)
