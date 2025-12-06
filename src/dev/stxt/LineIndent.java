@@ -32,7 +32,7 @@ public class LineIndent
 
     private static boolean isCommentLine(String line)
     {
-        return line.trim().startsWith("#");
+        return line.startsWith("#");
     }
 
     // -------------------------------------------------
@@ -106,21 +106,13 @@ public class LineIndent
             }
         }
         
-        // 3) Caso especial: venimos de nodo multilínea
-        if (lastNodeMultiline)
+        // Line without indent
+        line = line.substring(pointer);
+        
+        // Multiline
+        if (lastNodeMultiline && isEmptyLine(line))
         {
-            if (isEmptyLine(aLine))
-            {
-                // Preservamos la línea vacía como parte del texto del bloque
-                return new LineIndent(stackSize, "");
-            }
-            if (isCommentLine(aLine))
-            {
-                // Comentario real fuera del bloque de texto
-                return null;
-            }
-            // Cualquier otro caso: la línea se tratará como estructural por el
-            // parser
+        	return new LineIndent(stackSize, "");
         }
         
         // Validar espacios sueltos si estamos en modo SPACES
@@ -129,8 +121,13 @@ public class LineIndent
             throw new ParseException(numLine, "INVALID_INDENTATION_SPACES", "Invalid number of spaces for indentation");
         }
 
+        if (isCommentLine(line))
+        {
+            // Comentario real fuera del bloque de texto
+            return null;
+        }
+        
         // 4) Caso general: devolver la línea sin la indentación consumida
-        String lineWithoutIndent = aLine.substring(pointer);
-        return new LineIndent(level, lineWithoutIndent);
+        return new LineIndent(level, line);
     }
 }
