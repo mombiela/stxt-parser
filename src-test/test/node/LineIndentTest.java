@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import dev.stxt.LineIndent;
@@ -43,12 +44,18 @@ class LineIndentTest {
     }
 
     @Test
-    void commentLine_outsideMultiline_isIgnored() throws ParseException {
+    void commentLine_outsideMultiline_isNotIgnored() throws ParseException {
         ParseState state = newEmptyState();
 
-        LineIndent li = LineIndent.parseLine("   # This is a comment", 1, state);
-
-        assertNull(li);
+        try
+        {
+        	LineIndent.parseLine("   # This is a comment", 1, state);
+        	Assertions.fail("Expected ParseException for ");
+        }
+        catch (ParseException e)
+        {
+        	System.out.println("OK error: " + e.getCode());
+        }
     }
 
     @Test

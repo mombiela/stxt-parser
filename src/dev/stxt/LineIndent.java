@@ -1,7 +1,6 @@
 package dev.stxt;
 
 import static dev.stxt.Constants.SPACE;
-import static dev.stxt.Constants.COMMENT_CHAR;
 import static dev.stxt.Constants.TAB;
 import static dev.stxt.Constants.TAB_SPACES;
 
@@ -43,22 +42,6 @@ public class LineIndent
     {
         int stackSize = parseState.getStack().size();
         boolean lastNodeMultiline = stackSize > 0 && parseState.getStack().peek().isMultiline();
-
-        String trimmed = aLine.trim();
-
-        // 1) Si NO estamos en multilínea: líneas vacías y comentarios se
-        // ignoran
-        if (!lastNodeMultiline)
-        {
-            if (trimmed.isEmpty())
-            {
-                return null;
-            }
-            if (trimmed.charAt(0) ==COMMENT_CHAR)
-            {
-                return null;
-            }
-        }
 
         // 2) Cálculo de indentación con reglas estrictas (sin mezclar)
         String line = aLine;
@@ -108,20 +91,21 @@ public class LineIndent
         
         // Line without indent
         line = line.substring(pointer);
+        boolean emptyLine = isEmptyLine(line);
         
         // Multiline
-        if (lastNodeMultiline && isEmptyLine(line))
+        if (lastNodeMultiline && emptyLine)
         {
         	return new LineIndent(stackSize, "");
         }
         
         // Validar espacios sueltos si estamos en modo SPACES
-        if (mode == MODE_SPACES && spaces != 0)
+        if (mode == MODE_SPACES && spaces != 0 && !emptyLine)
         {
             throw new ParseException(numLine, "INVALID_INDENTATION_SPACES", "Invalid number of spaces for indentation");
         }
 
-        if (isCommentLine(line))
+        if (isCommentLine(line) || emptyLine)
         {
             // Comentario real fuera del bloque de texto
             return null;
