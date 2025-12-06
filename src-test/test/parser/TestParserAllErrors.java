@@ -28,7 +28,7 @@ public class TestParserAllErrors
 
         // Create parser
         Parser parser = new Parser();
-        File docsDir = new File("test/docs_error");
+        File docsDir = new File("test/error");
 
         List<File> stxtFiles;
         try (Stream<Path> stream = Files.walk(docsDir.toPath()))

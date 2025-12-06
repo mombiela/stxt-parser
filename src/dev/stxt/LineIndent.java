@@ -1,6 +1,7 @@
 package dev.stxt;
 
 import static dev.stxt.Constants.SPACE;
+import static dev.stxt.Constants.COMMENT_CHAR;
 import static dev.stxt.Constants.TAB;
 import static dev.stxt.Constants.TAB_SPACES;
 
@@ -53,7 +54,7 @@ public class LineIndent
             {
                 return null;
             }
-            if (trimmed.startsWith("#"))
+            if (trimmed.charAt(0) ==COMMENT_CHAR)
             {
                 return null;
             }
