@@ -14,11 +14,11 @@ import dev.stxt.Parser;
 import dev.stxt.Node;
 import dev.stxt.ParseException;
 
-public class TestParserAll
+public class TestParserAllDocs
 {
     public static void main(String[] args) throws IOException, ParseException
     {
-        new TestParserAll().mainTest();
+        new TestParserAllDocs().mainTest();
     }
     
     @Test

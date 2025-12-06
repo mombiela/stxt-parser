@@ -7,14 +7,13 @@ import java.io.StringReader;
 import java.util.List;
 import java.util.Stack;
 
-import info.semantictext.parser.utils.Utils;
-import info.semantictext.parser.utils.UtilsFile;
+import dev.stxt.utils.FileUtils;
 
 public class Parser
 {
     public List<Node> parseFile(File srcFile) throws IOException, ParseException
     {
-        String content = UtilsFile.readFileContent(srcFile);
+        String content = FileUtils.readFileContent(srcFile);
         return parse(content);
     }
 
@@ -22,7 +21,7 @@ public class Parser
     {
         int lineNumber = 0;
 
-        content = Utils.removeUTF8BOM(content);
+        content = removeUTF8BOM(content);
         BufferedReader in = new BufferedReader(new StringReader(content));
 
         ParseState state = new ParseState();
@@ -138,4 +137,12 @@ public class Parser
         Node node = new Node(lineNumber, level, name, namespace, multiline, value);
         return node;
     }
+    
+    private static final String UTF8_BOM = "\uFEFF";
+    private static String removeUTF8BOM(String s) 
+    {
+        if (s.startsWith(UTF8_BOM)) s = s.substring(1);
+        return s;
+    }
+    
 }
