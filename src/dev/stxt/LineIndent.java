@@ -99,21 +99,15 @@ public class LineIndent
             pointer++;
 
             // Dentro de multilínea: no consumir más niveles de los del nodo
-            // TEXT
+            // ==> TEXT
             if (lastNodeMultiline && level >= stackSize)
             {
-                break;
+            	return new LineIndent(level, line.substring(pointer));
             }
         }
-
-        // Validar espacios sueltos si estamos en modo SPACES
-        if (mode == MODE_SPACES && spaces != 0)
-        {
-            throw new ParseException(numLine, "INVALID_INDENTATION_SPACES", "Invalid number of spaces for indentation");
-        }
-
-        // 3) Caso especial: venimos de nodo multilínea y hemos dedentado
-        if (lastNodeMultiline && level < stackSize)
+        
+        // 3) Caso especial: venimos de nodo multilínea
+        if (lastNodeMultiline)
         {
             if (isEmptyLine(aLine))
             {
@@ -127,6 +121,12 @@ public class LineIndent
             }
             // Cualquier otro caso: la línea se tratará como estructural por el
             // parser
+        }
+        
+        // Validar espacios sueltos si estamos en modo SPACES
+        if (mode == MODE_SPACES && spaces != 0)
+        {
+            throw new ParseException(numLine, "INVALID_INDENTATION_SPACES", "Invalid number of spaces for indentation");
         }
 
         // 4) Caso general: devolver la línea sin la indentación consumida
