@@ -34,37 +34,6 @@ public class LineIndent
         return line.trim().startsWith("#");
     }
 
-    /**
-     * Línea compacta: "N:contenido" - Debe contener ':'. - Todo lo que hay
-     * antes del ':' deben ser dígitos. - No se permiten espacios delante.
-     */
-    private static boolean isCompactLine(String line)
-    {
-        if (line == null || line.isEmpty())
-        {
-            return false;
-        }
-
-        int posColon = line.indexOf(':');
-        if (posColon <= 0)
-        {
-            // No hay ':' o está en la primera posición (":algo")
-            return false;
-        }
-
-        // Prefijo antes de ':' debe ser todo dígitos
-        for (int i = 0; i < posColon; i++)
-        {
-            char c = line.charAt(i);
-            if (!Character.isDigit(c))
-            {
-                return false;
-            }
-        }
-
-        return true;
-    }
-
     // -------------------------------------------------
     // parseLine
     // -------------------------------------------------
@@ -75,26 +44,6 @@ public class LineIndent
         boolean lastNodeMultiline = stackSize > 0 && parseState.getStack().peek().isMultiline();
 
         String trimmed = aLine.trim();
-
-        // 0) Prioridad absoluta: línea compacta "N:contenido"
-        if (isCompactLine(aLine))
-        {
-            int posColon = aLine.indexOf(':');
-            String levelStr = aLine.substring(0, posColon);
-            String textStr = aLine.substring(posColon + 1);
-
-            int level;
-            try
-            {
-                level = Integer.parseInt(levelStr);
-            }
-            catch (NumberFormatException e)
-            {
-                throw new ParseException(numLine, "INVALID_COMPACT_LEVEL", "Invalid compact indentation level: " + levelStr);
-            }
-
-            return new LineIndent(level, textStr);
-        }
 
         // 1) Si NO estamos en multilínea: líneas vacías y comentarios se
         // ignoran

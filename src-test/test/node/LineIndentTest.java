@@ -30,32 +30,6 @@ class LineIndentTest {
     }
 
     // ------------------------
-    // Tests compact line
-    // ------------------------
-
-    @Test
-    void compactLine_isParsedWithExplicitLevel() throws ParseException {
-        ParseState state = newEmptyState();
-
-        LineIndent li = LineIndent.parseLine("2:Title: Hola", 1, state);
-
-        assertNotNull(li);
-        assertEquals(2, li.indentLevel);
-        assertEquals("Title: Hola", li.lineWithoutIndent);
-    }
-
-    @Test
-    void compactLine_withTwoDigitsLevel_works() throws ParseException {
-        ParseState state = newEmptyState();
-
-        LineIndent li = LineIndent.parseLine("10:Something", 1, state);
-
-        assertNotNull(li);
-        assertEquals(10, li.indentLevel);
-        assertEquals("Something", li.lineWithoutIndent);
-    }
-
-    // ------------------------
     // Tests fuera de multilínea
     // ------------------------
 
