@@ -12,8 +12,8 @@ public class Node
     private String namespace;
     private final boolean multiline;
     
-    private final String value;
-    private final List<String> text = new ArrayList<>();
+    private final String inlineText;
+    private final List<String> multilineText = new ArrayList<>();
     private final int line;
     private final int level;
     private final List<Node> children = new ArrayList<>();
@@ -24,13 +24,15 @@ public class Node
         this.line = line;
         this.name = name;
         this.namespace = namespace;
-        this.value = value;
+        this.inlineText = value;
         this.multiline = multiline;
+        
+        if (!this.inlineText.isEmpty() && this.isMultiline()) throw new IllegalArgumentException("Not empty value with multiline");
     }
 
     public void addTextLine(String line) 
     {
-        this.text.add(line);
+        this.multilineText.add(line);
     }
     
     public String getName()
@@ -60,12 +62,12 @@ public class Node
 
     public String getValue()
     {
-        return value;
+        return inlineText;
     }
 
     public List<String> getText()
     {
-        return text;
+        return multilineText;
     }
 
     public int getLine()
@@ -85,15 +87,15 @@ public class Node
         
         if (this.namespace != null)
             obj.put("namespace", this.namespace);
-        if (this.value != null)
-            obj.put("value", this.value);
+        if (this.inlineText != null)
+            obj.put("value", this.inlineText);
         
         obj.put("line", this.line);
         obj.put("level", this.level);
 
         // Text array
         JSONArray jText = new JSONArray();
-        for (String t : this.text)
+        for (String t : this.multilineText)
         {
             jText.put(t);
         }

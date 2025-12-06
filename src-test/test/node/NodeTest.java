@@ -12,7 +12,7 @@ class NodeTest
     @Test
     void toJson_minimalNode_hasEmptyArraysAndNoOptionalFields() 
     {
-        Node node = new Node(1, 0, "Title", null, false, null);
+        Node node = new Node(1, 0, "Title", null, false, "");
 
         JSONObject json = node.toJson();
         System.out.println("JSON: " + json.toString(3));
@@ -25,7 +25,7 @@ class NodeTest
         // Opcionales no presentes
         assertFalse(json.has("namespace"));
         assertFalse(json.has("type"));
-        assertFalse(json.has("value"));
+        assertTrue(json.has("value"));
 
         // Arrays siempre presentes y vacíos
         JSONArray text = json.getJSONArray("text");
@@ -40,7 +40,7 @@ class NodeTest
     @Test
     void toJson_fullNodeWithTextAndChild_isCorrect() 
     {
-        Node parent = new Node(1, 0, "Document", null, true, "My doc");
+        Node parent = new Node(1, 0, "Document", null, true, "");
         parent.setNamespace("dev.stxt.example");
         parent.getText().add("Line 1");
         parent.getText().add("Line 2");
@@ -54,7 +54,7 @@ class NodeTest
         // Campos básicos
         assertEquals("Document", json.getString("name"));
         assertEquals("dev.stxt.example", json.getString("namespace"));
-        assertEquals("My doc", json.getString("value"));
+        assertEquals("", json.getString("value"));
         assertEquals(1, json.getInt("line"));
         assertEquals(0, json.getInt("level"));
 
