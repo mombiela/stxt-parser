@@ -4,19 +4,14 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.StringReader;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
 
 import info.semantictext.parser.utils.Utils;
 import info.semantictext.parser.utils.UtilsFile;
 
-/* Classe thread safe*/
-
 public class Parser
 {
-    public boolean debug = false;
-
     public List<Node> parseFile(File srcFile) throws IOException, ParseException
     {
         String content = UtilsFile.readFileContent(srcFile);
@@ -38,53 +33,43 @@ public class Parser
             processLine(line, lineNumber, state);
         }
 
-        Node currentRoot = state.stackPeek();
-        if (currentRoot != null)
-        {
-        	state.addDocument(currentRoot);
-        }
-
         return state.getDocuments();
     }
 
     private void processLine(String line, int lineNumber, ParseState state) throws ParseException, IOException
     {
+    	// Parseamos la línea actual
+        LineIndent lineIndent = LineIndent.parseLine(line, lineNumber, state);
+        if (lineIndent == null)
+            return;
+        
+        int currentLevel = lineIndent.indentLevel;
 
+        // Obtenemos valores del estado actual
+    	Stack<Node> stack = state.getStack();
         Node lastNode = !stack.isEmpty() ? stack.peek() : null;
         boolean lastNodeMultiline = lastNode != null && lastNode.isMultiline();
+        Node currentRoot = state.stackPeek();
 
-        LineIndent lineIndent = LineIndent.parseLine(line, lastNodeMultiline, stack.size(), lineNumber);
-        if (lineIndent == null)
-            return new LineProcessingResult(currentLevel, currentRoot);
-
-        showLine(line, lineIndent, lineNumber);
-
-        if (lastNodeMultiline && lineIndent.indentLevel >= stack.size())
+        // Multilinea añadir si procede
+        if (lastNodeMultiline && currentLevel >= stack.size())
         {
-            addMultilineValue(lastNode, lineIndent.lineWithoutIndent, false, lineNumber, currentLevel);
-            return new LineProcessingResult(currentLevel, currentRoot);
+        	lastNode.addTextLine(lineIndent.lineWithoutIndent);
+            return;
         }
 
-        if (lineIndent.indentLevel > currentLevel + 1)
-            throw new ParseException("Level of indent incorrect: " + lineIndent.indentLevel, lineNumber);
+        // Validamos nivel inválido por encima
+        if (currentLevel > stack.size() + 1)
+            throw new ParseException(lineNumber, "IDENTATION_LEVEL_NOT_VALID", "Level of indent incorrect: " + lineIndent.indentLevel);
 
-        currentLevel = lineIndent.indentLevel;
+        // Creamos nodo
         Node node = createNode(lineIndent, lineNumber, currentLevel);
-
-        if (node.getName() == null && lastNode != null)
-        {
-            addMultilineValue(lastNode, node.getValue(), true, lineNumber, currentLevel);
-            return new LineProcessingResult(currentLevel, currentRoot);
-        }
-
-        processOnCreation(node);
 
         if (currentLevel == 0)
         {
             if (currentRoot != null)
             {
-                processOnCompletion(currentRoot);
-                document.add(currentRoot);
+                state.addDocument(currentRoot);
             }
             currentRoot = node;
             stack.clear();
@@ -94,53 +79,51 @@ public class Parser
         {
             while (stack.size() > currentLevel)
             {
-                Node finishedNode = stack.pop();
-                processOnCompletion(finishedNode);
+                stack.pop();
             }
 
             Node parent = stack.peek();
-            processBeforeAdd(parent, node);
-            parent.addChild(node);
+            parent.getChildren().add(node);
             stack.push(node);
         }
-
-        showCurrentRoot(currentRoot);
-        return new LineProcessingResult(currentLevel, currentRoot);
-    }
-
-    private void addMultilineValue(Node node, String value, boolean explicit, int lineNumber, int level)
-    {
-        node.addLine(new NodeLine(lineNumber, level, value, explicit));
-        showCurrentRoot(node);
     }
 
     private Node createNode(LineIndent result, int lineNumber, int level) throws ParseException
     {
         String line = result.lineWithoutIndent;
-        String name = line;
+        String name = null;
         String value = null;
         boolean multiline = false;
 
-        if (line.startsWith(":"))
+        int nodeIndex = line.indexOf(':');
+        int textIndex = line.indexOf(">>"); 
+
+        if ((nodeIndex != -1 && textIndex != -1) || (nodeIndex == -1 && textIndex == -1)) 
+            throw new ParseException(lineNumber, "INVALID_LINE", "Line not valid: " + line);
+
+        // Inline value
+        if (nodeIndex != -1)
         {
-            multiline = true;
-            line = line.substring(1);
+        	name = line.substring(0, nodeIndex).trim();
+        	value = line.substring(nodeIndex + 1).trim();
         }
-
-        int i = line.indexOf(':');
-        if (i == -1)
-            throw new ParseException("Line not valid: " + line, lineNumber);
-
-        name = line.substring(0, i).trim();
+        
+        // Multiline Text
+        if (textIndex != -1)
+        {
+        	name = line.substring(0, textIndex).trim();
+        	value = line.substring(textIndex + 1).trim();
+        	if (!value.isEmpty()) throw new ParseException(lineNumber, "INLINE_VALUE_NOT_VALID", "Line not valid: " + line);
+        	multiline = true;
+        }
+        
         if (name.isEmpty())
-            throw new ParseException("Line not valid: " + line, lineNumber);
+            throw new ParseException(lineNumber, "INVALID_LINE", "Line not valid: " + line);
 
-        value = line.substring(i + 1).trim();
         if (value.isEmpty())
             value = null;
 
-        Node node = new Node(lineNumber, level, name.toLowerCase(), value);
-        node.setMultiline(multiline);
+        Node node = new Node(lineNumber, level, name, value, multiline);
         return node;
     }
 }
