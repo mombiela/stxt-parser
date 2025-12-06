@@ -50,7 +50,7 @@ class NodeTest
         parent.getChildren().add(child);
 
         JsonNode json = JSON.toJsonTree(parent.toJson());
-        System.out.println("JSON: " + json.toPrettyString());
+        System.out.println("JSON: " + json.toString());
 
         // Campos básicos
         assertEquals("Document", json.get("name").asText());

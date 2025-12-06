@@ -62,8 +62,7 @@ public class TestParserAllDocs
             	System.out.println("Checking json...");
             	String jsonFileContent = FileUtils.readFileContent(jsonFile);
             	JsonNode treeFile = JSON.toJsonTree(jsonFileContent);
-            	
-            	assertEquals(JSON.toJson(treeFile), node.toJson());
+            	assertEquals(treeFile.toString(), node.toJson());
             }
         }
     }
