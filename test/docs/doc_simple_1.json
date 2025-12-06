@@ -1,0 +1,45 @@
+{
+    "name" : "Documento",
+    "namespace" : "@com.dokumentando.doc_simple",
+    "multiline" : false,
+    "inline_text" : "",
+    "multiline_text" : [ ],
+    "line" : 1,
+    "level" : 0,
+    "children" : [
+        {
+            "name" : "Título",
+            "namespace" : "@com.dokumentando.doc_simple",
+            "multiline" : false,
+            "inline_text" : "Primer documento simple",
+            "multiline_text" : [ ],
+            "line" : 2,
+            "level" : 1,
+            "children" : [ ]
+        },
+        {
+            "name" : "Description",
+            "namespace" : "@com.dokumentando.doc_simple",
+            "multiline" : true,
+            "inline_text" : "",
+            "multiline_text" : [
+                "Este es el",
+                "primer documento",
+                "simple. Tiene varias líneas"
+            ],
+            "line" : 3,
+            "level" : 1,
+            "children" : [ ]
+        },
+        {
+            "name" : "Tipo Documento",
+            "namespace" : "@com.dokumentando.doc_simple",
+            "multiline" : false,
+            "inline_text" : "informe",
+            "multiline_text" : [ ],
+            "line" : 7,
+            "level" : 1,
+            "children" : [ ]
+        }
+    ]
+}

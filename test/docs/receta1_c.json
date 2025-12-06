@@ -1,0 +1,172 @@
+{
+    "name" : "Receta",
+    "namespace" : "com.kocinando.receta",
+    "multiline" : false,
+    "inline_text" : "",
+    "multiline_text" : [ ],
+    "line" : 5,
+    "level" : 0,
+    "children" : [
+        {
+            "name" : "Nombre Receta",
+            "namespace" : "com.kocinando.receta",
+            "multiline" : false,
+            "inline_text" : "Una receta",
+            "multiline_text" : [ ],
+            "line" : 6,
+            "level" : 1,
+            "children" : [ ]
+        },
+        {
+            "name" : "Descripción",
+            "namespace" : "com.kocinando.receta",
+            "multiline" : false,
+            "inline_text" : "Esta es una receta de ejemplo",
+            "multiline_text" : [ ],
+            "line" : 7,
+            "level" : 1,
+            "children" : [ ]
+        },
+        {
+            "name" : "Pasos",
+            "namespace" : "com.kocinando.receta",
+            "multiline" : false,
+            "inline_text" : "",
+            "multiline_text" : [ ],
+            "line" : 8,
+            "level" : 1,
+            "children" : [
+                {
+                    "name" : "Paso",
+                    "namespace" : "com.kocinando.receta",
+                    "multiline" : false,
+                    "inline_text" : "1",
+                    "multiline_text" : [ ],
+                    "line" : 9,
+                    "level" : 2,
+                    "children" : [ ]
+                },
+                {
+                    "name" : "Descripción",
+                    "namespace" : "com.kocinando.receta",
+                    "multiline" : true,
+                    "inline_text" : "",
+                    "multiline_text" : [
+                        "Esta receta te guiará a través de los pasos necesarios para preparar una deliciosa pizza de jamón en casa.",
+                        "Sigue las instrucciones cuidadosamente para obtener los mejores resultados."
+                    ],
+                    "line" : 10,
+                    "level" : 2,
+                    "children" : [ ]
+                }
+            ]
+        },
+        {
+            "name" : "Dificultad",
+            "namespace" : "com.kocinando.receta",
+            "multiline" : false,
+            "inline_text" : "media",
+            "multiline_text" : [ ],
+            "line" : 13,
+            "level" : 1,
+            "children" : [ ]
+        },
+        {
+            "name" : "Ingredientes",
+            "namespace" : "com.kocinando.receta",
+            "multiline" : false,
+            "inline_text" : "",
+            "multiline_text" : [ ],
+            "line" : 14,
+            "level" : 1,
+            "children" : [
+                {
+                    "name" : "Ingrediente",
+                    "namespace" : "com.kocinando.receta",
+                    "multiline" : false,
+                    "inline_text" : "",
+                    "multiline_text" : [ ],
+                    "line" : 15,
+                    "level" : 2,
+                    "children" : [
+                        {
+                            "name" : "Cantidad",
+                            "namespace" : "com.kocinando.receta",
+                            "multiline" : false,
+                            "inline_text" : "1",
+                            "multiline_text" : [ ],
+                            "line" : 16,
+                            "level" : 3,
+                            "children" : [ ]
+                        },
+                        {
+                            "name" : "Unidades",
+                            "namespace" : "com.kocinando.receta",
+                            "multiline" : false,
+                            "inline_text" : "dl",
+                            "multiline_text" : [ ],
+                            "line" : 17,
+                            "level" : 3,
+                            "children" : [ ]
+                        },
+                        {
+                            "name" : "Nombre",
+                            "namespace" : "com.kocinando.receta",
+                            "multiline" : false,
+                            "inline_text" : "Agua",
+                            "multiline_text" : [ ],
+                            "line" : 18,
+                            "level" : 3,
+                            "children" : [ ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name" : "Documento",
+            "namespace" : "com.kocinando.receta",
+            "multiline" : false,
+            "inline_text" : "",
+            "multiline_text" : [ ],
+            "line" : 19,
+            "level" : 1,
+            "children" : [
+                {
+                    "name" : "Título",
+                    "namespace" : "com.kocinando.receta",
+                    "multiline" : false,
+                    "inline_text" : "Primer documento simple",
+                    "multiline_text" : [ ],
+                    "line" : 20,
+                    "level" : 2,
+                    "children" : [ ]
+                },
+                {
+                    "name" : "Description",
+                    "namespace" : "com.kocinando.receta",
+                    "multiline" : true,
+                    "inline_text" : "",
+                    "multiline_text" : [
+                        "Este es el",
+                        "primer documento",
+                        "simple. Tiene varias líneas"
+                    ],
+                    "line" : 21,
+                    "level" : 2,
+                    "children" : [ ]
+                },
+                {
+                    "name" : "Tipo Documento",
+                    "namespace" : "com.kocinando.receta",
+                    "multiline" : false,
+                    "inline_text" : "informe",
+                    "multiline_text" : [ ],
+                    "line" : 25,
+                    "level" : 2,
+                    "children" : [ ]
+                }
+            ]
+        }
+    ]
+}

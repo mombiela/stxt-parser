@@ -1,0 +1,221 @@
+{
+    "name" : "Receta",
+    "namespace" : "com.kocinando.receta",
+    "multiline" : false,
+    "inline_text" : "",
+    "multiline_text" : [ ],
+    "line" : 5,
+    "level" : 0,
+    "children" : [
+        {
+            "name" : "Nombre Receta",
+            "namespace" : "com.kocinando.receta",
+            "multiline" : false,
+            "inline_text" : "Hola!",
+            "multiline_text" : [ ],
+            "line" : 7,
+            "level" : 1,
+            "children" : [ ]
+        },
+        {
+            "name" : "Ingredientes",
+            "namespace" : "com.kocinando.receta",
+            "multiline" : false,
+            "inline_text" : "",
+            "multiline_text" : [ ],
+            "line" : 13,
+            "level" : 1,
+            "children" : [
+                {
+                    "name" : "Ingrediente",
+                    "namespace" : "com.kocinando.receta",
+                    "multiline" : false,
+                    "inline_text" : "",
+                    "multiline_text" : [ ],
+                    "line" : 14,
+                    "level" : 2,
+                    "children" : [
+                        {
+                            "name" : "Cantidad",
+                            "namespace" : "com.kocinando.receta",
+                            "multiline" : false,
+                            "inline_text" : "10",
+                            "multiline_text" : [ ],
+                            "line" : 15,
+                            "level" : 3,
+                            "children" : [ ]
+                        },
+                        {
+                            "name" : "Unidades",
+                            "namespace" : "com.kocinando.receta",
+                            "multiline" : false,
+                            "inline_text" : "g",
+                            "multiline_text" : [ ],
+                            "line" : 16,
+                            "level" : 3,
+                            "children" : [ ]
+                        },
+                        {
+                            "name" : "Nombre",
+                            "namespace" : "com.kocinando.receta",
+                            "multiline" : false,
+                            "inline_text" : "tomate",
+                            "multiline_text" : [ ],
+                            "line" : 17,
+                            "level" : 3,
+                            "children" : [ ]
+                        }
+                    ]
+                },
+                {
+                    "name" : "Ingrediente",
+                    "namespace" : "com.kocinando.receta",
+                    "multiline" : false,
+                    "inline_text" : "",
+                    "multiline_text" : [ ],
+                    "line" : 18,
+                    "level" : 2,
+                    "children" : [
+                        {
+                            "name" : "Cantidad",
+                            "namespace" : "com.kocinando.receta",
+                            "multiline" : false,
+                            "inline_text" : "1",
+                            "multiline_text" : [ ],
+                            "line" : 19,
+                            "level" : 3,
+                            "children" : [ ]
+                        },
+                        {
+                            "name" : "Unidades",
+                            "namespace" : "com.kocinando.receta",
+                            "multiline" : false,
+                            "inline_text" : "u",
+                            "multiline_text" : [ ],
+                            "line" : 20,
+                            "level" : 3,
+                            "children" : [ ]
+                        },
+                        {
+                            "name" : "Nombre",
+                            "namespace" : "com.kocinando.receta",
+                            "multiline" : false,
+                            "inline_text" : "pera",
+                            "multiline_text" : [ ],
+                            "line" : 21,
+                            "level" : 3,
+                            "children" : [ ]
+                        }
+                    ]
+                },
+                {
+                    "name" : "Ingrediente",
+                    "namespace" : "com.kocinando.receta",
+                    "multiline" : false,
+                    "inline_text" : "",
+                    "multiline_text" : [ ],
+                    "line" : 22,
+                    "level" : 2,
+                    "children" : [
+                        {
+                            "name" : "Cantidad",
+                            "namespace" : "com.kocinando.receta",
+                            "multiline" : false,
+                            "inline_text" : "200",
+                            "multiline_text" : [ ],
+                            "line" : 23,
+                            "level" : 3,
+                            "children" : [ ]
+                        },
+                        {
+                            "name" : "Unidades",
+                            "namespace" : "com.kocinando.receta",
+                            "multiline" : false,
+                            "inline_text" : "dl",
+                            "multiline_text" : [ ],
+                            "line" : 24,
+                            "level" : 3,
+                            "children" : [ ]
+                        },
+                        {
+                            "name" : "Nombre",
+                            "namespace" : "com.kocinando.receta",
+                            "multiline" : false,
+                            "inline_text" : "leche",
+                            "multiline_text" : [ ],
+                            "line" : 25,
+                            "level" : 3,
+                            "children" : [ ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name" : "Pasos",
+            "namespace" : "com.kocinando.receta",
+            "multiline" : false,
+            "inline_text" : "",
+            "multiline_text" : [ ],
+            "line" : 31,
+            "level" : 1,
+            "children" : [
+                {
+                    "name" : "Paso",
+                    "namespace" : "com.kocinando.receta",
+                    "multiline" : false,
+                    "inline_text" : "1",
+                    "multiline_text" : [ ],
+                    "line" : 32,
+                    "level" : 2,
+                    "children" : [ ]
+                },
+                {
+                    "name" : "Paso",
+                    "namespace" : "com.kocinando.receta",
+                    "multiline" : false,
+                    "inline_text" : "2",
+                    "multiline_text" : [ ],
+                    "line" : 33,
+                    "level" : 2,
+                    "children" : [ ]
+                },
+                {
+                    "name" : "Paso",
+                    "namespace" : "com.kocinando.receta",
+                    "multiline" : false,
+                    "inline_text" : "3",
+                    "multiline_text" : [ ],
+                    "line" : 34,
+                    "level" : 2,
+                    "children" : [ ]
+                },
+                {
+                    "name" : "Paso",
+                    "namespace" : "com.kocinando.receta",
+                    "multiline" : false,
+                    "inline_text" : "4",
+                    "multiline_text" : [ ],
+                    "line" : 35,
+                    "level" : 2,
+                    "children" : [ ]
+                },
+                {
+                    "name" : "Descripción",
+                    "namespace" : "com.kocinando.receta",
+                    "multiline" : true,
+                    "inline_text" : "",
+                    "multiline_text" : [
+                        "Hay que vigilar este paso, ya que ",
+                        "no se puede garantizar su buen funcionamiento.",
+                        "En caso de error consultar realizar una llamada ",
+                        "al servicio único"
+                    ],
+                    "line" : 36,
+                    "level" : 2,
+                    "children" : [ ]
+                }
+            ]
+        }
+    ]
+}

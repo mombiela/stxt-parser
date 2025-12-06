@@ -1,15 +1,20 @@
 package test.parser;
 
+import static org.junit.Assert.assertEquals;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
+import com.fasterxml.jackson.databind.JsonNode;
+
 import dev.stxt.Node;
 import dev.stxt.ParseException;
 import dev.stxt.Parser;
 import dev.stxt.utils.FileUtils;
+import dev.stxt.utils.JSON;
 
 public class TestParserAllDocs
 {
@@ -44,11 +49,22 @@ public class TestParserAllDocs
         List<Node> docs = parser.parseFile(file);
         for (Node node : docs)
         {
-        	String json = node.toJsonPretty();
-            System.out.println(json);
-            
             File jsonFile = new File(file.getParentFile(), file.getName().substring(0, file.getName().length()-5) + ".json");
-            FileUtils.writeStringToFile(json, jsonFile);
+            if (!jsonFile.exists())
+            {
+            	System.out.println("Writting json..." + jsonFile.getAbsolutePath());
+            	String json = node.toJsonPretty();
+                System.out.println(json);
+            	FileUtils.writeStringToFile(json, jsonFile);
+            }
+            else
+            {
+            	System.out.println("Checking json...");
+            	String jsonFileContent = FileUtils.readFileContent(jsonFile);
+            	JsonNode treeFile = JSON.toJsonTree(jsonFileContent);
+            	
+            	assertEquals(JSON.toJson(treeFile), node.toJson());
+            }
         }
     }
 

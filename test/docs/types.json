@@ -1,0 +1,196 @@
+{
+    "name" : "Type List",
+    "namespace" : "dev.stxt.type_check",
+    "multiline" : false,
+    "inline_text" : "",
+    "multiline_text" : [ ],
+    "line" : 1,
+    "level" : 0,
+    "children" : [
+        {
+            "name" : "text",
+            "namespace" : "dev.stxt.type_check",
+            "multiline" : false,
+            "inline_text" : "Esto es un texto normal",
+            "multiline_text" : [ ],
+            "line" : 2,
+            "level" : 1,
+            "children" : [ ]
+        },
+        {
+            "name" : "text",
+            "namespace" : "dev.stxt.type_check",
+            "multiline" : true,
+            "inline_text" : "",
+            "multiline_text" : [
+                "Esto es un texto",
+                "que pasa varias lineas.",
+                "",
+                "No hay problema.",
+                "",
+                "",
+                "# Hola",
+                "",
+                "Esto es otra linea",
+                "Y esto otra....",
+                "\t* Hola 1",
+                "\t* Hola 2",
+                "\t",
+                "\t"
+            ],
+            "line" : 3,
+            "level" : 1,
+            "children" : [ ]
+        },
+        {
+            "name" : "natural",
+            "namespace" : "dev.stxt.type_check",
+            "multiline" : false,
+            "inline_text" : "134242342",
+            "multiline_text" : [ ],
+            "line" : 19,
+            "level" : 1,
+            "children" : [ ]
+        },
+        {
+            "name" : "integer",
+            "namespace" : "dev.stxt.type_check",
+            "multiline" : false,
+            "inline_text" : "442424242234234",
+            "multiline_text" : [ ],
+            "line" : 21,
+            "level" : 1,
+            "children" : [ ]
+        },
+        {
+            "name" : "integer",
+            "namespace" : "dev.stxt.type_check",
+            "multiline" : false,
+            "inline_text" : "+43242423424242",
+            "multiline_text" : [ ],
+            "line" : 22,
+            "level" : 1,
+            "children" : [ ]
+        },
+        {
+            "name" : "integer",
+            "namespace" : "dev.stxt.type_check",
+            "multiline" : false,
+            "inline_text" : "-5432424242",
+            "multiline_text" : [ ],
+            "line" : 23,
+            "level" : 1,
+            "children" : [ ]
+        },
+        {
+            "name" : "number",
+            "namespace" : "dev.stxt.type_check",
+            "multiline" : false,
+            "inline_text" : "+52352.53252",
+            "multiline_text" : [ ],
+            "line" : 25,
+            "level" : 1,
+            "children" : [ ]
+        },
+        {
+            "name" : "number",
+            "namespace" : "dev.stxt.type_check",
+            "multiline" : false,
+            "inline_text" : "-523523.52325",
+            "multiline_text" : [ ],
+            "line" : 26,
+            "level" : 1,
+            "children" : [ ]
+        },
+        {
+            "name" : "number",
+            "namespace" : "dev.stxt.type_check",
+            "multiline" : false,
+            "inline_text" : "+52345.532e-10",
+            "multiline_text" : [ ],
+            "line" : 27,
+            "level" : 1,
+            "children" : [ ]
+        },
+        {
+            "name" : "number",
+            "namespace" : "dev.stxt.type_check",
+            "multiline" : false,
+            "inline_text" : "-523423.5432e10",
+            "multiline_text" : [ ],
+            "line" : 28,
+            "level" : 1,
+            "children" : [ ]
+        },
+        {
+            "name" : "hexadecimal",
+            "namespace" : "dev.stxt.type_check",
+            "multiline" : true,
+            "inline_text" : "",
+            "multiline_text" : [
+                "f52360Abcdef000",
+                "f52360Abcdef000",
+                "f52360Abcdef000",
+                "f52360Abcdef000"
+            ],
+            "line" : 30,
+            "level" : 1,
+            "children" : [ ]
+        },
+        {
+            "name" : "base64",
+            "namespace" : "dev.stxt.type_check",
+            "multiline" : true,
+            "inline_text" : "",
+            "multiline_text" : [
+                "SGVsbG8gV29ybGQhISEhISEKSG9sYSBNdW5kbyEhISEhIUhvbGEgTXVuZG8hISEhISFIb2xhIE11",
+                "bmRvISEhISEhSG9sYSBNdW5kbyEhISEhIUhvbGEgTXVuZG8hISEhISFIb2xhIE11bmRvISEhISEh",
+                "SG9sYSBNdW5kbyEhISEhIUhvbGEgTXVuZG8hISEhISFIb2xhIE11bmRvISEhISEhSG9sYSBNdW5k",
+                "byEhISEhIQ=="
+            ],
+            "line" : 36,
+            "level" : 1,
+            "children" : [ ]
+        },
+        {
+            "name" : "boolean",
+            "namespace" : "dev.stxt.type_check",
+            "multiline" : false,
+            "inline_text" : "true",
+            "multiline_text" : [ ],
+            "line" : 42,
+            "level" : 1,
+            "children" : [ ]
+        },
+        {
+            "name" : "boolean",
+            "namespace" : "dev.stxt.type_check",
+            "multiline" : false,
+            "inline_text" : "false",
+            "multiline_text" : [ ],
+            "line" : 43,
+            "level" : 1,
+            "children" : [ ]
+        },
+        {
+            "name" : "boolean",
+            "namespace" : "dev.stxt.type_check",
+            "multiline" : false,
+            "inline_text" : "false",
+            "multiline_text" : [ ],
+            "line" : 44,
+            "level" : 1,
+            "children" : [ ]
+        },
+        {
+            "name" : "url",
+            "namespace" : "dev.stxt.type_check",
+            "multiline" : false,
+            "inline_text" : "http://www.google.com",
+            "multiline_text" : [ ],
+            "line" : 46,
+            "level" : 1,
+            "children" : [ ]
+        }
+    ]
+}
