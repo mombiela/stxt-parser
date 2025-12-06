@@ -1,5 +1,8 @@
 package dev.stxt;
 
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
+
 public class Constants
 {
     public static final char   COMMENT_CHAR    = '#';
@@ -7,6 +10,6 @@ public class Constants
     public static final char   TAB             = '\t';
     public static final char   SPACE           = ' ';
     public static final char   SEP_NODE        = ':';
-    public static final String ENCODINGs       = "UTF-8";
+    public static final Charset ENCODING       = StandardCharsets.UTF_8;
     public static final String EMPTY_NAMESPACE = "@stxt";
 }

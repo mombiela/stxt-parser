@@ -3,7 +3,6 @@ package dev.stxt.utils;
 import java.io.File;
 import java.io.IOException;
 import java.io.RandomAccessFile;
-import java.nio.charset.StandardCharsets;
 import java.nio.file.FileVisitResult;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -12,10 +11,11 @@ import java.nio.file.SimpleFileVisitor;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.util.ArrayList;
 import java.util.List;
+import static dev.stxt.Constants.ENCODING;
 
 public class FileUtils
 {
-    public static byte[] readFile(File file) throws IOException
+    private static byte[] readFile(File file) throws IOException
     {
         try (RandomAccessFile f = new RandomAccessFile(file, "r"))
         {
@@ -34,7 +34,7 @@ public class FileUtils
 
     public static String readFileContent(File file) throws IOException
     {
-        return new String(readFile(file), StandardCharsets.UTF_8);
+        return new String(readFile(file), ENCODING);
     }
 
     public static List<File> getStxtFiles(File directory)
@@ -71,4 +71,19 @@ public class FileUtils
         return stxtFiles;
     }
 
+    public static void writeStringToFile(String content, File file) throws IOException
+    {
+        // Ensure parent directories exist
+        File parent = file.getParentFile();
+        if (parent != null && !parent.exists())
+        {
+            if (!parent.mkdirs() && !parent.exists())
+            {
+                throw new IOException("Unable to create directories for file: " + file.getAbsolutePath());
+            }
+        }
+
+        // Write content as UTF-8
+        Files.write(file.toPath(), content.getBytes(ENCODING));
+    }
 }

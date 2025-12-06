@@ -44,7 +44,11 @@ public class TestParserAllDocs
         List<Node> docs = parser.parseFile(file);
         for (Node node : docs)
         {
-            System.out.println(node.toJsonPretty());
+        	String json = node.toJsonPretty();
+            System.out.println(json);
+            
+            File jsonFile = new File(file.getParentFile(), file.getName().substring(0, file.getName().length()-4) + ".json");
+            FileUtils.writeStringToFile(json, jsonFile);
         }
     }
 
