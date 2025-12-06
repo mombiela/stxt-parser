@@ -47,7 +47,7 @@ public class TestParserAllDocs
         	String json = node.toJsonPretty();
             System.out.println(json);
             
-            File jsonFile = new File(file.getParentFile(), file.getName().substring(0, file.getName().length()-4) + ".json");
+            File jsonFile = new File(file.getParentFile(), file.getName().substring(0, file.getName().length()-5) + ".json");
             FileUtils.writeStringToFile(json, jsonFile);
         }
     }

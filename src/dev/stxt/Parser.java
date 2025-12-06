@@ -15,18 +15,17 @@ public class Parser
 {
     public List<Node> parseFile(File srcFile) throws IOException, ParseException
     {
-        String content = FileUtils.readFileContent(srcFile);
-        return parse(content);
+        return parse(FileUtils.readFileContent(srcFile));
     }
 
     public List<Node> parse(String content) throws ParseException, IOException
     {
-        int lineNumber = 0;
-
-        content = removeUTF8BOM(content);
-        BufferedReader in = new BufferedReader(new StringReader(content));
-
+        content = FileUtils.removeUTF8BOM(content);
+        
         ParseState state = new ParseState();
+        int lineNumber = 0;
+        
+        BufferedReader in = new BufferedReader(new StringReader(content));
         String line;
         while ((line = in.readLine()) != null)
         {
@@ -138,13 +137,6 @@ public class Parser
         // Creamos node
         Node node = new Node(lineNumber, level, name, namespace, multiline, value);
         return node;
-    }
-    
-    private static final String UTF8_BOM = "\uFEFF";
-    private static String removeUTF8BOM(String s) 
-    {
-        if (s.startsWith(UTF8_BOM)) s = s.substring(1);
-        return s;
-    }
+    }    
     
 }

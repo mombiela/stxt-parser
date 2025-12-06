@@ -15,6 +15,18 @@ import static dev.stxt.Constants.ENCODING;
 
 public class FileUtils
 {
+	private FileUtils()
+	{
+		// No initialization
+	}
+	
+    private static final String UTF8_BOM = "\uFEFF";
+    public static String removeUTF8BOM(String s) 
+    {
+        if (s.startsWith(UTF8_BOM)) s = s.substring(1);
+        return s;
+    }
+    
     private static byte[] readFile(File file) throws IOException
     {
         try (RandomAccessFile f = new RandomAccessFile(file, "r"))
